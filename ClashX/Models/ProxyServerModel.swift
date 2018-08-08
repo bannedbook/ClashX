@@ -3,7 +3,7 @@
 //  ClashX
 //
 //  Created by CYC on 2018/8/5.
-//  Copyright © 2018年 west2online. All rights reserved.
+//  Copyright © 2018年 yichengchen. All rights reserved.
 //
 
 import Cocoa

@@ -2,8 +2,8 @@
 //  AutoStartManager.swift
 //  ClashX
 //
-//  Created by 称一称 on 2018/6/14.
-//  Copyright © 2018年 west2online. All rights reserved.
+//  Created by CYC on 2018/6/14.
+//  Copyright © 2018年 yichengchen. All rights reserved.
 //
 
 import Foundation
