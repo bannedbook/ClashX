@@ -13,7 +13,7 @@ class ProxyServerModel: NSObject, Codable {
     @objc dynamic var serverPort:String = ""
     @objc dynamic var password:String = ""
     @objc dynamic var method:String = "RC4-MD5"
-    @objc dynamic var remark:String = "Proxy"
+    @objc dynamic var remark:String = "NewProxy"
     
     
     static let supportMethod = [
