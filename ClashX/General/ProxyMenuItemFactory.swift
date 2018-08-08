@@ -20,7 +20,7 @@ class ProxyMenuItemFactory {
                 return
             }
             
-            for proxyGroup in dataDict.dictionaryValue {
+            for proxyGroup in dataDict.dictionaryValue.sorted(by: {  $0.0 < $1.0}) {
                 var menu:NSMenuItem?
                 switch proxyGroup.value["type"].stringValue {
                 case "Selector": menu = self.generateSelectorMenuItem(proxyGroup: proxyGroup)
@@ -44,7 +44,7 @@ class ProxyMenuItemFactory {
         let menu = NSMenuItem(title: proxyGroup.key, action: nil, keyEquivalent: "")
         let selectedName = proxyGroup.value["now"].stringValue
         let submenu = NSMenu(title: proxyGroup.key)
-        for proxy in proxyGroup.value["all"].arrayValue.reversed() {
+        for proxy in proxyGroup.value["all"].arrayValue {
             let proxyItem = NSMenuItem(title: proxy.stringValue, action: #selector(ProxyMenuItemFactory.actionSelectProxy(sender:)), keyEquivalent: "")
             proxyItem.target = ProxyMenuItemFactory.self
             proxyItem.state = proxy.stringValue == selectedName ? .on : .off
