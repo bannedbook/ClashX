@@ -13,9 +13,18 @@ import Alamofire
 
 class ApiRequest{
     static let shared = ApiRequest()
+    private init(){
+        let configuration = URLSessionConfiguration.default
+        configuration.timeoutIntervalForRequest = 604800
+        configuration.timeoutIntervalForResource = 604800
+        alamoFireManager = Alamofire.SessionManager(configuration: configuration)
+        
+    }
     
     var trafficReq:DataRequest? = nil
     var logReq:DataRequest? = nil
+    var alamoFireManager:SessionManager!
+    
 
     static func requestConfig(completeHandler:@escaping ((ClashConfig)->())){
         request(ConfigManager.apiUrl + "/configs", method: .get).responseData{
@@ -27,26 +36,48 @@ class ApiRequest{
     }
     
     func requestTrafficInfo(callback:@escaping ((Int,Int)->()) ){
-        self.trafficReq?.cancel()
+        trafficReq?.cancel()
         
-        self.trafficReq =
-            request(ConfigManager.apiUrl + "/traffic").stream {(data) in
-            if let jsonData = try? JSONSerialization.jsonObject(with: data) as? [String:Int] {
-                callback(jsonData!["up"] ?? 0, jsonData!["down"] ?? 0)
-            }
+        trafficReq =
+            alamoFireManager
+                .request(ConfigManager.apiUrl + "/traffic")
+                .stream {(data) in
+                    if let jsonData = try? JSONSerialization.jsonObject(with: data) as? [String:Int] {
+                        callback(jsonData!["up"] ?? 0, jsonData!["down"] ?? 0)
+                    }
+                }.response { res in
+                    guard let err = res.error else {return}
+                    if (err as NSError).code != -999 {
+                        Logger.log(msg: "Traffic Api.\(err.localizedDescription)")
+                        // delay 1s,prevent recursive
+                        DispatchQueue.global().asyncAfter(deadline: .now() + 1, execute: {
+                            self.requestTrafficInfo(callback: callback)
+                        })
+                    }
         }
     }
     
     func requestLog(callback:@escaping ((String,String)->()) ){
-        self.logReq?.cancel()
-        
-        self.logReq =
-            request(ConfigManager.apiUrl + "/logs").stream {(data) in
-                if let jsonData = try? JSONSerialization.jsonObject(with: data) as? [String:String] {
-                    let type = jsonData!["type"] ?? "info"
-                    let payload = jsonData!["payload"] ?? ""
-                    callback(type,payload)
+        logReq?.cancel()
+        logReq =
+            alamoFireManager
+                .request(ConfigManager.apiUrl + "/logs")
+                .stream {(data) in
+                    if let jsonData = try? JSONSerialization.jsonObject(with: data) as? [String:String] {
+                        let type = jsonData!["type"] ?? "info"
+                        let payload = jsonData!["payload"] ?? ""
+                        callback(type,payload)
+                    }
                 }
+                .response { res in
+                    guard let err = res.error else {return}
+                    if (err as NSError).code != -999 {
+                        Logger.log(msg: "Loging api disconnected.\(err.localizedDescription)")
+                        // delay 1s,prevent recursive
+                        DispatchQueue.global().asyncAfter(deadline: .now() + 1, execute: {
+                            self.requestLog(callback: callback)
+                        })
+                    }
         }
     }
     
