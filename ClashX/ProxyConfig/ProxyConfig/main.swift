@@ -1,7 +1,7 @@
 import Foundation
 import SystemConfiguration
 
-let version = "0.1.0"
+let version = "0.1.1"
 
 func main(_ args: [String]) {
     var port: Int = 0
@@ -66,7 +66,7 @@ func main(_ args: [String]) {
                 if flag {
                     proxySettings[kCFNetworkProxiesHTTPPort as String] = port as AnyObject
                     proxySettings[kCFNetworkProxiesHTTPSPort as String] = port as AnyObject
-                    proxySettings[kCFNetworkProxiesSOCKSPort as String] = port + 1 as AnyObject
+                    proxySettings[kCFNetworkProxiesSOCKSPort as String] = socksPort as AnyObject
                 } else {
                     proxySettings[kCFNetworkProxiesHTTPPort as String] = nil
                     proxySettings[kCFNetworkProxiesHTTPSPort as String] = nil

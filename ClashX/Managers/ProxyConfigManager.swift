@@ -2,7 +2,7 @@
 import Foundation
 class ProxyConfigManager {
     static let kProxyConfigFolder = (NSHomeDirectory() as NSString).appendingPathComponent("/.config/clash")
-    static let kVersion = "0.1.0"
+    static let kVersion = "0.1.1"
 
     
     open static func vaildHelper() -> Bool {
@@ -28,10 +28,13 @@ class ProxyConfigManager {
         let proxyHelperPath = Bundle.main.path(forResource: "ProxyConfig", ofType: nil)
         let targetPath = "\(kProxyConfigFolder)/ProxyConfig"
         
-        if (!FileManager.default.fileExists(atPath: targetPath)) {
-            try? FileManager.default.copyItem(at: URL(fileURLWithPath: proxyHelperPath!), to: URL(fileURLWithPath: targetPath))
-        }
+       
         if !vaildHelper() {
+            if (FileManager.default.fileExists(atPath: targetPath)) {
+                try? FileManager.default.removeItem(atPath: targetPath)
+            }
+            try? FileManager.default.copyItem(at: URL(fileURLWithPath: proxyHelperPath!), to: URL(fileURLWithPath: targetPath))
+
             let scriptPath = "\(Bundle.main.resourcePath!)/install_proxy_helper.sh"
             let appleScriptStr = "do shell script \"bash \(scriptPath) \(kProxyConfigFolder) \" with administrator privileges"
             let appleScript = NSAppleScript(source: appleScriptStr)
