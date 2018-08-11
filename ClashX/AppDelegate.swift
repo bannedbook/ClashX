@@ -57,6 +57,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
     func setupData() {
+        
+        // check and refresh api url
+        _ = ConfigManager.apiUrl
+        // start watch config file change
+        ConfigFileFactory.shared.watchConfigFile()
+        
         NotificationCenter.default.rx.notification(kShouldUpDateConfig).bind {
             [unowned self] (note)  in
             self.actionUpdateConfig(self)
@@ -177,8 +183,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     
     func startProxy() {
-        // check and refresh api url
-        _ = ConfigManager.apiUrl
         ssQueue.async {
             run()
         }

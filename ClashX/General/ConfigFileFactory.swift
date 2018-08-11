@@ -10,6 +10,16 @@ import AppKit
 import SwiftyJSON
 
 class ConfigFileFactory {
+    static let shared = ConfigFileFactory()
+    var witness:Witness?
+    func watchConfigFile() {
+        let path = (NSHomeDirectory() as NSString).appendingPathComponent("/.config/clash/config.ini")
+        witness = Witness(paths: [path], flags: .FileEvents, latency: 0.3) { events in
+            print(events)
+            NSUserNotificationCenter.default.postConfigFileChangeDetectionNotice()
+        }
+    }
+    
     static func configFile(proxies:[ProxyServerModel]) -> String {
         var proxyStr = ""
         var proxyGroupStr = ""
@@ -20,8 +30,6 @@ class ConfigFileFactory {
         }
         let sampleConfig = NSData(contentsOfFile: Bundle.main.path(forResource: "sampleConfig", ofType: "ini")!)
         var sampleConfigStr = String(data: sampleConfig! as Data, encoding: .utf8)
-        
-
         
         if proxies.count > 1 {
             let autoGroupStr = "ProxyAuto = url-test, \(proxyGroupStr), http://www.google.com/generate_204, 300"
@@ -46,7 +54,6 @@ class ConfigFileFactory {
             try? FileManager.default.removeItem(at: URL(fileURLWithPath: path))
         }
         try? str.write(to: URL(fileURLWithPath: path), atomically: true, encoding: .utf8)
-        NotificationCenter.default.post(Notification(name:kShouldUpDateConfig))
     }
     
     static func copySimpleConfigFile() {
