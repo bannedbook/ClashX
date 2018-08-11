@@ -13,6 +13,8 @@ import RxSwift
 class ConfigManager {
     
     static let shared = ConfigManager()
+    var apiPort = "8080"
+    private init(){refreshApiPort()}
     
     var currentConfig:ClashConfig?{
         get {
@@ -47,7 +49,7 @@ class ConfigManager {
     
     static var apiUrl:String{
         get {
-            return "http://127.0.0.1:8080"
+            return "http://127.0.0.1:\(shared.apiPort)"
         }
     }
     
@@ -68,5 +70,19 @@ class ConfigManager {
             UserDefaults.standard.set(newValue.rawValue, forKey: "selectOutBoundMode")
         }
     }
+    
+    func refreshApiPort(){
+        if let ini =
+            parseConfig("\(NSHomeDirectory())/.config/clash/config.ini"),
+            let controller = ini["General"]?["external-controller"]{
+            if controller.contains(":") {
+                apiPort = String(controller.split(separator: ":").last ?? "8080")
+                return
+            }
+        }
+        apiPort = "8080"
+    }
+    
+
     
 }

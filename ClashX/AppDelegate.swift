@@ -46,6 +46,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             self.syncConfig()
         }
         setupData()
+        
     }
     
 
@@ -58,8 +59,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     func setupData() {
         NotificationCenter.default.rx.notification(kShouldUpDateConfig).bind {
             [unowned self] (note)  in
-            self.syncConfig()
-            }.disposed(by: disposeBag)
+            self.actionUpdateConfig(self)
+        }.disposed(by: disposeBag)
         
         
         ConfigManager.shared
