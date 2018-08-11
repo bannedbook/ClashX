@@ -45,6 +45,7 @@ class ProxyMenuItemFactory {
         let menu = NSMenuItem(title: proxyGroup.key, action: nil, keyEquivalent: "")
         let selectedName = proxyGroup.value["now"].stringValue
         let submenu = NSMenu(title: proxyGroup.key)
+        var hasSelected = false
         for proxy in proxyGroup.value["all"].arrayValue {
             if isGlobalMode {
                 if json[proxy.stringValue]["type"] == "Selector" {
@@ -53,10 +54,16 @@ class ProxyMenuItemFactory {
             }
             let proxyItem = NSMenuItem(title: proxy.stringValue, action: #selector(ProxyMenuItemFactory.actionSelectProxy(sender:)), keyEquivalent: "")
             proxyItem.target = ProxyMenuItemFactory.self
-            proxyItem.state = proxy.stringValue == selectedName ? .on : .off
+            let selected = proxy.stringValue == selectedName
+            proxyItem.state = selected ? .on : .off
+            if selected {hasSelected = true}
             submenu.addItem(proxyItem)
         }
         menu.submenu = submenu
+        
+        if (!hasSelected && submenu.items.count>0) {
+            self.actionSelectProxy(sender: submenu.items[0])
+        }
         return menu
     }
     

@@ -60,4 +60,13 @@ class ConfigManager {
         }
     }
     
+    static var selectOutBoundMode:ClashProxyMode {
+        get{
+            return ClashProxyMode(rawValue: UserDefaults.standard.string(forKey: "selectOutBoundMode") ?? "") ?? .rule
+        }
+        set {
+            UserDefaults.standard.set(newValue.rawValue, forKey: "selectOutBoundMode")
+        }
+    }
+    
 }

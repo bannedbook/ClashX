@@ -86,21 +86,9 @@ class ApiRequest{
         callback(success==0)
     }
     
-    static func requestUpdateConfig(newConfig:ClashConfig?, callback:@escaping ((Bool)->())) {
-        guard (newConfig != nil) else {
-            callback(false)
-            return
-        }
-        let encoder = JSONEncoder()
-        let jsonData = try! encoder.encode(newConfig)
-        
-        let url = URL(string:ConfigManager.apiUrl + "/configs")!
-        var req = URLRequest(url: url)
-        req.httpMethod = HTTPMethod.put.rawValue
-        req.setValue("application/json; charset=UTF-8", forHTTPHeaderField: "Content-Type")
-        req.httpBody = jsonData
-        
-        request(req).responseJSON { response in
+    static func updateOutBoundMode(mode:ClashProxyMode, callback:@escaping ((Bool)->())) {
+        request(ConfigManager.apiUrl + "/configs", method: .put, parameters: ["mode":mode.rawValue], encoding: JSONEncoding.default)
+            .responseJSON{ response in
             switch response.result {
             case .success(_):
                 callback(true)
@@ -109,6 +97,7 @@ class ApiRequest{
             }
         }
     }
+    
     
     static func requestProxyGroupList(completeHandler:@escaping (([String:[String:Any]])->())){
         request(ConfigManager.apiUrl + "/proxies", method: .get).responseJSON{

@@ -150,13 +150,20 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
     }
     
+    func selectOutBoundModeWithMenory() {
+        ApiRequest.updateOutBoundMode(mode: ConfigManager.selectOutBoundMode){
+            _ in
+            self.syncConfig()
+        }
+    }
+    
     func updateProxyList() {
         ProxyMenuItemFactory.menuItems { [unowned self] (menus) in
-            let startIndex = self.statusMenu.items.index(of: self.separatorLineTop)! + 1
-            let endIndex = self.statusMenu.items.index(of: self.sepatatorLineEndProxySelect)! - 1
+            let startIndex = self.statusMenu.items.index(of: self.separatorLineTop)!+1
+            let endIndex = self.statusMenu.items.index(of: self.sepatatorLineEndProxySelect)!
             var items = self.statusMenu.items
-
-            items.removeSubrange(ClosedRange(uncheckedBounds: (lower: startIndex, upper: endIndex)))
+            
+            items.removeSubrange(Range(uncheckedBounds: (lower: startIndex, upper: endIndex)))
             
             for each in menus {
                 items.insert(each, at: startIndex)
@@ -173,8 +180,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         ssQueue.async {
             run()
         }
-        syncConfig()
         self.resetStreamApi()
+        self.selectOutBoundModeWithMenory()
     }
     
     func syncConfig(){
@@ -278,12 +285,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
         let config = ConfigManager.shared.currentConfig?.copy()
         config?.mode = mode
-        ApiRequest.requestUpdateConfig(newConfig: config) { (success) in
-            if (success) {
-                ConfigManager.shared.currentConfig = config
-            }
+        ApiRequest.updateOutBoundMode(mode: mode) { (success) in
+            ConfigManager.shared.currentConfig = config
+            ConfigManager.selectOutBoundMode = mode
         }
-        
     }
     
     @IBAction func actionShowNetSpeedIndicator(_ sender: NSMenuItem) {
