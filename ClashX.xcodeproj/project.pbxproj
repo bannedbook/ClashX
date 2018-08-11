@@ -26,6 +26,7 @@
 		4966E9E6211824F300A391FB /* NSImage+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4966E9E5211824F300A391FB /* NSImage+extension.swift */; };
 		496BDEE021196F1E00C5207F /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 496BDEDF21196F1E00C5207F /* Logger.swift */; };
 		49722FE4211ED56C00650A41 /* parseINI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49722FE1211ED56B00650A41 /* parseINI.swift */; };
+		49722FE8211F28CC00650A41 /* initConfig.ini in Resources */ = {isa = PBXBuildFile; fileRef = 49722FE7211F28CC00650A41 /* initConfig.ini */; };
 		497F0DF320DE2FE50077AD41 /* Icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 497F0DF220DE2FE50077AD41 /* Icon.icns */; };
 		4989F98020D01C8F0001E564 /* clash.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4989F97E20D01C8F0001E564 /* clash.a */; };
 		4989F98420D02D200001E564 /* Country.mmdb in Resources */ = {isa = PBXBuildFile; fileRef = 4989F98320D02D200001E564 /* Country.mmdb */; };
@@ -93,6 +94,7 @@
 		4966E9E5211824F300A391FB /* NSImage+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSImage+extension.swift"; sourceTree = "<group>"; };
 		496BDEDF21196F1E00C5207F /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		49722FE1211ED56B00650A41 /* parseINI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = parseINI.swift; sourceTree = "<group>"; };
+		49722FE7211F28CC00650A41 /* initConfig.ini */ = {isa = PBXFileReference; lastKnownFileType = text; path = initConfig.ini; sourceTree = "<group>"; };
 		497F0DF220DE2FE50077AD41 /* Icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Icon.icns; sourceTree = "<group>"; };
 		4989F97E20D01C8F0001E564 /* clash.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = clash.a; sourceTree = "<group>"; };
 		4989F97F20D01C8F0001E564 /* clash.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = clash.h; sourceTree = "<group>"; };
@@ -266,6 +268,7 @@
 				4989F98D20D0AE990001E564 /* sampleConfig.ini */,
 				4989F98320D02D200001E564 /* Country.mmdb */,
 				492C4864210EC9E4004554A0 /* ProxyConfig */,
+				49722FE7211F28CC00650A41 /* initConfig.ini */,
 			);
 			path = "Support Files";
 			sourceTree = "<group>";
@@ -453,6 +456,7 @@
 				495340B020DE5F7200B0D3FF /* StatusItemView.xib in Resources */,
 				49CF3B2820CD7465001EBF94 /* Main.storyboard in Resources */,
 				49CF3B5F20CE80D2001EBF94 /* install_proxy_helper.sh in Resources */,
+				49722FE8211F28CC00650A41 /* initConfig.ini in Resources */,
 				4952C3CC2116E952004A4FA8 /* PreferencesWindowController.xib in Resources */,
 				4989F98420D02D200001E564 /* Country.mmdb in Resources */,
 				497F0DF320DE2FE50077AD41 /* Icon.icns in Resources */,

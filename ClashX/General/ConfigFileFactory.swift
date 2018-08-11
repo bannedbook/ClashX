@@ -49,6 +49,16 @@ class ConfigFileFactory {
         NotificationCenter.default.post(Notification(name:kShouldUpDateConfig))
     }
     
+    static func copySimpleConfigFile() {
+        let path = Bundle.main.path(forResource: "initConfig", ofType: "ini")!
+        let target = (NSHomeDirectory() as NSString).appendingPathComponent("/.config/clash/config.ini")
+        if (FileManager.default.fileExists(atPath: target)) {
+            try? FileManager.default.removeItem(at: URL(fileURLWithPath: target))
+        }
+        try? FileManager.default.copyItem(atPath: path, toPath: target)
+        NSUserNotificationCenter.default.postGenerateSimpleConfigNotice()
+    }
+    
     
     static func importConfigFile() {
         let openPanel = NSOpenPanel()

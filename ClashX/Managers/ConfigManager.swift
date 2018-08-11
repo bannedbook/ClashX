@@ -76,11 +76,14 @@ class ConfigManager {
             parseConfig("\(NSHomeDirectory())/.config/clash/config.ini"),
             let controller = ini["General"]?["external-controller"]{
             if controller.contains(":") {
-                apiPort = String(controller.split(separator: ":").last ?? "8080")
-                return
+                if let port = controller.split(separator: ":").last {
+                    apiPort = String(port)
+                    return;
+                }
             }
         }
-        apiPort = "8080"
+        ConfigFileFactory.copySimpleConfigFile()
+        refreshApiPort()
     }
     
 

@@ -38,7 +38,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         fail_launch_protect()
         _ = ProxyConfigManager.install()
         PFMoveToApplicationsFolderIfNecessary()
-        self.startProxy()
+        startProxy()
         statusItemView = StatusItemView.create(statusItem: nil,statusMenu: statusMenu)
         statusItemView.onPopUpMenuAction = {
             [weak self] in
@@ -96,8 +96,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 case .global:self.proxyModeGlobalMenuItem.state = .on
                 case .rule:self.proxyModeRuleMenuItem.state = .on
                 }
-                
-                self.sepatatorLineEndProxySelect.isHidden = (config!.mode == .direct)
                 
                 self.proxyModeMenuItem.title = "Proxy Mode (\(config!.mode.rawValue))"
                 
@@ -164,6 +162,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             let endIndex = self.statusMenu.items.index(of: self.sepatatorLineEndProxySelect)!
             var items = self.statusMenu.items
             
+            self.sepatatorLineEndProxySelect.isHidden = menus.count == 0
             items.removeSubrange(Range(uncheckedBounds: (lower: startIndex, upper: endIndex)))
             
             for each in menus {
@@ -178,6 +177,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     
     func startProxy() {
+        // check and refresh api url
+        _ = ConfigManager.apiUrl
         ssQueue.async {
             run()
         }

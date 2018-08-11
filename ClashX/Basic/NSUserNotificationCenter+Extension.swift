@@ -15,4 +15,8 @@ extension NSUserNotificationCenter {
         notification.informativeText = info
         self.deliver(notification)
     }
+    
+    func postGenerateSimpleConfigNotice() {
+        self.post(title: "No External-controller specified in config file!", info: "We have replace current config with a simple config with external-controller specified!")
+    }
 }
