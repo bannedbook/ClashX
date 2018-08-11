@@ -27,6 +27,10 @@
 		496BDEE021196F1E00C5207F /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 496BDEDF21196F1E00C5207F /* Logger.swift */; };
 		49722FE4211ED56C00650A41 /* parseINI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49722FE1211ED56B00650A41 /* parseINI.swift */; };
 		49722FE8211F28CC00650A41 /* initConfig.ini in Resources */ = {isa = PBXBuildFile; fileRef = 49722FE7211F28CC00650A41 /* initConfig.ini */; };
+		49722FEF211F338B00650A41 /* FileEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49722FEA211F338B00650A41 /* FileEvent.swift */; };
+		49722FF0211F338B00650A41 /* EventStream.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49722FEB211F338B00650A41 /* EventStream.swift */; };
+		49722FF1211F338B00650A41 /* Witness.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49722FEC211F338B00650A41 /* Witness.swift */; };
+		49722FF2211F338B00650A41 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 49722FEE211F338B00650A41 /* Info.plist */; };
 		497F0DF320DE2FE50077AD41 /* Icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 497F0DF220DE2FE50077AD41 /* Icon.icns */; };
 		4989F98020D01C8F0001E564 /* clash.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4989F97E20D01C8F0001E564 /* clash.a */; };
 		4989F98420D02D200001E564 /* Country.mmdb in Resources */ = {isa = PBXBuildFile; fileRef = 4989F98320D02D200001E564 /* Country.mmdb */; };
@@ -95,6 +99,11 @@
 		496BDEDF21196F1E00C5207F /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		49722FE1211ED56B00650A41 /* parseINI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = parseINI.swift; sourceTree = "<group>"; };
 		49722FE7211F28CC00650A41 /* initConfig.ini */ = {isa = PBXFileReference; lastKnownFileType = text; path = initConfig.ini; sourceTree = "<group>"; };
+		49722FEA211F338B00650A41 /* FileEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileEvent.swift; sourceTree = "<group>"; };
+		49722FEB211F338B00650A41 /* EventStream.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventStream.swift; sourceTree = "<group>"; };
+		49722FEC211F338B00650A41 /* Witness.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Witness.swift; sourceTree = "<group>"; };
+		49722FED211F338B00650A41 /* Witness.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Witness.h; sourceTree = "<group>"; };
+		49722FEE211F338B00650A41 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		497F0DF220DE2FE50077AD41 /* Icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Icon.icns; sourceTree = "<group>"; };
 		4989F97E20D01C8F0001E564 /* clash.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = clash.a; sourceTree = "<group>"; };
 		4989F97F20D01C8F0001E564 /* clash.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = clash.h; sourceTree = "<group>"; };
@@ -180,6 +189,7 @@
 		49722FDD211ED2A900650A41 /* Vendor */ = {
 			isa = PBXGroup;
 			children = (
+				49722FE9211F338B00650A41 /* Witness */,
 				49722FDE211ED2CF00650A41 /* INIParser */,
 			);
 			path = Vendor;
@@ -191,6 +201,18 @@
 				49722FE1211ED56B00650A41 /* parseINI.swift */,
 			);
 			path = INIParser;
+			sourceTree = "<group>";
+		};
+		49722FE9211F338B00650A41 /* Witness */ = {
+			isa = PBXGroup;
+			children = (
+				49722FEA211F338B00650A41 /* FileEvent.swift */,
+				49722FEB211F338B00650A41 /* EventStream.swift */,
+				49722FEC211F338B00650A41 /* Witness.swift */,
+				49722FED211F338B00650A41 /* Witness.h */,
+				49722FEE211F338B00650A41 /* Info.plist */,
+			);
+			path = Witness;
 			sourceTree = "<group>";
 		};
 		4989F98520D0AA300001E564 /* ViewControllers */ = {
@@ -460,6 +482,7 @@
 				4952C3CC2116E952004A4FA8 /* PreferencesWindowController.xib in Resources */,
 				4989F98420D02D200001E564 /* Country.mmdb in Resources */,
 				497F0DF320DE2FE50077AD41 /* Icon.icns in Resources */,
+				49722FF2211F338B00650A41 /* Info.plist in Resources */,
 				492C4865210EC9E4004554A0 /* ProxyConfig in Resources */,
 				4989F98E20D0AE990001E564 /* sampleConfig.ini in Resources */,
 				49CF3B6320CED9CF001EBF94 /* check_proxy_helper.sh in Resources */,
@@ -555,10 +578,13 @@
 				49CF3B2120CD7463001EBF94 /* AppDelegate.swift in Sources */,
 				4952C3CB2116E952004A4FA8 /* PreferencesWindowController.swift in Sources */,
 				496BDEE021196F1E00C5207F /* Logger.swift in Sources */,
+				49722FEF211F338B00650A41 /* FileEvent.swift in Sources */,
 				4913C82321157D0200F6B87C /* Notification.swift in Sources */,
 				492C4871210EF62E004554A0 /* ClashConfig.swift in Sources */,
 				492C4869210EE6B9004554A0 /* ApiRequest.swift in Sources */,
 				49CF3B6520CEE06C001EBF94 /* ConfigManager.swift in Sources */,
+				49722FF1211F338B00650A41 /* Witness.swift in Sources */,
+				49722FF0211F338B00650A41 /* EventStream.swift in Sources */,
 				4952C3BF2115C7CA004A4FA8 /* ProxyMenuItemFactory.swift in Sources */,
 				4966E9E32118153A00A391FB /* NSUserNotificationCenter+Extension.swift in Sources */,
 				49722FE4211ED56C00650A41 /* parseINI.swift in Sources */,
