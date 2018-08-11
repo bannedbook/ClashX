@@ -243,7 +243,7 @@ static NSString *PreferredInstallLocation(BOOL *isUserDirectory) {
 	// Return the preferred install location.
 	// Assume that if the user has a ~/Applications folder, they'd prefer their
 	// applications to go there.
-
+/*
 	NSFileManager *fm = [NSFileManager defaultManager];
 
 	NSArray *userApplicationsDirs = NSSearchPathForDirectoriesInDomains(NSApplicationDirectory, NSUserDomainMask, YES);
@@ -265,7 +265,7 @@ static NSString *PreferredInstallLocation(BOOL *isUserDirectory) {
 			}
 		}
 	}
-
+*/
 	// No user Applications directory in use. Return the machine local Applications directory
 	if (isUserDirectory) *isUserDirectory = NO;
 
