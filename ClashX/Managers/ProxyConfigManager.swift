@@ -5,7 +5,7 @@ class ProxyConfigManager {
     static let kVersion = "0.1.1"
 
     
-    open static func vaildHelper() -> Bool {
+    static func vaildHelper() -> Bool {
         let scriptPath = "\(Bundle.main.resourcePath!)/check_proxy_helper.sh"
         print(scriptPath)
         let appleScriptStr = "do shell script \"bash \(scriptPath) \(kProxyConfigFolder) \(kVersion) \" "
@@ -21,7 +21,7 @@ class ProxyConfigManager {
         
     }
 
-    open static func install() -> Bool {
+    static func install() -> Bool {
         checkConfigDir()
         checkMMDB()
         
@@ -64,7 +64,7 @@ class ProxyConfigManager {
         }
     }
     
-    open static func setUpSystemProxy(port: Int?,socksPort: Int?) -> Bool {
+    static func setUpSystemProxy(port: Int?,socksPort: Int?) -> Bool {
         let task = Process()
         task.launchPath = "\(kProxyConfigFolder)/ProxyConfig"
         if let port = port,let socksPort = socksPort {

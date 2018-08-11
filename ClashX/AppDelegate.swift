@@ -43,9 +43,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         statusItemView.onPopUpMenuAction = {
             [weak self] in
             guard let `self` = self else {return}
-            self.syncConfig() {
-                self.updateProxyList()
-            }
+            self.syncConfig()
         }
         setupData()
     }
@@ -60,9 +58,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     func setupData() {
         NotificationCenter.default.rx.notification(kShouldUpDateConfig).bind {
             [unowned self] (note)  in
-            self.syncConfig(){
-                self.resetStreamApi()
-            }
+            self.syncConfig()
             }.disposed(by: disposeBag)
         
         
@@ -109,6 +105,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 if (ConfigManager.shared.proxyPortAutoSet) {
                     _ = ProxyConfigManager.setUpSystemProxy(port: config!.port,socksPort: config!.socketPort)
                 }
+                self.selectProxyGroupWithMemory()
         }.disposed(by: disposeBag)
         
         LaunchAtLogin.shared
@@ -176,19 +173,14 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         ssQueue.async {
             run()
         }
-        syncConfig(){
-            self.selectProxyGroupWithMemory()
-            DispatchQueue.main.asyncAfter(deadline:DispatchTime.now() + 1, execute: {
-                self.resetStreamApi()
-            })
-        }
+        syncConfig()
+        self.resetStreamApi()
     }
     
-    func syncConfig(completeHandler:(()->())?=nil){
+    func syncConfig(){
         ApiRequest.requestConfig{ (config) in
             guard config.port > 0 else {return}
             ConfigManager.shared.currentConfig = config
-            completeHandler?()
         }
     }
     
@@ -235,8 +227,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     var genConfigWindow:NSWindowController?=nil
     @IBAction func actionGenConfig(_ sender: Any) {
-//        let ctrl = NSStoryboard(name: NSStoryboard.Name(rawValue: "Main"), bundle: nil)
-//            .instantiateController(withIdentifier: NSStoryboard.SceneIdentifier(rawValue: "sampleConfigGenerator")) as! NSWindowController
         let ctrl = PreferencesWindowController(windowNibName: NSNib.Name(rawValue: "PreferencesWindowController"))
         
         
@@ -257,7 +247,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     @IBAction func actionUpdateConfig(_ sender: Any) {
         ApiRequest.requestConfigUpdate() { [unowned self] success in
             if (success) {
-                self.syncConfig(){self.resetStreamApi()}
+                self.syncConfig()
+                self.resetStreamApi()
                 NSUserNotificationCenter
                     .default
                     .post(title: "Reload Config Succeed", info: "succees")
