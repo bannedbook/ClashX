@@ -6,9 +6,20 @@
     <description>Most recent changes with links to updates.</description>
     <language>cn</language>
       <item>
-        <title>1.1.2</title>
+        <title>1.2</title>
         <description>
           <![CDATA[
+              <ul>
+              <li>1.2</li>
+              <li> Add outbound mode selection remembering. </li>
+              <li> Fix logging api disconnect.</li>
+              <li> Support socks5 proxy.</li>
+              <li> Fix issue with appstore and siri.</li>
+              <li> Fix issue with FireFox.</li>
+              <li> Watch config file changes.</li>
+              <li> Bugfixs </li>
+              </ul>
+              <ul>
             <ul>
               <li>1.1.2</li>
               <li> Fixe auto remember proxy group not work </li>
@@ -30,8 +41,8 @@
             </ul>
           ]]>
         </description>
-        <pubDate>Sat, 9 Aug 2018 15:20:11 +0000</pubDate>
-        <enclosure url="https://github.com/yichengchen/clashX/releases/download/1.1.2/ClashX.app.zip" sparkle:version="1.1.2" type="application/octet-stream"/>
+        <pubDate>Sun, 12 Aug 2018 15:20:11 +0000</pubDate>
+        <enclosure url="https://github.com/yichengchen/clashX/releases/download/1.2/ClashX.dmg" sparkle:version="1.2" type="application/octet-stream"/>
       </item>
   </channel>
 </rss>
