@@ -87,7 +87,7 @@
                             <modifierMask key="keyEquivalentModifierMask"/>
                             <menu key="submenu" title="Config" id="tck-zU-JKQ">
                                 <items>
-                                    <menuItem title="Generate Config" state="on" id="a4G-S3-jxT">
+                                    <menuItem title="Generate Config" id="a4G-S3-jxT">
                                         <modifierMask key="keyEquivalentModifierMask"/>
                                         <menu key="submenu" title="Generate Config" id="IeJ-1Q-UaF">
                                             <items>

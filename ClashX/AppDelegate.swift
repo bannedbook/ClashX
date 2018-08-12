@@ -37,7 +37,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         signal(SIGPIPE, SIG_IGN)
-        fail_launch_protect()
+        failLaunchProtect()
         _ = ProxyConfigManager.install()
         PFMoveToApplicationsFolderIfNecessary()
         startProxy()
@@ -48,7 +48,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             self.syncConfig()
         }
         setupData()
-        updateLoggingLevel()
+        updateLoggingLevel() 
     }
     
 
@@ -126,7 +126,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
   
     }
     
-    func fail_launch_protect(){
+    func failLaunchProtect(){
         let x = UserDefaults.standard
         var launch_fail_times:Int = 0
         if let xx = x.object(forKey: "launch_fail_times") as? Int {launch_fail_times = xx }
@@ -138,6 +138,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             let documentDirectory = URL(fileURLWithPath: path)
             let originPath = documentDirectory.appendingPathComponent("config.ini")
             let destinationPath = documentDirectory.appendingPathComponent("config.ini.bak")
+            try? FileManager.default.removeItem(at:destinationPath)
             try? FileManager.default.moveItem(at: originPath, to: destinationPath)
             try? FileManager.default.removeItem(at: documentDirectory.appendingPathComponent("Country.mmdb"))
             NSUserNotificationCenter.default.post(title: "Fail on launch protect", info: "You origin Config has been rename to config.ini.bak")

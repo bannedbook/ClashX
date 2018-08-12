@@ -8,13 +8,20 @@
 
 import Cocoa
 
+enum ProxyType:Int, Codable {
+    case shadowsocks = 0
+    case socks5
+}
+
 class ProxyServerModel: NSObject, Codable {
     @objc dynamic var serverHost:String = ""
     @objc dynamic var serverPort:String = ""
     @objc dynamic var password:String = ""
     @objc dynamic var method:String = "RC4-MD5"
     @objc dynamic var remark:String = "NewProxy"
-    
+    @objc dynamic var socks5:String = "NewProxy"
+    var proxyType:ProxyType = .shadowsocks
+
     
     static let supportMethod = [
         "RC4-MD5",
@@ -81,13 +88,16 @@ class ProxyServerModel: NSObject, Codable {
             return false
         }
         
-        if !(vaildateMethod(method) && vaildatePort(serverPort)) {
+        if !(vaildatePort(serverPort)) {
             return false
         }
         
-        if password.isEmpty {
-            return false
+        if self.proxyType == .shadowsocks {
+            if !vaildateMethod(method) || password.isEmpty {
+                return false
+            }
         }
+
         
         return true
     }

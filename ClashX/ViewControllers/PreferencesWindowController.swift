@@ -26,7 +26,7 @@ class PreferencesWindowController: NSWindowController
     @IBOutlet weak var passwordSecureTextField: NSSecureTextField!
     @IBOutlet weak var togglePasswordVisibleButton: NSButton!
 
-    
+    @IBOutlet weak var typeSegmentContol: NSSegmentedControl!
     @IBOutlet weak var remarkTextField: NSTextField!
     
 
@@ -40,7 +40,7 @@ class PreferencesWindowController: NSWindowController
     var editingConfig:ProxyServerModel?
     
     
-    var enabledKcptunSubDisosable: Disposable?
+    var disposeBag = DisposeBag()
 
 
     override func windowDidLoad() {
@@ -55,6 +55,14 @@ class PreferencesWindowController: NSWindowController
         
         profilesTableView.reloadData()
         updateProfileBoxVisible()
+        
+        self.typeSegmentContol.rx
+            .controlEvent.asObservable().subscribe(onNext: { [unowned self](_) in
+                self.methodTextField.isEnabled = self.typeSegmentContol.selectedSegment == 0
+                self.passwordTextField.isEnabled = self.methodTextField.isEnabled
+                self.passwordSecureTextField.isEnabled  = self.methodTextField.isEnabled
+                self.editingConfig?.proxyType = self.typeSegmentContol.selectedSegment == 0 ? .shadowsocks : .socks5
+            }).disposed(by: disposeBag)
     }
     
     override func awakeFromNib() {
@@ -166,10 +174,6 @@ class PreferencesWindowController: NSWindowController
     
     func bindProfile(_ index:Int) {
         NSLog("bind profile \(index)")
-        if let dis = enabledKcptunSubDisosable {
-            dis.dispose()
-            enabledKcptunSubDisosable = Optional.none
-        }
         if index >= 0 && index < serverConfigs.count {
             editingConfig = serverConfigs[index]
             
