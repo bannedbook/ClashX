@@ -73,7 +73,7 @@ class ApiRequest{
         
         logReq =
             alamoFireManager
-                .request(ConfigManager.apiUrl + "/logs?Level=\(ConfigManager.selectLoggingApiLevel.rawValue)")
+                .request(ConfigManager.apiUrl + "/logs?level=\(ConfigManager.selectLoggingApiLevel.rawValue)")
                 .stream {(data) in
                     retry = 0
                     if let jsonData = try? JSONSerialization.jsonObject(with: data) as? [String:String] {

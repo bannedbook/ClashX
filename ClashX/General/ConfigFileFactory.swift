@@ -30,7 +30,7 @@ class ConfigFileFactory {
                 targetStr = "\(proxy.remark) = ss, \(proxy.serverHost), \(proxy.serverPort), \(proxy.method), \(proxy.password)\n"
             case .socks5:
                 //socks = socks5, server1, port
-                targetStr = "\(proxy.remark) = socks, \(proxy.serverHost), \(proxy.serverPort)\n"
+                targetStr = "\(proxy.remark) = socks5, \(proxy.serverHost), \(proxy.serverPort)\n"
             }
             proxyStr.append(targetStr)
             proxyGroupStr.append("\(proxy.remark),")
