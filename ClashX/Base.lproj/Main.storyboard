@@ -117,6 +117,25 @@
                                             <action selector="actionUpdateConfig:" target="Voe-Tx-rLC" id="oW5-Ll-SY8"/>
                                         </connections>
                                     </menuItem>
+                                    <menuItem title="Log level" id="3Da-fL-Mzr">
+                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                        <menu key="submenu" title="Log level" id="wqo-3T-4qO">
+                                            <items>
+                                                <menuItem title="ERROR" id="0iu-lB-eZN">
+                                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                                </menuItem>
+                                                <menuItem title="WARNING" id="ko2-Ir-DxA">
+                                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                                </menuItem>
+                                                <menuItem title="INFO" id="d8V-h0-0zF">
+                                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                                </menuItem>
+                                                <menuItem title="DEBUG" id="XIR-Go-fWA">
+                                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                                </menuItem>
+                                            </items>
+                                        </menu>
+                                    </menuItem>
                                 </items>
                             </menu>
                         </menuItem>

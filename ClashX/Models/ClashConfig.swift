@@ -13,12 +13,20 @@ enum ClashProxyMode: String,Codable {
     case direct = "Direct"
 }
 
+enum ClashLogLevel:String,Codable {
+    case info = "info"
+    case warning = "warning"
+    case error = "error"
+    case debug = "debug"
+    case unknow = "unknow"
+}
+
 class ClashConfig:Codable {
     var port:Int
     var socketPort:Int
     var allowLan:Bool
     var mode:ClashProxyMode
-    var logLevel:String
+    var logLevel:ClashLogLevel
     
     private enum CodingKeys : String, CodingKey {
         case port, socketPort = "socket-port", allowLan = "allow-lan", mode, logLevel = "log-level"

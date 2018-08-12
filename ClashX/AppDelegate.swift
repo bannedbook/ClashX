@@ -204,7 +204,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
         
         ApiRequest.shared.requestLog { (type, msg) in
-            Logger.log(msg: msg)
+            Logger.log(msg: msg,level: ClashLogLevel(rawValue: type) ?? .unknow)
         }
     }
 

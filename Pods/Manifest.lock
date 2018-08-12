@@ -1,31 +1,33 @@
 PODS:
   - Alamofire (4.7.2)
+  - CocoaLumberjack/Default (3.4.2)
+  - CocoaLumberjack/Swift (3.4.2):
+    - CocoaLumberjack/Default
   - LetsMove (1.24)
   - RxCocoa (4.2.0):
     - RxSwift (~> 4.0)
   - RxSwift (4.2.0)
   - Sparkle (1.19.0)
-  - SwiftLog (1.0.0)
   - SwiftyJSON (4.1.0)
 
 DEPENDENCIES:
   - Alamofire (~> 4.7)
+  - CocoaLumberjack/Swift
   - LetsMove
   - RxCocoa (~> 4.0)
   - RxSwift (~> 4.0)
   - Sparkle
-  - SwiftLog (~> 1.0.0)
   - SwiftyJSON (~> 4.0)
 
 SPEC CHECKSUMS:
   Alamofire: e4fa87002c137ba2d8d634d2c51fabcda0d5c223
+  CocoaLumberjack: db7cc9e464771f12054c22ff6947c5a58d43a0fd
   LetsMove: fefe56bc7bc7fb7d37049e28a14f297961229fc5
   RxCocoa: 0b54909c902e1e581212a03e690bbd94032d8baa
   RxSwift: 99e10317ddfcc7fbe01356aafd118fde4a0be104
   Sparkle: 8486d2493599665e466b5076e72b28849776e32f
-  SwiftLog: f6c4f9a4ade06263555ab34b2c0f72025ffcda9e
   SwiftyJSON: c29297daf073d2aa016295d5809cdd68045c39b3
 
-PODFILE CHECKSUM: fc69ca2b623a93ac89161e5986883dc8da46138b
+PODFILE CHECKSUM: 5688b80dca1be3b09d34bf937c676aec36197abe
 
 COCOAPODS: 1.4.0
