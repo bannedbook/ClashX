@@ -8,7 +8,9 @@
 
 A rule based proxy For Mac base on [Clash](https://github.com/Dreamacro/clash).
 
-### <b>Please star [Clash](https://github.com/Dreamacro/clash) first, Thanks!</b>
+### <b>Star and Support the upstream [Clash](https://github.com/Dreamacro/clash) , Thank You!</b>
+
+Telegram Group: [Join](https://t.me/clash_discuss)
 
 # Features
 
