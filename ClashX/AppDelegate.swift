@@ -131,13 +131,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     func failLaunchProtect(){
-        return
         let x = UserDefaults.standard
         var launch_fail_times:Int = 0
         if let xx = x.object(forKey: "launch_fail_times") as? Int {launch_fail_times = xx }
         launch_fail_times += 1
         x.set(launch_fail_times, forKey: "launch_fail_times")
-        if launch_fail_times > 3{
+        if launch_fail_times > 2{
             //发生连续崩溃
             let path = (NSHomeDirectory() as NSString).appendingPathComponent("/.config/clash/")
             let documentDirectory = URL(fileURLWithPath: path)
