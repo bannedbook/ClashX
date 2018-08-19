@@ -90,11 +90,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 self.proxySettingMenuItem.state = enable ? .on : .off
             }.disposed(by: disposeBag)
         
-        ConfigManager.shared
+        let configObservable = ConfigManager.shared
             .currentConfigVariable
             .asObservable()
-            .filter{$0 != nil}
-            .bind {[unowned self] (config) in
+        Observable.zip(configObservable,configObservable.skip(1))
+            .filter{(_, new) in return new != nil}
+            .bind {[unowned self] (old,config) in
                 self.proxyModeDirectMenuItem.state = .off
                 self.proxyModeGlobalMenuItem.state = .off
                 self.proxyModeRuleMenuItem.state = .off
@@ -110,9 +111,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 
                 self.updateProxyList()
                 
-                if (ConfigManager.shared.proxyPortAutoSet) {
-                    _ = ProxyConfigManager.setUpSystemProxy(port: config!.port,socksPort: config!.socketPort)
+                if let oldPort = old?.port , let newPort = config?.port {
+                    if (oldPort != newPort && ConfigManager.shared.proxyPortAutoSet) {
+                        _ = ProxyConfigManager.setUpSystemProxy(port: config!.port,socksPort: config!.socketPort)
+                    }
                 }
+
                 self.selectProxyGroupWithMemory()
         }.disposed(by: disposeBag)
         
