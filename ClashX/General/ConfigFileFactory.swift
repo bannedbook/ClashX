@@ -15,8 +15,13 @@ class ConfigFileFactory {
     func watchConfigFile() {
         let path = (NSHomeDirectory() as NSString).appendingPathComponent("/.config/clash/config.ini")
         witness = Witness(paths: [path], flags: .FileEvents, latency: 0.3) { events in
-            print(events)
-            NSUserNotificationCenter.default.postConfigFileChangeDetectionNotice()
+            for event in events {
+                print(event.flags)
+                if event.flags.contains(.ItemModified) || event.flags.contains(.ItemCreated){
+                    NSUserNotificationCenter.default.postConfigFileChangeDetectionNotice()
+                    break
+                }
+            }
         }
     }
     
