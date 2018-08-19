@@ -127,6 +127,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     func failLaunchProtect(){
+        return
         let x = UserDefaults.standard
         var launch_fail_times:Int = 0
         if let xx = x.object(forKey: "launch_fail_times") as? Int {launch_fail_times = xx }
@@ -263,7 +264,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     @IBAction func openConfigFolder(_ sender: Any) {
-        let path = (NSHomeDirectory() as NSString).appendingPathComponent("/.config/clash/config.ini")
+        let path = (NSHomeDirectory() as NSString).appendingPathComponent("/.config/clash")
         NSWorkspace.shared.openFile(path)
     }
     
