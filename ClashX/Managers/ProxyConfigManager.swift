@@ -7,15 +7,15 @@ class ProxyConfigManager {
     
     static func vaildHelper() -> Bool {
         let scriptPath = "\(Bundle.main.resourcePath!)/check_proxy_helper.sh"
-        print(scriptPath)
-        let appleScriptStr = "do shell script \"bash \(scriptPath) \(kProxyConfigFolder) \(kVersion) \" "
+        let appleScriptStr = "do shell script \"bash \\\"\(scriptPath)\\\" \(kProxyConfigFolder) \(kVersion) \" "
         let appleScript = NSAppleScript(source: appleScriptStr)
         var dict: NSDictionary?
         if let res = appleScript?.executeAndReturnError(&dict) {
-            print(res.stringValue ?? "")
             if (res.stringValue?.contains("success")) ?? false {
                 return true
             }
+        } else {
+            Logger.log(msg: "\(String(describing: dict))",level: .error)
         }
         return false
         
