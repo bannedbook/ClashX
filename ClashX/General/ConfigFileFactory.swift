@@ -132,6 +132,7 @@ class ConfigFileFactory {
                         .default
                         .post(title: "Import Server Profile succeed!",
                               info: "Successful import \(profiles.count) items")
+                    NotificationCenter.default.post(Notification(name: kShouldUpDateConfig))
                 } else {
                     NSUserNotificationCenter
                         .default

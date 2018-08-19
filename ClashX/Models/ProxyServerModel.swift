@@ -41,7 +41,8 @@ class ProxyServerModel: NSObject, Codable {
     ]
     
     func isValid() -> Bool {
-        let whitespace = NSCharacterSet.whitespacesAndNewlines
+        var whitespace = NSCharacterSet.whitespacesAndNewlines
+        whitespace.insert(":")
         remark = remark.components(separatedBy: whitespace).joined()
         if remark == "" {remark = "NewProxy"}
         
