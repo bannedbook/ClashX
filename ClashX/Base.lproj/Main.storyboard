@@ -3,6 +3,8 @@
     <dependencies>
         <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14113"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+        <capability name="system font weights other than Regular or Bold" minToolsVersion="7.0"/>
     </dependencies>
     <scenes>
         <!--Application-->
@@ -156,7 +158,13 @@
                             <modifierMask key="keyEquivalentModifierMask"/>
                             <menu key="submenu" title="Help" id="ogW-pn-jeR">
                                 <items>
-                                    <menuItem title="Check update" id="p0T-J8-Emx">
+                                    <menuItem title="About" id="hUb-k9-TEf">
+                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                        <connections>
+                                            <segue destination="UWQ-O3-RVk" kind="show" id="ZDv-Fo-P5y"/>
+                                        </connections>
+                                    </menuItem>
+                                    <menuItem title="Check Update" id="p0T-J8-Emx">
                                         <modifierMask key="keyEquivalentModifierMask"/>
                                         <connections>
                                             <action selector="checkForUpdates:" target="fth-rt-saN" id="gaF-35-d7h"/>
@@ -185,5 +193,108 @@
             </objects>
             <point key="canvasLocation" x="75" y="0.0"/>
         </scene>
+        <!--About View Controller-->
+        <scene sceneID="bW6-wi-r8Q">
+            <objects>
+                <viewController id="UWQ-O3-RVk" customClass="AboutViewController" customModule="ClashX" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" id="JCR-G0-H6V">
+                        <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="4SV-eS-si0">
+                                <rect key="frame" x="180" y="190" width="90" height="90"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="90" id="FDV-Kt-1r8"/>
+                                    <constraint firstAttribute="height" constant="90" id="JiZ-gC-JO8"/>
+                                </constraints>
+                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="Icon" id="Vx1-G4-Xby"/>
+                            </imageView>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="prU-ck-7Na">
+                                <rect key="frame" x="199" y="164" width="52" height="18"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="ClashX" id="MzG-sW-3g7">
+                                    <font key="font" metaFont="systemSemibold" size="14"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="gP8-vp-ASP">
+                                <rect key="frame" x="168" y="132" width="115" height="17"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Version:1.1.0(1.1.0)" id="pVE-Ti-FcK">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="qla-PJ-sDO">
+                                <rect key="frame" x="187" y="100" width="77" height="17"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="2018-08-19" id="aib-YP-mvk">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8pQ-pI-ToK">
+                                <rect key="frame" x="50" y="65" width="109" height="17"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="GitHub for Clash:" allowsEditingTextAttributes="YES" id="lsq-AW-K0M">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kch-A0-ga2">
+                                <rect key="frame" x="50" y="40" width="117" height="17"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="GitHub for ClashX:" id="89f-5u-Eo0">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="q4m-SB-uHV" customClass="HyperlinkTextField" customModule="ClashX" customModuleProvider="target">
+                                <rect key="frame" x="168" y="65" width="223" height="17"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="https://github.com/Dreamacro/clash" id="Bej-j7-KKV">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bSi-kz-Dkf" customClass="HyperlinkTextField" customModule="ClashX" customModuleProvider="target">
+                                <rect key="frame" x="168" y="40" width="243" height="17"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="https://github.com/yichengchen/clashX" id="9ox-Fc-Wk3">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="href" value="https://github.com/yichengchen/clashX"/>
+                                </userDefinedRuntimeAttributes>
+                            </textField>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="prU-ck-7Na" firstAttribute="centerX" secondItem="JCR-G0-H6V" secondAttribute="centerX" id="6sZ-T8-xec"/>
+                            <constraint firstItem="qla-PJ-sDO" firstAttribute="centerX" secondItem="JCR-G0-H6V" secondAttribute="centerX" id="A3W-i0-Lug"/>
+                            <constraint firstItem="prU-ck-7Na" firstAttribute="top" secondItem="4SV-eS-si0" secondAttribute="bottom" constant="8" id="EGo-fK-wUy"/>
+                            <constraint firstItem="gP8-vp-ASP" firstAttribute="top" secondItem="prU-ck-7Na" secondAttribute="bottom" constant="15" id="JcF-C9-rIW"/>
+                            <constraint firstItem="gP8-vp-ASP" firstAttribute="centerX" secondItem="JCR-G0-H6V" secondAttribute="centerX" id="TJb-U7-nQK"/>
+                            <constraint firstItem="4SV-eS-si0" firstAttribute="centerX" secondItem="JCR-G0-H6V" secondAttribute="centerX" id="cjh-4c-FsB"/>
+                            <constraint firstItem="4SV-eS-si0" firstAttribute="top" secondItem="JCR-G0-H6V" secondAttribute="top" constant="20" id="q5j-F9-XGY"/>
+                            <constraint firstItem="qla-PJ-sDO" firstAttribute="top" secondItem="gP8-vp-ASP" secondAttribute="bottom" constant="15" id="vm8-hs-UYb"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="buildTimeLabel" destination="qla-PJ-sDO" id="zce-NL-ftN"/>
+                        <outlet property="versionLabel" destination="gP8-vp-ASP" id="2V8-vb-VKi"/>
+                    </connections>
+                </viewController>
+                <customObject id="oHh-a0-cAY" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="488" y="341"/>
+        </scene>
     </scenes>
+    <resources>
+        <image name="Icon" width="512" height="512"/>
+    </resources>
 </document>
