@@ -113,10 +113,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 
                 self.updateProxyList()
                 
-                if let oldPort = old?.port , let newPort = config?.port {
-                    if (oldPort != newPort && ConfigManager.shared.proxyPortAutoSet) {
-                        _ = ProxyConfigManager.setUpSystemProxy(port: config!.port,socksPort: config!.socketPort)
-                    }
+                if (old?.port != config?.port && ConfigManager.shared.proxyPortAutoSet) {
+                    _ = ProxyConfigManager.setUpSystemProxy(port: config!.port,socksPort: config!.socketPort)
                 }
 
                 self.selectProxyGroupWithMemory()
