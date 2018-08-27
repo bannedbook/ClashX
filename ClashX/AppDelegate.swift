@@ -213,11 +213,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             if (error != "success") {
                 NSUserNotificationCenter.default.postConfigErrorNotice(msg:error)
             } else {
-                self.syncConfig() {
-                    self.resetStreamApi()
-                    self.selectOutBoundModeWithMenory()
-                    self.selectAllowLanWithMenory()
-                }
+                self.resetStreamApi()
+                self.selectOutBoundModeWithMenory()
+                self.selectAllowLanWithMenory()
             }
         }
 

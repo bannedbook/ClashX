@@ -127,9 +127,7 @@ class ApiRequest{
     static func updateAllowLan(allow:Bool,completeHandler:@escaping (()->())) {
         request(ConfigManager.apiUrl + "/configs",
                 method: .put,
-                parameters: ["allow-lan":allow,
-                             "socks-port":ConfigManager.shared.currentConfig!.socketPort,
-                             "port":ConfigManager.shared.currentConfig!.port],
+                parameters: ["allow-lan":allow],
                 encoding: JSONEncoding.default).response{
             _ in
             completeHandler()
