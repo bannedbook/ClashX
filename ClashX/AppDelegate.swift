@@ -379,6 +379,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         NSWorkspace.shared.openFile(Logger.shared.logFilePath())
 
     }
+   
 }
 
 

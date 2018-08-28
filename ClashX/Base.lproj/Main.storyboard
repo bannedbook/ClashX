@@ -91,6 +91,12 @@
                                 <action selector="actionAllowFromLan:" target="Voe-Tx-rLC" id="BGp-Tp-MiH"/>
                             </connections>
                         </menuItem>
+                        <menuItem title="Advance" id="XG6-2M-PNi">
+                            <modifierMask key="keyEquivalentModifierMask"/>
+                            <connections>
+                                <segue destination="ZNp-tx-6bv" kind="show" id="ZMG-K0-DhZ"/>
+                            </connections>
+                        </menuItem>
                         <menuItem isSeparatorItem="YES" id="UpD-DI-Smv"/>
                         <menuItem title="Config" id="JMV-Dy-CI0">
                             <modifierMask key="keyEquivalentModifierMask"/>
@@ -215,7 +221,7 @@
         <!--About View Controller-->
         <scene sceneID="bW6-wi-r8Q">
             <objects>
-                <viewController id="UWQ-O3-RVk" customClass="AboutViewController" customModule="ClashX" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController showSeguePresentationStyle="single" id="UWQ-O3-RVk" customClass="AboutViewController" customModule="ClashX" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="JCR-G0-H6V">
                         <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -311,6 +317,19 @@
                 <customObject id="oHh-a0-cAY" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="488" y="341"/>
+        </scene>
+        <!--Clash Web View Contoller-->
+        <scene sceneID="hPF-qG-B6J">
+            <objects>
+                <viewController showSeguePresentationStyle="single" id="ZNp-tx-6bv" customClass="ClashWebViewContoller" customModule="ClashX" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" id="2Hi-rP-ejJ">
+                        <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </view>
+                </viewController>
+                <customObject id="dTN-vP-Bji" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="544" y="-121"/>
         </scene>
     </scenes>
     <resources>
