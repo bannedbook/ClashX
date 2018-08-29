@@ -23,6 +23,7 @@
 		495340B320DE68C300B0D3FF /* StatusItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 495340B220DE68C300B0D3FF /* StatusItemView.swift */; };
 		495A44CD20D266BA00888A0A /* ClashXLaunchHelper.app in CopyFiles */ = {isa = PBXBuildFile; fileRef = 495A44BC20D2660A00888A0A /* ClashXLaunchHelper.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		495A44D320D267D000888A0A /* LaunchAtLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 495A44D220D267D000888A0A /* LaunchAtLogin.swift */; };
+		4960A6DB2136529200B940C9 /* JSBridgeHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4960A6DA2136529200B940C9 /* JSBridgeHandler.swift */; };
 		4966E9E32118153A00A391FB /* NSUserNotificationCenter+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4966E9E22118153A00A391FB /* NSUserNotificationCenter+Extension.swift */; };
 		4966E9E6211824F300A391FB /* NSImage+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4966E9E5211824F300A391FB /* NSImage+extension.swift */; };
 		496BDEE021196F1E00C5207F /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 496BDEDF21196F1E00C5207F /* Logger.swift */; };
@@ -98,6 +99,7 @@
 		495A44C720D2660B00888A0A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		495A44C820D2660B00888A0A /* ClashXLaunchHelper.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ClashXLaunchHelper.entitlements; sourceTree = "<group>"; };
 		495A44D220D267D000888A0A /* LaunchAtLogin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchAtLogin.swift; sourceTree = "<group>"; };
+		4960A6DA2136529200B940C9 /* JSBridgeHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSBridgeHandler.swift; sourceTree = "<group>"; };
 		4966E9E22118153A00A391FB /* NSUserNotificationCenter+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSUserNotificationCenter+Extension.swift"; sourceTree = "<group>"; };
 		4966E9E5211824F300A391FB /* NSImage+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSImage+extension.swift"; sourceTree = "<group>"; };
 		496BDEDF21196F1E00C5207F /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
@@ -174,6 +176,7 @@
 				49CF3B5B20CE8068001EBF94 /* ProxyConfigManager.swift */,
 				49CF3B6420CEE06C001EBF94 /* ConfigManager.swift */,
 				4949D15C2132614B00EF85E6 /* QRCodeUtil.swift */,
+				4960A6DA2136529200B940C9 /* JSBridgeHandler.swift */,
 			);
 			path = General;
 			sourceTree = "<group>";
@@ -404,6 +407,7 @@
 				TargetAttributes = {
 					495A44BB20D2660A00888A0A = {
 						CreatedOnToolsVersion = 9.4.1;
+						LastSwiftMigration = 0940;
 						SystemCapabilities = {
 							com.apple.Sandbox = {
 								enabled = 1;
@@ -590,6 +594,7 @@
 				49722FE4211ED56C00650A41 /* parseINI.swift in Sources */,
 				4966E9E6211824F300A391FB /* NSImage+extension.swift in Sources */,
 				4952C3CE2116EA2E004A4FA8 /* ProxyServerModel.swift in Sources */,
+				4960A6DB2136529200B940C9 /* JSBridgeHandler.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -626,6 +631,7 @@
 		495A44CA20D2660B00888A0A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = ClashXLaunchHelper/ClashXLaunchHelper.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -638,6 +644,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.west2online.ClashX.LaunchHelper;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
@@ -645,6 +652,7 @@
 		495A44CB20D2660B00888A0A /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = ClashXLaunchHelper/ClashXLaunchHelper.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;

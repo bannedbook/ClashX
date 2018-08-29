@@ -8,9 +8,14 @@
 
 import Cocoa
 import WebKit
+import WebViewJavascriptBridge
+import RxSwift
+import RxCocoa
 
 class ClashWebViewContoller: NSViewController {
     let  webview: WKWebView = CustomWKWebView(frame: CGRect(x: 0, y: 0, width: 500, height: 500))
+    var bridge:WebViewJavascriptBridge?
+    var disposeBag = DisposeBag()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,6 +37,12 @@ class ClashWebViewContoller: NSViewController {
             view.addConstraint(constraint)
         }
     
+        bridge = JsBridgeHelper.initJSbridge(webview: webview, delegate: self)
+        
+        NotificationCenter.default.rx.notification(kConfigFileChange).bind {
+            [weak self] (note)  in
+            self?.bridge?.callHandler("onConfigChange")
+            }.disposed(by: disposeBag)
         
         // defaults write com.west2online.ClashX webviewUrl "your url"
         let url = UserDefaults.standard.string(forKey: "webviewUrl") ?? "http://127.0.0.1:8080"
@@ -69,6 +80,13 @@ extension ClashWebViewContoller:WKUIDelegate,WKNavigationDelegate {
     
     func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
         Logger.log(msg: "\(error)", level: .debug)
+    }
+    
+    func webView(_ webView: WKWebView, createWebViewWith configuration: WKWebViewConfiguration, for navigationAction: WKNavigationAction, windowFeatures: WKWindowFeatures) -> WKWebView? {
+        if (navigationAction.targetFrame == nil){
+            webView.load(navigationAction.request)
+        }
+        return nil;
     }
 }
 

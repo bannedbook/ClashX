@@ -19,6 +19,7 @@ class ConfigFileFactory {
                 print(event.flags)
                 if event.flags.contains(.ItemModified) || event.flags.contains(.ItemCreated){
                     NSUserNotificationCenter.default.postConfigFileChangeDetectionNotice()
+                    NotificationCenter.default.post(Notification(name: kConfigFileChange))
                     break
                 }
             }
