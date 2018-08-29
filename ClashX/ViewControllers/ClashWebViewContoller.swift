@@ -10,17 +10,25 @@ import Cocoa
 import WebKit
 
 class ClashWebViewContoller: NSViewController {
-    let  webview: WKWebView = WKWebView(frame: CGRect(x: 0, y: 0, width: 500, height: 500))
+    let  webview: WKWebView = CustomWKWebView(frame: CGRect(x: 0, y: 0, width: 500, height: 500))
     
     override func viewDidLoad() {
         super.viewDidLoad()
         webview.uiDelegate = self
         webview.navigationDelegate = self
-        self.view.addSubview(webview)
+        view.addSubview(webview)
         
+        webview.translatesAutoresizingMaskIntoConstraints = false
         let attributes:[NSLayoutConstraint.Attribute] = [.top,.left,.bottom,.right,.top]
         for attribute in attributes {
-            let constraint = NSLayoutConstraint(item: webview, attribute: attribute, relatedBy: .equal, toItem: self.view, attribute: attribute, multiplier: 1, constant: 0);
+            
+            let constraint = NSLayoutConstraint(item: webview,
+                                                attribute: attribute,
+                                                relatedBy: .equal,
+                                                toItem: view,
+                                                attribute: attribute ,
+                                                multiplier: 1, constant: 0);
+            constraint.priority = NSLayoutConstraint.Priority(rawValue: 100);
             view.addConstraint(constraint)
         }
     
@@ -35,7 +43,7 @@ class ClashWebViewContoller: NSViewController {
         self.view.window?.titleVisibility = .hidden
         self.view.window?.titlebarAppearsTransparent = true
         self.view.window?.styleMask.insert(.fullSizeContentView)
-        
+
         NSApp.activate(ignoringOtherApps: true)
         self.view.window?.makeKeyAndOrderFront(self)
         
@@ -61,5 +69,14 @@ extension ClashWebViewContoller:WKUIDelegate,WKNavigationDelegate {
     
     func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
         Logger.log(msg: "\(error)", level: .debug)
+    }
+}
+
+
+class CustomWKWebView: WKWebView {
+    override func mouseDown(with event: NSEvent) {
+        if #available(OSX 10.11, *) {
+            self.window?.performDrag(with: event)
+        }
     }
 }
