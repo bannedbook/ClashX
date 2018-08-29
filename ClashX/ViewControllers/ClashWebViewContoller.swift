@@ -39,6 +39,8 @@ class ClashWebViewContoller: NSViewController {
     
         bridge = JsBridgeHelper.initJSbridge(webview: webview, delegate: self)
         
+        webview.configuration.preferences.setValue(true, forKey: "developerExtrasEnabled")
+        
         NotificationCenter.default.rx.notification(kConfigFileChange).bind {
             [weak self] (note)  in
             self?.bridge?.callHandler("onConfigChange")
