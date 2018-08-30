@@ -117,7 +117,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                     _ = ProxyConfigManager.setUpSystemProxy(port: config!.port,socksPort: config!.socketPort)
                 }
 
-                self.selectProxyGroupWithMemory()
         }.disposed(by: disposeBag)
         
         LaunchAtLogin.shared
@@ -216,6 +215,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 self.resetStreamApi()
                 self.selectOutBoundModeWithMenory()
                 self.selectAllowLanWithMenory()
+                self.selectProxyGroupWithMemory()
             }
         }
 
