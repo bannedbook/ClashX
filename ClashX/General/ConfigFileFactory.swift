@@ -81,7 +81,7 @@ class ConfigFileFactory {
     static func copySimpleConfigFile() {
         let path = Bundle.main.path(forResource: "initConfig", ofType: "ini")!
         backupAndRemoveConfigFile()
-        try? FileManager.default.copyItem(atPath: path, toPath: kConfigFolderPath)
+        try? FileManager.default.copyItem(atPath: path, toPath: kConfigFilePath)
         NSUserNotificationCenter.default.postGenerateSimpleConfigNotice()
     }
     
