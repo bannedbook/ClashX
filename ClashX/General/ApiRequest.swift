@@ -95,12 +95,19 @@ class ApiRequest{
     }
     
     static func requestConfigUpdate(callback:@escaping ((String?)->())){
-        if let errMSg = updateAllConfig() {
-            let err = String(cString: errMSg)
-            callback(err == "" ? nil : err)
-        } else {
-            callback("unknown error")
+        request(ConfigManager.apiUrl + "/configs", method: .put).responseJSON { (res) in
+            if res.response?.statusCode == 204 {
+                callback(nil)
+            } else {
+                if let errMSg = updateAllConfig() {
+                    let err = String(cString: errMSg)
+                    callback(err == "" ? nil : err)
+                } else {
+                    callback("unknown error")
+                }
+            }
         }
+
         
     }
     
