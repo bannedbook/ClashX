@@ -17,16 +17,25 @@ class ClashWebViewContoller: NSViewController {
     var bridge:WebViewJavascriptBridge?
     var disposeBag = DisposeBag()
     
+    @IBOutlet weak var effectView: NSVisualEffectView!
     override func viewDidLoad() {
         super.viewDidLoad()
         webview.uiDelegate = self
         webview.navigationDelegate = self
-        view.addSubview(webview)
         
+        if NSAppKitVersion.current.rawValue > 1500 {
+            webview.setValue(false, forKey: "drawsBackground")
+        }
+        else {
+            webview.setValue(true, forKey: "drawsTransparentBackground")
+        }
+        view.addSubview(webview)
+
+
         webview.translatesAutoresizingMaskIntoConstraints = false
         let attributes:[NSLayoutConstraint.Attribute] = [.top,.left,.bottom,.right,.top]
         for attribute in attributes {
-            
+
             let constraint = NSLayoutConstraint(item: webview,
                                                 attribute: attribute,
                                                 relatedBy: .equal,
@@ -36,16 +45,16 @@ class ClashWebViewContoller: NSViewController {
             constraint.priority = NSLayoutConstraint.Priority(rawValue: 100);
             view.addConstraint(constraint)
         }
-    
+
         bridge = JsBridgeHelper.initJSbridge(webview: webview, delegate: self)
-        
+
         webview.configuration.preferences.setValue(true, forKey: "developerExtrasEnabled")
-        
+
         NotificationCenter.default.rx.notification(kConfigFileChange).bind {
             [weak self] (note)  in
             self?.bridge?.callHandler("onConfigChange")
             }.disposed(by: disposeBag)
-        
+
         // defaults write com.west2online.ClashX webviewUrl "your url"
         let url = UserDefaults.standard.string(forKey: "webviewUrl") ?? "http://127.0.0.1:8080"
         self.webview.load(URLRequest(url: URL(string: url)!))
@@ -59,6 +68,9 @@ class ClashWebViewContoller: NSViewController {
 
         NSApp.activate(ignoringOtherApps: true)
         self.view.window?.makeKeyAndOrderFront(self)
+        
+        self.view.window?.isOpaque = false
+        self.view.window?.backgroundColor = NSColor.clear
         
 
     }

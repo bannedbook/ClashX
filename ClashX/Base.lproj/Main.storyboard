@@ -325,11 +325,25 @@
                     <view key="view" id="2Hi-rP-ejJ">
                         <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <visualEffectView autoresizesSubviews="NO" appearanceType="vibrantLight" blendingMode="behindWindow" material="light" state="followsWindowActiveState" translatesAutoresizingMaskIntoConstraints="NO" id="AjH-Gz-iJd">
+                                <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
+                            </visualEffectView>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="AjH-Gz-iJd" firstAttribute="leading" secondItem="2Hi-rP-ejJ" secondAttribute="leading" id="GTJ-nR-JVc"/>
+                            <constraint firstAttribute="trailing" secondItem="AjH-Gz-iJd" secondAttribute="trailing" id="P2d-gI-Wak"/>
+                            <constraint firstItem="AjH-Gz-iJd" firstAttribute="top" secondItem="2Hi-rP-ejJ" secondAttribute="top" id="gvR-vd-iBK"/>
+                            <constraint firstAttribute="bottom" secondItem="AjH-Gz-iJd" secondAttribute="bottom" id="hFJ-mj-rKr"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="effectView" destination="AjH-Gz-iJd" id="P99-CL-v8l"/>
+                    </connections>
                 </viewController>
                 <customObject id="dTN-vP-Bji" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="544" y="-121"/>
+            <point key="canvasLocation" x="959" y="-1"/>
         </scene>
     </scenes>
     <resources>
