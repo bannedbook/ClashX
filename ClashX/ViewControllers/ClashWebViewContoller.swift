@@ -22,7 +22,11 @@ class ClashWebViewContoller: NSViewController {
         super.viewDidLoad()
         webview.uiDelegate = self
         webview.navigationDelegate = self
-        
+        if #available(OSX 10.11, *) {
+            webview.customUserAgent = "ClashX Runtime"
+        } else {
+//             Fallback on earlier versions
+        }
         if NSAppKitVersion.current.rawValue > 1500 {
             webview.setValue(false, forKey: "drawsBackground")
         }
@@ -107,6 +111,7 @@ extension ClashWebViewContoller:WKUIDelegate,WKNavigationDelegate {
 
 class CustomWKWebView: WKWebView {
     override func mouseDown(with event: NSEvent) {
+        super.mouseDown(with: event)
         if #available(OSX 10.11, *) {
             self.window?.performDrag(with: event)
         }
