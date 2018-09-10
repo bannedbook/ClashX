@@ -323,11 +323,11 @@
             <objects>
                 <viewController showSeguePresentationStyle="single" id="ZNp-tx-6bv" customClass="ClashWebViewContoller" customModule="ClashX" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="2Hi-rP-ejJ">
-                        <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
+                        <rect key="frame" x="0.0" y="0.0" width="680" height="414"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <visualEffectView autoresizesSubviews="NO" appearanceType="vibrantLight" blendingMode="behindWindow" material="light" state="followsWindowActiveState" translatesAutoresizingMaskIntoConstraints="NO" id="AjH-Gz-iJd">
-                                <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
+                                <rect key="frame" x="0.0" y="0.0" width="680" height="414"/>
                             </visualEffectView>
                         </subviews>
                         <constraints>
@@ -343,7 +343,7 @@
                 </viewController>
                 <customObject id="dTN-vP-Bji" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="959" y="-1"/>
+            <point key="canvasLocation" x="1098" y="-1"/>
         </scene>
     </scenes>
     <resources>

@@ -13,7 +13,7 @@ import RxSwift
 import RxCocoa
 
 class ClashWebViewContoller: NSViewController {
-    let  webview: WKWebView = CustomWKWebView(frame: CGRect(x: 0, y: 0, width: 500, height: 500))
+    let webview: WKWebView = CustomWKWebView(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
     var bridge:WebViewJavascriptBridge?
     var disposeBag = DisposeBag()
     
@@ -112,8 +112,12 @@ extension ClashWebViewContoller:WKUIDelegate,WKNavigationDelegate {
 class CustomWKWebView: WKWebView {
     override func mouseDown(with event: NSEvent) {
         super.mouseDown(with: event)
-        if #available(OSX 10.11, *) {
-            self.window?.performDrag(with: event)
+        let y = (self.window?.frame.size.height ?? 0) - event.locationInWindow.y
+        if y<20 {
+            if #available(OSX 10.11, *) {
+                self.window?.performDrag(with: event)
+            }
         }
+        
     }
 }
