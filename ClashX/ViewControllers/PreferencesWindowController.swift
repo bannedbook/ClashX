@@ -21,6 +21,7 @@ class PreferencesWindowController: NSWindowController
     @IBOutlet weak var portTextField: NSTextField!
     @IBOutlet weak var methodTextField: NSComboBox!
     
+    @IBOutlet weak var simpleObfsSelectBox: NSComboBox!
     @IBOutlet weak var passwordTabView: NSTabView!
     @IBOutlet weak var passwordTextField: NSTextField!
     @IBOutlet weak var passwordSecureTextField: NSSecureTextField!
@@ -59,10 +60,22 @@ class PreferencesWindowController: NSWindowController
         self.typeSegmentContol.rx
             .controlEvent.asObservable().subscribe(onNext: { [unowned self](_) in
                 self.methodTextField.isEnabled = self.typeSegmentContol.selectedSegment == 0
+                self.simpleObfsSelectBox.isEnabled = self.methodTextField.isEnabled
                 self.passwordTextField.isEnabled = self.methodTextField.isEnabled
                 self.passwordSecureTextField.isEnabled  = self.methodTextField.isEnabled
                 self.editingConfig?.proxyType = self.typeSegmentContol.selectedSegment == 0 ? .shadowsocks : .socks5
             }).disposed(by: disposeBag)
+        
+        self.simpleObfsSelectBox.isEditable = false;
+        self.simpleObfsSelectBox.selectItem(at: 0);
+        self.simpleObfsSelectBox.rx
+            .controlEvent
+            .asObservable()
+            .subscribe(onNext: { [unowned self](_) in
+                let selectStr = self.simpleObfsSelectBox.objectValueOfSelectedItem as! String
+                self.editingConfig?.simpleObfs = SimpleObfsType(rawValue: selectStr) ?? .none
+        }).disposed(by: disposeBag)
+
     }
     
     override func awakeFromNib() {

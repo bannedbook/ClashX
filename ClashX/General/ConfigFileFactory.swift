@@ -26,10 +26,14 @@ class ConfigFileFactory {
     }
     
     static func proxyConfigStr(proxy:ProxyServerModel) -> String {
-        let targetStr:String
+        var targetStr:String
         switch proxy.proxyType {
         case .shadowsocks:
-            targetStr = "\(proxy.remark) = ss, \(proxy.serverHost), \(proxy.serverPort), \(proxy.method), \(proxy.password)\n"
+            targetStr = "\(proxy.remark) = ss, \(proxy.serverHost), \(proxy.serverPort), \(proxy.method), \(proxy.password)"
+            if proxy.simpleObfs != .none {
+                targetStr += ",obfs=\(proxy.simpleObfs.rawValue),obfs-host=bing.com"
+            }
+            targetStr += "\n"
         case .socks5:
             //socks = socks5, server1, port
             targetStr = "\(proxy.remark) = socks5, \(proxy.serverHost), \(proxy.serverPort)\n"
@@ -65,7 +69,7 @@ class ConfigFileFactory {
     
     static func saveToClashConfigFile(str:String) {
         // save to ~/.config/clash/config.ini
-        self.backupAndRemoveConfigFile(showAlert: false)
+        _ = self.backupAndRemoveConfigFile(showAlert: false)
         try? str.write(to: URL(fileURLWithPath: kConfigFilePath), atomically: true, encoding: .utf8)
     }
     

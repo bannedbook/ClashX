@@ -13,13 +13,19 @@ enum ProxyType:Int, Codable {
     case socks5
 }
 
+enum SimpleObfsType:String, Codable {
+    case none = "none"
+    case http = "http"
+    case tls = "tls"
+}
+
 class ProxyServerModel: NSObject, Codable {
     @objc dynamic var serverHost:String = ""
     @objc dynamic var serverPort:String = ""
     @objc dynamic var password:String = ""
     @objc dynamic var method:String = "RC4-MD5"
     @objc dynamic var remark:String = "NewProxy"
-    @objc dynamic var socks5:String = "NewProxy"
+    var simpleObfs:SimpleObfsType = .none
     var proxyType:ProxyType = .shadowsocks
 
     
