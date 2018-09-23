@@ -70,7 +70,7 @@
                             <modifierMask key="keyEquivalentModifierMask"/>
                             <connections>
                                 <action selector="actionSpeedTest:" target="Voe-Tx-rLC" id="deV-3n-Mtx"/>
-                                <segue destination="gtD-dn-7Dy" kind="modal" id="opl-HQ-q26"/>
+                                <segue destination="gtD-dn-7Dy" kind="show" id="opl-HQ-q26"/>
                             </connections>
                         </menuItem>
                         <menuItem title="Start at login" id="B1J-XB-BiZ">

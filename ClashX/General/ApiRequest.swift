@@ -155,18 +155,14 @@ class ApiRequest{
         }
     }
     
-    static func getProxyDelay(proxyName:String,callback:@escaping ((String)->())) {
+    static func getProxyDelay(proxyName:String,callback:@escaping ((Int)->())) {
         let proxyNameEncoded = proxyName.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
 
         request(ConfigManager.apiUrl + "/proxies/\(proxyNameEncoded)/delay"
             , method: .get
             , parameters: ["timeout":5000,"url":"http://www.gstatic.com/generate_204"])
             .responseJSON { (res) in let json = JSON(res.result.value ?? [])
-                if let delay = json["delay"].int {
-                    callback("\(delay)")
-                } else {
-                    callback("fail")
-                }
+                callback(json["delay"].int ?? -1)
         }
     }
 }

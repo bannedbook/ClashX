@@ -12,12 +12,13 @@ class SpeedTestViewController: NSViewController {
     
     @IBOutlet weak var tableView: NSTableView!
     
-    class ProxyModel {
-        var name:String
-        var delay:String?
+    @objc class ProxyModel:NSObject {
+        @objc var name:String
+        @objc var delay:Int
 
         init(_ name:String) {
             self.name = name
+            self.delay = -2
         }
     }
     
@@ -28,7 +29,24 @@ class SpeedTestViewController: NSViewController {
         self.setupData()
     }
     
+    override func viewWillAppear() {
+        super.viewWillAppear()
+        NSApp.activate(ignoringOtherApps: true)
+    }
+    
     func setupData() {
+        
+        for columns in self.tableView.tableColumns {
+            let sortKey:String
+            if columns.identifier.rawValue == "ProxyNameCell" {
+                sortKey = "name"
+            } else {
+                sortKey = "delay"
+            }
+            let sortDescriptor = NSSortDescriptor(key: sortKey, ascending: true)
+            columns.sortDescriptorPrototype = sortDescriptor
+        }
+        
         ApiRequest.getAllProxyList { [unowned self](proxies) in
             for proxyName in proxies {
                 self.proxies.append(ProxyModel(proxyName))
@@ -78,10 +96,12 @@ extension SpeedTestViewController:NSTableViewDataSource {
         let textField = cell?.viewWithTag(1) as! NSTextField
         let model = proxies[row]
 
-        if let delay = model.delay {
-            textField.stringValue = delay
-        } else {
+        if (model.delay == -2) {
             textField.stringValue = "testing"
+        } else if (model.delay == -1) {
+            textField.stringValue = "fail"
+        } else {
+            textField.stringValue = "\(model.delay)"
         }
         return cell
     }
@@ -90,6 +110,9 @@ extension SpeedTestViewController:NSTableViewDataSource {
 }
 
 extension SpeedTestViewController:NSTableViewDelegate{
-    
+    func tableView(_ tableView: NSTableView, sortDescriptorsDidChange oldDescriptors: [NSSortDescriptor]) {
+        self.proxies = (self.proxies as NSArray).sortedArray(using: tableView.sortDescriptors) as! [SpeedTestViewController.ProxyModel]
+        tableView.reloadData()
+    }
 }
 
