@@ -26,14 +26,10 @@ class ConfigFileFactory {
     }
     
     static func proxyConfigStr(proxy:ProxyServerModel) -> String {
-        var targetStr:String
+        let targetStr:String
         switch proxy.proxyType {
         case .shadowsocks:
-            targetStr = "\(proxy.remark) = ss, \(proxy.serverHost), \(proxy.serverPort), \(proxy.method), \(proxy.password)"
-            if proxy.simpleObfs != .none {
-                targetStr += ",obfs=\(proxy.simpleObfs.rawValue),obfs-host=bing.com"
-            }
-            targetStr += "\n"
+            targetStr = "\(proxy.remark) = ss, \(proxy.serverHost), \(proxy.serverPort), \(proxy.method), \(proxy.password) \(proxy.pluginStr) \n"
         case .socks5:
             //socks = socks5, server1, port
             targetStr = "\(proxy.remark) = socks5, \(proxy.serverHost), \(proxy.serverPort)\n"
@@ -134,6 +130,7 @@ class ConfigFileFactory {
                         profile.method = method
                         profile.password = password
                         profile.remark = item["remarks"].stringValue
+                        profile.pluginStr = item["plugin_opts"].stringValue
                         if remarkSet.contains(profile.remark) {
                             profile.remark.append("Dup")
                         }

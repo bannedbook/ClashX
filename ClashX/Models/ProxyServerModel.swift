@@ -25,7 +25,17 @@ class ProxyServerModel: NSObject, Codable {
     @objc dynamic var password:String = ""
     @objc dynamic var method:String = "RC4-MD5"
     @objc dynamic var remark:String = "NewProxy"
-    var simpleObfs:SimpleObfsType = .none
+    var simpleObfs:SimpleObfsType = .none {
+        didSet {
+            switch simpleObfs {
+            case .none:pluginStr = ""
+            case .http:pluginStr = ",obfs=http,obfs-host=bing.com"
+            case .tls:pluginStr =  ",obfs=tls,obfs-host=bing.com"
+            }
+        }
+    }
+    
+    var pluginStr = ""
     var proxyType:ProxyType = .shadowsocks
 
     
@@ -95,7 +105,7 @@ class ProxyServerModel: NSObject, Codable {
         
         // This can be overriden by the fragment part of SIP002 URL
         remark = parsedUrl.queryItems?
-            .filter({ $0.name == "Remark" }).first?.value ?? "NewProxy\(arc4random()%10000)"
+            .filter({ $0.name == "Remark" }).first?.value ?? "\(parsedUrl.host?.split(separator: ".").first ?? "Proxy")\(arc4random()%10)"
         
         if let password = parsedUrl.password {
             self.method = user.uppercased()
@@ -119,6 +129,15 @@ class ProxyServerModel: NSObject, Codable {
                 self.remark = profileName
             }
         }
+        
+        if let pluginStr = parsedUrl.queryItems?
+            .filter({ $0.name == "plugin" }).first?.value {
+            let parts = pluginStr.split(separator: ";", maxSplits: 1)
+            if parts.count == 2 {
+                self.pluginStr = String(parts[1])
+            }
+        }
+        
         if (!self.isValid()) {
             return nil
         }
