@@ -259,6 +259,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         let port = ConfigManager.shared.currentConfig?.port ?? 0
         pasteboard.setString("export https_proxy=http://127.0.0.1:\(port);export http_proxy=http://127.0.0.1:\(port)", forType: .string)
     }
+    
+    @IBAction func actionSpeedTest(_ sender: Any) {
+        
+    
+    }
+    
+    
     @IBAction func actionAllowFromLan(_ sender: NSMenuItem) {
         ApiRequest.updateAllowLan(allow: !ConfigManager.allowConnectFromLan) {
             [unowned self] in

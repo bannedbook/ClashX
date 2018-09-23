@@ -8,7 +8,7 @@
 
 import Cocoa
 import Alamofire
-
+import SwiftyJSON
 
 
 class ApiRequest{
@@ -145,6 +145,28 @@ class ApiRequest{
         let groupEncoded = group.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
         request(ConfigManager.apiUrl + "/proxies/\(groupEncoded)", method: .put, parameters: ["name":selectProxy], encoding: JSONEncoding.default).responseJSON { (response) in
             callback(response.response?.statusCode == 204)
+        }
+    }
+    
+    static func getAllProxyList(callback:@escaping (([String])->())) {
+        requestProxyGroupList { (groups) in
+            let lists:[String] = groups["GLOBAL"]?["all"] as? [String] ?? []
+            callback(lists)
+        }
+    }
+    
+    static func getProxyDelay(proxyName:String,callback:@escaping ((String)->())) {
+        let proxyNameEncoded = proxyName.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
+
+        request(ConfigManager.apiUrl + "/proxies/\(proxyNameEncoded)/delay"
+            , method: .get
+            , parameters: ["timeout":5000,"url":"http://www.gstatic.com/generate_204"])
+            .responseJSON { (res) in let json = JSON(res.result.value ?? [])
+                if let delay = json["delay"].int {
+                    callback("\(delay)")
+                } else {
+                    callback("fail")
+                }
         }
     }
 }
