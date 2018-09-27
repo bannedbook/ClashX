@@ -281,7 +281,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     var genConfigWindow:NSWindowController?=nil
     @IBAction func actionGenConfig(_ sender: Any) {
-        let ctrl = PreferencesWindowController(windowNibName: NSNib.Name(rawValue: "PreferencesWindowController"))
+        let ctrl = PreferencesWindowController(windowNibName: "PreferencesWindowController")
         
         
         genConfigWindow?.close()

@@ -26,7 +26,7 @@ class StatusItemView: NSView {
     
     static func create(statusItem:NSStatusItem?,statusMenu:NSMenu)->StatusItemView{
         var topLevelObjects : NSArray?
-        if Bundle.main.loadNibNamed(NSNib.Name(rawValue: "StatusItemView"), owner: self, topLevelObjects: &topLevelObjects) {
+        if Bundle.main.loadNibNamed("StatusItemView", owner: self, topLevelObjects: &topLevelObjects) {
             let view = (topLevelObjects!.first(where: { $0 is NSView }) as? StatusItemView)!
             view.statusItem = statusItem
             view.menu = statusMenu
@@ -44,7 +44,7 @@ class StatusItemView: NSView {
                 let darkMode = (value ?? "Light") == "Dark"
                 let customImagePath = (NSHomeDirectory() as NSString).appendingPathComponent("/.config/clash/menuImage.png")
                 let image = NSImage(contentsOfFile: customImagePath) ??
-                    NSImage(named: NSImage.Name(rawValue: "menu_icon"))!.tint(color: darkMode ? NSColor.white : NSColor.black)
+                    NSImage(named: "menu_icon")!.tint(color: darkMode ? NSColor.white : NSColor.black)
                 self.imageView.image = image
                 self.isDarkMode = darkMode
         }.disposed(by: disposeBag)

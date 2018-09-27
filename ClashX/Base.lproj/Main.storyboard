@@ -251,9 +251,8 @@
                                                             <rect key="frame" x="1" y="1" width="274" height="17"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
-                                                                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" tag="1" translatesAutoresizingMaskIntoConstraints="NO" id="XcN-cb-zuE">
+                                                                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" tag="1" translatesAutoresizingMaskIntoConstraints="NO" id="XcN-cb-zuE">
                                                                     <rect key="frame" x="0.0" y="0.0" width="274" height="17"/>
-                                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                                                     <textFieldCell key="cell" lineBreakMode="truncatingTail" enabled="NO" allowsUndo="NO" sendsActionOnEndEditing="YES" title="Proxy" id="Gh1-x5-fnZ">
                                                                         <font key="font" metaFont="system"/>
                                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -261,6 +260,11 @@
                                                                     </textFieldCell>
                                                                 </textField>
                                                             </subviews>
+                                                            <constraints>
+                                                                <constraint firstItem="XcN-cb-zuE" firstAttribute="leading" secondItem="1Yx-TQ-4pZ" secondAttribute="leading" constant="2" id="5ih-Pa-iH3"/>
+                                                                <constraint firstItem="XcN-cb-zuE" firstAttribute="centerX" secondItem="1Yx-TQ-4pZ" secondAttribute="centerX" id="MMx-Zm-IX2"/>
+                                                                <constraint firstItem="XcN-cb-zuE" firstAttribute="centerY" secondItem="1Yx-TQ-4pZ" secondAttribute="centerY" id="wjg-01-7Yi"/>
+                                                            </constraints>
                                                             <connections>
                                                                 <outlet property="textField" destination="XcN-cb-zuE" id="fta-YG-n0q"/>
                                                             </connections>
@@ -281,12 +285,11 @@
                                                     <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                     <prototypeCellViews>
                                                         <tableCellView identifier="delayCell" id="qZT-29-xCE">
-                                                            <rect key="frame" x="278" y="1" width="168" height="17"/>
+                                                            <rect key="frame" x="277.5" y="1" width="168" height="17"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
-                                                                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" tag="1" translatesAutoresizingMaskIntoConstraints="NO" id="QCv-NJ-qh9">
+                                                                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" tag="1" translatesAutoresizingMaskIntoConstraints="NO" id="QCv-NJ-qh9">
                                                                     <rect key="frame" x="0.0" y="0.0" width="168" height="17"/>
-                                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                                                     <textFieldCell key="cell" lineBreakMode="truncatingTail" enabled="NO" sendsActionOnEndEditing="YES" title="100" id="TLq-Oj-0EH">
                                                                         <font key="font" metaFont="system"/>
                                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -294,6 +297,11 @@
                                                                     </textFieldCell>
                                                                 </textField>
                                                             </subviews>
+                                                            <constraints>
+                                                                <constraint firstItem="QCv-NJ-qh9" firstAttribute="leading" secondItem="qZT-29-xCE" secondAttribute="leading" constant="2" id="MOQ-o3-VoJ"/>
+                                                                <constraint firstItem="QCv-NJ-qh9" firstAttribute="centerX" secondItem="qZT-29-xCE" secondAttribute="centerX" id="Pzq-Fj-OZr"/>
+                                                                <constraint firstItem="QCv-NJ-qh9" firstAttribute="centerY" secondItem="qZT-29-xCE" secondAttribute="centerY" id="X4P-NQ-jvY"/>
+                                                            </constraints>
                                                             <connections>
                                                                 <outlet property="textField" destination="QCv-NJ-qh9" id="VlP-eG-GPw"/>
                                                             </connections>
@@ -342,11 +350,11 @@
             <objects>
                 <viewController showSeguePresentationStyle="single" id="UWQ-O3-RVk" customClass="AboutViewController" customModule="ClashX" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="JCR-G0-H6V">
-                        <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
+                        <rect key="frame" x="0.0" y="0.0" width="451" height="300"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="4SV-eS-si0">
-                                <rect key="frame" x="180" y="190" width="90" height="90"/>
+                                <rect key="frame" x="181" y="190" width="90" height="90"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="90" id="FDV-Kt-1r8"/>
                                     <constraint firstAttribute="height" constant="90" id="JiZ-gC-JO8"/>
@@ -354,7 +362,7 @@
                                 <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="Icon" id="Vx1-G4-Xby"/>
                             </imageView>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="prU-ck-7Na">
-                                <rect key="frame" x="199" y="164" width="52" height="18"/>
+                                <rect key="frame" x="200" y="164" width="52" height="18"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="ClashX" id="MzG-sW-3g7">
                                     <font key="font" metaFont="systemSemibold" size="14"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -377,36 +385,32 @@
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8pQ-pI-ToK">
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="8pQ-pI-ToK">
                                 <rect key="frame" x="50" y="65" width="109" height="17"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="GitHub for Clash:" allowsEditingTextAttributes="YES" id="lsq-AW-K0M">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kch-A0-ga2">
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="kch-A0-ga2">
                                 <rect key="frame" x="50" y="40" width="117" height="17"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="GitHub for ClashX:" id="89f-5u-Eo0">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="q4m-SB-uHV" customClass="HyperlinkTextField" customModule="ClashX" customModuleProvider="target">
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="q4m-SB-uHV" customClass="HyperlinkTextField" customModule="ClashX" customModuleProvider="target">
                                 <rect key="frame" x="168" y="65" width="223" height="17"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="https://github.com/Dreamacro/clash" id="Bej-j7-KKV">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bSi-kz-Dkf" customClass="HyperlinkTextField" customModule="ClashX" customModuleProvider="target">
-                                <rect key="frame" x="168" y="40" width="243" height="17"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="bSi-kz-Dkf" customClass="HyperlinkTextField" customModule="ClashX" customModuleProvider="target">
+                                <rect key="frame" x="168" y="40" width="244" height="17"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="https://github.com/yichengchen/clashX" id="9ox-Fc-Wk3">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -419,11 +423,23 @@
                         </subviews>
                         <constraints>
                             <constraint firstItem="prU-ck-7Na" firstAttribute="centerX" secondItem="JCR-G0-H6V" secondAttribute="centerX" id="6sZ-T8-xec"/>
+                            <constraint firstAttribute="trailing" secondItem="q4m-SB-uHV" secondAttribute="trailing" constant="62" id="75Q-F2-FpV"/>
+                            <constraint firstItem="kch-A0-ga2" firstAttribute="top" secondItem="8pQ-pI-ToK" secondAttribute="bottom" constant="8" symbolic="YES" id="8ey-53-a88"/>
+                            <constraint firstItem="q4m-SB-uHV" firstAttribute="leading" secondItem="8pQ-pI-ToK" secondAttribute="trailing" constant="13" id="9hQ-IH-ToP"/>
+                            <constraint firstItem="bSi-kz-Dkf" firstAttribute="leading" secondItem="gP8-vp-ASP" secondAttribute="leading" id="9xR-Bs-gdj"/>
                             <constraint firstItem="qla-PJ-sDO" firstAttribute="centerX" secondItem="JCR-G0-H6V" secondAttribute="centerX" id="A3W-i0-Lug"/>
+                            <constraint firstItem="bSi-kz-Dkf" firstAttribute="baseline" secondItem="kch-A0-ga2" secondAttribute="baseline" id="BuG-iW-aQY"/>
                             <constraint firstItem="prU-ck-7Na" firstAttribute="top" secondItem="4SV-eS-si0" secondAttribute="bottom" constant="8" id="EGo-fK-wUy"/>
                             <constraint firstItem="gP8-vp-ASP" firstAttribute="top" secondItem="prU-ck-7Na" secondAttribute="bottom" constant="15" id="JcF-C9-rIW"/>
+                            <constraint firstItem="8pQ-pI-ToK" firstAttribute="baseline" secondItem="q4m-SB-uHV" secondAttribute="baseline" id="SpM-Nf-Vz7"/>
+                            <constraint firstAttribute="bottom" secondItem="8pQ-pI-ToK" secondAttribute="bottom" constant="65" id="SvT-s3-arQ"/>
                             <constraint firstItem="gP8-vp-ASP" firstAttribute="centerX" secondItem="JCR-G0-H6V" secondAttribute="centerX" id="TJb-U7-nQK"/>
+                            <constraint firstItem="bSi-kz-Dkf" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="kch-A0-ga2" secondAttribute="trailing" constant="5" id="UWG-P5-aN1"/>
+                            <constraint firstAttribute="trailing" secondItem="bSi-kz-Dkf" secondAttribute="trailing" constant="41" id="Yyp-i3-knJ"/>
+                            <constraint firstItem="bSi-kz-Dkf" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="q4m-SB-uHV" secondAttribute="leading" id="ZP7-Uh-cdw"/>
                             <constraint firstItem="4SV-eS-si0" firstAttribute="centerX" secondItem="JCR-G0-H6V" secondAttribute="centerX" id="cjh-4c-FsB"/>
+                            <constraint firstItem="8pQ-pI-ToK" firstAttribute="leading" secondItem="JCR-G0-H6V" secondAttribute="leading" constant="52" id="eo7-Sa-Q6p"/>
+                            <constraint firstItem="8pQ-pI-ToK" firstAttribute="leading" secondItem="kch-A0-ga2" secondAttribute="leading" id="klD-BU-L8U"/>
                             <constraint firstItem="4SV-eS-si0" firstAttribute="top" secondItem="JCR-G0-H6V" secondAttribute="top" constant="20" id="q5j-F9-XGY"/>
                             <constraint firstItem="qla-PJ-sDO" firstAttribute="top" secondItem="gP8-vp-ASP" secondAttribute="bottom" constant="15" id="vm8-hs-UYb"/>
                         </constraints>

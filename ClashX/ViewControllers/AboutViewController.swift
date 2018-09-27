@@ -60,9 +60,9 @@ class HyperlinkTextField: NSTextField {
         
         // TODO:  Fix this and get the hover click to work.
         
-        let attributes: [NSAttributedStringKey: Any] = [
-            NSAttributedStringKey.foregroundColor: NSColor.blue,
-            NSAttributedStringKey.underlineStyle: NSUnderlineStyle.styleSingle.rawValue as AnyObject
+        let attributes: [NSAttributedString.Key: Any] = [
+            NSAttributedString.Key.foregroundColor: NSColor.blue,
+            NSAttributedString.Key.underlineStyle: NSUnderlineStyle.single.rawValue as AnyObject
         ]
         attributedStringValue = NSAttributedString(string: self.stringValue, attributes: attributes)
     }

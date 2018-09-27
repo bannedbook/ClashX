@@ -70,6 +70,7 @@ class ConfigFileFactory {
         try? str.write(to: URL(fileURLWithPath: kConfigFilePath), atomically: true, encoding: .utf8)
     }
     
+    @discardableResult
     static func backupAndRemoveConfigFile(showAlert:Bool = false) -> Bool {
         let path = kConfigFilePath
         if (showAlert) {
