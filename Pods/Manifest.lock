@@ -9,6 +9,7 @@ PODS:
   - RxSwift (4.2.0)
   - Sparkle (1.19.0)
   - SwiftyJSON (4.1.0)
+  - WebViewJavascriptBridge (6.0.3)
 
 DEPENDENCIES:
   - Alamofire (~> 4.7)
@@ -18,6 +19,7 @@ DEPENDENCIES:
   - RxSwift (~> 4.0)
   - Sparkle
   - SwiftyJSON (~> 4.0)
+  - WebViewJavascriptBridge (~> 6.0)
 
 SPEC CHECKSUMS:
   Alamofire: e4fa87002c137ba2d8d634d2c51fabcda0d5c223
@@ -27,7 +29,8 @@ SPEC CHECKSUMS:
   RxSwift: 99e10317ddfcc7fbe01356aafd118fde4a0be104
   Sparkle: 8486d2493599665e466b5076e72b28849776e32f
   SwiftyJSON: c29297daf073d2aa016295d5809cdd68045c39b3
+  WebViewJavascriptBridge: 7f5bc4d3581e672e8f32bd0f812d54bc69bb8e29
 
-PODFILE CHECKSUM: 5688b80dca1be3b09d34bf937c676aec36197abe
+PODFILE CHECKSUM: d8f1577ac71a3f192151eb8aaec7605b97337ea7
 
 COCOAPODS: 1.4.0

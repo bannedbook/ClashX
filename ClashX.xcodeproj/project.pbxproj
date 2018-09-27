@@ -23,6 +23,7 @@
 		495A44BF20D2660A00888A0A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 495A44BE20D2660A00888A0A /* AppDelegate.swift */; };
 		495A44CD20D266BA00888A0A /* ClashXLaunchHelper.app in CopyFiles */ = {isa = PBXBuildFile; fileRef = 495A44BC20D2660A00888A0A /* ClashXLaunchHelper.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		495A44D320D267D000888A0A /* LaunchAtLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 495A44D220D267D000888A0A /* LaunchAtLogin.swift */; };
+		4960A6DB2136529200B940C9 /* JSBridgeHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4960A6DA2136529200B940C9 /* JSBridgeHandler.swift */; };
 		4966E9E32118153A00A391FB /* NSUserNotificationCenter+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4966E9E22118153A00A391FB /* NSUserNotificationCenter+Extension.swift */; };
 		4966E9E6211824F300A391FB /* NSImage+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4966E9E5211824F300A391FB /* NSImage+extension.swift */; };
 		496BDEE021196F1E00C5207F /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 496BDEDF21196F1E00C5207F /* Logger.swift */; };
@@ -38,6 +39,7 @@
 		4989F98E20D0AE990001E564 /* sampleConfig.ini in Resources */ = {isa = PBXBuildFile; fileRef = 4989F98D20D0AE990001E564 /* sampleConfig.ini */; };
 		4997732520D251A60009B136 /* SWBApplication.m in Sources */ = {isa = PBXBuildFile; fileRef = 4997732320D251A60009B136 /* SWBApplication.m */; };
 		49B7F9A02157C1DC00484470 /* SpeedTestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49B7F99F2157C1DC00484470 /* SpeedTestViewController.swift */; };
+		499976C821359F0400E7BF83 /* ClashWebViewContoller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499976C721359F0400E7BF83 /* ClashWebViewContoller.swift */; };
 		49BC061C212931F4005A0FE7 /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49BC061B212931F4005A0FE7 /* AboutViewController.swift */; };
 		49CF3B2120CD7463001EBF94 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49CF3B2020CD7463001EBF94 /* AppDelegate.swift */; };
 		49CF3B2520CD7465001EBF94 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 49CF3B2420CD7465001EBF94 /* Assets.xcassets */; };
@@ -116,6 +118,7 @@
 		495A44C720D2660B00888A0A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		495A44C820D2660B00888A0A /* ClashXLaunchHelper.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ClashXLaunchHelper.entitlements; sourceTree = "<group>"; };
 		495A44D220D267D000888A0A /* LaunchAtLogin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchAtLogin.swift; sourceTree = "<group>"; };
+		4960A6DA2136529200B940C9 /* JSBridgeHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSBridgeHandler.swift; sourceTree = "<group>"; };
 		4966E9E22118153A00A391FB /* NSUserNotificationCenter+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSUserNotificationCenter+Extension.swift"; sourceTree = "<group>"; };
 		4966E9E5211824F300A391FB /* NSImage+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSImage+extension.swift"; sourceTree = "<group>"; };
 		496BDEDF21196F1E00C5207F /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
@@ -134,6 +137,7 @@
 		4997732320D251A60009B136 /* SWBApplication.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWBApplication.m; sourceTree = "<group>"; };
 		4997732420D251A60009B136 /* SWBApplication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWBApplication.h; sourceTree = "<group>"; };
 		49B7F99F2157C1DC00484470 /* SpeedTestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeedTestViewController.swift; sourceTree = "<group>"; };
+		499976C721359F0400E7BF83 /* ClashWebViewContoller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClashWebViewContoller.swift; sourceTree = "<group>"; };
 		49BC061B212931F4005A0FE7 /* AboutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
 		49BC061E2129A34D005A0FE7 /* appcast.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = appcast.xml; sourceTree = "<group>"; };
 		49CF3B1D20CD7463001EBF94 /* ClashX.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ClashX.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -192,6 +196,7 @@
 				49CF3B5B20CE8068001EBF94 /* ProxyConfigManager.swift */,
 				49CF3B6420CEE06C001EBF94 /* ConfigManager.swift */,
 				4949D15C2132614B00EF85E6 /* QRCodeUtil.swift */,
+				4960A6DA2136529200B940C9 /* JSBridgeHandler.swift */,
 			);
 			path = General;
 			sourceTree = "<group>";
@@ -262,6 +267,7 @@
 				495340B220DE68C300B0D3FF /* StatusItemView.swift */,
 				49BC061B212931F4005A0FE7 /* AboutViewController.swift */,
 				49B7F99F2157C1DC00484470 /* SpeedTestViewController.swift */,
+				499976C721359F0400E7BF83 /* ClashWebViewContoller.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -424,6 +430,7 @@
 				TargetAttributes = {
 					495A44BB20D2660A00888A0A = {
 						CreatedOnToolsVersion = 9.4.1;
+						LastSwiftMigration = 0940;
 						SystemCapabilities = {
 							com.apple.Sandbox = {
 								enabled = 1;
@@ -538,6 +545,7 @@
 				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
 				"${PODS_ROOT}/Sparkle/Sparkle.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
+				"${BUILT_PRODUCTS_DIR}/WebViewJavascriptBridge/WebViewJavascriptBridge.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
@@ -548,6 +556,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Sparkle.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/WebViewJavascriptBridge.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -605,9 +614,11 @@
 				49722FF0211F338B00650A41 /* EventStream.swift in Sources */,
 				4952C3BF2115C7CA004A4FA8 /* ProxyMenuItemFactory.swift in Sources */,
 				4966E9E32118153A00A391FB /* NSUserNotificationCenter+Extension.swift in Sources */,
+				499976C821359F0400E7BF83 /* ClashWebViewContoller.swift in Sources */,
 				49722FE4211ED56C00650A41 /* parseINI.swift in Sources */,
 				4966E9E6211824F300A391FB /* NSImage+extension.swift in Sources */,
 				4952C3CE2116EA2E004A4FA8 /* ProxyServerModel.swift in Sources */,
+				4960A6DB2136529200B940C9 /* JSBridgeHandler.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -649,6 +660,7 @@
 		495A44CA20D2660B00888A0A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = ClashXLaunchHelper/ClashXLaunchHelper.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -661,6 +673,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.west2online.ClashX.LaunchHelper;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
@@ -668,6 +681,7 @@
 		495A44CB20D2660B00888A0A /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = ClashXLaunchHelper/ClashXLaunchHelper.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
