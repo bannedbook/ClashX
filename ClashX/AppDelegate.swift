@@ -27,6 +27,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     @IBOutlet weak var proxyModeMenuItem: NSMenuItem!
     @IBOutlet weak var showNetSpeedIndicatorMenuItem: NSMenuItem!
+    @IBOutlet weak var dashboardMenuItem: NSMenuItem!
     @IBOutlet weak var separatorLineTop: NSMenuItem!
     @IBOutlet weak var sepatatorLineEndProxySelect: NSMenuItem!
     
@@ -50,6 +51,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             self.syncConfig()
         }
         setupData()
+        setupDashboard()
         startProxy()
         updateLoggingLevel()
     }
@@ -127,6 +129,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             }).disposed(by: disposeBag)
         
   
+    }
+    
+    func setupDashboard() {
+        if (!ClashWebViewContoller.enableDashBoard()) {
+            statusMenu.removeItem(dashboardMenuItem)
+        }
     }
     
     func failLaunchProtect(){

@@ -13,11 +13,16 @@ import RxSwift
 import RxCocoa
 
 class ClashWebViewContoller: NSViewController {
-    let webview: WKWebView = CustomWKWebView(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
+    let webview: WKWebView = CustomWKWebView()
     var bridge:WebViewJavascriptBridge?
     var disposeBag = DisposeBag()
     
     @IBOutlet weak var effectView: NSVisualEffectView!
+    
+    static func enableDashBoard() -> Bool {
+        return UserDefaults.standard.bool(forKey: "kEnableDashboard")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         webview.uiDelegate = self
