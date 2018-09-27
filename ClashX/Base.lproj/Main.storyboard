@@ -363,9 +363,9 @@
                                 <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="Icon" id="Vx1-G4-Xby"/>
                             </imageView>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="prU-ck-7Na">
-                                <rect key="frame" x="200" y="164" width="52" height="18"/>
+                                <rect key="frame" x="199" y="164" width="53" height="18"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="ClashX" id="MzG-sW-3g7">
-                                    <font key="font" metaFont="systemSemibold" size="14"/>
+                                    <font key="font" metaFont="systemBold" size="14"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
@@ -459,11 +459,11 @@
             <objects>
                 <viewController showSeguePresentationStyle="single" id="ZNp-tx-6bv" customClass="ClashWebViewContoller" customModule="ClashX" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="2Hi-rP-ejJ">
-                        <rect key="frame" x="0.0" y="0.0" width="680" height="414"/>
+                        <rect key="frame" x="0.0" y="0.0" width="920" height="580"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <visualEffectView autoresizesSubviews="NO" appearanceType="vibrantLight" blendingMode="behindWindow" material="light" state="followsWindowActiveState" translatesAutoresizingMaskIntoConstraints="NO" id="AjH-Gz-iJd">
-                                <rect key="frame" x="0.0" y="0.0" width="680" height="414"/>
+                                <rect key="frame" x="0.0" y="0.0" width="920" height="580"/>
                             </visualEffectView>
                         </subviews>
                         <constraints>
@@ -479,7 +479,7 @@
                 </viewController>
                 <customObject id="dTN-vP-Bji" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1098" y="-1"/>
+            <point key="canvasLocation" x="1403" y="27"/>
         </scene>
     </scenes>
     <resources>
