@@ -37,5 +37,9 @@
 	<string>SWBApplication</string>
 	<key>SUFeedURL</key>
 	<string>https://github.com/yichengchen/clashX/raw/master/appcast.xml</string>
+	<key>SUAutomaticallyUpdate</key>
+	<true/>
+	<key>SUEnableAutomaticChecks</key>
+	<true/>
 </dict>
 </plist>
