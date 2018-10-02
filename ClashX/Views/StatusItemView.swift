@@ -38,13 +38,25 @@ class StatusItemView: NSView {
     }
     
     func setupView() {
-        UserDefaults.standard
-            .rx.observe(String.self, "AppleInterfaceStyle").bind {
-            value in
-                let darkMode = (value ?? "Light") == "Dark"
+        let darkModeObservable = UserDefaults.standard
+            .rx.observe(String.self, "AppleInterfaceStyle").map { $0 as AnyObject };
+        let proxySetObservable = ConfigManager.shared.proxyPortAutoSetObservable.map { $0 as AnyObject }
+        Observable
+            .of(darkModeObservable,proxySetObservable)
+            .merge()
+            .bind { [weak self] _ in
+                guard let self = self else {return}
+                let darkMode =
+                    UserDefaults.standard.string(forKey: "AppleInterfaceStyle") ?? "Light" == "Dark"
+                let enableProxy = ConfigManager.shared.proxyPortAutoSet;
+                
                 let customImagePath = (NSHomeDirectory() as NSString).appendingPathComponent("/.config/clash/menuImage.png")
+                
+                let selectedColor = darkMode ? NSColor.white : NSColor.black
+                let unselectedColor = NSColor.gray
                 let image = NSImage(contentsOfFile: customImagePath) ??
-                    NSImage(named: "menu_icon")!.tint(color: darkMode ? NSColor.white : NSColor.black)
+                    NSImage(named: "menu_icon")!.tint(color: enableProxy ? selectedColor : unselectedColor)
+                
                 self.imageView.image = image
                 
                 self.uploadSpeedLabel.textColor = darkMode ? NSColor.white : NSColor.black
@@ -52,6 +64,8 @@ class StatusItemView: NSView {
                 self.isDarkMode = darkMode
                 
         }.disposed(by: disposeBag)
+        
+
     }
     
     func updateSpeedLabel(up:Int,down:Int) {
