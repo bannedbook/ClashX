@@ -46,7 +46,11 @@ class StatusItemView: NSView {
                 let image = NSImage(contentsOfFile: customImagePath) ??
                     NSImage(named: "menu_icon")!.tint(color: darkMode ? NSColor.white : NSColor.black)
                 self.imageView.image = image
+                
+                self.uploadSpeedLabel.textColor = darkMode ? NSColor.white : NSColor.black
+                self.downloadSpeedLabel.textColor = self.uploadSpeedLabel.textColor
                 self.isDarkMode = darkMode
+                
         }.disposed(by: disposeBag)
     }
     
