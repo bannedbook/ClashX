@@ -38,7 +38,7 @@ class SpeedTestViewController: NSViewController {
         
         for columns in self.tableView.tableColumns {
             let sortKey:String
-            if columns.identifier.rawValue == "ProxyNameCell" {
+            if columns.identifier.rawValue == "proxies" {
                 sortKey = "name"
             } else {
                 sortKey = "delay"
