@@ -18,8 +18,10 @@
                 <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="ClashX" customModuleProvider="target">
                     <connections>
                         <outlet property="allowFromLanMenuItem" destination="Vz8-7n-vx6" id="Fzz-EG-huC"/>
+                        <outlet property="apiPortMenuItem" destination="hwG-qf-DeZ" id="d6K-i7-yCo"/>
                         <outlet property="autoStartMenuItem" destination="B1J-XB-BiZ" id="xaS-h5-qd0"/>
                         <outlet property="dashboardMenuItem" destination="XG6-2M-PNi" id="hzn-77-3Uc"/>
+                        <outlet property="httpPortMenuItem" destination="WNw-8Y-VFw" id="ldW-Gw-Q9L"/>
                         <outlet property="logLevelMenuItem" destination="3Da-fL-Mzr" id="ZCW-Il-fOZ"/>
                         <outlet property="proxyModeDirectMenuItem" destination="Np6-Pm-Lo3" id="DER-K7-DNW"/>
                         <outlet property="proxyModeGlobalMenuItem" destination="yiM-U4-MNg" id="M7s-kl-aPh"/>
@@ -29,6 +31,7 @@
                         <outlet property="separatorLineTop" destination="1fM-p6-bHd" id="NFb-qS-TKR"/>
                         <outlet property="sepatatorLineEndProxySelect" destination="n67-fU-hLx" id="Vgv-N6-SOH"/>
                         <outlet property="showNetSpeedIndicatorMenuItem" destination="YIO-Vj-64f" id="9a5-3N-Ylk"/>
+                        <outlet property="socksPortMenuItem" destination="Uy1-g8-r6Q" id="NiI-Gy-9Sa"/>
                         <outlet property="statusMenu" destination="Afa-lD-EbR" id="cov-E9-WrO"/>
                     </connections>
                 </customObject>
@@ -74,6 +77,7 @@
                                 <segue destination="gtD-dn-7Dy" kind="show" id="opl-HQ-q26"/>
                             </connections>
                         </menuItem>
+                        <menuItem isSeparatorItem="YES" id="nXl-3B-Q18"/>
                         <menuItem title="Start at login" id="B1J-XB-BiZ">
                             <modifierMask key="keyEquivalentModifierMask"/>
                             <connections>
@@ -197,6 +201,22 @@
                                         <connections>
                                             <action selector="actionShowLog:" target="Voe-Tx-rLC" id="riD-KO-PNs"/>
                                         </connections>
+                                    </menuItem>
+                                    <menuItem title="Ports" id="9i0-LH-x04">
+                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                        <menu key="submenu" title="Ports" id="Ng4-Ia-KSz">
+                                            <items>
+                                                <menuItem title="http port:" id="WNw-8Y-VFw">
+                                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                                </menuItem>
+                                                <menuItem title="socks port:" id="Uy1-g8-r6Q">
+                                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                                </menuItem>
+                                                <menuItem title="api port:" id="hwG-qf-DeZ">
+                                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                                </menuItem>
+                                            </items>
+                                        </menu>
                                     </menuItem>
                                 </items>
                             </menu>

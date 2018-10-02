@@ -32,6 +32,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     @IBOutlet weak var sepatatorLineEndProxySelect: NSMenuItem!
     
     @IBOutlet weak var logLevelMenuItem: NSMenuItem!
+    @IBOutlet weak var httpPortMenuItem: NSMenuItem!
+    @IBOutlet weak var socksPortMenuItem: NSMenuItem!
+    @IBOutlet weak var apiPortMenuItem: NSMenuItem!
     
     var disposeBag = DisposeBag()
     let ssQueue = DispatchQueue(label: "com.w2fzu.ssqueue", attributes: .concurrent)
@@ -118,6 +121,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 if (old?.port != config?.port && ConfigManager.shared.proxyPortAutoSet) {
                     _ = ProxyConfigManager.setUpSystemProxy(port: config!.port,socksPort: config!.socketPort)
                 }
+                
+                self.httpPortMenuItem.title  = "Http Port:\(config?.port ?? 0)"
+                self.socksPortMenuItem.title = "Socks Port:\(config?.socketPort ?? 0)"
+                self.apiPortMenuItem.title = "Api Port:\(ConfigManager.shared.apiPort)"
 
         }.disposed(by: disposeBag)
         
