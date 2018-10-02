@@ -13,8 +13,12 @@ import RxSwift
 class ConfigManager {
     
     static let shared = ConfigManager()
+    private let disposeBag = DisposeBag()
     var apiPort = "8080"
-    private init(){refreshApiPort()}
+    private init(){
+        refreshApiPort()
+        setupNetworkNotifier()
+    }
     
     var currentConfig:ClashConfig?{
         get {
@@ -106,6 +110,25 @@ class ConfigManager {
         } else {
             apiPort = "7892"
         }
+    }
+    
+    func setupNetworkNotifier() {
+        NetworkChangeNotifier.start()
+        NotificationCenter
+            .default
+            .rx
+            .notification(kSystemNetworkStatusDidChange)
+            .subscribeOn(MainScheduler.instance)
+            .bind{ _ in
+            let (http,https,socks) = NetworkChangeNotifier.currentSystemProxySetting()
+            let proxySetted =
+                http == (self.currentConfig?.port ?? 0) &&
+                https == (self.currentConfig?.port ?? 0) &&
+                socks == (self.currentConfig?.socketPort ?? 0)
+            if (self.proxyPortAutoSet && !proxySetted) {
+                self.proxyPortAutoSet = proxySetted
+            }
+        }.disposed(by: disposeBag)
     }
     
 
