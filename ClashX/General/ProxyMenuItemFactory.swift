@@ -55,7 +55,7 @@ class ProxyMenuItemFactory {
             var speedText = ""
             let placeHolder = "\t"
             if let speedInfo = SpeedDataRecorder.shared.speedDict[proxy.stringValue] {
-                speedText = speedInfo > 0 ?"\(placeHolder)\(speedInfo) ms" : "\(placeHolder)fail"
+                speedText = speedInfo < Int.max ?"\(placeHolder)\(speedInfo) ms" : "\(placeHolder)fail"
             }
             
             let proxyItem = ProxyMenuItem(title: proxy.stringValue + speedText, action: #selector(ProxyMenuItemFactory.actionSelectProxy(sender:)), keyEquivalent: "")

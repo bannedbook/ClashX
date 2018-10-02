@@ -99,7 +99,7 @@ extension SpeedTestViewController:NSTableViewDataSource {
 
         if (model.delay == -2) {
             textField.stringValue = "testing"
-        } else if (model.delay == -1) {
+        } else if (model.delay == Int.max) {
             textField.stringValue = "fail"
         } else {
             textField.stringValue = "\(model.delay)"

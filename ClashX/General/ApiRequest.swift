@@ -168,7 +168,7 @@ class ApiRequest{
             , method: .get
             , parameters: ["timeout":5000,"url":"http://www.gstatic.com/generate_204"])
             .responseJSON { (res) in let json = JSON(res.result.value ?? [])
-                callback(json["delay"].int ?? -1)
+                callback(json["delay"].int ?? Int.max)
         }
     }
 }
