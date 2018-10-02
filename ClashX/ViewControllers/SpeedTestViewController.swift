@@ -60,6 +60,7 @@ class SpeedTestViewController: NSViewController {
         for proxy in proxies {
             ApiRequest.getProxyDelay(proxyName: proxy.name) {[weak self] (delay) in
                 guard let strongSelf = self else {return}
+                SpeedDataRecorder.shared.speedDict[proxy.name] = delay;
                 proxy.delay = delay
                 strongSelf.tableView.reloadData()
             }

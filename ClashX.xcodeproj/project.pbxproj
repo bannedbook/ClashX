@@ -11,6 +11,7 @@
 		4913C82321157D0200F6B87C /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4913C82221157D0200F6B87C /* Notification.swift */; };
 		492C4869210EE6B9004554A0 /* ApiRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 492C4868210EE6B9004554A0 /* ApiRequest.swift */; };
 		492C4871210EF62E004554A0 /* ClashConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 492C4870210EF62E004554A0 /* ClashConfig.swift */; };
+		4931969B21631E5E00A8E6E7 /* SpeedDataRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4931969A21631E5D00A8E6E7 /* SpeedDataRecorder.swift */; };
 		4949D154213242F600EF85E6 /* Paths.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4949D153213242F600EF85E6 /* Paths.swift */; };
 		4949D15D2132614B00EF85E6 /* QRCodeUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4949D15C2132614B00EF85E6 /* QRCodeUtil.swift */; };
 		4952C3BF2115C7CA004A4FA8 /* ProxyMenuItemFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4952C3BE2115C7CA004A4FA8 /* ProxyMenuItemFactory.swift */; };
@@ -104,6 +105,7 @@
 		4913C82221157D0200F6B87C /* Notification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notification.swift; sourceTree = "<group>"; };
 		492C4868210EE6B9004554A0 /* ApiRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiRequest.swift; sourceTree = "<group>"; };
 		492C4870210EF62E004554A0 /* ClashConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClashConfig.swift; sourceTree = "<group>"; };
+		4931969A21631E5D00A8E6E7 /* SpeedDataRecorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeedDataRecorder.swift; sourceTree = "<group>"; };
 		4949D153213242F600EF85E6 /* Paths.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Paths.swift; sourceTree = "<group>"; };
 		4949D15C2132614B00EF85E6 /* QRCodeUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeUtil.swift; sourceTree = "<group>"; };
 		4952C3BE2115C7CA004A4FA8 /* ProxyMenuItemFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProxyMenuItemFactory.swift; sourceTree = "<group>"; };
@@ -197,6 +199,7 @@
 				49CF3B6420CEE06C001EBF94 /* ConfigManager.swift */,
 				4949D15C2132614B00EF85E6 /* QRCodeUtil.swift */,
 				4960A6DA2136529200B940C9 /* JSBridgeHandler.swift */,
+				4931969A21631E5D00A8E6E7 /* SpeedDataRecorder.swift */,
 			);
 			path = General;
 			sourceTree = "<group>";
@@ -208,6 +211,15 @@
 				4952C3CD2116EA2E004A4FA8 /* ProxyServerModel.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		4931969C21631F2E00A8E6E7 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				495340AF20DE5F7200B0D3FF /* StatusItemView.xib */,
+				495340B220DE68C300B0D3FF /* StatusItemView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		4949D157213260BD00EF85E6 /* Products */ = {
@@ -263,8 +275,6 @@
 			children = (
 				4952C3C82116E952004A4FA8 /* PreferencesWindowController.swift */,
 				4952C3CA2116E952004A4FA8 /* PreferencesWindowController.xib */,
-				495340AF20DE5F7200B0D3FF /* StatusItemView.xib */,
-				495340B220DE68C300B0D3FF /* StatusItemView.swift */,
 				49BC061B212931F4005A0FE7 /* AboutViewController.swift */,
 				49B7F99F2157C1DC00484470 /* SpeedTestViewController.swift */,
 				499976C721359F0400E7BF83 /* ClashWebViewContoller.swift */,
@@ -313,6 +323,7 @@
 				4997732220D251A60009B136 /* Basic */,
 				492C486E210EF621004554A0 /* Models */,
 				492C4866210EE69B004554A0 /* General */,
+				4931969C21631F2E00A8E6E7 /* Views */,
 				4989F98520D0AA300001E564 /* ViewControllers */,
 				49CF3B5D20CE80D2001EBF94 /* script */,
 				49CF3B4B20CE5232001EBF94 /* ProxyConfig.xcodeproj */,
@@ -614,6 +625,7 @@
 				49722FF0211F338B00650A41 /* EventStream.swift in Sources */,
 				4952C3BF2115C7CA004A4FA8 /* ProxyMenuItemFactory.swift in Sources */,
 				4966E9E32118153A00A391FB /* NSUserNotificationCenter+Extension.swift in Sources */,
+				4931969B21631E5E00A8E6E7 /* SpeedDataRecorder.swift in Sources */,
 				499976C821359F0400E7BF83 /* ClashWebViewContoller.swift in Sources */,
 				49722FE4211ED56C00650A41 /* parseINI.swift in Sources */,
 				4966E9E6211824F300A391FB /* NSImage+extension.swift in Sources */,
