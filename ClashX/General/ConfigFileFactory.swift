@@ -211,7 +211,7 @@ class ConfigFileFactory {
     static func showReplacingConfigFileAlert() -> Bool{
         let alert = NSAlert()
         alert.messageText = """
-        Can't Reconglized your config file. We will backup and replace your config file in your config folder.
+        Can't recognize your config file. We will backup and replace your config file in your config folder.
         
         Otherwise the functions of ClashX will not work properly. You may need to restart ClashX or reload Config manually.
         """
