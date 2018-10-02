@@ -272,7 +272,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         let pasteboard = NSPasteboard.general
         pasteboard.clearContents()
         let port = ConfigManager.shared.currentConfig?.port ?? 0
-        pasteboard.setString("export https_proxy=http://127.0.0.1:\(port);export http_proxy=http://127.0.0.1:\(port)", forType: .string)
+        let socksport = ConfigManager.shared.currentConfig?.socketPort ?? 0
+        pasteboard.setString("export https_proxy=http://127.0.0.1:\(port);export http_proxy=http://127.0.0.1:\(port);export all_proxy=socks5://127.0.0.1:\(socksport)", forType: .string)        
     }
     
     @IBAction func actionSpeedTest(_ sender: Any) {
