@@ -418,7 +418,6 @@
 				49CF3B1B20CD7463001EBF94 /* Resources */,
 				495A44CC20D266B000888A0A /* CopyFiles */,
 				A741C26F5755233F0D7CEC6F /* [CP] Embed Pods Frameworks */,
-				D3688B5A70792067918E9514 /* [CP] Copy Pods Resources */,
 				663E4677213FCDC4006F11BB /* CopyFiles */,
 			);
 			buildRules = (
@@ -560,6 +559,7 @@
 				"${PODS_ROOT}/Sparkle/Sparkle.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
 				"${BUILT_PRODUCTS_DIR}/WebViewJavascriptBridge/WebViewJavascriptBridge.framework",
+				"${BUILT_PRODUCTS_DIR}/Yams/Yams.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
@@ -571,25 +571,11 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Sparkle.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/WebViewJavascriptBridge.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Yams.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ClashX/Pods-ClashX-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		D3688B5A70792067918E9514 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ClashX/Pods-ClashX-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
