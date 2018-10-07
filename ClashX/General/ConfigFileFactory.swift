@@ -8,6 +8,7 @@
 import Foundation
 import AppKit
 import SwiftyJSON
+import Yams
 
 class ConfigFileFactory {
     static let shared = ConfigFileFactory()
@@ -165,49 +166,153 @@ class ConfigFileFactory {
     }
     
     static func addProxyToConfig(proxy:ProxyServerModel) {
-        let targetStr = self.proxyConfigStr(proxy: proxy)
-        guard let ini = parseConfig(kConfigFilePath),
-            let currentProxys = ini["Proxy"],
-            let proxyGroup = ini["Proxy Group"]
-        else {
-            self.saveToClashConfigFile(str: self.configFile(proxies: [proxy]))
-            NotificationCenter.default.post(Notification(name: kShouldUpDateConfig))
-            return
-        }
-        
-        if currentProxys.keys.contains(proxy.remark) {
-            NSUserNotificationCenter.default.postProxyRemarkDupNotice(name: proxy.remark)
-            return
-        }
-        
-        if self.shared.witness != nil {
-            // not watch config file change now.
-            self.shared.witness = nil
-            defer {
-                self.shared.watchConfigFile()
-            }
-        }
-        
-        let configData = NSData(contentsOfFile: kConfigFilePath)
-        var configStr = String(data: configData! as Data, encoding: .utf8)!
-        let spilts = configStr.components(separatedBy: "[Proxy Group]")
-        configStr = spilts[0] + targetStr + "[Proxy Group]\n" + spilts[1]
-        
-        if let selectGroup = proxyGroup["Proxy"] {
-            let newSelectGroup = "\(selectGroup),\(proxy.remark)"
-            configStr = configStr.replacingOccurrences(of: selectGroup, with: newSelectGroup)
-        }
-        
-        if let autoGroup = proxyGroup["ProxyAuto"] {
-            let autoGroupProxys = autoGroup.components(separatedBy: ",").dropLast(2).joined(separator:",")
-            let newAutoGroupProxys = "\(autoGroupProxys),\(proxy.remark)"
-            configStr = configStr.replacingOccurrences(of: autoGroupProxys, with: newAutoGroupProxys)
-        }
-        
-        self.saveToClashConfigFile(str: configStr)
-        NotificationCenter.default.post(Notification(name: kShouldUpDateConfig))
+//        let targetStr = self.proxyConfigStr(proxy: proxy)
+//        guard let ini = parseConfig(kConfigFilePath),
+//            let currentProxys = ini["Proxy"],
+//            let proxyGroup = ini["Proxy Group"]
+//        else {
+//            self.saveToClashConfigFile(str: self.configFile(proxies: [proxy]))
+//            NotificationCenter.default.post(Notification(name: kShouldUpDateConfig))
+//            return
+//        }
+//
+//        if currentProxys.keys.contains(proxy.remark) {
+//            NSUserNotificationCenter.default.postProxyRemarkDupNotice(name: proxy.remark)
+//            return
+//        }
+//
+//        if self.shared.witness != nil {
+//            // not watch config file change now.
+//            self.shared.witness = nil
+//            defer {
+//                self.shared.watchConfigFile()
+//            }
+//        }
+//
+//        let configData = NSData(contentsOfFile: kConfigFilePath)
+//        var configStr = String(data: configData! as Data, encoding: .utf8)!
+//        let spilts = configStr.components(separatedBy: "[Proxy Group]")
+//        configStr = spilts[0] + targetStr + "[Proxy Group]\n" + spilts[1]
+//
+//        if let selectGroup = proxyGroup["Proxy"] {
+//            let newSelectGroup = "\(selectGroup),\(proxy.remark)"
+//            configStr = configStr.replacingOccurrences(of: selectGroup, with: newSelectGroup)
+//        }
+//
+//        if let autoGroup = proxyGroup["ProxyAuto"] {
+//            let autoGroupProxys = autoGroup.components(separatedBy: ",").dropLast(2).joined(separator:",")
+//            let newAutoGroupProxys = "\(autoGroupProxys),\(proxy.remark)"
+//            configStr = configStr.replacingOccurrences(of: autoGroupProxys, with: newAutoGroupProxys)
+//        }
+//
+//        self.saveToClashConfigFile(str: configStr)
+//        NotificationCenter.default.post(Notification(name: kShouldUpDateConfig))
     }
-    
+}
+
+
+extension ConfigFileFactory {
+    static func upgradeIni() {
+        
+        func parseOptions(options:[String]) -> [String:String] {
+            var mapping = [String:String]()
+            for option in options {
+                let pairs = option.split(separator: "=",maxSplits: 2)
+                guard pairs.count == 2 else {continue}
+                mapping[String(pairs[0]).trimed()] = String(pairs[1]).trimed()
+            }
+            return mapping
+        }
+        
+        guard let ini = parseConfig("\(NSHomeDirectory())/.config/clash/config.ini") else {
+            return
+        }
+        var newConfig = [String:Any]()
+
+        newConfig.merge(ini["General"]?.dict as [String : Any]? ?? [:]) { $1 }
+        
+        var newProxies = [Any]()
+
+        for (proxy,elemsStr) in ini["Proxy"]?.dict ?? [:] {
+            
+            let elems = elemsStr.split(separator: ",").map { (substring) -> String in
+                return String(substring).trimed()
+            }
+            
+            if elems.count < 3 {continue}
+
+            let proxyName = proxy
+            let proxyType = elems[0]
+            let proxyAddr = elems[1]
+            guard let proxyPort = Int(elems[2]) else {continue}
+            var newProxy = ["name":proxyName,"server":proxyAddr,"port":proxyPort] as [String : Any]
+
+            switch proxyType {
+            case "ss":
+                if elems.count < 5 {continue}
+                let otherOptions = parseOptions(options:Array(elems[5..<elems.count]))
+                print(otherOptions)
+                newProxy["cipher"] = elems[3]
+                newProxy["password"] = elems[4]
+                newProxy.merge(otherOptions) { $1 }
+                
+            case "vmss":
+                if elems.count < 6 {continue}
+                newProxy["uuid"] = elems[3]
+                guard let alertId = Int(elems[4]) else {continue}
+                newProxy["alterId"] = alertId
+                newProxy["cipher"] = elems[5]
+                let otherOptions = parseOptions(options: Array(elems[6..<elems.count]))
+                newProxy.merge(otherOptions) { $1 }
+            case "socks":
+            if elems.count < 3 {continue}
+
+            default:
+                continue
+                
+            }
+            newProxies.append(newProxy)
+
+        }
+        
+        var newProxyGroup = [Any]()
+        for (group,groupStr) in ini["Proxy Group"]?.dict ?? [:] {
+            var elems = groupStr.split(separator: ",").map { (substring) -> String in
+                return String(substring).trimed()
+            }
+            if elems.count<2 {continue}
+            let groupType = String(elems[0])
+            var proxyGroup = ["name":group,"type":groupType] as [String:Any]
+
+            switch groupType {
+            case "select":
+                let proxyNames = Array(elems.dropFirst())
+                proxyGroup["proxies"] = proxyNames
+            case "url-test","fallback":
+                proxyGroup["proxies"] = Array(elems.dropLast(2))
+                proxyGroup["url"] = elems[elems.count-2]
+                guard let delay = Int(elems[elems.count-1]) else {continue}
+                proxyGroup["delay"] = delay
+            default:
+                continue
+            }
+            
+            newProxyGroup.append(proxyGroup)
+        }
+        
+        
+        newConfig["Proxy"] = newProxies
+        newConfig["Proxy Group"] = newProxyGroup
+        newConfig["Rule"] = (ini["Rule"]?.array ?? [])
+//        let order = ["General","Proxy","Proxy","Rule"]
+        let yaml = try! Yams.dump(object: newConfig,allowUnicode:true)
+        try? yaml.write(toFile: kConfigFolderPath+"clash.yml", atomically: true, encoding: .utf8)
+        print(yaml)
+    }
+}
+
+
+extension ConfigFileFactory {
     static func showReplacingConfigFileAlert() -> Bool{
         let alert = NSAlert()
         alert.messageText = """
@@ -220,4 +325,5 @@ class ConfigFileFactory {
         alert.addButton(withTitle: "Cancel")
         return alert.runModal() == .alertFirstButtonReturn
     }
+    
 }

@@ -95,21 +95,21 @@ class ConfigManager {
     }
     
     func refreshApiPort(){
-        if let ini =
-            parseConfig("\(NSHomeDirectory())/.config/clash/config.ini"),
-            let controller = ini["General"]?["external-controller"]{
-            if controller.contains(":") {
-                if let port = controller.split(separator: ":").last {
-                    apiPort = String(port)
-                    return;
-                }
-            }
-        }
-        if (ConfigFileFactory.copySimpleConfigFile()) {
-            refreshApiPort()
-        } else {
+//        if let ini =
+//            parseConfig("\(NSHomeDirectory())/.config/clash/config.ini"),
+//            let controller = ini["General"]?["external-controller"]{
+//            if controller.contains(":") {
+//                if let port = controller.split(separator: ":").last {
+//                    apiPort = String(port)
+//                    return;
+//                }
+//            }
+//        }
+//        if (ConfigFileFactory.copySimpleConfigFile()) {
+//            refreshApiPort()
+//        } else {
             apiPort = "7892"
-        }
+//        }
     }
     
     func setupNetworkNotifier() {

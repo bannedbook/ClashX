@@ -1,14 +1,13 @@
 import Foundation
 
+class SectionConfig {
+    var dict = [String: String]()
+    var array = [String]()
+}
 
-typealias SectionConfig = [String: String]
 typealias Config = [String: SectionConfig]
 
 
-func trim(_ s: String) -> String {
-    let whitespaces = CharacterSet(charactersIn: " \n\r\t")
-    return s.trimmingCharacters(in: whitespaces)
-}
 
 
 func stripComment(_ line: String) -> String {
@@ -33,8 +32,8 @@ func parseSectionHeader(_ line: String) -> String {
 func parseLine(_ line: String) -> (String, String)? {
     let parts = stripComment(line).split(separator: "=", maxSplits: 1)
     if parts.count == 2 {
-        let k = trim(String(parts[0]))
-        let v = trim(String(parts[1]))
+        let k = String(parts[0]).trimed()
+        let v = String(parts[1]).trimed()
         return (k, v)
     }
     return nil
@@ -46,13 +45,18 @@ func parseConfig(_ filename : String) -> Config? {
     var config = Config()
     var currentSectionName = "main"
     for line in f.components(separatedBy: "\n") {
-        let line = trim(line)
+        let line = line.trimed()
         if line.hasPrefix("[") && line.hasSuffix("]") {
             currentSectionName = parseSectionHeader(line)
+            if (config[currentSectionName] == nil) {config[currentSectionName] = SectionConfig()}
         } else if let (k, v) = parseLine(line) {
-            var section = config[currentSectionName] ?? [:]
-            section[k] = v
-            config[currentSectionName] = section
+            config[currentSectionName]?.dict[k] = v
+        } else if line.hasPrefix("//") || line.hasPrefix("#") || line.count < 1 {
+            continue
+        } else {
+            if (line.split(separator: ",").count > 2) {
+                config[currentSectionName]?.array.append(line)
+            }
         }
     }
     return config
