@@ -47,6 +47,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         failLaunchProtect()
         _ = ProxyConfigManager.install()
         PFMoveToApplicationsFolderIfNecessary()
+        
         statusItemView = StatusItemView.create(statusItem: nil,statusMenu: statusMenu)
         statusItemView.onPopUpMenuAction = {
             [weak self] in
@@ -118,7 +119,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 case .rule:self.proxyModeRuleMenuItem.state = .on
                 }
                 self.allowFromLanMenuItem.state = config!.allowLan ? .on : .off
-                self.proxyModeMenuItem.title = "Proxy Mode (\(config!.mode.rawValue))"
+                self.proxyModeMenuItem.title = "\("Proxy Mode".localized()) (\(config!.mode.rawValue.localized()))"
                 
                 self.updateProxyList()
                 
