@@ -125,12 +125,7 @@ class ConfigManager {
                 http == (self.currentConfig?.port ?? 0) &&
                 https == (self.currentConfig?.port ?? 0) &&
                 socks == (self.currentConfig?.socketPort ?? 0)
-            if (self.proxyPortAutoSet && !proxySetted) {
-                self.proxyPortAutoSet = proxySetted
-            }
+            self.proxyPortAutoSet = proxySetted
         }.disposed(by: disposeBag)
     }
-    
-
-    
 }
