@@ -58,6 +58,16 @@ class JsBridgeHelper {
             responseCallback?(str ?? "")
         }
         
+        bridge.registerHandler("getStartAtLogin") { (_, responseCallback) in
+            responseCallback?(LaunchAtLogin.shared.isEnabled)
+        }
+        
+        bridge.registerHandler("setStartAtLogin") { (anydata, responseCallback) in
+            if let enable = anydata as? Bool {
+                LaunchAtLogin.shared.isEnabled = enable
+            }
+        }
+        
         
         // ping-pong
         bridge.registerHandler("ping"){ (anydata, responseCallback) in
