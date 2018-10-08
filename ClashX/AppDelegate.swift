@@ -83,7 +83,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             .showNetSpeedIndicatorObservable
             .bind {[unowned self] (show) in
                 self.showNetSpeedIndicatorMenuItem.state = (show ?? true) ? .on : .off
-                self.statusItem = NSStatusBar.system.statusItem(withLength: (show ?? true) ? 65 : 25)
+                let statusItemLength:CGFloat = (show ?? true) ? 65 : 25
+                if (self.statusItem == nil) {
+                    self.statusItem = NSStatusBar.system.statusItem(withLength: statusItemLength)
+                }
+                self.statusItem.length = statusItemLength
                 self.statusItem.view = self.statusItemView
                 self.statusItemView.showSpeedContainer(show: (show ?? true))
                 self.statusItemView.statusItem = self.statusItem
@@ -389,7 +393,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     @IBAction func actionShowNetSpeedIndicator(_ sender: NSMenuItem) {
-        ConfigManager.shared.showNetSpeedIndicator = !ConfigManager.shared.showNetSpeedIndicator
+        ConfigManager.shared.showNetSpeedIndicator = !(sender.state == .on)
     }
     
     @IBAction func actionShowLog(_ sender: Any) {
