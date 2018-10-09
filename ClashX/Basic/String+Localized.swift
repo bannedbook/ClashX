@@ -8,6 +8,8 @@
 
 import Foundation
 
+// to use english as showing language
+// defaults write com.west2online.ClashX AppleLanguages '("en-US")'
 extension String {
     func localized(bundle: Bundle = .main, tableName: String = "Localizable") -> String {
         return NSLocalizedString(self, tableName: tableName, value: "\(self)", comment: "")

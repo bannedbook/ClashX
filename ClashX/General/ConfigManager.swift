@@ -118,6 +118,7 @@ class ConfigManager {
             .default
             .rx
             .notification(kSystemNetworkStatusDidChange)
+            .debounce(2, scheduler: MainScheduler.instance)
             .subscribeOn(MainScheduler.instance)
             .bind{ _ in
             let (http,https,socks) = NetworkChangeNotifier.currentSystemProxySetting()
