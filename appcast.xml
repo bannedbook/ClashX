@@ -6,9 +6,14 @@
     <description>Most recent changes with links to updates.</description>
     <language>cn</language>
       <item>
-        <title>1.5.4</title>
+        <title>1.5.5</title>
         <description>
           <![CDATA[
+        <ul>
+              <li>1.5.5</li>
+              <li>bug fixs</li>
+              <li>add Chinese support at status bar</li>
+         </ul>
           <ul>
               <li>1.5.4</li>
               <li>Add Fallback group</li>
@@ -111,7 +116,7 @@
           ]]>
         </description>
         <pubDate>Sun, 26 Aug 2018 15:20:11 +0000</pubDate>
-        <enclosure url="https://github.com/yichengchen/clashX/releases/download/1.5.4/ClashX.dmg" sparkle:version="1.5.4" type="application/octet-stream"/>
+        <enclosure url="https://github.com/yichengchen/clashX/releases/download/1.5.5/ClashX.dmg" sparkle:version="1.5.5" type="application/octet-stream"/>
       </item>
   </channel>
 </rss>
