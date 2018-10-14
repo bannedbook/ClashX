@@ -43,10 +43,15 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     var isRunning = false
     func applicationDidFinishLaunching(_ notification: Notification) {
         signal(SIGPIPE, SIG_IGN)
-        failLaunchProtect()
-        _ = ProxyConfigManager.install()
-        PFMoveToApplicationsFolderIfNecessary()
         
+        failLaunchProtect()
+        
+        _ = ProxyConfigManager.install()
+        ConfigFileFactory.upgardeIniIfNeed()
+        ConfigFileFactory.copySampleConfigIfNeed()
+        
+        PFMoveToApplicationsFolderIfNecessary()
+
         statusItemView = StatusItemView.create(statusItem: nil,statusMenu: statusMenu)
         statusItemView.onPopUpMenuAction = {
             [weak self] in
@@ -159,7 +164,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             //发生连续崩溃
             ConfigFileFactory.backupAndRemoveConfigFile()
             try? FileManager.default.removeItem(atPath: kConfigFolderPath + "Country.mmdb")
-            NSUserNotificationCenter.default.post(title: "Fail on launch protect", info: "You origin Config has been rename to config.ini.bak")
+            NSUserNotificationCenter.default.post(title: "Fail on launch protect", info: "You origin Config has been renamed")
         }
         DispatchQueue.global().asyncAfter(deadline: DispatchTime.now() + Double(Int64(1 * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC), execute: {
             x.set(0, forKey: "launch_fail_times")
@@ -300,23 +305,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         LaunchAtLogin.shared.isEnabled = !LaunchAtLogin.shared.isEnabled
     }
     
-    var genConfigWindow:NSWindowController?=nil
-    @IBAction func actionGenConfig(_ sender: Any) {
-        let ctrl = PreferencesWindowController(windowNibName: "PreferencesWindowController")
-        
-        
-        genConfigWindow?.close()
-        genConfigWindow=ctrl
-        ctrl.window?.title = ctrl.contentViewController?.title ?? ""
-        ctrl.showWindow(nil)
-        NSApp.activate(ignoringOtherApps: true)
-        ctrl.window?.makeKeyAndOrderFront(self)
-
-    }
     
     @IBAction func openConfigFolder(_ sender: Any) {
-        let path = (NSHomeDirectory() as NSString).appendingPathComponent("/.config/clash")
-        NSWorkspace.shared.openFile(path)
+        NSWorkspace.shared.openFile(kConfigFolderPath)
     }
     
     @IBAction func actionUpdateConfig(_ sender: Any) {

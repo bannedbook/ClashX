@@ -38,18 +38,17 @@ class ConfigFileFactory {
         // save to ~/.config/clash/config.yml
         _ = self.backupAndRemoveConfigFile(showAlert: false)
         let yaml = try! Yams.dump(object: config,allowUnicode:true)
-        try? yaml.write(toFile: kConfigFolderPath+"clash.yml", atomically: true, encoding: .utf8)
+        try? yaml.write(toFile: kConfigFilePath, atomically: true, encoding: .utf8)
     }
     
     @discardableResult
     static func backupAndRemoveConfigFile(showAlert:Bool = false) -> Bool {
         let path = kConfigFilePath
-        if (showAlert) {
-            if (!self.showReplacingConfigFileAlert()) {
-                return false;
-            }
-        }
+        
         if (FileManager.default.fileExists(atPath: path)) {
+            if (showAlert) {
+                if !self.showReplacingConfigFileAlert() {return false}
+            }
             let newPath = "\(kConfigFolderPath)config_\(Date().timeIntervalSince1970).yml"
             try? FileManager.default.moveItem(atPath: path, toPath: newPath)
         }
@@ -58,7 +57,7 @@ class ConfigFileFactory {
     
     static func copySampleConfigIfNeed() {
         if !FileManager.default.fileExists(atPath: kConfigFilePath) {
-            replaceConfigWithSampleConfig()
+            _ = replaceConfigWithSampleConfig()
         }
     }
     
@@ -151,8 +150,8 @@ extension ConfigFileFactory {
         let iniPath = kConfigFolderPath + "config.ini"
         guard FileManager.default.fileExists(atPath: iniPath) else {return}
         upgradeIni()
-        let targetPath = kConfigFolderPath + "config\(Date().timeIntervalSince1970).bak"
-        try? FileManager.default.moveItem(atPath: iniPath, toPath: targetPath)
+//        let targetPath = kConfigFolderPath + "config\(Date().timeIntervalSince1970).bak"
+//        try? FileManager.default.moveItem(atPath: iniPath, toPath: targetPath)
         
     }
     
@@ -168,7 +167,7 @@ extension ConfigFileFactory {
             return mapping
         }
         
-        guard let ini = parseConfig("\(NSHomeDirectory())/.config/clash/config.ini") else {
+        guard let ini = parseConfig("\(kConfigFolderPath)config.ini") else {
             return
         }
         var newConfig = [String:Any]()
@@ -189,7 +188,10 @@ extension ConfigFileFactory {
             let proxyType = elems[0]
             let proxyAddr = elems[1]
             guard let proxyPort = Int(elems[2]) else {continue}
-            var newProxy = ["name":proxyName,"server":proxyAddr,"port":proxyPort] as [String : Any]
+            var newProxy:[String : Any] = ["name":proxyName,
+                                           "server":proxyAddr,
+                                           "port":proxyPort,
+                                           "type":proxyType]
 
             switch proxyType {
             case "ss":
@@ -200,7 +202,7 @@ extension ConfigFileFactory {
                 newProxy["password"] = elems[4]
                 newProxy.merge(otherOptions) { $1 }
                 
-            case "vmss":
+            case "vmess":
                 if elems.count < 6 {continue}
                 newProxy["uuid"] = elems[3]
                 guard let alertId = Int(elems[4]) else {continue}
@@ -220,7 +222,7 @@ extension ConfigFileFactory {
         }
         
         var newProxyGroup = [Any]()
-        for (group,groupStr) in ini["Proxy Group"]?.dict ?? [:] {
+        for (group,groupStr) in ini["Proxy Group"]?.dictArray ?? [] {
             var elems = groupStr.split(separator: ",").map { (substring) -> String in
                 return String(substring).trimed()
             }
@@ -233,10 +235,10 @@ extension ConfigFileFactory {
                 let proxyNames = Array(elems.dropFirst())
                 proxyGroup["proxies"] = proxyNames
             case "url-test","fallback":
-                proxyGroup["proxies"] = Array(elems.dropLast(2))
+                proxyGroup["proxies"] = Array(elems.dropLast(2).dropFirst())
                 proxyGroup["url"] = elems[elems.count-2]
                 guard let delay = Int(elems[elems.count-1]) else {continue}
-                proxyGroup["delay"] = delay
+                proxyGroup["interval"] = delay
             default:
                 continue
             }
@@ -248,7 +250,7 @@ extension ConfigFileFactory {
         newConfig["Proxy"] = newProxies
         newConfig["Proxy Group"] = newProxyGroup
         newConfig["Rule"] = (ini["Rule"]?.array ?? [])
-
+        saveToClashConfigFile(config: newConfig)
     }
 }
 

@@ -2,6 +2,7 @@ import Foundation
 
 class SectionConfig {
     var dict = [String: String]()
+    var dictArray = [(String,String)]()
     var array = [String]()
 }
 
@@ -51,6 +52,7 @@ func parseConfig(_ filename : String) -> Config? {
             if (config[currentSectionName] == nil) {config[currentSectionName] = SectionConfig()}
         } else if let (k, v) = parseLine(line) {
             config[currentSectionName]?.dict[k] = v
+            config[currentSectionName]?.dictArray.append((k,v))
         } else if line.hasPrefix("//") || line.hasPrefix("#") || line.count < 1 {
             continue
         } else {

@@ -7,6 +7,7 @@ import (
 	"github.com/Dreamacro/clash/hub"
 	"github.com/Dreamacro/clash/proxy"
 	"github.com/Dreamacro/clash/tunnel"
+	"github.com/Dreamacro/clash/constant"
 )
 import (
 	"os"
@@ -39,6 +40,10 @@ func updateAllConfig() *C.char {
 	return C.CString("")
 }
 
+//export setConfigHomeDir
+func setConfigHomeDir(root string){
+	constant.SetHomeDir(root)
+}
 func main() {
 	run()
 	sigCh := make(chan os.Signal, 1)
