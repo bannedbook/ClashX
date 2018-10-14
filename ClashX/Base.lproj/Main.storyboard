@@ -111,12 +111,6 @@
                                         <modifierMask key="keyEquivalentModifierMask"/>
                                         <menu key="submenu" title="Generate Config" id="IeJ-1Q-UaF">
                                             <items>
-                                                <menuItem title="Generate config" id="5Ab-VJ-iIm">
-                                                    <modifierMask key="keyEquivalentModifierMask"/>
-                                                    <connections>
-                                                        <action selector="actionGenConfig:" target="Voe-Tx-rLC" id="SBd-vV-e1R"/>
-                                                    </connections>
-                                                </menuItem>
                                                 <menuItem title="Import bunch json file" id="GRE-Ra-Pkx">
                                                     <modifierMask key="keyEquivalentModifierMask"/>
                                                     <connections>

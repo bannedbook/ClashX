@@ -14,7 +14,7 @@ class ConfigFileFactory {
     static let shared = ConfigFileFactory()
     var witness:Witness?
     func watchConfigFile() {
-        let path = (NSHomeDirectory() as NSString).appendingPathComponent("/.config/clash/config.ini")
+        let path = (NSHomeDirectory() as NSString).appendingPathComponent("/.config/clash/config.yml")
         witness = Witness(paths: [path], flags: .FileEvents, latency: 0.3) { events in
             for event in events {
                 print(event.flags)
@@ -27,48 +27,18 @@ class ConfigFileFactory {
         }
     }
     
-    static func proxyConfigStr(proxy:ProxyServerModel) -> String {
-        let targetStr:String
-        switch proxy.proxyType {
-        case .shadowsocks:
-            targetStr = "\(proxy.remark) = ss, \(proxy.serverHost), \(proxy.serverPort), \(proxy.method), \(proxy.password) \(proxy.pluginStr) \n"
-        case .socks5:
-            //socks = socks5, server1, port
-            targetStr = "\(proxy.remark) = socks5, \(proxy.serverHost), \(proxy.serverPort)\n"
-        }
-        return targetStr
-    }
+    
     
     static func configFile(proxies:[ProxyServerModel]) -> String {
-        var proxyStr = ""
-        var proxyGroupStr = ""
-        for proxy in proxies {
-            let targetStr = self.proxyConfigStr(proxy: proxy)
-            proxyStr.append(targetStr)
-            proxyGroupStr.append("\(proxy.remark),")
-        }
-        let sampleConfig = NSData(contentsOfFile: Bundle.main.path(forResource: "sampleConfig", ofType: "ini")!)
-        var sampleConfigStr = String(data: sampleConfig! as Data, encoding: .utf8)
-        proxyGroupStr = String(proxyGroupStr.dropLast())
-
-        if proxies.count > 1 {
-            let autoGroupStr = "ProxyAuto = url-test, \(proxyGroupStr), http://www.google.com/generate_204, 300"
-            sampleConfigStr = sampleConfigStr?.replacingOccurrences(of: "{{ProxyAutoGroupPlaceHolder}}", with: autoGroupStr)
-            proxyGroupStr.append(",ProxyAuto")
-        } else {
-            sampleConfigStr = sampleConfigStr?.replacingOccurrences(of: "{{ProxyAutoGroupPlaceHolder}}", with: "")
-        }
-
-        sampleConfigStr = sampleConfigStr?.replacingOccurrences(of: "{{ProxyPlaceHolder}}", with: proxyStr)
-        sampleConfigStr = sampleConfigStr?.replacingOccurrences(of: "{{ProxyGroupPlaceHolder}}", with: proxyGroupStr)
-
-        return sampleConfigStr!
+        
+        return ""
     }
     
-    static func saveToClashConfigFile(str:String) {
-        // save to ~/.config/clash/config.ini
+    static func saveToClashConfigFile(config:[String:Any]) {
+        // save to ~/.config/clash/config.yml
         _ = self.backupAndRemoveConfigFile(showAlert: false)
-        try? str.write(to: URL(fileURLWithPath: kConfigFilePath), atomically: true, encoding: .utf8)
+        let yaml = try! Yams.dump(object: config,allowUnicode:true)
+        try? yaml.write(toFile: kConfigFolderPath+"clash.yml", atomically: true, encoding: .utf8)
     }
     
     @discardableResult
@@ -80,17 +50,23 @@ class ConfigFileFactory {
             }
         }
         if (FileManager.default.fileExists(atPath: path)) {
-            let newPath = "\(kConfigFolderPath)config_\(Date().timeIntervalSince1970).ini"
+            let newPath = "\(kConfigFolderPath)config_\(Date().timeIntervalSince1970).yml"
             try? FileManager.default.moveItem(atPath: path, toPath: newPath)
         }
         return true
     }
     
-    static func copySimpleConfigFile() -> Bool {
+    static func copySampleConfigIfNeed() {
+        if !FileManager.default.fileExists(atPath: kConfigFilePath) {
+            replaceConfigWithSampleConfig()
+        }
+    }
+    
+    static func replaceConfigWithSampleConfig() -> Bool {
         if (!backupAndRemoveConfigFile(showAlert: true)) {
             return false
         }
-        let path = Bundle.main.path(forResource: "initConfig", ofType: "ini")!
+        let path = Bundle.main.path(forResource: "sampleConfig", ofType: "yml")!
         try? FileManager.default.copyItem(atPath: path, toPath: kConfigFilePath)
         NSUserNotificationCenter.default.postGenerateSimpleConfigNotice()
         return true
@@ -145,8 +121,8 @@ class ConfigFileFactory {
                 }
                 
                 if (profiles.count > 0) {
-                    let configStr = self.configFile(proxies: profiles)
-                    self.saveToClashConfigFile(str: configStr)
+//                    let configStr = self.configFile(proxies: profiles)
+//                    self.saveToClashConfigFile(str: configStr)
                     NSUserNotificationCenter
                         .default
                         .post(title: "Import Server Profile succeed!",
@@ -158,53 +134,12 @@ class ConfigFileFactory {
                         .post(title: "Import Server Profile Fail!",
                               info: "No proxies are imported")
                 }
-                
-
             }
         }
         
     }
     
     static func addProxyToConfig(proxy:ProxyServerModel) {
-//        let targetStr = self.proxyConfigStr(proxy: proxy)
-//        guard let ini = parseConfig(kConfigFilePath),
-//            let currentProxys = ini["Proxy"],
-//            let proxyGroup = ini["Proxy Group"]
-//        else {
-//            self.saveToClashConfigFile(str: self.configFile(proxies: [proxy]))
-//            NotificationCenter.default.post(Notification(name: kShouldUpDateConfig))
-//            return
-//        }
-//
-//        if currentProxys.keys.contains(proxy.remark) {
-//            NSUserNotificationCenter.default.postProxyRemarkDupNotice(name: proxy.remark)
-//            return
-//        }
-//
-//        if self.shared.witness != nil {
-//            // not watch config file change now.
-//            self.shared.witness = nil
-//            defer {
-//                self.shared.watchConfigFile()
-//            }
-//        }
-//
-//        let configData = NSData(contentsOfFile: kConfigFilePath)
-//        var configStr = String(data: configData! as Data, encoding: .utf8)!
-//        let spilts = configStr.components(separatedBy: "[Proxy Group]")
-//        configStr = spilts[0] + targetStr + "[Proxy Group]\n" + spilts[1]
-//
-//        if let selectGroup = proxyGroup["Proxy"] {
-//            let newSelectGroup = "\(selectGroup),\(proxy.remark)"
-//            configStr = configStr.replacingOccurrences(of: selectGroup, with: newSelectGroup)
-//        }
-//
-//        if let autoGroup = proxyGroup["ProxyAuto"] {
-//            let autoGroupProxys = autoGroup.components(separatedBy: ",").dropLast(2).joined(separator:",")
-//            let newAutoGroupProxys = "\(autoGroupProxys),\(proxy.remark)"
-//            configStr = configStr.replacingOccurrences(of: autoGroupProxys, with: newAutoGroupProxys)
-//        }
-//
 //        self.saveToClashConfigFile(str: configStr)
 //        NotificationCenter.default.post(Notification(name: kShouldUpDateConfig))
     }
@@ -212,7 +147,16 @@ class ConfigFileFactory {
 
 
 extension ConfigFileFactory {
-    static func upgradeIni() {
+    static func upgardeIniIfNeed() {
+        let iniPath = kConfigFolderPath + "config.ini"
+        guard FileManager.default.fileExists(atPath: iniPath) else {return}
+        upgradeIni()
+        let targetPath = kConfigFolderPath + "config\(Date().timeIntervalSince1970).bak"
+        try? FileManager.default.moveItem(atPath: iniPath, toPath: targetPath)
+        
+    }
+    
+    private static func upgradeIni() {
         
         func parseOptions(options:[String]) -> [String:String] {
             var mapping = [String:String]()
@@ -304,10 +248,7 @@ extension ConfigFileFactory {
         newConfig["Proxy"] = newProxies
         newConfig["Proxy Group"] = newProxyGroup
         newConfig["Rule"] = (ini["Rule"]?.array ?? [])
-//        let order = ["General","Proxy","Proxy","Rule"]
-        let yaml = try! Yams.dump(object: newConfig,allowUnicode:true)
-        try? yaml.write(toFile: kConfigFolderPath+"clash.yml", atomically: true, encoding: .utf8)
-        print(yaml)
+
     }
 }
 

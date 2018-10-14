@@ -45,8 +45,14 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         signal(SIGPIPE, SIG_IGN)
         failLaunchProtect()
+        
         _ = ProxyConfigManager.install()
+        ConfigFileFactory.upgardeIniIfNeed()
+        ConfigFileFactory.copySampleConfigIfNeed()
+
         PFMoveToApplicationsFolderIfNecessary()
+        
+        
         statusItemView = StatusItemView.create(statusItem: nil,statusMenu: statusMenu)
         statusItemView.onPopUpMenuAction = {
             [weak self] in
@@ -295,19 +301,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         LaunchAtLogin.shared.isEnabled = !LaunchAtLogin.shared.isEnabled
     }
     
-    var genConfigWindow:NSWindowController?=nil
-    @IBAction func actionGenConfig(_ sender: Any) {
-        let ctrl = PreferencesWindowController(windowNibName: "PreferencesWindowController")
-        
-        
-        genConfigWindow?.close()
-        genConfigWindow=ctrl
-        ctrl.window?.title = ctrl.contentViewController?.title ?? ""
-        ctrl.showWindow(nil)
-        NSApp.activate(ignoringOtherApps: true)
-        ctrl.window?.makeKeyAndOrderFront(self)
-
-    }
     
     @IBAction func openConfigFolder(_ sender: Any) {
         let path = (NSHomeDirectory() as NSString).appendingPathComponent("/.config/clash")

@@ -9,6 +9,7 @@
 import Foundation
 import Cocoa
 import RxSwift
+import Yams
 
 class ConfigManager {
     
@@ -108,7 +109,10 @@ class ConfigManager {
 //        if (ConfigFileFactory.copySimpleConfigFile()) {
 //            refreshApiPort()
 //        } else {
-            apiPort = "7892"
+        apiPort = "7892"
+        guard let yamlStr = try? String(contentsOfFile: kConfigFilePath) else {return}
+        guard let yaml = try? Yams.load(yaml: yamlStr) else {return}
+        
 //        }
     }
     
