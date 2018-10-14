@@ -30,7 +30,7 @@ class QRCodeUtil: NSObject {
         }
         
         let detector = CIDetector(ofType: CIDetectorTypeQRCode,
-                                  context: nil,
+                                  context: CIContext(options: [CIContextOption.useSoftwareRenderer : true]),
                                   options: [CIDetectorAccuracy:CIDetectorAccuracyHigh])!
         var ssUrls = [String]()
         

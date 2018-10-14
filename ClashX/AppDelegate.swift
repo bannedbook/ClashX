@@ -41,17 +41,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     var statusItemView:StatusItemView!
     
     var isRunning = false
-    
-    func applicationDidFinishLaunching(_ aNotification: Notification) {
+    func applicationDidFinishLaunching(_ notification: Notification) {
         signal(SIGPIPE, SIG_IGN)
         failLaunchProtect()
-        
         _ = ProxyConfigManager.install()
-        ConfigFileFactory.upgardeIniIfNeed()
-        ConfigFileFactory.copySampleConfigIfNeed()
-
         PFMoveToApplicationsFolderIfNecessary()
-        
         
         statusItemView = StatusItemView.create(statusItem: nil,statusMenu: statusMenu)
         statusItemView.onPopUpMenuAction = {
@@ -64,7 +58,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         startProxy()
         updateLoggingLevel()
     }
-    
+
+
 
     func applicationWillTerminate(_ aNotification: Notification) {
         if ConfigManager.shared.proxyPortAutoSet {
@@ -89,7 +84,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             .showNetSpeedIndicatorObservable
             .bind {[unowned self] (show) in
                 self.showNetSpeedIndicatorMenuItem.state = (show ?? true) ? .on : .off
-                self.statusItem = NSStatusBar.system.statusItem(withLength: (show ?? true) ? 65 : 25)
+                let statusItemLength:CGFloat = (show ?? true) ? 65 : 25
+                if (self.statusItem == nil) {
+                    self.statusItem = NSStatusBar.system.statusItem(withLength: statusItemLength)
+                }
+                self.statusItem.length = statusItemLength
                 self.statusItem.view = self.statusItemView
                 self.statusItemView.showSpeedContainer(show: (show ?? true))
                 self.statusItemView.statusItem = self.statusItem
@@ -120,7 +119,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 case .rule:self.proxyModeRuleMenuItem.state = .on
                 }
                 self.allowFromLanMenuItem.state = config!.allowLan ? .on : .off
-                self.proxyModeMenuItem.title = "Proxy Mode (\(config!.mode.rawValue))"
+                self.proxyModeMenuItem.title = "\("Proxy Mode".localized()) (\(config!.mode.rawValue.localized()))"
                 
                 self.updateProxyList()
                 
@@ -301,6 +300,19 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         LaunchAtLogin.shared.isEnabled = !LaunchAtLogin.shared.isEnabled
     }
     
+    var genConfigWindow:NSWindowController?=nil
+    @IBAction func actionGenConfig(_ sender: Any) {
+        let ctrl = PreferencesWindowController(windowNibName: "PreferencesWindowController")
+        
+        
+        genConfigWindow?.close()
+        genConfigWindow=ctrl
+        ctrl.window?.title = ctrl.contentViewController?.title ?? ""
+        ctrl.showWindow(nil)
+        NSApp.activate(ignoringOtherApps: true)
+        ctrl.window?.makeKeyAndOrderFront(self)
+
+    }
     
     @IBAction func openConfigFolder(_ sender: Any) {
         let path = (NSHomeDirectory() as NSString).appendingPathComponent("/.config/clash")
@@ -382,7 +394,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     @IBAction func actionShowNetSpeedIndicator(_ sender: NSMenuItem) {
-        ConfigManager.shared.showNetSpeedIndicator = !ConfigManager.shared.showNetSpeedIndicator
+        ConfigManager.shared.showNetSpeedIndicator = !(sender.state == .on)
     }
     
     @IBAction func actionShowLog(_ sender: Any) {

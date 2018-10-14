@@ -14,6 +14,9 @@ import Foundation
 
 class NetworkChangeNotifier {
     static func start(){
+        // disable this function temporary.
+        return
+        
         let changed: SCDynamicStoreCallBack = {_,_,_ in
             print("Network configuration changed")
             NotificationCenter.default.post(name: kSystemNetworkStatusDidChange, object: nil)

@@ -122,6 +122,7 @@ class ConfigManager {
             .default
             .rx
             .notification(kSystemNetworkStatusDidChange)
+            .debounce(2, scheduler: MainScheduler.instance)
             .subscribeOn(MainScheduler.instance)
             .bind{ _ in
             let (http,https,socks) = NetworkChangeNotifier.currentSystemProxySetting()
@@ -129,12 +130,7 @@ class ConfigManager {
                 http == (self.currentConfig?.port ?? 0) &&
                 https == (self.currentConfig?.port ?? 0) &&
                 socks == (self.currentConfig?.socketPort ?? 0)
-            if (self.proxyPortAutoSet && !proxySetted) {
-                self.proxyPortAutoSet = proxySetted
-            }
+            self.proxyPortAutoSet = proxySetted
         }.disposed(by: disposeBag)
     }
-    
-
-    
 }
