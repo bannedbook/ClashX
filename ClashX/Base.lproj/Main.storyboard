@@ -111,19 +111,19 @@
                                         <modifierMask key="keyEquivalentModifierMask"/>
                                         <menu key="submenu" title="Generate Config" id="IeJ-1Q-UaF">
                                             <items>
-                                                <menuItem title="Import bunch json file" id="GRE-Ra-Pkx">
+                                                <menuItem title="Import bunch json file" enabled="NO" id="GRE-Ra-Pkx">
                                                     <modifierMask key="keyEquivalentModifierMask"/>
                                                     <connections>
                                                         <action selector="actionImportBunchJsonFile:" target="Voe-Tx-rLC" id="wPl-iW-WvG"/>
                                                     </connections>
                                                 </menuItem>
-                                                <menuItem title="SSURL from pasteboard" id="QX2-2U-3Ad">
+                                                <menuItem title="SSURL from pasteboard" enabled="NO" id="QX2-2U-3Ad">
                                                     <modifierMask key="keyEquivalentModifierMask"/>
                                                     <connections>
                                                         <action selector="actionImportConfigFromSSURL:" target="Voe-Tx-rLC" id="FGa-8X-oxt"/>
                                                     </connections>
                                                 </menuItem>
-                                                <menuItem title="QR Code from screen" id="89G-Oc-S3l">
+                                                <menuItem title="QR Code from screen" enabled="NO" id="89G-Oc-S3l">
                                                     <modifierMask key="keyEquivalentModifierMask"/>
                                                     <connections>
                                                         <action selector="actionScanQRCode:" target="Voe-Tx-rLC" id="RQR-HE-w4C"/>

@@ -11,3 +11,4 @@
 "Global" = "全局";
 "Rule" = "规则";
 "Direct" = "直连";
+"Clash has changed config file format from .ini to .yml.\nClashX has automatically upgraded your config file.\nNote: current upgradation might cause your config file looks confusion. Check the config file example in github for better customize." = "Clash已经升级使用YML格式的配置文件。\nClashX已经将原有.ini配置文件进行转换。\n注意：当前阶段自动转换文件格式较为混乱，建议前往Clash Github查看最新config配置。";

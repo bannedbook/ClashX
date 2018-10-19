@@ -150,8 +150,8 @@ extension ConfigFileFactory {
         let iniPath = kConfigFolderPath + "config.ini"
         guard FileManager.default.fileExists(atPath: iniPath) else {return}
         upgradeIni()
-//        let targetPath = kConfigFolderPath + "config\(Date().timeIntervalSince1970).bak"
-//        try? FileManager.default.moveItem(atPath: iniPath, toPath: targetPath)
+        let targetPath = kConfigFolderPath + "config\(Date().timeIntervalSince1970).bak"
+        try? FileManager.default.moveItem(atPath: iniPath, toPath: targetPath)
         
     }
     
@@ -251,6 +251,7 @@ extension ConfigFileFactory {
         newConfig["Proxy Group"] = newProxyGroup
         newConfig["Rule"] = (ini["Rule"]?.array ?? [])
         saveToClashConfigFile(config: newConfig)
+        showIniUpgradeAlert()
     }
 }
 
@@ -267,6 +268,18 @@ extension ConfigFileFactory {
         alert.addButton(withTitle: "Replace")
         alert.addButton(withTitle: "Cancel")
         return alert.runModal() == .alertFirstButtonReturn
+    }
+    
+    static func showIniUpgradeAlert() {
+        let alert = NSAlert()
+        alert.messageText = """
+        Clash has changed config file format from .ini to .yml.
+        ClashX has automatically upgraded your config file.
+        Note: current upgradation might cause your config file looks confusion. Check the config file example in github for better customize.
+        """.localized()
+        alert.alertStyle = .warning
+        alert.addButton(withTitle: "OK")
+        alert.runModal()
     }
     
 }
