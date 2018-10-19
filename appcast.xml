@@ -6,9 +6,13 @@
     <description>Most recent changes with links to updates.</description>
     <language>cn</language>
       <item>
-        <title>1.5.5</title>
+        <title>1.6.0</title>
         <description>
           <![CDATA[
+              <ul>
+              <li>1.6.0</li>
+              <li><br>Break Change: Use Yaml config file.</br></li>
+              </ul>
         <ul>
               <li>1.5.5</li>
               <li>bug fixs</li>

@@ -17,9 +17,9 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.5.5</string>
+	<string>1.6.0</string>
 	<key>CFBundleVersion</key>
-	<string>1.5.5</string>
+	<string>1.6.0</string>
 	<key>LSApplicationCategoryType</key>
 	<string>public.app-category.utilities</string>
 	<key>LSMinimumSystemVersion</key>
@@ -40,6 +40,6 @@
 	<key>SUEnableAutomaticChecks</key>
 	<true/>
 	<key>SUFeedURL</key>
-	<string>https://github.com/yichengchen/clashX/raw/master/appcast.xml</string>
+	<string>https://yichengchen.github.io/clashX/appcast.xml</string>
 </dict>
 </plist>

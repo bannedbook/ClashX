@@ -149,10 +149,10 @@ extension ConfigFileFactory {
     static func upgardeIniIfNeed() {
         let iniPath = kConfigFolderPath + "config.ini"
         guard FileManager.default.fileExists(atPath: iniPath) else {return}
+        guard !FileManager.default.fileExists(atPath: kConfigFilePath) else {return}
         upgradeIni()
         let targetPath = kConfigFolderPath + "config\(Date().timeIntervalSince1970).bak"
         try? FileManager.default.moveItem(atPath: iniPath, toPath: targetPath)
-        
     }
     
     private static func upgradeIni() {
