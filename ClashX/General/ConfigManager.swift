@@ -16,8 +16,10 @@ class ConfigManager {
     static let shared = ConfigManager()
     private let disposeBag = DisposeBag()
     var apiPort = "8080"
+    var apiSecret:String? = nil
+
     private init(){
-        refreshApiPort()
+        refreshApiInfo()
         setupNetworkNotifier()
     }
     
@@ -58,6 +60,7 @@ class ConfigManager {
         }
     }
     
+    
     static var selectedProxyMap:[String:String] {
         get{
             let map = UserDefaults.standard.dictionary(forKey: "selectedProxyMap") as? [String:String] ?? ["Proxy":"ProxyAuto"]
@@ -95,8 +98,9 @@ class ConfigManager {
         }
     }
     
-    func refreshApiPort(){
+    func refreshApiInfo(){
         apiPort = "7892"
+        apiSecret = nil;
         if let yamlStr = try? String(contentsOfFile: kConfigFilePath),
             var yaml = (try? Yams.load(yaml: yamlStr)) as? [String:Any] {
             if let controller = yaml["external-controller"] as? String,
@@ -106,6 +110,7 @@ class ConfigManager {
                 yaml["external-controller"] = apiPort
                 ConfigFileFactory.saveToClashConfigFile(config: yaml)
             }
+            apiSecret = yaml["secret"] as? String
         } else {
             _ = ConfigFileFactory.replaceConfigWithSampleConfig()
         }
