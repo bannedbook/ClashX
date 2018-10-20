@@ -37,8 +37,38 @@ class ConfigFileFactory {
     static func saveToClashConfigFile(config:[String:Any]) {
         // save to ~/.config/clash/config.yml
         _ = self.backupAndRemoveConfigFile(showAlert: false)
-        let yaml = try! Yams.dump(object: config,allowUnicode:true)
-        try? yaml.write(toFile: kConfigFilePath, atomically: true, encoding: .utf8)
+        var config = config
+        var finalConfigString = ""
+        do {
+            if let proxyConfig = config["Proxy"] {
+                finalConfigString += try
+                    Yams.dump(object: ["Proxy":proxyConfig],allowUnicode:true)
+                config["Proxy"] = nil
+            }
+            
+            if let proxyGroupConfig = config["Proxy Group"] {
+                finalConfigString += try
+                    Yams.dump(object: ["Proxy Group":proxyGroupConfig]
+                        ,allowUnicode:true)
+                config["Proxy Group"] = nil
+            }
+            
+            if let rule = config["Rule"] {
+                finalConfigString += try
+                    Yams.dump(object: ["Rule":rule],allowUnicode:true)
+                config["Rule"] = nil
+            }
+            
+            finalConfigString = try Yams.dump(object: config,allowUnicode:true) + finalConfigString
+            
+            try finalConfigString.write(toFile: kConfigFilePath, atomically: true, encoding: .utf8)
+            
+        } catch {
+            return
+        }
+        
+        
+       
     }
     
     @discardableResult
