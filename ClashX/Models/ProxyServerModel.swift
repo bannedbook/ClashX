@@ -25,17 +25,17 @@ class ProxyServerModel: NSObject, Codable {
     @objc dynamic var password:String = ""
     @objc dynamic var method:String = "RC4-MD5"
     @objc dynamic var remark:String = "NewProxy"
-    var simpleObfs:SimpleObfsType = .none {
+    var pluginStr:String? {
         didSet {
-            switch simpleObfs {
-            case .none:pluginStr = ""
-            case .http:pluginStr = ",obfs=http,obfs-host=bing.com"
-            case .tls:pluginStr =  ",obfs=tls,obfs-host=bing.com"
+            if pluginStr?.contains("http") ?? false {
+                simpleObfs = .http
+            } else if pluginStr?.contains("tls") ?? false {
+                simpleObfs = .tls
             }
         }
     }
+    var simpleObfs:SimpleObfsType = .none
     
-    var pluginStr = ""
     var proxyType:ProxyType = .shadowsocks
 
     
