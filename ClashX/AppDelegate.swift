@@ -40,7 +40,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     let ssQueue = DispatchQueue(label: "com.w2fzu.ssqueue", attributes: .concurrent)
     var statusItemView:StatusItemView!
     
-    var isRunning = false
     func applicationDidFinishLaunching(_ notification: Notification) {
         signal(SIGPIPE, SIG_IGN)
         
@@ -138,6 +137,15 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
         }.disposed(by: disposeBag)
         
+        ConfigManager
+            .shared
+            .isRunningVariable
+            .asObservable()
+            .distinctUntilChanged()
+            .bind { [unowned self] _ in
+                self.updateProxyList()
+        }.disposed(by: disposeBag)
+        
         LaunchAtLogin.shared
             .isEnableVirable
             .asObservable()
@@ -195,7 +203,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     func updateProxyList() {
-        ProxyMenuItemFactory.menuItems { [unowned self] (menus) in
+        func updateProxyList(withMenus menus:[NSMenuItem]) {
             let startIndex = self.statusMenu.items.index(of: self.separatorLineTop)!+1
             let endIndex = self.statusMenu.items.index(of: self.sepatatorLineEndProxySelect)!
             var items = self.statusMenu.items
@@ -211,6 +219,17 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 self.statusMenu.insertItem(each, at: 0)
             }
         }
+        
+        if ConfigManager.shared.isRunning {
+            ProxyMenuItemFactory.menuItems { (menus) in
+                updateProxyList(withMenus: menus)
+            }
+            
+        } else {
+            updateProxyList(withMenus: [])
+        }
+        
+        
     }
     
     func updateLoggingLevel() {
@@ -221,16 +240,14 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     
     func startProxy() {
-        if self.isRunning {return}
-        
-        self.isRunning = true
         print("Trying start proxy")
         if let cstring = run() {
-//            self.isRunning = false
             let error = String(cString: cstring)
             if (error != "success") {
+                ConfigManager.shared.isRunning = false
                 NSUserNotificationCenter.default.postConfigErrorNotice(msg:error)
             } else {
+                ConfigManager.shared.isRunning = true
                 self.resetStreamApi()
                 self.selectOutBoundModeWithMenory()
                 self.selectAllowLanWithMenory()

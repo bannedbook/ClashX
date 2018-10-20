@@ -32,7 +32,10 @@ class ApiRequest{
         parameters: Parameters? = nil,
         encoding: ParameterEncoding = URLEncoding.default)
         -> DataRequest {
-            
+            guard ConfigManager.shared.isRunning else {
+                return request("")
+            }
+
             return request(ConfigManager.apiUrl + url,
                 method: method,
                 parameters: parameters,
@@ -56,14 +59,15 @@ class ApiRequest{
     
     
     static func requestConfigUpdate(callback:@escaping ((String?)->())){
-        req("/configs", method: .put).responseJSON { (res) in
-            if let errMSg = updateAllConfig() {
-                let err = String(cString: errMSg)
-                callback(err == "" ? nil : err)
-            } else {
-                callback("unknown error")
-            }
+        if let errMSg = updateAllConfig() {
+            let err = String(cString: errMSg)
+            let success = (err == "")
+            ConfigManager.shared.isRunning = success
+            callback(success ? nil : err)
+        } else {
+            callback("unknown error")
         }
+        req("/configs", method: .put).responseJSON {_ in}
     }
     
     static func updateOutBoundMode(mode:ClashProxyMode, callback:@escaping ((Bool)->())) {
