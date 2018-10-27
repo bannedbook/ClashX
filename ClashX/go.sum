@@ -8,6 +8,8 @@ github.com/Dreamacro/clash v0.8.1 h1:awEt2bjL7mCHUVm/eOxCZFb1xISuaQqDYHwpT7INHjQ
 github.com/Dreamacro/clash v0.8.1/go.mod h1:rMXos/r0xCfD43VJDZk9P3+qD08O8J0C9Vy68waJX+0=
 github.com/Dreamacro/clash v0.8.2-0.20181024160955-990bba4a05eb h1:iIULnMtYwQVHVM8fV0M4fQKZ/TXC0aTYeMGxXQBlrX4=
 github.com/Dreamacro/clash v0.8.2-0.20181024160955-990bba4a05eb/go.mod h1:rMXos/r0xCfD43VJDZk9P3+qD08O8J0C9Vy68waJX+0=
+github.com/Dreamacro/clash v0.8.2-0.20181027045756-19cbe5245616 h1:5jSZFPeqxs2q9OkFSJU7KAn5pzPt16Lwo15t4DvKwRU=
+github.com/Dreamacro/clash v0.8.2-0.20181027045756-19cbe5245616/go.mod h1:rMXos/r0xCfD43VJDZk9P3+qD08O8J0C9Vy68waJX+0=
 github.com/Dreamacro/go-shadowsocks2 v0.1.1 h1:Z6Z1ZQFtIKqB3ZghASl4taaJmL7SOw+KpJ+QZpax+TI=
 github.com/Dreamacro/go-shadowsocks2 v0.1.1/go.mod h1:6Fuc8zRHwXqCV9Xaw9qNfrh6OUYpDGrlPVPW4oQ34Gs=
 github.com/Dreamacro/go-shadowsocks2 v0.1.2-0.20181010040219-acb54ea41fbd h1:6HucPDdF32vx1b9Z+XVC8cNJuCCkh0eTS20GmKdwOec=
