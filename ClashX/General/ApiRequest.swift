@@ -134,6 +134,14 @@ class ApiRequest{
                 callback(json["delay"].int ?? Int.max)
         }
     }
+    
+    static func getRules(completeHandler:@escaping ([ClashRule])->()) {
+        req("/rules").responseData { res in
+            guard let data = res.result.value else {return}
+            let rule = ClashRuleResponse.fromData(data)
+            completeHandler(rule.rules)
+        }
+    }
 }
 
 // Stream Apis
