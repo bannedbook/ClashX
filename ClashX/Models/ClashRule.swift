@@ -11,8 +11,8 @@ import Foundation
 class ClashRule:Codable {
     
     let type:String
-    let payload:String
-    let proxy:String
+    let payload:String?
+    let proxy:String?
 }
 
 class ClashRuleResponse:Codable {
