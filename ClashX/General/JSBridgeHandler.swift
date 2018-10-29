@@ -96,6 +96,17 @@ class JsBridgeHelper {
             }
         }
         
+        bridge.registerHandler("speedTest") { (anydata, responseCallback) in
+            if let proxyName = anydata as? String {
+                ApiRequest.getProxyDelay(proxyName: proxyName) { (delay) in
+                    SpeedDataRecorder.shared.speedDict[proxyName] = delay
+                    responseCallback?(delay)
+                }
+            } else {
+                responseCallback?(nil)
+            }
+        }
+        
         
         // ping-pong
         bridge.registerHandler("ping"){ (anydata, responseCallback) in
