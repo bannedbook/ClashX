@@ -19,19 +19,14 @@ class StatusItemView: NSView {
     @IBOutlet var downloadSpeedLabel: NSTextField!
     @IBOutlet weak var speedContainerView: NSView!
     weak var statusItem:NSStatusItem?
-    weak var statusItemView: StatusItemView?
     var disposeBag = DisposeBag()
     
-    var onPopUpMenuAction:(()->())? = nil
     
-    static func create(statusItem:NSStatusItem?,statusMenu:NSMenu)->StatusItemView{
+    static func create(statusItem:NSStatusItem?)->StatusItemView{
         var topLevelObjects : NSArray?
         if Bundle.main.loadNibNamed("StatusItemView", owner: self, topLevelObjects: &topLevelObjects) {
             let view = (topLevelObjects!.first(where: { $0 is NSView }) as? StatusItemView)!
             view.statusItem = statusItem
-            view.statusItem?.menu = statusMenu
-            statusMenu.delegate = view
-            view.statusItemView = view
             view.setupView()
             return view
         }
@@ -40,9 +35,7 @@ class StatusItemView: NSView {
     
     func setupView() {
         let proxySetObservable = ConfigManager.shared.proxyPortAutoSetObservable.map { $0 as AnyObject }
-        Observable
-            .of(proxySetObservable)
-            .merge()
+        proxySetObservable
             .bind { [weak self] _ in
                 guard let self = self else {return}
                 let enableProxy = ConfigManager.shared.proxyPortAutoSet;
@@ -70,6 +63,8 @@ class StatusItemView: NSView {
     }
     
     func updateSpeedLabel(up:Int,down:Int) {
+        guard !self.speedContainerView.isHidden else {return}
+        
         let kbup = up/1024
         let kbdown = down/1024
         var finalUpStr:String
@@ -96,20 +91,14 @@ class StatusItemView: NSView {
     
     func showSpeedContainer(show:Bool) {
         self.speedContainerView.isHidden = !show
-        
         updateStatusItemView()
     }
     
     func updateStatusItemView() {
-        statusItem?.updateImage(withView: statusItemView!)
+        statusItem?.updateImage(withView: self)
     }
 }
 
-extension StatusItemView:NSMenuDelegate {
-    func menuWillOpen(_ menu: NSMenu) {
-        onPopUpMenuAction?()
-    }
-}
 
 extension NSStatusItem {
     func updateImage(withView: NSView) {

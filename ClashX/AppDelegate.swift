@@ -51,13 +51,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         ConfigFileFactory.copySampleConfigIfNeed()
         
         PFMoveToApplicationsFolderIfNecessary()
+        statusItem = NSStatusBar.system.statusItem(withLength:65)
+        statusItem.menu = statusMenu
 
-        statusItemView = StatusItemView.create(statusItem: nil,statusMenu: statusMenu)
-        statusItemView.onPopUpMenuAction = {
-            [weak self] in
-            guard let `self` = self else {return}
-            self.syncConfig()
-        }
+        statusItemView = StatusItemView.create(statusItem: statusItem)
+        statusMenu.delegate = self
+        
         setupData()
         setupDashboard()
         startProxy()
@@ -91,13 +90,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             .bind {[unowned self] (show) in
                 self.showNetSpeedIndicatorMenuItem.state = (show ?? true) ? .on : .off
                 let statusItemLength:CGFloat = (show ?? true) ? 65 : 25
-                if (self.statusItem == nil) {
-                    self.statusItem = NSStatusBar.system.statusItem(withLength: statusItemLength)
-                }
                 self.statusItem.length = statusItemLength
+                self.statusItemView.frame.size.width = statusItemLength
                 self.statusItemView.showSpeedContainer(show: (show ?? true))
-                self.statusItemView.statusItem = self.statusItem
-                self.statusItemView.statusItem?.menu = self.statusMenu
                 self.statusItemView.updateStatusItemView()
             }.disposed(by: disposeBag)
         
@@ -281,7 +276,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     func resetStreamApi() {
         ApiRequest.shared.requestTrafficInfo(){ [weak self] up,down in
             guard let `self` = self else {return}
-            self.statusItemView.updateSpeedLabel(up: up, down: down)
+            DispatchQueue.main.async {
+                self.statusItemView.updateSpeedLabel(up: up, down: down)
+            }
         }
         
         ApiRequest.shared.requestLog { (type, msg) in
@@ -423,7 +420,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         NSWorkspace.shared.openFile(Logger.shared.logFilePath())
 
     }
-   
+    
 }
 
+extension AppDelegate:NSMenuDelegate {
+    func menuWillOpen(_ menu: NSMenu) {
+        self.syncConfig()
+    }
+}
 
