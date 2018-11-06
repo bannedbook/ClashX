@@ -20,6 +20,15 @@
 /* Class = "NSMenuItem"; title = "Rule"; ObjectID = "89n-bD-JHk"; */
 "89n-bD-JHk.title" = "规则判断";
 
+/* Class = "NSMenuItem"; title = "Remote config"; ObjectID = "h1C-R6-Y9w"; */
+"h1C-R6-Y9w.title" = "托管配置";
+
+/* Class = "NSMenuItem"; title = "Set url"; ObjectID = "k1Z-jQ-kAy"; */
+"k1Z-jQ-kAy.title" = "设置地址";
+
+/* Class = "NSMenuItem"; title = "Update"; ObjectID = "I2P-Wd-Ns7"; */
+"I2P-Wd-Ns7.title" = "更新";
+
 /* Class = "NSMenuItem"; title = "Set as system proxy"; ObjectID = "8se-yr-wmp"; */
 "8se-yr-wmp.title" = "设置为系统代理";
 

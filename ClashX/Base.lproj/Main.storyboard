@@ -132,6 +132,25 @@
                                             </items>
                                         </menu>
                                     </menuItem>
+                                    <menuItem title="Remote Config" id="h1C-R6-Y9w">
+                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                        <menu key="submenu" title="Remote Config" id="az2-wz-yyy">
+                                            <items>
+                                                <menuItem title="Set Url" id="k1Z-jQ-kAy">
+                                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                                    <connections>
+                                                        <action selector="actionSetRemoteConfigUrl:" target="Voe-Tx-rLC" id="ZSD-Pg-4xP"/>
+                                                    </connections>
+                                                </menuItem>
+                                                <menuItem title="Update" id="I2P-Wd-Ns7">
+                                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                                    <connections>
+                                                        <action selector="actionUpdateRemoteConfig:" target="Voe-Tx-rLC" id="umk-nZ-asT"/>
+                                                    </connections>
+                                                </menuItem>
+                                            </items>
+                                        </menu>
+                                    </menuItem>
                                     <menuItem title="Open config Folder" keyEquivalent="o" id="DwE-WX-ETZ">
                                         <connections>
                                             <action selector="openConfigFolder:" target="Voe-Tx-rLC" id="6Ke-Bi-AAZ"/>

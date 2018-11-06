@@ -420,7 +420,14 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         NSWorkspace.shared.openFile(Logger.shared.logFilePath())
 
     }
+    @IBAction func actionSetRemoteConfigUrl(_ sender: Any) {
+        RemoteConfigManager.showUrlInputAlert()
+    }
     
+    
+    @IBAction func actionUpdateRemoteConfig(_ sender: Any) {
+        RemoteConfigManager.updateConfigIfNeed()
+    }
 }
 
 extension AppDelegate:NSMenuDelegate {
