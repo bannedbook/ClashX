@@ -58,6 +58,8 @@ class RemoteConfigManager: NSObject {
     static func updateConfigIfNeed() {
         getRemoteConfigString { (string) in
             guard let newConfigString = string else {alert(with: "Download fail"); return}
+            
+            var replaceSuccess = false
             if FileManager.default.fileExists(atPath: kConfigFilePath) {
                 do {
                     let currentConfigStr = try String(contentsOfFile: kConfigFilePath)
@@ -82,12 +84,15 @@ class RemoteConfigManager: NSObject {
                         try newConfigStringToWrite.write(toFile: kConfigFilePath, atomically: true, encoding: .utf8)
                         NotificationCenter.default.post(Notification(name: kShouldUpDateConfig))
                         self.alert(with: "Success!")
+                        replaceSuccess = true
                     }
-                } catch let err {
-                    self.alert(with: err.localizedDescription)
+                } catch _{
+                    
                 }
-                
-            } else {
+            }
+            
+            if !replaceSuccess {
+                try? FileManager.default.removeItem(atPath: kConfigFilePath)
                 do {
                     try string?.write(toFile: kConfigFilePath, atomically: true, encoding: .utf8)
                     NotificationCenter.default.post(Notification(name: kShouldUpDateConfig))
