@@ -29,7 +29,7 @@ class ClashConfig:Codable {
     var logLevel:ClashLogLevel
     
     private enum CodingKeys : String, CodingKey {
-        case port, socketPort = "socket-port", allowLan = "allow-lan", mode, logLevel = "log-level"
+        case port, socketPort = "socks-port", allowLan = "allow-lan", mode, logLevel = "log-level"
     }
     
     static func fromData(_ data:Data)->ClashConfig{

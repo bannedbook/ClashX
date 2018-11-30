@@ -59,19 +59,22 @@ class ApiRequest{
     
     
     static func requestConfigUpdate(callback:@escaping ((String?)->())){
-        if let errMSg = updateAllConfig() {
-            let err = String(cString: errMSg)
-            let success = (err == "")
-            ConfigManager.shared.isRunning = success
-            callback(success ? nil : err)
-        } else {
-            callback("unknown error")
+        let filePath = "\(kConfigFolderPath)\(ConfigManager.selectConfigName).yml"
+        
+        req("/configs", method: .put,parameters: ["Path":filePath],encoding: JSONEncoding.default).responseJSON {res in
+            if (res.response?.statusCode == 204) {
+                ConfigManager.shared.isRunning = true
+                callback(nil)
+            } else {
+                ConfigManager.shared.isRunning = false
+                let err = JSON(res.result.value as Any)["message"].string ?? "unknown"
+                callback(err)
+            }
         }
-        req("/configs", method: .put).responseJSON {_ in}
     }
     
     static func updateOutBoundMode(mode:ClashProxyMode, callback:@escaping ((Bool)->())) {
-        req("/configs", method: .put, parameters: ["mode":mode.rawValue], encoding: JSONEncoding.default)
+        req("/configs", method: .patch, parameters: ["mode":mode.rawValue], encoding: JSONEncoding.default)
             .responseJSON{ response in
             switch response.result {
             case .success(_):
@@ -92,7 +95,7 @@ class ApiRequest{
     
     static func updateAllowLan(allow:Bool,completeHandler:@escaping (()->())) {
         req("/configs",
-            method: .put,
+            method: .patch,
             parameters: ["allow-lan":allow],
             encoding: JSONEncoding.default).response{
             _ in

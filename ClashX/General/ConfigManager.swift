@@ -44,6 +44,15 @@ class ConfigManager {
         }
     }
     
+    static var selectConfigName:String{
+        get {
+            return UserDefaults.standard.string(forKey: "selectConfigName") ?? "config"
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: "selectConfigName")
+        }
+    }
+    
     var isRunningVariable = Variable<Bool>(false)
     
     var proxyPortAutoSet:Bool {

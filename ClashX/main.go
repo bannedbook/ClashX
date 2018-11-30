@@ -1,52 +1,30 @@
 package main // import "github.com/yichengchen/clashX/ClashX"
-
 import (
 	"C"
 
 	"github.com/Dreamacro/clash/config"
+	Cc "github.com/Dreamacro/clash/constant"
 	"github.com/Dreamacro/clash/hub"
-	"github.com/Dreamacro/clash/proxy"
-	"github.com/Dreamacro/clash/tunnel"
-	"github.com/Dreamacro/clash/constant"
 )
-import (
-	"os"
-	"os/signal"
-	"syscall"
+
+var (
+	homedir string
 )
 
 //export run
 func run() *C.char {
-	tunnel.Instance().Run()
-	proxy.Instance().Run()
-	hub.Run()
 
-	config.Init()
-	err := config.Instance().Parse()
-	if err != nil {
+	if err := config.Init(Cc.Path.HomeDir()); err != nil {
 		return C.CString(err.Error())
+	}
 
+	if err := hub.Parse(); err != nil {
+		return C.CString(err.Error())
 	}
 
 	return C.CString("success")
 }
 
-//export updateAllConfig
-func updateAllConfig() *C.char {
-	err := config.Instance().Parse()
-	if err != nil {
-		return C.CString(err.Error())
-	}
-	return C.CString("")
-}
-
-//export setConfigHomeDir
-func setConfigHomeDir(root string){
-	constant.SetHomeDir(root)
-}
 func main() {
-	run()
-	sigCh := make(chan os.Signal, 1)
-	signal.Notify(sigCh, syscall.SIGINT, syscall.SIGTERM)
-	<-sigCh
+
 }

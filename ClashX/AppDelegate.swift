@@ -248,6 +248,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     
     func startProxy() {
+        if (ConfigManager.shared.isRunning){return}
         print("Trying start proxy")
         if let cstring = run() {
             let error = String(cString: cstring)
@@ -338,6 +339,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     @IBAction func actionUpdateConfig(_ sender: Any) {
+        startProxy()
         ApiRequest.requestConfigUpdate() { [unowned self] error in
             if (error == nil) {
                 self.syncConfig()
