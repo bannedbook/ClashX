@@ -169,3 +169,6 @@
 
 /* Class = "NSMenuItem"; title = "Global"; ObjectID = "yiM-U4-MNg"; */
 "yiM-U4-MNg.title" = "全局连接";
+
+/* Class = "NSMenu"; title = "Log level"; ObjectID = "dcz-b4-hVy"; */
+"jdX-Cx-5pe.title" = "切换配置文件";

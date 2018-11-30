@@ -18,6 +18,8 @@ class StatusItemView: NSView {
     @IBOutlet var uploadSpeedLabel: NSTextField!
     @IBOutlet var downloadSpeedLabel: NSTextField!
     @IBOutlet weak var speedContainerView: NSView!
+    var updating = false
+    
     weak var statusItem:NSStatusItem?
     var disposeBag = DisposeBag()
     
@@ -83,9 +85,12 @@ class StatusItemView: NSView {
         DispatchQueue.main.async {
             self.downloadSpeedLabel.stringValue = finalDownStr
             self.uploadSpeedLabel.stringValue = finalUpStr
+            if self.updating {Logger.log(msg: "update during update"); return}
+            self.updating = true
+            self.updateStatusItemView()
+            self.updating = false
         }
         
-        updateStatusItemView()
    
     }
     

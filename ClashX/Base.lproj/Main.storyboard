@@ -33,6 +33,7 @@
                         <outlet property="showNetSpeedIndicatorMenuItem" destination="YIO-Vj-64f" id="9a5-3N-Ylk"/>
                         <outlet property="socksPortMenuItem" destination="Uy1-g8-r6Q" id="NiI-Gy-9Sa"/>
                         <outlet property="statusMenu" destination="Afa-lD-EbR" id="cov-E9-WrO"/>
+                        <outlet property="switchConfigMenuItem" destination="jdX-Cx-5pe" id="Jrm-lU-CfJ"/>
                     </connections>
                 </customObject>
                 <menu id="Afa-lD-EbR">
@@ -107,6 +108,10 @@
                             <modifierMask key="keyEquivalentModifierMask"/>
                             <menu key="submenu" title="Config" id="tck-zU-JKQ">
                                 <items>
+                                    <menuItem title="Switch Configs" id="jdX-Cx-5pe">
+                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                        <menu key="submenu" title="Switch Configs" id="dcz-b4-hVy"/>
+                                    </menuItem>
                                     <menuItem title="Generate Config" id="a4G-S3-jxT">
                                         <modifierMask key="keyEquivalentModifierMask"/>
                                         <menu key="submenu" title="Generate Config" id="IeJ-1Q-UaF">
@@ -319,7 +324,7 @@
                                                     <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                     <prototypeCellViews>
                                                         <tableCellView identifier="delayCell" id="qZT-29-xCE">
-                                                            <rect key="frame" x="278" y="1" width="168" height="17"/>
+                                                            <rect key="frame" x="277.5" y="1" width="168" height="17"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
                                                                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" tag="1" translatesAutoresizingMaskIntoConstraints="NO" id="QCv-NJ-qh9">

@@ -155,3 +155,16 @@ class ConfigManager {
         }.disposed(by: disposeBag)
     }
 }
+
+extension ConfigManager {
+    static func getConfigFilesList()->[String] {
+        do {
+            let fileURLs = try FileManager.default.contentsOfDirectory(atPath: kConfigFolderPath)
+            return fileURLs
+                .filter { String($0.split(separator: ".").last ?? "") == "yml"}
+                .map{$0.split(separator: ".").dropLast().joined()}
+        } catch {
+            return ["clash"]
+        }
+    }
+}

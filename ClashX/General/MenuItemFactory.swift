@@ -1,5 +1,5 @@
 //
-//  ProxyMenuItemFactory.swift
+//  MenuItemFactory.swift
 //  ClashX
 //
 //  Created by CYC on 2018/8/4.
@@ -10,7 +10,7 @@ import Cocoa
 import SwiftyJSON
 import RxCocoa
 
-class ProxyMenuItemFactory {
+class MenuItemFactory {
     static func menuItems(completionHandler:@escaping (([NSMenuItem])->())){
         ApiRequest.requestProxyGroupList { (res) in
             let dataDict = JSON(res)
@@ -54,8 +54,8 @@ class ProxyMenuItemFactory {
                 }
             }
             
-            let proxyItem = NSMenuItem(title: proxy.stringValue, action: #selector(ProxyMenuItemFactory.actionSelectProxy(sender:)), keyEquivalent: "")
-            proxyItem.target = ProxyMenuItemFactory.self
+            let proxyItem = NSMenuItem(title: proxy.stringValue, action: #selector(MenuItemFactory.actionSelectProxy(sender:)), keyEquivalent: "")
+            proxyItem.target = MenuItemFactory.self
             
             let delay = SpeedDataRecorder.shared.speedDict[proxy.stringValue]
             
@@ -65,7 +65,7 @@ class ProxyMenuItemFactory {
             menuItemView.isSelected = selected
             menuItemView.onClick = { [weak proxyItem] in
                 guard let proxyItem = proxyItem else {return}
-                ProxyMenuItemFactory.actionSelectProxy(sender: proxyItem)
+                MenuItemFactory.actionSelectProxy(sender: proxyItem)
             }
             proxyItem.view = menuItemView
             if selected {hasSelected = true}
@@ -99,6 +99,21 @@ class ProxyMenuItemFactory {
         return menu
     }
     
+   
+    static func generateSwitchConfigMenuItems() -> [NSMenuItem] {
+        var items = [NSMenuItem]()
+        for config in ConfigManager.getConfigFilesList() {
+            let item = NSMenuItem(title: config, action: #selector(MenuItemFactory.actionSelectConfig(sender:)), keyEquivalent: "")
+            item.target = MenuItemFactory.self
+            item.state = ConfigManager.selectConfigName == config ? .on : .off
+            items.append(item)
+        }
+        return items
+    }
+}
+
+
+extension MenuItemFactory {
     @objc static func actionSelectProxy(sender:NSMenuItem){
         guard let proxyGroup = sender.menu?.title else {return}
         let proxyName = sender.title
@@ -116,5 +131,10 @@ class ProxyMenuItemFactory {
     }
     
     
+    @objc static func actionSelectConfig(sender:NSMenuItem){
+        let config = sender.title
+        ConfigManager.selectConfigName = config
+        NotificationCenter.default.post(Notification(name: kShouldUpDateConfig))
+    }
 }
 

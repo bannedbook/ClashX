@@ -30,6 +30,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     @IBOutlet weak var dashboardMenuItem: NSMenuItem!
     @IBOutlet weak var separatorLineTop: NSMenuItem!
     @IBOutlet weak var sepatatorLineEndProxySelect: NSMenuItem!
+    @IBOutlet weak var switchConfigMenuItem: NSMenuItem!
     
     @IBOutlet weak var logLevelMenuItem: NSMenuItem!
     @IBOutlet weak var httpPortMenuItem: NSMenuItem!
@@ -124,6 +125,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 self.proxyModeMenuItem.title = "\("Proxy Mode".localized()) (\(config!.mode.rawValue.localized()))"
                 
                 self.updateProxyList()
+                self.updateConfigFiles()
                 
                 if (old?.port != config?.port && ConfigManager.shared.proxyPortAutoSet) {
                     _ = ProxyConfigManager.setUpSystemProxy(port: config!.port,socksPort: config!.socketPort)
@@ -229,15 +231,17 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
         
         if ConfigManager.shared.isRunning {
-            ProxyMenuItemFactory.menuItems { (menus) in
+            MenuItemFactory.menuItems { (menus) in
                 updateProxyList(withMenus: menus)
             }
             
         } else {
             updateProxyList(withMenus: [])
         }
-        
-        
+    }
+    
+    func updateConfigFiles() {
+        switchConfigMenuItem.submenu?.items = MenuItemFactory.generateSwitchConfigMenuItems()
     }
     
     func updateLoggingLevel() {
