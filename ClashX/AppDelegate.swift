@@ -60,7 +60,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         setupData()
         setupDashboard()
-        startProxy()
+        actionUpdateConfig(self)
         updateLoggingLevel()
         ConfigFileFactory.checkFinalRuleAndShowAlert()
     }
