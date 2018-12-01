@@ -168,7 +168,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             print(exception)
             print(exception.callStackSymbols)
             let str = exception.callStackSymbols.joined(separator: "\n")
+            Logger.log(msg: "--------------CRASH--------------")
+            Logger.log(msg: exception.reason ?? "no reason", level: .error)
             Logger.log(msg: str, level: .error)
+            Logger.log(msg: (String(describing: exception.userInfo)))
+            Logger.log(msg: "---------------------------------")
+
         }
         NSSetUncaughtExceptionHandler(exceptionHandler)
     }
