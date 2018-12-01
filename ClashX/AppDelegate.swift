@@ -111,28 +111,29 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             .asObservable()
         Observable.zip(configObservable,configObservable.skip(1))
             .filter{(_, new) in return new != nil}
-            .bind {[unowned self] (old,config) in
+            .bind {[weak self] (old,config) in
+                guard let self = self,let config=config else {return}
                 self.proxyModeDirectMenuItem.state = .off
                 self.proxyModeGlobalMenuItem.state = .off
                 self.proxyModeRuleMenuItem.state = .off
                 
-                switch config!.mode {
+                switch config.mode {
                 case .direct:self.proxyModeDirectMenuItem.state = .on
                 case .global:self.proxyModeGlobalMenuItem.state = .on
                 case .rule:self.proxyModeRuleMenuItem.state = .on
                 }
-                self.allowFromLanMenuItem.state = config!.allowLan ? .on : .off
-                self.proxyModeMenuItem.title = "\("Proxy Mode".localized()) (\(config!.mode.rawValue.localized()))"
+                self.allowFromLanMenuItem.state = config.allowLan ? .on : .off
+                self.proxyModeMenuItem.title = "\("Proxy Mode".localized()) (\(config.mode.rawValue.localized()))"
                 
                 self.updateProxyList()
                 self.updateConfigFiles()
                 
-                if (old?.port != config?.port && ConfigManager.shared.proxyPortAutoSet) {
-                    _ = ProxyConfigManager.setUpSystemProxy(port: config!.port,socksPort: config!.socketPort)
+                if (old?.port != config.port && ConfigManager.shared.proxyPortAutoSet) {
+                    _ = ProxyConfigManager.setUpSystemProxy(port: config.port,socksPort: config.socketPort)
                 }
                 
-                self.httpPortMenuItem.title  = "Http Port:\(config?.port ?? 0)"
-                self.socksPortMenuItem.title = "Socks Port:\(config?.socketPort ?? 0)"
+                self.httpPortMenuItem.title  = "Http Port:\(config.port)"
+                self.socksPortMenuItem.title = "Socks Port:\(config.socketPort)"
                 self.apiPortMenuItem.title = "Api Port:\(ConfigManager.shared.apiPort)"
 
         }.disposed(by: disposeBag)
@@ -344,6 +345,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     @IBAction func actionUpdateConfig(_ sender: Any) {
         startProxy()
+        guard ConfigManager.shared.isRunning else {return}
         ApiRequest.requestConfigUpdate() { [unowned self] error in
             if (error == nil) {
                 self.syncConfig()
@@ -353,7 +355,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 ConfigFileFactory.checkFinalRuleAndShowAlert()
                 NSUserNotificationCenter
                     .default
-                    .post(title: "Reload Config Succeed", info: "succees")
+                    .post(title: "Reload Config Succeed", info: "Succees")
             } else {
                 NSUserNotificationCenter
                     .default
