@@ -82,7 +82,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         NotificationCenter.default.rx.notification(kShouldUpDateConfig).bind {
             [unowned self] (note)  in
-            self.actionUpdateConfig(self)
+            self.actionUpdateConfig(nil)
         }.disposed(by: disposeBag)
         
         
@@ -348,7 +348,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         NSWorkspace.shared.openFile(kConfigFolderPath)
     }
     
-    @IBAction func actionUpdateConfig(_ sender: Any) {
+    @IBAction func actionUpdateConfig(_ sender: Any?) {
         startProxy()
         guard ConfigManager.shared.isRunning else {return}
         let notifaction = self != (sender as? NSObject)
