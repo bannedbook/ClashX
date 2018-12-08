@@ -41,7 +41,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     @IBOutlet weak var apiPortMenuItem: NSMenuItem!
     
     var disposeBag = DisposeBag()
-    let ssQueue = DispatchQueue(label: "com.w2fzu.ssqueue", attributes: .concurrent)
     var statusItemView:StatusItemView!
     
     func applicationDidFinishLaunching(_ notification: Notification) {
@@ -251,39 +250,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             Logger.log(msg: msg,level: ClashLogLevel(rawValue: type) ?? .unknow)
         }
     }
+    
+}
 
-    
-//Actions:
-    
-    @IBAction func actionQuit(_ sender: Any) {
-        NSApplication.shared.terminate(self)
-    }
-        
-    @IBAction func actionSetSystemProxy(_ sender: Any) {
-        ConfigManager.shared.proxyPortAutoSet = !ConfigManager.shared.proxyPortAutoSet
-        if ConfigManager.shared.proxyPortAutoSet {
-            let port = ConfigManager.shared.currentConfig?.port ?? 0
-            let socketPort = ConfigManager.shared.currentConfig?.socketPort ?? 0
-            _ = ProxyConfigManager.setUpSystemProxy(port: port,socksPort:socketPort)
-        } else {
-            _ = ProxyConfigManager.setUpSystemProxy(port: nil,socksPort: nil)
-        }
+// MARK: Main actions
 
-    }
-    
-    @IBAction func actionCopyExportCommand(_ sender: Any) {
-        let pasteboard = NSPasteboard.general
-        pasteboard.clearContents()
-        let port = ConfigManager.shared.currentConfig?.port ?? 0
-        let socksport = ConfigManager.shared.currentConfig?.socketPort ?? 0
-        pasteboard.setString("export https_proxy=http://127.0.0.1:\(port);export http_proxy=http://127.0.0.1:\(port);export all_proxy=socks5://127.0.0.1:\(socksport)", forType: .string)        
-    }
-    
-    @IBAction func actionSpeedTest(_ sender: Any) {
-        
-    
-    }
-    
+extension AppDelegate {
     
     @IBAction func actionAllowFromLan(_ sender: NSMenuItem) {
         ApiRequest.updateAllowLan(allow: !ConfigManager.allowConnectFromLan) {
@@ -298,6 +270,73 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         LaunchAtLogin.shared.isEnabled = !LaunchAtLogin.shared.isEnabled
     }
     
+    
+    @IBAction func actionSwitchProxyMode(_ sender: NSMenuItem) {
+        let mode:ClashProxyMode
+        switch sender {
+        case proxyModeGlobalMenuItem:
+            mode = .global
+        case proxyModeDirectMenuItem:
+            mode = .direct
+        case proxyModeRuleMenuItem:
+            mode = .rule
+        default:
+            return
+        }
+        let config = ConfigManager.shared.currentConfig?.copy()
+        config?.mode = mode
+        ApiRequest.updateOutBoundMode(mode: mode) { (success) in
+            ConfigManager.shared.currentConfig = config
+            ConfigManager.selectOutBoundMode = mode
+        }
+    }
+    
+    
+    @IBAction func actionShowNetSpeedIndicator(_ sender: NSMenuItem) {
+        ConfigManager.shared.showNetSpeedIndicator = !(sender.state == .on)
+    }
+    
+    @IBAction func actionSetSystemProxy(_ sender: Any) {
+        ConfigManager.shared.proxyPortAutoSet = !ConfigManager.shared.proxyPortAutoSet
+        if ConfigManager.shared.proxyPortAutoSet {
+            let port = ConfigManager.shared.currentConfig?.port ?? 0
+            let socketPort = ConfigManager.shared.currentConfig?.socketPort ?? 0
+            _ = ProxyConfigManager.setUpSystemProxy(port: port,socksPort:socketPort)
+        } else {
+            _ = ProxyConfigManager.setUpSystemProxy(port: nil,socksPort: nil)
+        }
+        
+    }
+    
+    @IBAction func actionCopyExportCommand(_ sender: Any) {
+        let pasteboard = NSPasteboard.general
+        pasteboard.clearContents()
+        let port = ConfigManager.shared.currentConfig?.port ?? 0
+        let socksport = ConfigManager.shared.currentConfig?.socketPort ?? 0
+        pasteboard.setString("export https_proxy=http://127.0.0.1:\(port);export http_proxy=http://127.0.0.1:\(port);export all_proxy=socks5://127.0.0.1:\(socksport)", forType: .string)
+    }
+    
+    @IBAction func actionSpeedTest(_ sender: Any) {
+        
+        
+    }
+    
+    @IBAction func actionQuit(_ sender: Any) {
+        NSApplication.shared.terminate(self)
+    }
+}
+
+// MARK: Help actions
+extension AppDelegate {
+    @IBAction func actionShowLog(_ sender: Any) {
+        NSWorkspace.shared.openFile(Logger.shared.logFilePath())
+    }
+
+}
+
+// MARK: Config actions
+
+extension AppDelegate {
     
     @IBAction func openConfigFolder(_ sender: Any) {
         NSWorkspace.shared.openFile(kConfigFolderPath)
@@ -342,24 +381,14 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         ConfigFileFactory.importConfigFile()
     }
     
-    @IBAction func actionSwitchProxyMode(_ sender: NSMenuItem) {
-        let mode:ClashProxyMode
-        switch sender {
-        case proxyModeGlobalMenuItem:
-            mode = .global
-        case proxyModeDirectMenuItem:
-            mode = .direct
-        case proxyModeRuleMenuItem:
-            mode = .rule
-        default:
-            return
-        }
-        let config = ConfigManager.shared.currentConfig?.copy()
-        config?.mode = mode
-        ApiRequest.updateOutBoundMode(mode: mode) { (success) in
-            ConfigManager.shared.currentConfig = config
-            ConfigManager.selectOutBoundMode = mode
-        }
+    
+    @IBAction func actionSetRemoteConfigUrl(_ sender: Any) {
+        RemoteConfigManager.showUrlInputAlert()
+    }
+    
+    
+    @IBAction func actionUpdateRemoteConfig(_ sender: Any) {
+        RemoteConfigManager.updateConfigIfNeed()
     }
     
     @IBAction func actionImportConfigFromSSURL(_ sender: NSMenuItem) {
@@ -386,27 +415,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             NSUserNotificationCenter.default.postQRCodeNotFoundNotice()
         }
     }
-    
-    @IBAction func actionShowNetSpeedIndicator(_ sender: NSMenuItem) {
-        ConfigManager.shared.showNetSpeedIndicator = !(sender.state == .on)
-    }
-    
-    @IBAction func actionShowLog(_ sender: Any) {
-        NSWorkspace.shared.openFile(Logger.shared.logFilePath())
-
-    }
-    @IBAction func actionSetRemoteConfigUrl(_ sender: Any) {
-        RemoteConfigManager.showUrlInputAlert()
-    }
-    
-    
-    @IBAction func actionUpdateRemoteConfig(_ sender: Any) {
-        RemoteConfigManager.updateConfigIfNeed()
-    }
-    
 }
 
-// crash hanlder
+// MARK: crash hanlder
 extension AppDelegate {
     func registCrashLogger() {
         Fabric.with([Crashlytics.self])
@@ -431,7 +442,7 @@ extension AppDelegate {
     
 }
 
-// Memory
+// MARK: Memory
 extension AppDelegate {
     
     func selectProxyGroupWithMemory(){
@@ -458,6 +469,7 @@ extension AppDelegate {
     }
 }
 
+// MARK: NSMenuDelegate
 extension AppDelegate:NSMenuDelegate {
     func menuWillOpen(_ menu: NSMenu) {
         self.syncConfig()
