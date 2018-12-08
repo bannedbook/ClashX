@@ -89,6 +89,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         // check and refresh api url
         _ = ConfigManager.apiUrl
+        
         // start watch config file change
         ConfigFileFactory.shared.watchConfigFile()
         
@@ -175,30 +176,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
     }
     
-   
-    func selectProxyGroupWithMemory(){
-        for item in ConfigManager.selectedProxyMap {
-            ApiRequest.updateProxyGroup(group: item.key, selectProxy: item.value) { (success) in
-                if (!success) {
-                    ConfigManager.selectedProxyMap[item.key] = nil
-                }
-            }
-        }
-    }
-    
-    func selectOutBoundModeWithMenory() {
-        ApiRequest.updateOutBoundMode(mode: ConfigManager.selectOutBoundMode){
-            _ in
-            self.syncConfig()
-        }
-    }
-    
-    func selectAllowLanWithMenory() {
-        ApiRequest.updateAllowLan(allow: ConfigManager.allowConnectFromLan){
-            self.syncConfig()
-        }
-    }
-    
     func updateProxyList() {
         func updateProxyList(withMenus menus:[NSMenuItem]) {
             let startIndex = self.statusMenu.items.index(of: self.separatorLineTop)!+1
@@ -249,9 +226,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             } else {
                 ConfigManager.shared.isRunning = true
                 self.resetStreamApi()
-                self.selectOutBoundModeWithMenory()
-                self.selectAllowLanWithMenory()
-                self.selectProxyGroupWithMemory()
             }
         }
 
@@ -339,6 +313,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 self.resetStreamApi()
                 self.selectProxyGroupWithMemory()
                 self.selectOutBoundModeWithMenory()
+                self.selectAllowLanWithMenory()
                 ConfigFileFactory.checkFinalRuleAndShowAlert()
                 if notifaction{
                     NSUserNotificationCenter
@@ -366,6 +341,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     @IBAction func actionImportBunchJsonFile(_ sender: NSMenuItem) {
         ConfigFileFactory.importConfigFile()
     }
+    
     @IBAction func actionSwitchProxyMode(_ sender: NSMenuItem) {
         let mode:ClashProxyMode
         switch sender {
@@ -453,6 +429,33 @@ extension AppDelegate {
         });
     }
     
+}
+
+// Memory
+extension AppDelegate {
+    
+    func selectProxyGroupWithMemory(){
+        for item in ConfigManager.selectedProxyMap {
+            ApiRequest.updateProxyGroup(group: item.key, selectProxy: item.value) { (success) in
+                if (!success) {
+                    ConfigManager.selectedProxyMap[item.key] = nil
+                }
+            }
+        }
+    }
+    
+    func selectOutBoundModeWithMenory() {
+        ApiRequest.updateOutBoundMode(mode: ConfigManager.selectOutBoundMode){
+            _ in
+            self.syncConfig()
+        }
+    }
+    
+    func selectAllowLanWithMenory() {
+        ApiRequest.updateAllowLan(allow: ConfigManager.allowConnectFromLan){
+            self.syncConfig()
+        }
+    }
 }
 
 extension AppDelegate:NSMenuDelegate {
