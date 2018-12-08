@@ -54,34 +54,37 @@ class MenuItemFactory {
                 }
             }
             
-            let proxyItem = NSMenuItem(title: proxy.stringValue, action: #selector(MenuItemFactory.actionSelectProxy(sender:)), keyEquivalent: "")
+            let proxyItem = ProxyMenuItem(title: proxy.stringValue, action: #selector(MenuItemFactory.actionSelectProxy(sender:)), keyEquivalent: "")
             proxyItem.target = MenuItemFactory.self
-            
-            let delay = SpeedDataRecorder.shared.speedDict[proxy.stringValue]
-            
+            proxyItem.proxyName = proxy.stringValue
             let selected = proxy.stringValue == selectedName
             proxyItem.state = selected ? .on : .off
-            let menuItemView = ProxyMenuItemView.create(proxy: proxy.stringValue, delay: delay)
-            menuItemView.isSelected = selected
-            menuItemView.onClick = { [weak proxyItem] in
-                guard let proxyItem = proxyItem else {return}
-                MenuItemFactory.actionSelectProxy(sender: proxyItem)
+
+            if let delay = SpeedDataRecorder.shared.speedDict[proxy.stringValue] {
+                let menuItemView = ProxyMenuItemView.create(proxy: proxy.stringValue, delay: delay)
+                menuItemView.isSelected = selected
+                menuItemView.onClick = { [weak proxyItem] in
+                    guard let proxyItem = proxyItem else {return}
+                    MenuItemFactory.actionSelectProxy(sender: proxyItem)
+                }
+                let fittitingWidth = menuItemView.fittingSize.width
+                if (fittitingWidth > submenu.minimumWidth) {
+                    submenu.minimumWidth = fittitingWidth
+                }
+                proxyItem.view = menuItemView
             }
-            proxyItem.view = menuItemView
+            
             if selected {hasSelected = true}
             submenu.addItem(proxyItem)
             submenu.autoenablesItems = false
-            let fittitingWidth = menuItemView.fittingSize.width
-            if (fittitingWidth > submenu.minimumWidth) {
-                submenu.minimumWidth = fittitingWidth
-            }
+            
         }
         for item in submenu.items {
             item.view?.frame.size.width = submenu.minimumWidth
         }
         menu.submenu = submenu
         if (!hasSelected && submenu.items.count>0) {
-            self.actionSelectProxy(sender: submenu.items[0])
+            self.actionSelectProxy(sender: submenu.items[0] as! ProxyMenuItem)
         }
         return menu
     }
@@ -114,9 +117,9 @@ class MenuItemFactory {
 
 
 extension MenuItemFactory {
-    @objc static func actionSelectProxy(sender:NSMenuItem){
+    @objc static func actionSelectProxy(sender:ProxyMenuItem){
         guard let proxyGroup = sender.menu?.title else {return}
-        let proxyName = sender.title
+        let proxyName = sender.proxyName
         
         ApiRequest.updateProxyGroup(group: proxyGroup, selectProxy: proxyName) { (success) in
             if (success) {
@@ -138,3 +141,6 @@ extension MenuItemFactory {
     }
 }
 
+class ProxyMenuItem:NSMenuItem {
+    var proxyName:String = ""
+}
