@@ -66,9 +66,12 @@ class ApiRequest{
                 ConfigManager.shared.isRunning = true
                 callback(nil)
             } else {
-                ConfigManager.shared.isRunning = false
                 let err = JSON(res.result.value as Any)["message"].string ?? "unknown"
-                callback(err)
+                if err.contains("no such file or directory") {
+                    ConfigManager.selectConfigName = "config"
+                } else {
+                    callback(err)
+                }
             }
         }
     }
