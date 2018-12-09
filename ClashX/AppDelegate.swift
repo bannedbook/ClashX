@@ -94,7 +94,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         _ = ConfigManager.apiUrl
         
         // start watch config file change
-        ConfigFileManager.shared.watchConfigFile()
+        ConfigFileManager.shared.watchConfigFile(configName: ConfigManager.selectConfigName)
         
         NotificationCenter.default.rx.notification(kShouldUpDateConfig).bind {
             [unowned self] (note)  in

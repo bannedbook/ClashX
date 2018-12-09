@@ -13,14 +13,15 @@ import Yams
 class ConfigFileManager {
     static let shared = ConfigFileManager()
     var witness:Witness?
-    func watchConfigFile() {
-        let path = (NSHomeDirectory() as NSString).appendingPathComponent("/.config/clash/config.yml")
+    func watchConfigFile(configName:String) {
+        let path = "\(kConfigFolderPath)/\(configName).yml"
         witness = Witness(paths: [path], flags: .FileEvents, latency: 0.3) { events in
             for event in events {
-                print(event.flags)
                 if event.flags.contains(.ItemModified) || event.flags.contains(.ItemCreated){
-                    NSUserNotificationCenter.default.postConfigFileChangeDetectionNotice()
-                    NotificationCenter.default.post(Notification(name: kConfigFileChange))
+                    NSUserNotificationCenter.default
+                        .postConfigFileChangeDetectionNotice()
+                    NotificationCenter.default
+                        .post(Notification(name: kConfigFileChange))
                     break
                 }
             }
