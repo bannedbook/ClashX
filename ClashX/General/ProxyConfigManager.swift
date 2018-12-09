@@ -97,10 +97,10 @@ class ProxyConfigManager {
         ClashX needs to install a small tool to ~/.config/clash with administrator privileges to set system proxy quickly.
         
         Otherwise you need to type in the administrator password every time you change system proxy through ClashX.
-        """
+        """.localized()
         alert.alertStyle = .warning
-        alert.addButton(withTitle: "Install")
-        alert.addButton(withTitle: "Quit")
+        alert.addButton(withTitle: "Install".localized())
+        alert.addButton(withTitle: "Quit".localized())
         return alert.runModal() == .alertFirstButtonReturn
     }
 

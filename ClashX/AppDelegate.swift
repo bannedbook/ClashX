@@ -58,7 +58,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         registCrashLogger()
         
         // prepare for launch
-        _ = ProxyConfigManager.install()
         ConfigFileFactory.upgardeIniIfNeed()
         ConfigFileFactory.copySampleConfigIfNeed()
         
@@ -74,6 +73,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
         // hide dev functions
         setupDashboard()
+        
+        // install proxy helper
+        _ = ProxyConfigManager.install()
+
     }
 
 
