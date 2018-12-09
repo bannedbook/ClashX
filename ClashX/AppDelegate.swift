@@ -60,6 +60,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         // prepare for launch
         ConfigFileManager.upgardeIniIfNeed()
         ConfigFileManager.copySampleConfigIfNeed()
+        ConfigManager.shared.refreshApiInfo()
         
         PFMoveToApplicationsFolderIfNecessary()
         

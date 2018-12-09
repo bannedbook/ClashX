@@ -19,7 +19,6 @@ class ConfigManager {
     var apiSecret:String? = nil
 
     private init(){
-        refreshApiInfo()
         setupNetworkNotifier()
     }
     
@@ -50,6 +49,7 @@ class ConfigManager {
         }
         set {
             UserDefaults.standard.set(newValue, forKey: "selectConfigName")
+            ConfigFileManager.shared.watchConfigFile(configName: newValue)
         }
     }
     
