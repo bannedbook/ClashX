@@ -55,7 +55,7 @@ class ClashWebViewContoller: NSViewController {
             view.addConstraint(constraint)
         }
 
-        bridge = JsBridgeHelper.initJSbridge(webview: webview, delegate: self)
+        bridge = JsBridgeUtil.initJSbridge(webview: webview, delegate: self)
         registerExtenalJSBridgeFunction()
 
         webview.configuration.preferences.setValue(true, forKey: "developerExtrasEnabled")

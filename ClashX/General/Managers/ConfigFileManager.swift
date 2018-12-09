@@ -10,8 +10,8 @@ import AppKit
 import SwiftyJSON
 import Yams
 
-class ConfigFileFactory {
-    static let shared = ConfigFileFactory()
+class ConfigFileManager {
+    static let shared = ConfigFileManager()
     var witness:Witness?
     func watchConfigFile() {
         let path = (NSHomeDirectory() as NSString).appendingPathComponent("/.config/clash/config.yml")
@@ -30,7 +30,7 @@ class ConfigFileFactory {
     
     
     static func configs(from proxyModels:[ProxyServerModel]) -> [String:Any]? {
-        guard let yamlStr = try? String(contentsOfFile: kConfigFilePath),
+        guard let yamlStr = try? String(contentsOfFile: kDefaultConfigFilePath),
             var yaml = (try? Yams.load(yaml: yamlStr)) as? [String:Any] else {return nil}
         
         var proxies:[Any] = yaml["Proxy"] as? [Any] ?? []
@@ -98,7 +98,7 @@ class ConfigFileFactory {
             
             finalConfigString = try Yams.dump(object: config,allowUnicode:true) + finalConfigString
             
-            try finalConfigString.write(toFile: kConfigFilePath, atomically: true, encoding: .utf8)
+            try finalConfigString.write(toFile: kDefaultConfigFilePath, atomically: true, encoding: .utf8)
             
         } catch {
             return
@@ -110,7 +110,7 @@ class ConfigFileFactory {
     
     @discardableResult
     static func backupAndRemoveConfigFile(showAlert:Bool = false) -> Bool {
-        let path = kConfigFilePath
+        let path = kDefaultConfigFilePath
         
         if (FileManager.default.fileExists(atPath: path)) {
             if (showAlert) {
@@ -123,7 +123,7 @@ class ConfigFileFactory {
     }
     
     static func copySampleConfigIfNeed() {
-        if !FileManager.default.fileExists(atPath: kConfigFilePath) {
+        if !FileManager.default.fileExists(atPath: kDefaultConfigFilePath) {
             _ = replaceConfigWithSampleConfig()
         }
     }
@@ -133,7 +133,7 @@ class ConfigFileFactory {
             return false
         }
         let path = Bundle.main.path(forResource: "sampleConfig", ofType: "yml")!
-        try? FileManager.default.copyItem(atPath: path, toPath: kConfigFilePath)
+        try? FileManager.default.copyItem(atPath: path, toPath: kDefaultConfigFilePath)
         NSUserNotificationCenter.default.postGenerateSimpleConfigNotice()
         return true
     }
@@ -216,11 +216,11 @@ class ConfigFileFactory {
 }
 
 
-extension ConfigFileFactory {
+extension ConfigFileManager {
     static func upgardeIniIfNeed() {
         let iniPath = kConfigFolderPath + "config.ini"
         guard FileManager.default.fileExists(atPath: iniPath) else {return}
-        guard !FileManager.default.fileExists(atPath: kConfigFilePath) else {return}
+        guard !FileManager.default.fileExists(atPath: kDefaultConfigFilePath) else {return}
         upgradeIni()
         let targetPath = kConfigFolderPath + "config\(Date().timeIntervalSince1970).bak"
         try? FileManager.default.moveItem(atPath: iniPath, toPath: targetPath)
@@ -337,7 +337,7 @@ extension ConfigFileFactory {
 }
 
 
-extension ConfigFileFactory {
+extension ConfigFileManager {
     static func showReplacingConfigFileAlert() -> Bool{
         let alert = NSAlert()
         alert.messageText = """

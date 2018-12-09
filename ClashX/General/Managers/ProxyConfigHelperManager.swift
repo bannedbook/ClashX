@@ -2,7 +2,7 @@
 import Foundation
 import AppKit
 
-class ProxyConfigManager {
+class ProxyConfigHelperManager {
     static let kProxyConfigFolder = (NSHomeDirectory() as NSString).appendingPathComponent("/.config/clash")
     static let kVersion = "0.1.2"
 

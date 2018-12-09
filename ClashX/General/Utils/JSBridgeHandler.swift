@@ -11,7 +11,7 @@ import WebViewJavascriptBridge
 import SwiftyJSON
 import Alamofire
 
-class JsBridgeHelper {
+class JsBridgeUtil {
     static func initJSbridge(webview:Any,delegate:Any) -> WebViewJavascriptBridge {
         let bridge = WebViewJavascriptBridge(webview)!
         
@@ -19,7 +19,7 @@ class JsBridgeHelper {
         
         // 文件存储
         bridge.registerHandler("readConfigString") {(anydata, responseCallback) in
-            let configData = NSData(contentsOfFile: kConfigFilePath) ?? NSData()
+            let configData = NSData(contentsOfFile: kDefaultConfigFilePath) ?? NSData()
             let configStr = String(data: configData as Data, encoding: .utf8) ?? ""
             responseCallback?(configStr)
         }
@@ -27,10 +27,10 @@ class JsBridgeHelper {
         bridge.registerHandler("writeConfigWithString") {(anydata, responseCallback) in
             do {
                 if let str = anydata as? String {
-                    if (FileManager.default.fileExists(atPath: kConfigFilePath)) {
-                        try? FileManager.default.removeItem(at: URL(fileURLWithPath: kConfigFilePath))
+                    if (FileManager.default.fileExists(atPath: kDefaultConfigFilePath)) {
+                        try? FileManager.default.removeItem(at: URL(fileURLWithPath: kDefaultConfigFilePath))
                     }
-                    try str.write(to: URL(fileURLWithPath: kConfigFilePath), atomically: true, encoding: .utf8)
+                    try str.write(to: URL(fileURLWithPath: kDefaultConfigFilePath), atomically: true, encoding: .utf8)
                 } else {
                     responseCallback?(false)
                 }
@@ -49,9 +49,9 @@ class JsBridgeHelper {
                 if let config = ConfigManager.shared.currentConfig {
                     let success:Bool
                     if enable{
-                        success = ProxyConfigManager.setUpSystemProxy(port:  config.port,socksPort: config.socketPort)
+                        success = ProxyConfigHelperManager.setUpSystemProxy(port:  config.port,socksPort: config.socketPort)
                     } else {
-                        success = ProxyConfigManager.setUpSystemProxy(port:  nil,socksPort: nil)
+                        success = ProxyConfigHelperManager.setUpSystemProxy(port:  nil,socksPort: nil)
                     }
                     responseCallback?(success)
                 } else {

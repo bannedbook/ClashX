@@ -58,8 +58,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         registCrashLogger()
         
         // prepare for launch
-        ConfigFileFactory.upgardeIniIfNeed()
-        ConfigFileFactory.copySampleConfigIfNeed()
+        ConfigFileManager.upgardeIniIfNeed()
+        ConfigFileManager.copySampleConfigIfNeed()
         
         PFMoveToApplicationsFolderIfNecessary()
         
@@ -69,13 +69,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         updateLoggingLevel()
 
         // check config vaild via api
-        ConfigFileFactory.checkFinalRuleAndShowAlert()
+        ConfigFileManager.checkFinalRuleAndShowAlert()
 
         // hide dev functions
         setupDashboard()
         
         // install proxy helper
-        _ = ProxyConfigManager.install()
+        _ = ProxyConfigHelperManager.install()
 
     }
 
@@ -83,7 +83,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     func applicationWillTerminate(_ aNotification: Notification) {
         if ConfigManager.shared.proxyPortAutoSet {
-            _ = ProxyConfigManager.setUpSystemProxy(port: nil,socksPort: nil)
+            _ = ProxyConfigHelperManager.setUpSystemProxy(port: nil,socksPort: nil)
         }
     }
 
@@ -93,7 +93,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         _ = ConfigManager.apiUrl
         
         // start watch config file change
-        ConfigFileFactory.shared.watchConfigFile()
+        ConfigFileManager.shared.watchConfigFile()
         
         NotificationCenter.default.rx.notification(kShouldUpDateConfig).bind {
             [unowned self] (note)  in
@@ -144,7 +144,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 self.updateConfigFiles()
                 
                 if (old?.port != config.port && ConfigManager.shared.proxyPortAutoSet) {
-                    _ = ProxyConfigManager.setUpSystemProxy(port: config.port,socksPort: config.socketPort)
+                    _ = ProxyConfigHelperManager.setUpSystemProxy(port: config.port,socksPort: config.socketPort)
                 }
                 
                 self.httpPortMenuItem.title  = "Http Port:\(config.port)"
@@ -304,9 +304,9 @@ extension AppDelegate {
         if ConfigManager.shared.proxyPortAutoSet {
             let port = ConfigManager.shared.currentConfig?.port ?? 0
             let socketPort = ConfigManager.shared.currentConfig?.socketPort ?? 0
-            _ = ProxyConfigManager.setUpSystemProxy(port: port,socksPort:socketPort)
+            _ = ProxyConfigHelperManager.setUpSystemProxy(port: port,socksPort:socketPort)
         } else {
-            _ = ProxyConfigManager.setUpSystemProxy(port: nil,socksPort: nil)
+            _ = ProxyConfigHelperManager.setUpSystemProxy(port: nil,socksPort: nil)
         }
         
     }
@@ -356,7 +356,7 @@ extension AppDelegate {
                 self.selectProxyGroupWithMemory()
                 self.selectOutBoundModeWithMenory()
                 self.selectAllowLanWithMenory()
-                ConfigFileFactory.checkFinalRuleAndShowAlert()
+                ConfigFileManager.checkFinalRuleAndShowAlert()
                 if notifaction{
                     NSUserNotificationCenter
                         .default
@@ -381,7 +381,7 @@ extension AppDelegate {
     }
     
     @IBAction func actionImportBunchJsonFile(_ sender: NSMenuItem) {
-        ConfigFileFactory.importConfigFile()
+        ConfigFileManager.importConfigFile()
     }
     
     
@@ -397,7 +397,7 @@ extension AppDelegate {
     @IBAction func actionImportConfigFromSSURL(_ sender: NSMenuItem) {
         let pasteBoard = NSPasteboard.general.string(forType: NSPasteboard.PasteboardType.string)
         if let proxyModel = ProxyServerModel(urlStr: pasteBoard ?? "") {
-            ConfigFileFactory.addProxyToConfig(proxy: proxyModel)
+            ConfigFileManager.addProxyToConfig(proxy: proxyModel)
         } else {
             NSUserNotificationCenter.default.postImportConfigFromUrlFailNotice(urlStr: pasteBoard ?? "empty")
         }
@@ -407,7 +407,7 @@ extension AppDelegate {
         if let urls = QRCodeUtil.ScanQRCodeOnScreen() {
             for url in urls {
                 if let proxyModel = ProxyServerModel(urlStr: url) {
-                    ConfigFileFactory.addProxyToConfig(proxy: proxyModel)
+                    ConfigFileManager.addProxyToConfig(proxy: proxyModel)
                 } else {
                     NSUserNotificationCenter
                         .default
@@ -434,7 +434,7 @@ extension AppDelegate {
         x.set(launch_fail_times, forKey: "launch_fail_times")
         if launch_fail_times > 3 {
             //发生连续崩溃
-            ConfigFileFactory.backupAndRemoveConfigFile()
+            ConfigFileManager.backupAndRemoveConfigFile()
             try? FileManager.default.removeItem(atPath: kConfigFolderPath + "Country.mmdb")
             NSUserNotificationCenter.default.post(title: "Fail on launch protect", info: "You origin Config has been renamed")
         }

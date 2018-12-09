@@ -18,7 +18,7 @@
 		4949D15D2132614B00EF85E6 /* QRCodeUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4949D15C2132614B00EF85E6 /* QRCodeUtil.swift */; };
 		4952C3BF2115C7CA004A4FA8 /* MenuItemFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4952C3BE2115C7CA004A4FA8 /* MenuItemFactory.swift */; };
 		4952C3CE2116EA2E004A4FA8 /* ProxyServerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4952C3CD2116EA2E004A4FA8 /* ProxyServerModel.swift */; };
-		4952C3D02117027C004A4FA8 /* ConfigFileFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4952C3CF2117027C004A4FA8 /* ConfigFileFactory.swift */; };
+		4952C3D02117027C004A4FA8 /* ConfigFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4952C3CF2117027C004A4FA8 /* ConfigFileManager.swift */; };
 		495340B020DE5F7200B0D3FF /* StatusItemView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 495340AF20DE5F7200B0D3FF /* StatusItemView.xib */; };
 		495340B320DE68C300B0D3FF /* StatusItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 495340B220DE68C300B0D3FF /* StatusItemView.swift */; };
 		495A44BF20D2660A00888A0A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 495A44BE20D2660A00888A0A /* AppDelegate.swift */; };
@@ -50,7 +50,7 @@
 		49CF3B2120CD7463001EBF94 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49CF3B2020CD7463001EBF94 /* AppDelegate.swift */; };
 		49CF3B2520CD7465001EBF94 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 49CF3B2420CD7465001EBF94 /* Assets.xcassets */; };
 		49CF3B2820CD7465001EBF94 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 49CF3B2620CD7465001EBF94 /* Main.storyboard */; };
-		49CF3B5C20CE8068001EBF94 /* ProxyConfigManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49CF3B5B20CE8068001EBF94 /* ProxyConfigManager.swift */; };
+		49CF3B5C20CE8068001EBF94 /* ProxyConfigHelperManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49CF3B5B20CE8068001EBF94 /* ProxyConfigHelperManager.swift */; };
 		49CF3B5F20CE80D2001EBF94 /* install_proxy_helper.sh in Resources */ = {isa = PBXBuildFile; fileRef = 49CF3B5E20CE80D2001EBF94 /* install_proxy_helper.sh */; };
 		49CF3B6320CED9CF001EBF94 /* check_proxy_helper.sh in Resources */ = {isa = PBXBuildFile; fileRef = 49CF3B6220CED934001EBF94 /* check_proxy_helper.sh */; };
 		49CF3B6520CEE06C001EBF94 /* ConfigManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49CF3B6420CEE06C001EBF94 /* ConfigManager.swift */; };
@@ -118,7 +118,7 @@
 		4949D15C2132614B00EF85E6 /* QRCodeUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeUtil.swift; sourceTree = "<group>"; };
 		4952C3BE2115C7CA004A4FA8 /* MenuItemFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuItemFactory.swift; sourceTree = "<group>"; };
 		4952C3CD2116EA2E004A4FA8 /* ProxyServerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProxyServerModel.swift; sourceTree = "<group>"; };
-		4952C3CF2117027C004A4FA8 /* ConfigFileFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigFileFactory.swift; sourceTree = "<group>"; };
+		4952C3CF2117027C004A4FA8 /* ConfigFileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigFileManager.swift; sourceTree = "<group>"; };
 		495340AF20DE5F7200B0D3FF /* StatusItemView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StatusItemView.xib; sourceTree = "<group>"; };
 		495340B220DE68C300B0D3FF /* StatusItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusItemView.swift; sourceTree = "<group>"; };
 		495A44BC20D2660A00888A0A /* ClashXLaunchHelper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ClashXLaunchHelper.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -163,7 +163,7 @@
 		49CF3B2A20CD7465001EBF94 /* ClashX.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ClashX.entitlements; sourceTree = "<group>"; };
 		49CF3B3520CD75DF001EBF94 /* ClashX-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ClashX-Bridging-Header.h"; sourceTree = "<group>"; };
 		49CF3B4B20CE5232001EBF94 /* ProxyConfig.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ProxyConfig.xcodeproj; path = ProxyConfig/ProxyConfig.xcodeproj; sourceTree = "<group>"; };
-		49CF3B5B20CE8068001EBF94 /* ProxyConfigManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProxyConfigManager.swift; sourceTree = "<group>"; };
+		49CF3B5B20CE8068001EBF94 /* ProxyConfigHelperManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProxyConfigHelperManager.swift; sourceTree = "<group>"; };
 		49CF3B5E20CE80D2001EBF94 /* install_proxy_helper.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = install_proxy_helper.sh; sourceTree = "<group>"; };
 		49CF3B6220CED934001EBF94 /* check_proxy_helper.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = check_proxy_helper.sh; sourceTree = "<group>"; };
 		49CF3B6420CEE06C001EBF94 /* ConfigManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigManager.swift; sourceTree = "<group>"; };
@@ -201,19 +201,42 @@
 			path = Macro;
 			sourceTree = "<group>";
 		};
-		492C4866210EE69B004554A0 /* General */ = {
+		491C24FF21BD558B00AB5D44 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
 				4966E9E22118153A00A391FB /* NSUserNotificationCenter+Extension.swift */,
-				492C4868210EE6B9004554A0 /* ApiRequest.swift */,
-				4952C3BE2115C7CA004A4FA8 /* MenuItemFactory.swift */,
-				4952C3CF2117027C004A4FA8 /* ConfigFileFactory.swift */,
-				49CF3B5B20CE8068001EBF94 /* ProxyConfigManager.swift */,
-				49CF3B6420CEE06C001EBF94 /* ConfigManager.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		491C250021BD55B900AB5D44 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
 				4949D15C2132614B00EF85E6 /* QRCodeUtil.swift */,
 				4960A6DA2136529200B940C9 /* JSBridgeHandler.swift */,
-				4931969A21631E5D00A8E6E7 /* SpeedDataRecorder.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		491C250121BD561200AB5D44 /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				4952C3CF2117027C004A4FA8 /* ConfigFileManager.swift */,
+				49CF3B5B20CE8068001EBF94 /* ProxyConfigHelperManager.swift */,
+				49CF3B6420CEE06C001EBF94 /* ConfigManager.swift */,
 				495BFB8721919B9800C8779D /* RemoteConfigManager.swift */,
+				4952C3BE2115C7CA004A4FA8 /* MenuItemFactory.swift */,
+			);
+			path = Managers;
+			sourceTree = "<group>";
+		};
+		492C4866210EE69B004554A0 /* General */ = {
+			isa = PBXGroup;
+			children = (
+				491C250121BD561200AB5D44 /* Managers */,
+				491C250021BD55B900AB5D44 /* Utils */,
+				492C4868210EE6B9004554A0 /* ApiRequest.swift */,
+				4931969A21631E5D00A8E6E7 /* SpeedDataRecorder.swift */,
 			);
 			path = General;
 			sourceTree = "<group>";
@@ -340,6 +363,7 @@
 				4913C82021157CEB00F6B87C /* Macro */,
 				4997732220D251A60009B136 /* Basic */,
 				492C486E210EF621004554A0 /* Models */,
+				491C24FF21BD558B00AB5D44 /* Extensions */,
 				492C4866210EE69B004554A0 /* General */,
 				4931969C21631F2E00A8E6E7 /* Views */,
 				4989F98520D0AA300001E564 /* ViewControllers */,
@@ -623,8 +647,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				49CF3B5C20CE8068001EBF94 /* ProxyConfigManager.swift in Sources */,
-				4952C3D02117027C004A4FA8 /* ConfigFileFactory.swift in Sources */,
+				49CF3B5C20CE8068001EBF94 /* ProxyConfigHelperManager.swift in Sources */,
+				4952C3D02117027C004A4FA8 /* ConfigFileManager.swift in Sources */,
 				493196A2216331F400A8E6E7 /* NetworkChangeNotifier.swift in Sources */,
 				4997732520D251A60009B136 /* SWBApplication.m in Sources */,
 				49BC061C212931F4005A0FE7 /* AboutViewController.swift in Sources */,

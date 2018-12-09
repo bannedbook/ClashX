@@ -122,18 +122,18 @@ class ConfigManager {
     func refreshApiInfo(){
         apiPort = "7892"
         apiSecret = nil;
-        if let yamlStr = try? String(contentsOfFile: kConfigFilePath),
+        if let yamlStr = try? String(contentsOfFile: kDefaultConfigFilePath),
             var yaml = (try? Yams.load(yaml: yamlStr)) as? [String:Any] {
             if let controller = yaml["external-controller"] as? String,
                 let port = controller.split(separator: ":").last{
                 apiPort = String(port)
             } else {
                 yaml["external-controller"] = apiPort
-                ConfigFileFactory.saveToClashConfigFile(config: yaml)
+                ConfigFileManager.saveToClashConfigFile(config: yaml)
             }
             apiSecret = yaml["secret"] as? String
         } else {
-            _ = ConfigFileFactory.replaceConfigWithSampleConfig()
+            _ = ConfigFileManager.replaceConfigWithSampleConfig()
         }
     }
     

@@ -60,9 +60,9 @@ class RemoteConfigManager: NSObject {
             guard let newConfigString = string else {alert(with: "Download fail"); return}
             
             var replaceSuccess = false
-            if FileManager.default.fileExists(atPath: kConfigFilePath) {
+            if FileManager.default.fileExists(atPath: kDefaultConfigFilePath) {
                 do {
-                    let currentConfigStr = try String(contentsOfFile: kConfigFilePath)
+                    let currentConfigStr = try String(contentsOfFile: kDefaultConfigFilePath)
                     if currentConfigStr == newConfigString {
                         self.alert(with: "Config not updated")
                     } else {
@@ -80,8 +80,8 @@ class RemoteConfigManager: NSObject {
                         }
                         
                         let newConfigStringToWrite = try Yams.dump(object: originConfig)
-                        try FileManager.default.removeItem(atPath: kConfigFilePath)
-                        try newConfigStringToWrite.write(toFile: kConfigFilePath, atomically: true, encoding: .utf8)
+                        try FileManager.default.removeItem(atPath: kDefaultConfigFilePath)
+                        try newConfigStringToWrite.write(toFile: kDefaultConfigFilePath, atomically: true, encoding: .utf8)
                         NotificationCenter.default.post(Notification(name: kShouldUpDateConfig))
                         self.alert(with: "Success!")
                         replaceSuccess = true
@@ -92,9 +92,9 @@ class RemoteConfigManager: NSObject {
             }
             
             if !replaceSuccess {
-                try? FileManager.default.removeItem(atPath: kConfigFilePath)
+                try? FileManager.default.removeItem(atPath: kDefaultConfigFilePath)
                 do {
-                    try string?.write(toFile: kConfigFilePath, atomically: true, encoding: .utf8)
+                    try string?.write(toFile: kDefaultConfigFilePath, atomically: true, encoding: .utf8)
                     NotificationCenter.default.post(Notification(name: kShouldUpDateConfig))
                     self.alert(with: "Success!")
                 } catch let err {
