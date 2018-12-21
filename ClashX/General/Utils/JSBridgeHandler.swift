@@ -114,6 +114,15 @@ class JsBridgeUtil {
             }
         }
         
+        bridge.registerHandler("apiInfo") { (_, callback) in
+            let data = [
+                "host":"127.0.0.1",
+                "port":ConfigManager.shared.apiPort,
+                "secret":ConfigManager.shared.apiSecret
+            ]
+            callback?(data)
+        }
+        
         
         // ping-pong
         bridge.registerHandler("ping"){ (anydata, responseCallback) in
