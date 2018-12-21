@@ -71,9 +71,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
         // check config vaild via api
         ConfigFileManager.checkFinalRuleAndShowAlert()
-
-        // hide dev functions
-        setupDashboard()
         
         // install proxy helper
         _ = ProxyConfigHelperManager.install()
@@ -172,12 +169,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
   
     }
-    
-    func setupDashboard() {
-        if (!ClashWebViewContoller.enableDashBoard()) {
-            statusMenu.removeItem(dashboardMenuItem)
-        }
-    }
+
+
     
     func updateProxyList() {
         func updateProxyList(withMenus menus:[NSMenuItem]) {
