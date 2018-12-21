@@ -108,7 +108,7 @@
 "WQk-kX-Jr8.headerCell.title" = "代理";
 
 /* Class = "NSMenuItem"; title = "Dashboard (dev)"; ObjectID = "XG6-2M-PNi"; */
-"XG6-2M-PNi.title" = "Dashboard (dev)";
+"XG6-2M-PNi.title" = "控制台";
 
 /* Class = "NSMenuItem"; title = "DEBUG"; ObjectID = "XIR-Go-fWA"; */
 "XIR-Go-fWA.title" = "DEBUG";
