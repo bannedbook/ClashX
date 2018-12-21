@@ -99,7 +99,14 @@ class JsBridgeUtil {
         bridge.registerHandler("speedTest") { (anydata, responseCallback) in
             if let proxyName = anydata as? String {
                 ApiRequest.getProxyDelay(proxyName: proxyName) { (delay) in
-                    SpeedDataRecorder.shared.speedDict[proxyName] = delay
+                    var resp:Int
+                    if delay == Int.max {
+                        resp = 0
+                    } else {
+                        resp = delay
+                    }
+                    
+                    SpeedDataRecorder.shared.speedDict[proxyName] = resp
                     responseCallback?(delay)
                 }
             } else {
