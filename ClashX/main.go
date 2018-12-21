@@ -2,10 +2,9 @@ package main // import "github.com/yichengchen/clashX/ClashX"
 import (
 	"C"
 
-	"github.com/Dreamacro/clash/config"
-	Cc "github.com/Dreamacro/clash/constant"
 	"github.com/Dreamacro/clash/hub"
 )
+import "github.com/Dreamacro/clash/hub/route"
 
 var (
 	homedir string
@@ -14,15 +13,16 @@ var (
 //export run
 func run() *C.char {
 
-	if err := config.Init(Cc.Path.HomeDir()); err != nil {
-		return C.CString(err.Error())
-	}
-
 	if err := hub.Parse(); err != nil {
 		return C.CString(err.Error())
 	}
 
 	return C.CString("success")
+}
+
+//export setUIPath
+func setUIPath(path string) {
+	route.SetUIPath(path)
 }
 
 func main() {
