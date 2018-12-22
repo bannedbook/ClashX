@@ -95,14 +95,16 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         ConfigFileManager.shared.watchConfigFile(configName: ConfigManager.selectConfigName)
         
         NotificationCenter.default.rx.notification(kShouldUpDateConfig).bind {
-            [unowned self] (note)  in
+            [weak self] (note)  in
+            guard let self = self else {return}
             self.actionUpdateConfig(nil)
         }.disposed(by: disposeBag)
         
         
         ConfigManager.shared
             .showNetSpeedIndicatorObservable
-            .bind {[unowned self] (show) in
+            .bind {[weak self] (show) in
+                guard let self = self else {return}
                 self.showNetSpeedIndicatorMenuItem.state = (show ?? true) ? .on : .off
                 let statusItemLength:CGFloat = (show ?? true) ? 65 : 25
                 self.statusItem.length = statusItemLength
@@ -114,8 +116,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         ConfigManager.shared
             .proxyPortAutoSetObservable
             .distinctUntilChanged()
-            .bind{ [unowned self]
+            .bind{ [weak self]
                 en in
+                guard let self = self else {return}
                 let enable = en ?? false
                 self.proxySettingMenuItem.state = enable ? .on : .off
             }.disposed(by: disposeBag)
@@ -157,7 +160,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             .isRunningVariable
             .asObservable()
             .distinctUntilChanged()
-            .bind { [unowned self] _ in
+            .bind { [weak self] _ in
+                guard let self = self else {return}
                 self.updateProxyList()
         }.disposed(by: disposeBag)
         
@@ -271,7 +275,8 @@ extension AppDelegate {
     
     @IBAction func actionAllowFromLan(_ sender: NSMenuItem) {
         ApiRequest.updateAllowLan(allow: !ConfigManager.allowConnectFromLan) {
-            [unowned self] in
+            [weak self] in
+            guard let self = self else {return}
             self.syncConfig()
             ConfigManager.allowConnectFromLan = !ConfigManager.allowConnectFromLan
         }
@@ -358,7 +363,8 @@ extension AppDelegate {
         startProxy()
         guard ConfigManager.shared.isRunning else {return}
         let notifaction = self != (sender as? NSObject)
-        ApiRequest.requestConfigUpdate() { [unowned self] error in
+        ApiRequest.requestConfigUpdate() { [weak self] error in
+            guard let self = self else {return}
             if (error == nil) {
                 self.syncConfig()
                 self.resetStreamApi()
