@@ -97,7 +97,7 @@
                                 <action selector="actionAllowFromLan:" target="Voe-Tx-rLC" id="BGp-Tp-MiH"/>
                             </connections>
                         </menuItem>
-                        <menuItem title="Dashboard" id="XG6-2M-PNi">
+                        <menuItem title="Dashboard" enabled="NO" id="XG6-2M-PNi">
                             <modifierMask key="keyEquivalentModifierMask"/>
                             <connections>
                                 <segue destination="ZNp-tx-6bv" kind="show" id="ZMG-K0-DhZ"/>
@@ -324,7 +324,7 @@
                                                     <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                     <prototypeCellViews>
                                                         <tableCellView identifier="delayCell" id="qZT-29-xCE">
-                                                            <rect key="frame" x="277.5" y="1" width="168" height="17"/>
+                                                            <rect key="frame" x="278" y="1" width="168" height="17"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
                                                                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" tag="1" translatesAutoresizingMaskIntoConstraints="NO" id="QCv-NJ-qh9">

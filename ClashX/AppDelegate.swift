@@ -234,6 +234,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             } else {
                 ConfigManager.shared.isRunning = true
                 self.resetStreamApi()
+                self.dashboardMenuItem.isEnabled = true
             }
         }
         
