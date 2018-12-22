@@ -66,7 +66,7 @@ class ApiRequest{
                 ConfigManager.shared.isRunning = true
                 callback(nil)
             } else {
-                let err = JSON(res.result.value as Any)["message"].string ?? "error occoured, Please try to fix it by restarting ClashX. "
+                let err = JSON(res.result.value as Any)["message"].string ?? "Error occoured, Please try to fix it by restarting ClashX. "
                 if err.contains("no such file or directory") {
                     ConfigManager.selectConfigName = "config"
                 } else {
