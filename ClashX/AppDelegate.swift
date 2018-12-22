@@ -70,7 +70,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         setupData()
         actionUpdateConfig(self)
         updateLoggingLevel()
-
+        hideFunctionIfNeed()
+        
         // check config vaild via api
         ConfigFileManager.checkFinalRuleAndShowAlert()
         
@@ -173,6 +174,14 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             }).disposed(by: disposeBag)
         
   
+    }
+    
+    func hideFunctionIfNeed() {
+        if #available(OSX 10.11, *) {
+            // pass
+        } else {
+            dashboardMenuItem.isHidden = true
+        }
     }
 
 
