@@ -46,7 +46,7 @@ class RemoteConfigManager: NSObject {
     
     static func getRemoteConfigString(handler:@escaping (String?)->()) {
         guard let url = configUrl else {alert(with: "Not config url set!");return}
-        request(url, method: .get).responseString { (res) in
+        request(url, method: .get).responseString(encoding: .utf8) { (res) in
             if let s = res.result.value {
                 handler(s)
             } else {
