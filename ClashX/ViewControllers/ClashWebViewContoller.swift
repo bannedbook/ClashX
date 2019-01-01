@@ -18,10 +18,7 @@ class ClashWebViewContoller: NSViewController {
     var disposeBag = DisposeBag()
     
     @IBOutlet weak var effectView: NSVisualEffectView!
-    
-    static func enableDashBoard() -> Bool {
-        return UserDefaults.standard.bool(forKey: "kEnableDashboard")
-    }
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,22 +35,8 @@ class ClashWebViewContoller: NSViewController {
         } else {
             webview.setValue(true, forKey: "drawsTransparentBackground")
         }
+        webview.frame = self.view.bounds
         view.addSubview(webview)
-
-
-        webview.translatesAutoresizingMaskIntoConstraints = false
-        let attributes:[NSLayoutConstraint.Attribute] = [.top,.left,.bottom,.right,.top]
-        for attribute in attributes {
-
-            let constraint = NSLayoutConstraint(item: webview,
-                                                attribute: attribute,
-                                                relatedBy: .equal,
-                                                toItem: view,
-                                                attribute: attribute ,
-                                                multiplier: 1, constant: 0);
-            constraint.priority = NSLayoutConstraint.Priority(rawValue: 100);
-            view.addConstraint(constraint)
-        }
 
         bridge = JsBridgeUtil.initJSbridge(webview: webview, delegate: self)
         registerExtenalJSBridgeFunction()
