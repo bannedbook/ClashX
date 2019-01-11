@@ -56,7 +56,7 @@ class ClashWebViewContoller: NSViewController {
         let defaultUrl = "\(ConfigManager.apiUrl)/ui/"
         let url = UserDefaults.standard.string(forKey: "webviewUrl") ?? defaultUrl
         if let url = URL(string: url) {
-            webview.load(URLRequest(url: url))
+            webview.load(URLRequest(url: url, cachePolicy: .reloadIgnoringLocalAndRemoteCacheData, timeoutInterval: 0))
         }
     }
     
