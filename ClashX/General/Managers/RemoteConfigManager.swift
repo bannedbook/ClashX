@@ -44,63 +44,42 @@ class RemoteConfigManager: NSObject {
         }
     }
     
-    static func getRemoteConfigString(handler:@escaping (String?)->()) {
-        guard let url = configUrl else {alert(with: "Not config url set!");return}
-        request(url, method: .get).responseString(encoding: .utf8) { (res) in
+    static func getRemoteConfigString(handler:@escaping (String, String?)->()) {
+        guard let urlString = configUrl,
+            let host = URL(string: urlString)?.host
+            else {alert(with: "Not config url set!");return}
+        
+        request(urlString, method: .get).responseString(encoding: .utf8) { (res) in
             if let s = res.result.value {
-                handler(s)
+                handler(host,s)
             } else {
-                handler(nil)
+                handler(host,nil)
             }
         }
     }
     
     static func updateConfigIfNeed() {
-        getRemoteConfigString { (string) in
+        getRemoteConfigString { (host,string) in
             guard let newConfigString = string else {alert(with: "Download fail"); return}
             
-            var replaceSuccess = false
-            if FileManager.default.fileExists(atPath: kDefaultConfigFilePath) {
-                do {
-                    let currentConfigStr = try String(contentsOfFile: kDefaultConfigFilePath)
-                    if currentConfigStr == newConfigString {
-                        self.alert(with: "Config not updated")
-                    } else {
-                        guard var originConfig = (try Yams.load(yaml: currentConfigStr)) as? [String:Any] else { throw "Can not parse current config"}
-                        guard let newConfig = try Yams.load(yaml: newConfigString) as? [String:Any] else { throw "Can not parse new config"}
-                        
-                        originConfig["Proxy"] = newConfig["Proxy"]
-                        originConfig["Proxy Group"] = newConfig["Proxy Group"]
-                        originConfig["Rule"] = newConfig["Rule"]
-                        
-                        for (k,v) in originConfig {
-                            if v is NSNull {
-                                originConfig[k] = nil
-                            }
-                        }
-                        
-                        let newConfigStringToWrite = try Yams.dump(object: originConfig)
-                        try FileManager.default.removeItem(atPath: kDefaultConfigFilePath)
-                        try newConfigStringToWrite.write(toFile: kDefaultConfigFilePath, atomically: true, encoding: .utf8)
-                        NotificationCenter.default.post(Notification(name: kShouldUpDateConfig))
-                        self.alert(with: "Success!")
-                        replaceSuccess = true
+            let savePath = kConfigFolderPath.appending(host).appending(".yml")
+            let fm = FileManager.default
+            do {
+                if fm.fileExists(atPath: savePath) {
+                    let current = try String(contentsOfFile: savePath)
+                    if current == newConfigString {
+                        self.alert(with: "No Update needed!")
                     }
-                } catch _{
-                    
+                    try fm.removeItem(atPath: savePath)
                 }
+                try newConfigString.write(toFile: savePath, atomically: true, encoding: .utf8)
+                ConfigManager.selectConfigName = host
+                NotificationCenter.default.post(Notification(name: kShouldUpDateConfig))
+                self.alert(with: "Update Success!")
+            } catch let err {
+                self.alert(with: err.localizedDescription)
             }
-            
-            if !replaceSuccess {
-                try? FileManager.default.removeItem(atPath: kDefaultConfigFilePath)
-                do {
-                    try string?.write(toFile: kDefaultConfigFilePath, atomically: true, encoding: .utf8)
-                    NotificationCenter.default.post(Notification(name: kShouldUpDateConfig))
-                    self.alert(with: "Success!")
-                } catch let err {
-                    self.alert(with: err.localizedDescription)
-                }
-            }
+
         }
     }
     

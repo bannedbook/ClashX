@@ -162,9 +162,9 @@ extension ConfigManager {
             let fileURLs = try FileManager.default.contentsOfDirectory(atPath: kConfigFolderPath)
             return fileURLs
                 .filter { String($0.split(separator: ".").last ?? "") == "yml"}
-                .map{$0.split(separator: ".").dropLast().joined()}
+                .map{$0.split(separator: ".").dropLast().joined(separator: ".")}
         } catch {
-            return ["clash"]
+            return ["config"]
         }
     }
 }

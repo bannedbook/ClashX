@@ -144,7 +144,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 self.proxyModeMenuItem.title = "\("Proxy Mode".localized()) (\(config.mode.rawValue.localized()))"
                 
                 self.updateProxyList()
-                self.updateConfigFiles()
                 
                 if (old?.port != config.port && ConfigManager.shared.proxyPortAutoSet) {
                     _ = ProxyConfigHelperManager.setUpSystemProxy(port: config.port,socksPort: config.socketPort)
@@ -499,7 +498,12 @@ extension AppDelegate {
 // MARK: NSMenuDelegate
 extension AppDelegate:NSMenuDelegate {
     func menuWillOpen(_ menu: NSMenu) {
-        self.syncConfig()
     }
+    
+    func menuNeedsUpdate(_ menu: NSMenu) {
+        syncConfig()
+        updateConfigFiles()
+    }
+
 }
 
