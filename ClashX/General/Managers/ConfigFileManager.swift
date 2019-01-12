@@ -218,113 +218,6 @@ class ConfigFileManager {
 
 
 extension ConfigFileManager {
-    static func upgardeIniIfNeed() {
-        let iniPath = kConfigFolderPath + "config.ini"
-        guard FileManager.default.fileExists(atPath: iniPath) else {return}
-        guard !FileManager.default.fileExists(atPath: kDefaultConfigFilePath) else {return}
-        upgradeIni()
-        let targetPath = kConfigFolderPath + "config\(Date().timeIntervalSince1970).bak"
-        try? FileManager.default.moveItem(atPath: iniPath, toPath: targetPath)
-    }
-    
-    private static func upgradeIni() {
-        
-        func parseOptions(options:[String]) -> [String:String] {
-            var mapping = [String:String]()
-            for option in options {
-                let pairs = option.split(separator: "=",maxSplits: 2)
-                guard pairs.count == 2 else {continue}
-                mapping[String(pairs[0]).trimed()] = String(pairs[1]).trimed()
-            }
-            return mapping
-        }
-        
-        guard let ini = parseConfig("\(kConfigFolderPath)config.ini") else {
-            return
-        }
-        var newConfig = [String:Any]()
-
-        newConfig.merge(ini["General"]?.dict as [String : Any]? ?? [:]) { $1 }
-        
-        var newProxies = [Any]()
-
-        for (proxy,elemsStr) in ini["Proxy"]?.dict ?? [:] {
-            
-            let elems = elemsStr.split(separator: ",").map { (substring) -> String in
-                return String(substring).trimed()
-            }
-            
-            if elems.count < 3 {continue}
-
-            let proxyName = proxy
-            let proxyType = elems[0]
-            let proxyAddr = elems[1]
-            guard let proxyPort = Int(elems[2]) else {continue}
-            var newProxy:[String : Any] = ["name":proxyName,
-                                           "server":proxyAddr,
-                                           "port":proxyPort,
-                                           "type":proxyType]
-
-            switch proxyType {
-            case "ss":
-                if elems.count < 5 {continue}
-                let otherOptions = parseOptions(options:Array(elems[5..<elems.count]))
-                print(otherOptions)
-                newProxy["cipher"] = elems[3]
-                newProxy["password"] = elems[4]
-                newProxy.merge(otherOptions) { $1 }
-                
-            case "vmess":
-                if elems.count < 6 {continue}
-                newProxy["uuid"] = elems[3]
-                guard let alertId = Int(elems[4]) else {continue}
-                newProxy["alterId"] = alertId
-                newProxy["cipher"] = elems[5]
-                let otherOptions = parseOptions(options: Array(elems[6..<elems.count]))
-                newProxy.merge(otherOptions) { $1 }
-            case "socks":
-            if elems.count < 3 {continue}
-
-            default:
-                continue
-                
-            }
-            newProxies.append(newProxy)
-
-        }
-        
-        var newProxyGroup = [Any]()
-        for (group,groupStr) in ini["Proxy Group"]?.dictArray ?? [] {
-            var elems = groupStr.split(separator: ",").map { (substring) -> String in
-                return String(substring).trimed()
-            }
-            if elems.count<2 {continue}
-            let groupType = String(elems[0])
-            var proxyGroup = ["name":group,"type":groupType] as [String:Any]
-
-            switch groupType {
-            case "select":
-                let proxyNames = Array(elems.dropFirst())
-                proxyGroup["proxies"] = proxyNames
-            case "url-test","fallback":
-                proxyGroup["proxies"] = Array(elems.dropLast(2).dropFirst())
-                proxyGroup["url"] = elems[elems.count-2]
-                guard let delay = Int(elems[elems.count-1]) else {continue}
-                proxyGroup["interval"] = delay
-            default:
-                continue
-            }
-            
-            newProxyGroup.append(proxyGroup)
-        }
-        
-        
-        newConfig["Proxy"] = newProxies
-        newConfig["Proxy Group"] = newProxyGroup
-        newConfig["Rule"] = (ini["Rule"]?.array ?? [])
-        saveToClashConfigFile(config: newConfig)
-        showIniUpgradeAlert()
-    }
     
     static func checkFinalRuleAndShowAlert() {
         ApiRequest.getRules() {
@@ -352,17 +245,6 @@ extension ConfigFileManager {
         return alert.runModal() == .alertFirstButtonReturn
     }
     
-    static func showIniUpgradeAlert() {
-        let alert = NSAlert()
-        alert.messageText = """
-        Clash has changed config file format from .ini to .yml.
-        ClashX has automatically upgraded your config file.
-        Note: current upgradation might cause your config file looks confusion. Check the config file example in github for better customize.
-        """.localized()
-        alert.alertStyle = .warning
-        alert.addButton(withTitle: "OK")
-        alert.runModal()
-    }
     
     
     static func showNoFinalRuleAlert() {

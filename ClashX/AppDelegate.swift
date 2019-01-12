@@ -57,8 +57,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         failLaunchProtect()
         registCrashLogger()
         
-        // prepare for launch
-        ConfigFileManager.upgardeIniIfNeed()
         // install proxy helper
         _ = ProxyConfigHelperManager.install()
         ConfigFileManager.copySampleConfigIfNeed()
@@ -75,8 +73,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         // check config vaild via api
         ConfigFileManager.checkFinalRuleAndShowAlert()
         
-
-
     }
 
 
