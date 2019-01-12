@@ -52,8 +52,11 @@ class ApiRequest{
         req("/configs").responseData{
             res in
             guard let data = res.result.value else {return}
-            let config = ClashConfig.fromData(data)
-            completeHandler(config)
+            if let config = ClashConfig.fromData(data) {
+                completeHandler(config)
+            } else {
+                NSUserNotificationCenter.default.post(title: "Error", info: "Get clash config failed")
+            }
         }
     }
     
