@@ -224,8 +224,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         if (ConfigManager.shared.isRunning){return}
     
         // setup ui config first
-        if let htmlPath = Bundle.main.path(forResource: "index", ofType: "html", inDirectory: "dashboard") ,
-            let uiPath = URL(string: htmlPath)?.deletingLastPathComponent().absoluteString.dropLast() {
+        if let htmlPath = Bundle.main.path(forResource: "index", ofType: "html", inDirectory: "dashboard") {
+            let uiPath = URL(fileURLWithPath: htmlPath).deletingLastPathComponent().path
             let path = String(uiPath)
             let length = path.count + 1
             let buffer = UnsafeMutablePointer<Int8>.allocate(capacity: length)
