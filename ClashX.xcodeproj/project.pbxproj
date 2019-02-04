@@ -590,7 +590,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Fabric/run\" e5990c61f53f0e5713e37f78458291760d631147 cf9c0c3d1632310f1e08fc6e07aedd6076855b99d2a08f9ff586c2894ae1602e\n";
+			shellScript = "BUNDLE_ID=${PRODUCT_BUNDLE_IDENTIFIER}\nNORMAL_ID=\"com.west2online.ClashX\"\nif [ ${BUNDLE_ID} == ${NORMAL_ID} ] ; then\necho ${CONFIGURATION}\nif [ ${CONFIGURATION} = \"Release\" ];\nthen\n\n\"${PODS_ROOT}/Fabric/run\" e5990c61f53f0e5713e37f78458291760d631147 cf9c0c3d1632310f1e08fc6e07aedd6076855b99d2a08f9ff586c2894ae1602e\nfi\nelse\necho \"BundleID:${BUNDLE_ID} is not com.west2online.ClashX\"\nfi\n\n";
 		};
 		A741C26F5755233F0D7CEC6F /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
