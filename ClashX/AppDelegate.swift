@@ -399,9 +399,7 @@ extension AppDelegate {
         resetStreamApi()
     }
     
-    @IBAction func actionImportBunchJsonFile(_ sender: NSMenuItem) {
-        ConfigFileManager.importConfigFile()
-    }
+
     
     
     @IBAction func actionSetRemoteConfigUrl(_ sender: Any) {
@@ -411,31 +409,6 @@ extension AppDelegate {
     
     @IBAction func actionUpdateRemoteConfig(_ sender: Any) {
         RemoteConfigManager.updateConfigIfNeed()
-    }
-    
-    @IBAction func actionImportConfigFromSSURL(_ sender: NSMenuItem) {
-        let pasteBoard = NSPasteboard.general.string(forType: NSPasteboard.PasteboardType.string)
-        if let proxyModel = ProxyServerModel(urlStr: pasteBoard ?? "") {
-            ConfigFileManager.addProxyToConfig(proxy: proxyModel)
-        } else {
-            NSUserNotificationCenter.default.postImportConfigFromUrlFailNotice(urlStr: pasteBoard ?? "empty")
-        }
-    }
-    
-    @IBAction func actionScanQRCode(_ sender: NSMenuItem) {
-        if let urls = QRCodeUtil.ScanQRCodeOnScreen() {
-            for url in urls {
-                if let proxyModel = ProxyServerModel(urlStr: url) {
-                    ConfigFileManager.addProxyToConfig(proxy: proxyModel)
-                } else {
-                    NSUserNotificationCenter
-                        .default
-                        .postImportConfigFromUrlFailNotice(urlStr: url)
-                }
-            }
-        }else {
-            NSUserNotificationCenter.default.postQRCodeNotFoundNotice()
-        }
     }
 }
 

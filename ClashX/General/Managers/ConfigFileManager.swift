@@ -29,49 +29,6 @@ class ConfigFileManager {
     }
     
     
-    
-    static func configs(from proxyModels:[ProxyServerModel]) -> [String:Any]? {
-        guard let yamlStr = try? String(contentsOfFile: kDefaultConfigFilePath),
-            var yaml = (try? Yams.load(yaml: yamlStr)) as? [String:Any] else {return nil}
-        
-        var proxies:[Any] = yaml["Proxy"] as? [Any] ?? []
-        var proxyNames = [String]()
-        for each in proxyModels {
-            var newProxy:[String : Any] = ["name":each.remark,
-                                           "server":each.serverHost,
-                                           "port":Int(each.serverPort) ?? 0,
-                                           ]
-            
-            switch each.proxyType {
-            case .shadowsocks:
-                newProxy["type"] = "ss"
-                newProxy["cipher"] = each.method
-                newProxy["password"] = each.password
-                if (each.simpleObfs != .none) {
-                    newProxy["obfs"] = each.simpleObfs.rawValue
-                    newProxy["obfs-host"] = "bing.com"
-                }
-            case .socks5:
-                newProxy["type"] = "socks"
-            }
-            proxies.append(newProxy)
-            proxyNames.append(each.remark)
-        }
-        yaml["Proxy"] = proxies
-        
-        var proxyGroups = yaml["Proxy Group"]  as? [Any] ?? []
-        if proxyGroups.count == 0 {
-            
-            let autoGroup:[String : Any] = ["name":"auto","type": "url-test", "url": "https://www.bing.com", "interval": 300,"proxies":proxyNames]
-            proxyNames.append("auto")
-            let selectGroup:[String : Any] = ["name":"Proxy","type":"select","proxies":proxyNames]
-            proxyGroups = [autoGroup,selectGroup]
-            yaml["Proxy Group"] = proxyGroups
-        }
-        
-        return yaml
-    }
-    
     static func saveToClashConfigFile(config:[String:Any]) {
         // save to ~/.config/clash/config.yml
         _ = self.backupAndRemoveConfigFile(showAlert: false)
@@ -140,80 +97,6 @@ class ConfigFileManager {
     }
     
     
-    static func importConfigFile() {
-        let openPanel = NSOpenPanel()
-        openPanel.title = "Choose Config Json File"
-        openPanel.allowsMultipleSelection = false
-        openPanel.canChooseDirectories = false
-        openPanel.canCreateDirectories = false
-        openPanel.canChooseFiles = true
-        openPanel.becomeKey()
-        let result = openPanel.runModal()
-        guard (result.rawValue == NSFileHandlingPanelOKButton && (openPanel.url) != nil) else {
-            NSUserNotificationCenter.default
-                .post(title: "Import Server Profile failed!",
-                      info: "Invalid config file!")
-            return
-        }
-        let fileManager = FileManager.default
-        let filePath:String = (openPanel.url?.path)!
-        var profiles = [ProxyServerModel]()
-        
-        
-        if fileManager.fileExists(atPath: filePath) &&
-            filePath.hasSuffix("json") {
-            if let data = fileManager.contents(atPath: filePath),
-                let json = try? JSON(data: data) {
-                let remarkSet = Set<String>()
-                for item in json["configs"].arrayValue{
-                    if let host = item["server"].string,
-                        let method = item["method"].string,
-                        let password = item["password"].string{
-                        
-                        let profile = ProxyServerModel()
-                        profile.serverHost = host
-                        profile.serverPort = String(item["server_port"].intValue)
-                        profile.method = method
-                        profile.password = password
-                        profile.remark = item["remarks"].stringValue
-                        profile.pluginStr = item["plugin_opts"].stringValue
-                        if remarkSet.contains(profile.remark) {
-                            profile.remark.append("Dup")
-                        }
-                        
-                        if (profile.isValid()) {
-                            profiles.append(profile)
-                        }
-                    }
-                }
-                
-                if (profiles.count > 0) {
-                    if let configDict = configs(from: profiles) {
-                        self.saveToClashConfigFile(config: configDict)
-                        NSUserNotificationCenter
-                            .default
-                            .post(title: "Import Server Profile succeed!",
-                                  info: "Successful import \(profiles.count) items")
-                        NotificationCenter.default.post(Notification(name: kShouldUpDateConfig))
-                    }
-                    
-                } else {
-                    NSUserNotificationCenter
-                        .default
-                        .post(title: "Import Server Profile Fail!",
-                              info: "No proxies are imported")
-                }
-            }
-        }
-        
-    }
-    
-    static func addProxyToConfig(proxy:ProxyServerModel) {
-        if let configDict = configs(from: [proxy]) {
-            self.saveToClashConfigFile(config: configDict)
-            NotificationCenter.default.post(Notification(name: kShouldUpDateConfig))
-        }
-    }
 }
 
 

@@ -15,9 +15,7 @@
 		4931969B21631E5E00A8E6E7 /* SpeedDataRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4931969A21631E5D00A8E6E7 /* SpeedDataRecorder.swift */; };
 		493196A2216331F400A8E6E7 /* NetworkChangeNotifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493196A1216331F400A8E6E7 /* NetworkChangeNotifier.swift */; };
 		4949D154213242F600EF85E6 /* Paths.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4949D153213242F600EF85E6 /* Paths.swift */; };
-		4949D15D2132614B00EF85E6 /* QRCodeUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4949D15C2132614B00EF85E6 /* QRCodeUtil.swift */; };
 		4952C3BF2115C7CA004A4FA8 /* MenuItemFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4952C3BE2115C7CA004A4FA8 /* MenuItemFactory.swift */; };
-		4952C3CE2116EA2E004A4FA8 /* ProxyServerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4952C3CD2116EA2E004A4FA8 /* ProxyServerModel.swift */; };
 		4952C3D02117027C004A4FA8 /* ConfigFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4952C3CF2117027C004A4FA8 /* ConfigFileManager.swift */; };
 		495340B020DE5F7200B0D3FF /* StatusItemView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 495340AF20DE5F7200B0D3FF /* StatusItemView.xib */; };
 		495340B320DE68C300B0D3FF /* StatusItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 495340B220DE68C300B0D3FF /* StatusItemView.swift */; };
@@ -114,9 +112,7 @@
 		4931969A21631E5D00A8E6E7 /* SpeedDataRecorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeedDataRecorder.swift; sourceTree = "<group>"; };
 		493196A1216331F400A8E6E7 /* NetworkChangeNotifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkChangeNotifier.swift; sourceTree = "<group>"; };
 		4949D153213242F600EF85E6 /* Paths.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Paths.swift; sourceTree = "<group>"; };
-		4949D15C2132614B00EF85E6 /* QRCodeUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeUtil.swift; sourceTree = "<group>"; };
 		4952C3BE2115C7CA004A4FA8 /* MenuItemFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuItemFactory.swift; sourceTree = "<group>"; };
-		4952C3CD2116EA2E004A4FA8 /* ProxyServerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProxyServerModel.swift; sourceTree = "<group>"; };
 		4952C3CF2117027C004A4FA8 /* ConfigFileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigFileManager.swift; sourceTree = "<group>"; };
 		495340AF20DE5F7200B0D3FF /* StatusItemView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StatusItemView.xib; sourceTree = "<group>"; };
 		495340B220DE68C300B0D3FF /* StatusItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusItemView.swift; sourceTree = "<group>"; };
@@ -135,7 +131,7 @@
 		49722FEC211F338B00650A41 /* Witness.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Witness.swift; sourceTree = "<group>"; };
 		49722FED211F338B00650A41 /* Witness.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Witness.h; sourceTree = "<group>"; };
 		49722FEE211F338B00650A41 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		4975E120217A12210027708D /* ProxyMenuItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ProxyMenuItemView.swift; path = ProxyMenuItemView.swift; sourceTree = "<group>"; };
+		4975E120217A12210027708D /* ProxyMenuItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProxyMenuItemView.swift; sourceTree = "<group>"; };
 		4975E122217A122E0027708D /* ProxyMenuItemView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProxyMenuItemView.xib; sourceTree = "<group>"; };
 		49761DA621C9497000AE13EF /* dashboard */ = {isa = PBXFileReference; lastKnownFileType = folder; path = dashboard; sourceTree = "<group>"; };
 		497F0DF220DE2FE50077AD41 /* Icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Icon.icns; sourceTree = "<group>"; };
@@ -210,7 +206,6 @@
 		491C250021BD55B900AB5D44 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				4949D15C2132614B00EF85E6 /* QRCodeUtil.swift */,
 				4960A6DA2136529200B940C9 /* JSBridgeHandler.swift */,
 			);
 			path = Utils;
@@ -243,7 +238,6 @@
 			isa = PBXGroup;
 			children = (
 				492C4870210EF62E004554A0 /* ClashConfig.swift */,
-				4952C3CD2116EA2E004A4FA8 /* ProxyServerModel.swift */,
 				49862F9F218418C600A1D5EC /* ClashRule.swift */,
 			);
 			path = Models;
@@ -657,7 +651,6 @@
 				496BDEE021196F1E00C5207F /* Logger.swift in Sources */,
 				49722FEF211F338B00650A41 /* FileEvent.swift in Sources */,
 				4913C82321157D0200F6B87C /* Notification.swift in Sources */,
-				4949D15D2132614B00EF85E6 /* QRCodeUtil.swift in Sources */,
 				492C4871210EF62E004554A0 /* ClashConfig.swift in Sources */,
 				492C4869210EE6B9004554A0 /* ApiRequest.swift in Sources */,
 				49CF3B6520CEE06C001EBF94 /* ConfigManager.swift in Sources */,
@@ -670,7 +663,6 @@
 				499976C821359F0400E7BF83 /* ClashWebViewContoller.swift in Sources */,
 				4981C890216BAF0C008CC14A /* String+Localized.swift in Sources */,
 				4966E9E6211824F300A391FB /* NSImage+extension.swift in Sources */,
-				4952C3CE2116EA2E004A4FA8 /* ProxyServerModel.swift in Sources */,
 				4975E121217A12210027708D /* ProxyMenuItemView.swift in Sources */,
 				49B1086A216A356D0064FFCE /* String+Extension.swift in Sources */,
 				4960A6DB2136529200B940C9 /* JSBridgeHandler.swift in Sources */,

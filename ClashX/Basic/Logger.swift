@@ -22,7 +22,7 @@ class Logger {
     
     private func logToFile(msg:String,level:ClashLogLevel) {
         switch level {
-        case .debug:
+        case .debug,.silent:
             DDLogDebug(msg)
         case .error:
             DDLogError(msg)
