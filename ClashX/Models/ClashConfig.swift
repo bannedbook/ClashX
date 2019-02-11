@@ -18,6 +18,7 @@ enum ClashLogLevel:String,Codable {
     case warning = "warning"
     case error = "error"
     case debug = "debug"
+    case silent = "silent"
     case unknow = "unknow"
 }
 
