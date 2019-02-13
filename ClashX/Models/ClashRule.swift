@@ -16,10 +16,15 @@ class ClashRule:Codable {
 }
 
 class ClashRuleResponse:Codable {
-    let rules:[ClashRule]
+    var rules:[ClashRule]? = nil
+    
+    static func empty() -> ClashRuleResponse {
+        return ClashRuleResponse()
+    }
+    
     static func fromData(_ data:Data)->ClashRuleResponse{
         let decoder = JSONDecoder()
         let model = try? decoder.decode(ClashRuleResponse.self, from: data)
-        return model!
+        return model ?? ClashRuleResponse.empty()
     }
 }

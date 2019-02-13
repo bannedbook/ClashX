@@ -145,7 +145,7 @@ class ApiRequest{
         req("/rules").responseData { res in
             guard let data = res.result.value else {return}
             let rule = ClashRuleResponse.fromData(data)
-            completeHandler(rule.rules)
+            completeHandler(rule.rules ?? [])
         }
     }
 }
