@@ -49,6 +49,11 @@ class ClashWebViewContoller: NSViewController {
             }.disposed(by: disposeBag)
 
         loadWebRecourses()
+        
+        NSEvent.addLocalMonitorForEvents(matching: .keyDown) {[weak self] in
+            self?.keyDown(with: $0)
+            return $0
+        }
     }
     
     func loadWebRecourses() {
@@ -81,6 +86,15 @@ class ClashWebViewContoller: NSViewController {
     
     deinit {
         NSApp.setActivationPolicy(.accessory)
+    }
+    
+    override func keyDown(with event: NSEvent) {
+        switch event.modifierFlags.intersection(.deviceIndependentFlagsMask) {
+        case [.command] where event.characters == "w":
+            self.view.window?.close()
+        default:
+            break
+        }
     }
     
 
