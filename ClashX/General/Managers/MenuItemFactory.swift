@@ -24,6 +24,9 @@ class MenuItemFactory {
                 switch proxyGroup.value["type"].stringValue {
                 case "Selector": menu = self.generateSelectorMenuItem(json: dataDict, key: proxyGroup.key)
                 case "URLTest","Fallback": menu = self.generateUrlTestMenuItem(proxyGroup: proxyGroup)
+                case "LoadBalance":
+                    menu = self.generateLoadBalanceMenuItem(proxyGroup: proxyGroup)
+                    
                 default: continue
                 }
                 if (menu != nil) {menuItems.append(menu!)}
@@ -102,6 +105,34 @@ class MenuItemFactory {
         return menu
     }
     
+    static func generateLoadBalanceMenuItem(proxyGroup:(key: String, value: JSON))->NSMenuItem? {
+        let menu = NSMenuItem(title: proxyGroup.key, action: nil, keyEquivalent: "")
+        let submenu = NSMenu(title: proxyGroup.key)
+        
+        for proxy in proxyGroup.value["all"].arrayValue {
+            let proxyItem = ProxyMenuItem(title: proxy.stringValue, action:nil, keyEquivalent: "")
+            proxyItem.proxyName = proxy.stringValue
+            
+            if let delay = SpeedDataRecorder.shared.getDelay(proxy.stringValue) {
+                let menuItemView = ProxyMenuItemView.create(proxy: proxy.stringValue, delay: delay)
+                menuItemView.isSelected = false
+                let fittitingWidth = menuItemView.fittingSize.width
+                if (fittitingWidth > submenu.minimumWidth) {
+                    submenu.minimumWidth = fittitingWidth
+                }
+                proxyItem.view = menuItemView
+            }
+            
+            submenu.addItem(proxyItem)
+        }
+        
+        for item in submenu.items {
+            item.view?.frame.size.width = submenu.minimumWidth
+        }
+        menu.submenu = submenu
+        
+        return menu
+    }
    
     static func generateSwitchConfigSubMenu() -> NSMenu {
         let subMenu = NSMenu(title: "Switch Configs")
