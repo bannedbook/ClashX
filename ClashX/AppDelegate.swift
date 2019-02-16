@@ -51,6 +51,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         statusItem.menu = statusMenu
         
         statusItemView = StatusItemView.create(statusItem: statusItem)
+        statusItemView.frame = CGRect(x: 0, y: 0, width: 65, height: 22)
         statusMenu.delegate = self
         
         // crash recorder
