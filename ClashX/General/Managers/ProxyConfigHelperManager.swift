@@ -70,6 +70,15 @@ class ProxyConfigHelperManager {
     static func checkMMDB() {
         let fileManage = FileManager.default
         let destMMDBPath = "\(kProxyConfigFolder)/Country.mmdb"
+        
+        // Remove old mmdb file after version update.
+        if fileManage.fileExists(atPath: destMMDBPath) {
+            if AppVersionUtil.hasVersionChanged || AppVersionUtil.isFirstLaunch {
+                try? fileManage.removeItem(atPath: destMMDBPath)
+            }
+        }
+        
+        
         if !fileManage.fileExists(atPath: destMMDBPath) {
             if let mmdbPath = Bundle.main.path(forResource: "Country", ofType: "mmdb") {
                 try? fileManage.copyItem(at: URL(fileURLWithPath: mmdbPath), to: URL(fileURLWithPath: destMMDBPath))

@@ -27,8 +27,8 @@ class AboutViewController: NSViewController {
         super.viewDidLoad()
         self.title = "About"
         
-        let version = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? ""
-        let build = Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as? String ?? ""
+        let version = AppVersionUtil.currentVersion
+        let build = AppVersionUtil.currentBuild
         
         self.versionLabel.stringValue = "Version: \(version) (\(build))"
         self.buildTimeLabel.stringValue = self.compileDate.description;
