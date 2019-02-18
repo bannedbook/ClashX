@@ -57,27 +57,17 @@ class MenuItemFactory {
                 }
             }
             
-            let proxyItem = ProxyMenuItem(title: proxy.stringValue, action: #selector(MenuItemFactory.actionSelectProxy(sender:)), keyEquivalent: "")
+            let proxyItem = ProxyMenuItem(proxyName: proxy.stringValue, action: #selector(MenuItemFactory.actionSelectProxy(sender:)))
+                
             proxyItem.target = MenuItemFactory.self
-            proxyItem.proxyName = proxy.stringValue
-            let selected = proxy.stringValue == selectedName
-            proxyItem.state = selected ? .on : .off
+            proxyItem.isSelected = proxy.stringValue == selectedName
 
-            if let delay = SpeedDataRecorder.shared.getDelay(proxy.stringValue) {
-                let menuItemView = ProxyMenuItemView.create(proxy: proxy.stringValue, delay: delay)
-                menuItemView.isSelected = selected
-                menuItemView.onClick = { [weak proxyItem] in
-                    guard let proxyItem = proxyItem else {return}
-                    MenuItemFactory.actionSelectProxy(sender: proxyItem)
-                }
-                let fittitingWidth = menuItemView.fittingSize.width
-                if (fittitingWidth > submenu.minimumWidth) {
-                    submenu.minimumWidth = fittitingWidth
-                }
-                proxyItem.view = menuItemView
+            let fittitingWidth = proxyItem.suggestWidth()
+            if fittitingWidth > submenu.minimumWidth {
+                submenu.minimumWidth = fittitingWidth
             }
             
-            if selected {hasSelected = true}
+            if proxyItem.isSelected {hasSelected = true}
             submenu.addItem(proxyItem)
             submenu.autoenablesItems = false
             
@@ -110,19 +100,11 @@ class MenuItemFactory {
         let submenu = NSMenu(title: proxyGroup.key)
         
         for proxy in proxyGroup.value["all"].arrayValue {
-            let proxyItem = ProxyMenuItem(title: proxy.stringValue, action:nil, keyEquivalent: "")
-            proxyItem.proxyName = proxy.stringValue
-            
-            if let delay = SpeedDataRecorder.shared.getDelay(proxy.stringValue) {
-                let menuItemView = ProxyMenuItemView.create(proxy: proxy.stringValue, delay: delay)
-                menuItemView.isSelected = false
-                let fittitingWidth = menuItemView.fittingSize.width
-                if (fittitingWidth > submenu.minimumWidth) {
-                    submenu.minimumWidth = fittitingWidth
-                }
-                proxyItem.view = menuItemView
+            let proxyItem = ProxyMenuItem(proxyName: proxy.stringValue, action: #selector(MenuItemFactory.actionSelectProxy(sender:)))
+            let fittitingWidth = proxyItem.suggestWidth()
+            if fittitingWidth > submenu.minimumWidth {
+                submenu.minimumWidth = fittitingWidth
             }
-            
             submenu.addItem(proxyItem)
         }
         
@@ -172,6 +154,3 @@ extension MenuItemFactory {
     }
 }
 
-class ProxyMenuItem:NSMenuItem {
-    var proxyName:String = ""
-}
