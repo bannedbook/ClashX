@@ -41,17 +41,20 @@
                         <menuItem title="API Connect Error" id="jGT-1M-xJu">
                             <menu key="submenu" title="API Connect Error" id="UU2-uE-YB4">
                                 <items>
-                                    <menuItem title="Global" keyEquivalent="g" id="yiM-U4-MNg">
+                                    <menuItem title="Global" id="yiM-U4-MNg">
+                                        <modifierMask key="keyEquivalentModifierMask"/>
                                         <connections>
                                             <action selector="actionSwitchProxyMode:" target="Voe-Tx-rLC" id="qv6-up-ubF"/>
                                         </connections>
                                     </menuItem>
-                                    <menuItem title="Rule" keyEquivalent="r" id="89n-bD-JHk">
+                                    <menuItem title="Rule" id="89n-bD-JHk">
+                                        <modifierMask key="keyEquivalentModifierMask"/>
                                         <connections>
                                             <action selector="actionSwitchProxyMode:" target="Voe-Tx-rLC" id="hGb-uh-9p3"/>
                                         </connections>
                                     </menuItem>
-                                    <menuItem title="Direct" keyEquivalent="d" id="Np6-Pm-Lo3">
+                                    <menuItem title="Direct" id="Np6-Pm-Lo3">
+                                        <modifierMask key="keyEquivalentModifierMask"/>
                                         <connections>
                                             <action selector="actionSwitchProxyMode:" target="Voe-Tx-rLC" id="vbj-a5-5O0"/>
                                         </connections>
@@ -91,13 +94,12 @@
                             </connections>
                         </menuItem>
                         <menuItem isSeparatorItem="YES" id="HZ7-Hd-kA2"/>
-                        <menuItem title="SpeedTest" id="COu-UX-bww">
-                            <modifierMask key="keyEquivalentModifierMask"/>
+                        <menuItem title="SpeedTest" keyEquivalent="t" id="COu-UX-bww">
                             <connections>
                                 <action selector="actionSpeedTest:" target="Voe-Tx-rLC" id="wQV-1R-Ym6"/>
                             </connections>
                         </menuItem>
-                        <menuItem title="Dashboard" enabled="NO" keyEquivalent="t" id="XG6-2M-PNi">
+                        <menuItem title="Dashboard" enabled="NO" keyEquivalent="d" id="XG6-2M-PNi">
                             <connections>
                                 <segue destination="ZNp-tx-6bv" kind="show" id="ZMG-K0-DhZ"/>
                             </connections>
