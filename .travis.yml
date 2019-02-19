@@ -18,6 +18,7 @@ install:
 - cd ClashX/Resources
 - git clone -b gh-pages https://github.com/Dreamacro/clash-dashboard.git dashboard
 - cd ..
+- go version
 - go build -buildmode=c-archive
 - cd $TRAVIS_BUILD_DIR
 script:
@@ -26,7 +27,7 @@ script:
 
 before_deploy:
 - gem install gym
-- fastlane gym -s ClashX --disable_xcpretty
+- fastlane gym -s ClashX
 - npm install --global create-dmg
 - create-dmg ClashX.app
 - mv ClashX*.dmg ClashX.dmg

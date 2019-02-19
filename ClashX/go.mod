@@ -1,3 +1,3 @@
 module github.com/yichengchen/clashX/ClashX
 
-require github.com/Dreamacro/clash v0.11.2-0.20190215062520-c295c5e412b4
+require github.com/Dreamacro/clash v0.12.1-0.20190218135357-c0bd82d62b21
