@@ -105,7 +105,7 @@ extension ConfigFileManager {
     static func checkFinalRuleAndShowAlert() {
         ApiRequest.getRules() {
             rules in
-            let hasFinal = rules.reversed().contains(){$0.type == "FINAL"}
+            let hasFinal = rules.reversed().contains(){$0.type == "MATCH"}
             if !hasFinal {
                 showNoFinalRuleAlert()
             }
