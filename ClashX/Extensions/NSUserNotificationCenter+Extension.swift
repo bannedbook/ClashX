@@ -44,6 +44,10 @@ extension NSUserNotificationCenter {
     func postProxyRemarkDupNotice(name:String) {
         self.post(title: "Proxy Remark duplicated", info: "Name:\(name)")
     }
+    
+    func postSpeedTestFinishNotice() {
+        self.post(title: "SpeedTest".localized(), info: "SpeedTest Finished!".localized())
+    }
 }
 
 class UserNotificationCenterDelegate:NSObject,NSUserNotificationCenterDelegate {

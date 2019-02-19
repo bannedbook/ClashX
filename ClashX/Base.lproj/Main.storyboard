@@ -90,6 +90,13 @@
                                 <action selector="actionAllowFromLan:" target="Voe-Tx-rLC" id="BGp-Tp-MiH"/>
                             </connections>
                         </menuItem>
+                        <menuItem isSeparatorItem="YES" id="HZ7-Hd-kA2"/>
+                        <menuItem title="SpeedTest" id="COu-UX-bww">
+                            <modifierMask key="keyEquivalentModifierMask"/>
+                            <connections>
+                                <action selector="actionSpeedTest:" target="Voe-Tx-rLC" id="wQV-1R-Ym6"/>
+                            </connections>
+                        </menuItem>
                         <menuItem title="Dashboard" enabled="NO" keyEquivalent="t" id="XG6-2M-PNi">
                             <connections>
                                 <segue destination="ZNp-tx-6bv" kind="show" id="ZMG-K0-DhZ"/>

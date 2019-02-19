@@ -43,6 +43,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     var disposeBag = DisposeBag()
     var statusItemView:StatusItemView!
     
+    var isSpeedTesting = false
+
+    
     func applicationDidFinishLaunching(_ notification: Notification) {
         signal(SIGPIPE, SIG_IGN)
         
@@ -339,7 +342,25 @@ extension AppDelegate {
     }
     
     @IBAction func actionSpeedTest(_ sender: Any) {
-        
+        if isSpeedTesting {return}
+        isSpeedTesting = true
+        ApiRequest.getAllProxyList { [weak self] proxies in
+            let testGroup = DispatchGroup()
+            
+            for proxyName in proxies {
+                testGroup.enter()
+                ApiRequest.getProxyDelay(proxyName: proxyName) { delay in
+                    testGroup.leave()
+                    SpeedDataRecorder.shared.setDelay(proxyName, delay: delay)
+                }
+            }
+            testGroup.notify(queue: DispatchQueue.main, execute: {
+                NSUserNotificationCenter.default.postSpeedTestFinishNotice()
+                self?.syncConfig()
+                self?.isSpeedTesting = true
+            })
+        }
+
         
     }
     
