@@ -12,55 +12,53 @@ import RxCocoa
 
 class MenuItemFactory {
     static func menuItems(completionHandler:@escaping (([NSMenuItem])->())){
-        ApiRequest.requestProxyGroupList { (res) in
-            let dataDict = JSON(res)
+        ApiRequest.requestProxyGroupList { (proxies) in
             var menuItems = [NSMenuItem]()
             if (ConfigManager.shared.currentConfig?.mode == .direct) {
                 completionHandler(menuItems)
                 return
             }
-            for proxyGroup in dataDict.dictionaryValue.sorted(by: {  $0.0 < $1.0}) {
+            for proxy in proxies.sorted(by: {  $0.name < $1.name}) {
                 var menu:NSMenuItem?
-                switch proxyGroup.value["type"].stringValue {
-                case "Selector": menu = self.generateSelectorMenuItem(json: dataDict, key: proxyGroup.key)
-                case "URLTest","Fallback": menu = generateUrlTestMenuItem(proxyGroup: proxyGroup)
-                case "LoadBalance":
-                    menu = generateLoadBalanceMenuItem(proxyGroup: proxyGroup)
-                    
+                switch proxy.type {
+                case .select: menu = self.generateSelectorMenuItem(proxyGroup: proxy) {
+                    proxyName in
+                    proxies.filter{$0.name == proxyName}.first?.type == .select
+                    }
+                case .urltest,.fallback: menu = generateUrlTestMenuItem(proxyGroup: proxy)
+                case .loadBalance:
+                    menu = generateLoadBalanceMenuItem(proxyGroup: proxy)
                 default: continue
                 }
-                if (menu != nil) {menuItems.append(menu!)}
+                if let menu = menu {menuItems.append(menu)}
                 
             }
             completionHandler(menuItems.reversed())
         }
     }
     
-    static func generateSelectorMenuItem(json:JSON,key:String)->NSMenuItem? {
-        let proxyGroup:(key: String, value: JSON) = (key,json[key])
+    static func generateSelectorMenuItem(proxyGroup:ClashProxy,proxyIsSelectGroup:((ClashProxyName)->Bool))->NSMenuItem? {
         let isGlobalMode = ConfigManager.shared.currentConfig?.mode == .global
         if (isGlobalMode) {
-            if proxyGroup.key != "GLOBAL" {return nil}
+            if proxyGroup.name != "GLOBAL" {return nil}
         } else {
-            if proxyGroup.key == "GLOBAL" {return nil}
+            if proxyGroup.name == "GLOBAL" {return nil}
         }
         
-        let menu = NSMenuItem(title: proxyGroup.key, action: nil, keyEquivalent: "")
-        let selectedName = proxyGroup.value["now"].stringValue
-        let submenu = NSMenu(title: proxyGroup.key)
+        let menu = NSMenuItem(title: proxyGroup.name, action: nil, keyEquivalent: "")
+        let selectedName = proxyGroup.now ?? ""
+        let submenu = NSMenu(title: proxyGroup.name)
         var hasSelected = false
         submenu.minimumWidth = 20
-        for proxy in proxyGroup.value["all"].arrayValue {
-            if isGlobalMode {
-                if json[proxy.stringValue]["type"] == "Selector" {
-                    continue
-                }
+        for proxy in proxyGroup.all ?? []{
+            if isGlobalMode && proxyIsSelectGroup(proxy) {
+                continue
             }
             
-            let proxyItem = ProxyMenuItem(proxyName: proxy.stringValue, action: #selector(MenuItemFactory.actionSelectProxy(sender:)))
+            let proxyItem = ProxyMenuItem(proxyName: proxy, action: #selector(MenuItemFactory.actionSelectProxy(sender:)))
                 
             proxyItem.target = MenuItemFactory.self
-            proxyItem.isSelected = proxy.stringValue == selectedName
+            proxyItem.isSelected = proxy == selectedName
 
             let fittitingWidth = proxyItem.suggestWidth()
             if fittitingWidth > submenu.minimumWidth {
@@ -82,11 +80,11 @@ class MenuItemFactory {
         return menu
     }
     
-    static func generateUrlTestMenuItem(proxyGroup:(key: String, value: JSON))->NSMenuItem? {
+    static func generateUrlTestMenuItem(proxyGroup:ClashProxy)->NSMenuItem? {
         
-        let menu = NSMenuItem(title: proxyGroup.key, action: nil, keyEquivalent: "")
-        let selectedName = proxyGroup.value["now"].stringValue
-        let submenu = NSMenu(title: proxyGroup.key)
+        let menu = NSMenuItem(title: proxyGroup.name, action: nil, keyEquivalent: "")
+        let selectedName = proxyGroup.now ?? ""
+        let submenu = NSMenu(title: proxyGroup.name)
 
         let nowMenuItem = NSMenuItem(title: "now:\(selectedName)", action: nil, keyEquivalent: "")
         
@@ -95,12 +93,12 @@ class MenuItemFactory {
         return menu
     }
     
-    static func generateLoadBalanceMenuItem(proxyGroup:(key: String, value: JSON))->NSMenuItem? {
-        let menu = NSMenuItem(title: proxyGroup.key, action: nil, keyEquivalent: "")
-        let submenu = NSMenu(title: proxyGroup.key)
+    static func generateLoadBalanceMenuItem(proxyGroup:ClashProxy)->NSMenuItem? {
+        let menu = NSMenuItem(title: proxyGroup.name, action: nil, keyEquivalent: "")
+        let submenu = NSMenu(title: proxyGroup.name)
         
-        for proxy in proxyGroup.value["all"].arrayValue {
-            let proxyItem = ProxyMenuItem(proxyName: proxy.stringValue, action: #selector(MenuItemFactory.actionSelectProxy(sender:)))
+        for proxy in proxyGroup.all ?? [] {
+            let proxyItem = ProxyMenuItem(proxyName: proxy, action:nil)
             let fittitingWidth = proxyItem.suggestWidth()
             if fittitingWidth > submenu.minimumWidth {
                 submenu.minimumWidth = fittitingWidth
