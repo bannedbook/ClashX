@@ -1,5 +1,5 @@
-github.com/Dreamacro/clash v0.12.1-0.20190228165230-0011c7acfec7 h1:D22ZG02h0WVrsfLcoYPx3bFezO+cIqQQas+3AJ3vYzU=
-github.com/Dreamacro/clash v0.12.1-0.20190228165230-0011c7acfec7/go.mod h1:jIxj6LTv5e5Yr+0Yt682at2dyXqUR9p16asV9yya6Vc=
+github.com/Dreamacro/clash v0.12.1-0.20190317065239-7a9d986ff38c h1:SRELShfh3m6DJxlnNqKdhAPNY2eXUvFZNsUtUlTrkzk=
+github.com/Dreamacro/clash v0.12.1-0.20190317065239-7a9d986ff38c/go.mod h1:jIxj6LTv5e5Yr+0Yt682at2dyXqUR9p16asV9yya6Vc=
 github.com/Dreamacro/go-shadowsocks2 v0.1.3-0.20190202135136-da4602d8f112 h1:1axYxE0ZLJy40+ulq46XQt7MaJDJr4iGer1NQz7jmKw=
 github.com/Dreamacro/go-shadowsocks2 v0.1.3-0.20190202135136-da4602d8f112/go.mod h1:giIuN+TuUudTxHc1jjTOyyQYiJ3VXp1pWOHdJbSCAPo=
 github.com/aead/chacha20 v0.0.0-20180709150244-8b13a72661da h1:KjTM2ks9d14ZYCvmHS9iAKVt9AyzRSqNU1qabPih5BY=
