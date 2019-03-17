@@ -12,22 +12,19 @@ import RxCocoa
 
 class MenuItemFactory {
     static func menuItems(completionHandler:@escaping (([NSMenuItem])->())){
-        ApiRequest.requestProxyGroupList { (proxies) in
+        ApiRequest.requestProxyGroupList { (proxyInfo) in
             var menuItems = [NSMenuItem]()
             if (ConfigManager.shared.currentConfig?.mode == .direct) {
                 completionHandler(menuItems)
                 return
             }
-            for proxy in proxies.sorted(by: {  $0.name < $1.name}) {
+            for proxy in proxyInfo.proxies.sorted(by: {  $0.name < $1.name}) {
                 var menu:NSMenuItem?
                 switch proxy.type {
-                case .select: menu = self.generateSelectorMenuItem(proxyGroup: proxy) {
-                    proxyName in
-                    proxies.filter{$0.name == proxyName}.first?.type == .select
-                    }
+                case .select: menu = self.generateSelectorMenuItem(proxyGroup: proxy, proxyMap: proxyInfo.proxiesMap)
                 case .urltest,.fallback: menu = generateUrlTestMenuItem(proxyGroup: proxy)
                 case .loadBalance:
-                    menu = generateLoadBalanceMenuItem(proxyGroup: proxy)
+                    menu = generateLoadBalanceMenuItem(proxyGroup: proxy, proxyMap: proxyInfo.proxiesMap)
                 default: continue
                 }
                 if let menu = menu {menuItems.append(menu)}
@@ -37,7 +34,8 @@ class MenuItemFactory {
         }
     }
     
-    static func generateSelectorMenuItem(proxyGroup:ClashProxy,proxyIsSelectGroup:((ClashProxyName)->Bool))->NSMenuItem? {
+    static func generateSelectorMenuItem(proxyGroup:ClashProxy,
+                                         proxyMap:[ClashProxyName:ClashProxy]) -> NSMenuItem? {
         let isGlobalMode = ConfigManager.shared.currentConfig?.mode == .global
         if (isGlobalMode) {
             if proxyGroup.name != "GLOBAL" {return nil}
@@ -49,30 +47,27 @@ class MenuItemFactory {
         let selectedName = proxyGroup.now ?? ""
         let submenu = NSMenu(title: proxyGroup.name)
         var hasSelected = false
-        submenu.minimumWidth = 20
+        
         for proxy in proxyGroup.all ?? []{
-            if isGlobalMode && proxyIsSelectGroup(proxy) {
+            guard let proxyModel = proxyMap[proxy] else {continue}
+            
+            if isGlobalMode && proxyModel.type == .select {
                 continue
             }
             
-            let proxyItem = ProxyMenuItem(proxyName: proxy, action: #selector(MenuItemFactory.actionSelectProxy(sender:)))
+            let proxyItem = ProxyMenuItem(proxy: proxyModel, action: #selector(MenuItemFactory.actionSelectProxy(sender:)),
+                                          maxProxyNameLength:proxyGroup.maxProxyNameLength)
                 
             proxyItem.target = MenuItemFactory.self
             proxyItem.isSelected = proxy == selectedName
 
-            let fittitingWidth = proxyItem.suggestWidth()
-            if fittitingWidth > submenu.minimumWidth {
-                submenu.minimumWidth = fittitingWidth
-            }
             
             if proxyItem.isSelected {hasSelected = true}
             submenu.addItem(proxyItem)
             submenu.autoenablesItems = false
             
         }
-        for item in submenu.items {
-            item.view?.frame.size.width = submenu.minimumWidth
-        }
+        
         menu.submenu = submenu
         if (!hasSelected && submenu.items.count>0) {
             self.actionSelectProxy(sender: submenu.items[0] as! ProxyMenuItem)
@@ -93,23 +88,19 @@ class MenuItemFactory {
         return menu
     }
     
-    static func generateLoadBalanceMenuItem(proxyGroup:ClashProxy)->NSMenuItem? {
+    static func generateLoadBalanceMenuItem(proxyGroup:ClashProxy, proxyMap:[ClashProxyName:ClashProxy])->NSMenuItem? {
         let menu = NSMenuItem(title: proxyGroup.name, action: nil, keyEquivalent: "")
         let submenu = NSMenu(title: proxyGroup.name)
         
         for proxy in proxyGroup.all ?? [] {
-            let proxyItem = ProxyMenuItem(proxyName: proxy, action:nil)
-            let fittitingWidth = proxyItem.suggestWidth()
-            if fittitingWidth > submenu.minimumWidth {
-                submenu.minimumWidth = fittitingWidth
-            }
+            guard let proxyModel = proxyMap[proxy] else {continue}
+            let proxyItem = ProxyMenuItem(proxy: proxyModel,
+                                          action:nil,
+                                          maxProxyNameLength:proxyGroup.maxProxyNameLength)
             proxyItem.isSelected = false
             submenu.addItem(proxyItem)
         }
         
-        for item in submenu.items {
-            item.view?.frame.size.width = submenu.minimumWidth
-        }
         menu.submenu = submenu
         
         return menu

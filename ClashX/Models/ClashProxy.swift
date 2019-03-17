@@ -37,22 +37,48 @@ class ClashProxy:Codable {
     let all:[ClashProxyName]?
     let history:[ClashProxySpeedHistory]
     let now:ClashProxyName?
-    
+
     private enum CodingKeys : String, CodingKey {
         case type,all,history,now
     }
     
-    static func fromData(_ data:Any?)->[ClashProxy]{
+    lazy var maxProxyName:String = {
+        return all?.max{$1.count > $0.count} ?? ""
+    }()
+    
+    lazy var maxProxyNameLength:CGFloat = {
+        let rect = CGSize(width: CGFloat.greatestFiniteMagnitude, height: 20)
+        let attr = [NSAttributedString.Key.font: NSFont.menuBarFont(ofSize: 0)]
+        return (self.maxProxyName as NSString)
+            .boundingRect(with: rect,
+                          options: .usesLineFragmentOrigin,
+                          attributes: attr).width;
+    }()
+    
+}
+
+class ClashProxyResp{
+    
+    let proxies:[ClashProxy]
+    let proxiesMap:[ClashProxyName:ClashProxy]
+    
+    init(_ data:Any?) {
         guard
             let data = data as? [String:[String:Any]],
             let proxies = data["proxies"]
-        else {return []}
+            else {
+                self.proxiesMap = [:]
+                self.proxies = []
+                return
+        }
         
         var proxiesModel = [ClashProxy]()
         
+        var proxiesMap = [ClashProxyName:ClashProxy]()
+        
         let decoder = JSONDecoder()
         let dateFormatter = DateFormatter()
-        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+        dateFormatter.locale = Locale(identifier: NSCalendar.Identifier.ISO8601.rawValue)
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SZ"
         decoder.dateDecodingStrategy = .formatted(dateFormatter)
         for (key,value) in proxies {
@@ -64,9 +90,14 @@ class ClashProxy:Codable {
             }
             proxy.name = key
             proxiesModel.append(proxy)
+            proxiesMap[proxy.name] = proxy
         }
-
-        return proxiesModel
+        self.proxiesMap = proxiesMap
+        self.proxies = proxiesModel
     }
+    
+    
 }
+
+
 

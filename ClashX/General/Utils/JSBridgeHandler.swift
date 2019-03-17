@@ -100,7 +100,6 @@ class JsBridgeUtil {
                     } else {
                         resp = delay
                     }
-                    SpeedDataRecorder.shared.setDelay(proxyName, delay: delay)
                     responseCallback?(resp)
                 }
             } else {

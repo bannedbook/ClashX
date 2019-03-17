@@ -92,10 +92,10 @@ class ApiRequest{
         }
     }
     
-    static func requestProxyGroupList(completeHandler:@escaping (([ClashProxy])->())){
+    static func requestProxyGroupList(completeHandler:@escaping ((ClashProxyResp)->())){
         req("/proxies").responseJSON{
             res in
-            let proxies = ClashProxy.fromData(res.result.value)
+            let proxies = ClashProxyResp(res.result.value)
             completeHandler(proxies)
         }
     }
@@ -122,9 +122,9 @@ class ApiRequest{
     }
     
     static func getAllProxyList(callback:@escaping (([ClashProxyName])->())) {
-        requestProxyGroupList { proxies in
+        requestProxyGroupList { proxyInfo in
             let proxyGroupType:[ClashProxyType] = [.urltest,.fallback,.loadBalance,.select,.direct,.reject]
-            let lists:[ClashProxyName] = proxies
+            let lists:[ClashProxyName] = proxyInfo.proxies
                 .filter{$0.name == "GLOBAL" && proxyGroupType.contains($0.type)}
                 .first?.all ?? []
             callback(lists)

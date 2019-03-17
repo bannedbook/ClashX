@@ -12,7 +12,6 @@
 		492C4869210EE6B9004554A0 /* ApiRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 492C4868210EE6B9004554A0 /* ApiRequest.swift */; };
 		492C4871210EF62E004554A0 /* ClashConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 492C4870210EF62E004554A0 /* ClashConfig.swift */; };
 		492D7321216CEC4000146BC1 /* ClashX.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 492D731F216CEC4000146BC1 /* ClashX.a */; };
-		4931969B21631E5E00A8E6E7 /* SpeedDataRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4931969A21631E5D00A8E6E7 /* SpeedDataRecorder.swift */; };
 		493196A2216331F400A8E6E7 /* NetworkChangeNotifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493196A1216331F400A8E6E7 /* NetworkChangeNotifier.swift */; };
 		493AEAE3221AE3420016FE98 /* AppVersionUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493AEAE2221AE3420016FE98 /* AppVersionUtil.swift */; };
 		493AEAE5221AE7230016FE98 /* ProxyMenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493AEAE4221AE7230016FE98 /* ProxyMenuItem.swift */; };
@@ -33,8 +32,6 @@
 		49722FF0211F338B00650A41 /* EventStream.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49722FEB211F338B00650A41 /* EventStream.swift */; };
 		49722FF1211F338B00650A41 /* Witness.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49722FEC211F338B00650A41 /* Witness.swift */; };
 		49722FF2211F338B00650A41 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 49722FEE211F338B00650A41 /* Info.plist */; };
-		4975E121217A12210027708D /* ProxyMenuItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4975E120217A12210027708D /* ProxyMenuItemView.swift */; };
-		4975E123217A122E0027708D /* ProxyMenuItemView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4975E122217A122E0027708D /* ProxyMenuItemView.xib */; };
 		49761DA721C9497000AE13EF /* dashboard in Resources */ = {isa = PBXBuildFile; fileRef = 49761DA621C9497000AE13EF /* dashboard */; };
 		497F0DF320DE2FE50077AD41 /* Icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 497F0DF220DE2FE50077AD41 /* Icon.icns */; };
 		4981C88B216BAE4A008CC14A /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4981C88D216BAE4A008CC14A /* Localizable.strings */; };
@@ -113,7 +110,6 @@
 		492C4870210EF62E004554A0 /* ClashConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClashConfig.swift; sourceTree = "<group>"; };
 		492D731F216CEC4000146BC1 /* ClashX.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = ClashX.a; path = ClashX/ClashX.a; sourceTree = SOURCE_ROOT; };
 		492D7320216CEC4000146BC1 /* ClashX.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ClashX.h; path = ClashX/ClashX.h; sourceTree = SOURCE_ROOT; };
-		4931969A21631E5D00A8E6E7 /* SpeedDataRecorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeedDataRecorder.swift; sourceTree = "<group>"; };
 		493196A1216331F400A8E6E7 /* NetworkChangeNotifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkChangeNotifier.swift; sourceTree = "<group>"; };
 		493AEAE2221AE3420016FE98 /* AppVersionUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppVersionUtil.swift; sourceTree = "<group>"; };
 		493AEAE4221AE7230016FE98 /* ProxyMenuItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProxyMenuItem.swift; sourceTree = "<group>"; };
@@ -137,8 +133,6 @@
 		49722FEC211F338B00650A41 /* Witness.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Witness.swift; sourceTree = "<group>"; };
 		49722FED211F338B00650A41 /* Witness.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Witness.h; sourceTree = "<group>"; };
 		49722FEE211F338B00650A41 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		4975E120217A12210027708D /* ProxyMenuItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProxyMenuItemView.swift; sourceTree = "<group>"; };
-		4975E122217A122E0027708D /* ProxyMenuItemView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProxyMenuItemView.xib; sourceTree = "<group>"; };
 		49761DA621C9497000AE13EF /* dashboard */ = {isa = PBXFileReference; lastKnownFileType = folder; path = dashboard; sourceTree = "<group>"; };
 		497F0DF220DE2FE50077AD41 /* Icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Icon.icns; sourceTree = "<group>"; };
 		4981C887216BAB8A008CC14A /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Main.strings"; sourceTree = "<group>"; };
@@ -237,7 +231,6 @@
 				491C250121BD561200AB5D44 /* Managers */,
 				491C250021BD55B900AB5D44 /* Utils */,
 				492C4868210EE6B9004554A0 /* ApiRequest.swift */,
-				4931969A21631E5D00A8E6E7 /* SpeedDataRecorder.swift */,
 			);
 			path = General;
 			sourceTree = "<group>";
@@ -257,8 +250,6 @@
 			children = (
 				495340AF20DE5F7200B0D3FF /* StatusItemView.xib */,
 				495340B220DE68C300B0D3FF /* StatusItemView.swift */,
-				4975E120217A12210027708D /* ProxyMenuItemView.swift */,
-				4975E122217A122E0027708D /* ProxyMenuItemView.xib */,
 				493AEAE4221AE7230016FE98 /* ProxyMenuItem.swift */,
 			);
 			path = Views;
@@ -556,7 +547,6 @@
 				4989F98420D02D200001E564 /* Country.mmdb in Resources */,
 				497F0DF320DE2FE50077AD41 /* Icon.icns in Resources */,
 				49722FF2211F338B00650A41 /* Info.plist in Resources */,
-				4975E123217A122E0027708D /* ProxyMenuItemView.xib in Resources */,
 				4989F98E20D0AE990001E564 /* sampleConfig.yml in Resources */,
 				49CF3B6320CED9CF001EBF94 /* check_proxy_helper.sh in Resources */,
 			);
@@ -671,11 +661,9 @@
 				49722FF0211F338B00650A41 /* EventStream.swift in Sources */,
 				4952C3BF2115C7CA004A4FA8 /* MenuItemFactory.swift in Sources */,
 				4966E9E32118153A00A391FB /* NSUserNotificationCenter+Extension.swift in Sources */,
-				4931969B21631E5E00A8E6E7 /* SpeedDataRecorder.swift in Sources */,
 				499976C821359F0400E7BF83 /* ClashWebViewContoller.swift in Sources */,
 				4981C890216BAF0C008CC14A /* String+Localized.swift in Sources */,
 				4966E9E6211824F300A391FB /* NSImage+extension.swift in Sources */,
-				4975E121217A12210027708D /* ProxyMenuItemView.swift in Sources */,
 				49B1086A216A356D0064FFCE /* String+Extension.swift in Sources */,
 				4960A6DB2136529200B940C9 /* JSBridgeHandler.swift in Sources */,
 				493AEAE5221AE7230016FE98 /* ProxyMenuItem.swift in Sources */,

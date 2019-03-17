@@ -356,7 +356,6 @@ extension AppDelegate {
                 testGroup.enter()
                 ApiRequest.getProxyDelay(proxyName: proxyName) { delay in
                     testGroup.leave()
-                    SpeedDataRecorder.shared.setDelay(proxyName, delay: delay)
                 }
             }
             testGroup.notify(queue: DispatchQueue.main, execute: {
