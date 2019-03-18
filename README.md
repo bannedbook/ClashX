@@ -30,7 +30,10 @@ You can download from [release](https://github.com/yichengchen/clashX/releases) 
   ```
   git clone -b gh-pages git@github.com:Dreamacro/clash-dashboard.git dashboard
   ```
-
+- Build clash core. 
+  ```
+  go build -buildmode=c-archive
+  ```
 - Build and run.
 
 ## Config
