@@ -16,21 +16,14 @@ class ProxyMenuItem:NSMenuItem {
         
         proxyName = proxy.name
         
-        if let delay = proxy.history.first?.delay {
-            
-            func getDelayDisplay() -> String {
-                switch delay {
-                case 0: return "fail"
-                default:return "\(delay) ms"
-                }
-            }
+        if let his = proxy.history.first {
             
             let paragraph = NSMutableParagraphStyle()
             paragraph.tabStops = [
                 NSTextTab(textAlignment: .right, location: maxProxyNameLength + 80, options: [:]),
             ]
             
-            let str = "\(proxy.name)\t\(getDelayDisplay())"
+            let str = "\(proxy.name)\t\(his.delayDisplay)"
             
             let attributed = NSMutableAttributedString(
                 string: str,

@@ -27,6 +27,26 @@ typealias ClashProxyName = String
 class ClashProxySpeedHistory:Codable {
     let time:Date
     let delay:Int
+    
+    class hisDateFormaterInstance {
+        static let shared = hisDateFormaterInstance()
+        lazy var formater:DateFormatter = {
+            var f = DateFormatter()
+            f.dateFormat = "HH:mm"
+            return f
+        }()
+    }
+    
+    lazy var delayDisplay:String =  {
+        switch delay {
+        case 0: return "fail"
+        default:return "\(delay) ms"
+        }
+    }()
+    
+    lazy var dateDisplay:String = {
+       return hisDateFormaterInstance.shared.formater.string(from: time)
+    }()
 }
 
 
@@ -54,7 +74,6 @@ class ClashProxy:Codable {
                           options: .usesLineFragmentOrigin,
                           attributes: attr).width;
     }()
-    
 }
 
 class ClashProxyResp{
@@ -95,6 +114,28 @@ class ClashProxyResp{
         self.proxiesMap = proxiesMap
         self.proxies = proxiesModel
     }
+    
+    lazy var proxyGroups:[ClashProxy] = {
+        return proxies.filter{
+            switch $0.type {
+            case .select,.urltest,.fallback,.loadBalance:return true
+            default:return false
+            }
+            }.sorted(by: {$0.name < $1.name})
+    }()
+    
+    lazy var longestProxyGroupName = {
+        return proxyGroups.max{$1.name.count > $0.name.count}?.name ?? ""
+    }()
+    
+    lazy var maxProxyNameLength:CGFloat = {
+        let rect = CGSize(width: CGFloat.greatestFiniteMagnitude, height: 20)
+        let attr = [NSAttributedString.Key.font: NSFont.menuBarFont(ofSize: 0)]
+        return (self.longestProxyGroupName as NSString)
+            .boundingRect(with: rect,
+                          options: .usesLineFragmentOrigin,
+                          attributes: attr).width;
+    }()
     
     
 }
