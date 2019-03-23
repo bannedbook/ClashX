@@ -17,7 +17,7 @@ class ApiRequest{
         let configuration = URLSessionConfiguration.default
         configuration.timeoutIntervalForRequest = 604800
         configuration.timeoutIntervalForResource = 604800
-        configuration.httpMaximumConnectionsPerHost = 30
+        configuration.httpMaximumConnectionsPerHost = 50
         alamoFireManager = Alamofire.SessionManager(configuration: configuration)
     }
     

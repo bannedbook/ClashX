@@ -77,6 +77,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         // check config vaild via api
         ConfigFileManager.checkFinalRuleAndShowAlert()
         
+        RemoteConfigManager.updateCheckAtLaunch()
+        
     }
 
 
