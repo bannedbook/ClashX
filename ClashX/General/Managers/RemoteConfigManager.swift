@@ -35,10 +35,15 @@ class RemoteConfigManager: NSObject {
         let response = msg.runModal()
         
         if response == .alertFirstButtonReturn {
-            if URL(string: txt.stringValue) != nil {
+            if txt.stringValue.count == 0 {
+                configUrl = nil
+                return
+            }
+            
+            if URL(string: txt.stringValue) != nil{
                 configUrl = txt.stringValue
                 updateConfigIfNeed()
-            }else {
+            } else {
                 alert(with: "Url Error")
             }
         }
