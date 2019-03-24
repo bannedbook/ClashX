@@ -36,8 +36,9 @@ class ApiRequest{
             guard ConfigManager.shared.isRunning else {
                 return request("")
             }
-
-            return request(ConfigManager.apiUrl + url,
+            
+            return shared.alamoFireManager
+                .request(ConfigManager.apiUrl + url,
                 method: method,
                 parameters: parameters,
                 encoding:encoding,
