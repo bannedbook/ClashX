@@ -495,6 +495,7 @@
 				en,
 				Base,
 				"zh-Hans",
+				global,
 			);
 			mainGroup = 49CF3B1420CD7463001EBF94;
 			productRefGroup = 49CF3B1E20CD7463001EBF94 /* Products */;
