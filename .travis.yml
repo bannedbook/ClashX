@@ -49,3 +49,4 @@ deploy:
 
 after_deploy:
 - 'curl -u yichengchen:$GitHub_Token -X POST https://api.github.com/repos/yichengchen/clashX/pages/builds -H "Accept: application/vnd.github.mister-fantastic-preview+json"'
+- fastlane run upload_symbols_to_crashlytics
