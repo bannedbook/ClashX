@@ -360,7 +360,6 @@ extension AppDelegate {
             }
             testGroup.notify(queue: DispatchQueue.main, execute: {
                 NSUserNotificationCenter.default.postSpeedTestFinishNotice()
-                self?.syncConfig()
                 self?.isSpeedTesting = false
             })
         }

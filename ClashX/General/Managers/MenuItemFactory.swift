@@ -96,14 +96,12 @@ class MenuItemFactory {
             if proxy.name == selectedName {
                 proxyMenuItem.state = .on
             }
-            var historyItems = [NSMenuItem]()
+            let historyMenu = NSMenu(title: "")
             for his in proxy.history {
-                historyItems.append(
+                historyMenu.addItem(
                     NSMenuItem(title: "\(his.dateDisplay) \(his.delayDisplay)", action: nil, keyEquivalent: ""))
             }
-            if historyItems.count > 0 {
-                let historyMenu = NSMenu(title: "")
-                historyMenu.items = historyItems
+            if historyMenu.items.count > 0 {
                 proxyMenuItem.submenu = historyMenu
                 submenu.addItem(proxyMenuItem)
             }
