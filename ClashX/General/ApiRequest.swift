@@ -169,7 +169,7 @@ extension ApiRequest {
                 .stream {(data) in
                     retry = 0
                     if let jsonData = try? JSONSerialization.jsonObject(with: data) as? [String:Int] {
-                        callback(jsonData?["up"] ?? 0, jsonData?["down"] ?? 0)
+                        callback(jsonData["up"] ?? 0, jsonData["down"] ?? 0)
                     }
                 }.response {[weak self] res in
                     guard let err = res.error else {return}
@@ -199,8 +199,8 @@ extension ApiRequest {
                 .stream {(data) in
                     retry = 0
                     if let jsonData = try? JSONSerialization.jsonObject(with: data) as? [String:String] {
-                        let type = jsonData!["type"] ?? "info"
-                        let payload = jsonData!["payload"] ?? ""
+                        let type = jsonData["type"] ?? "info"
+                        let payload = jsonData["payload"] ?? ""
                         callback(type,payload)
                     }
                 }

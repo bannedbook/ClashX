@@ -200,8 +200,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     func updateProxyList(withMenus menus:[NSMenuItem]) {
-        let startIndex = self.statusMenu.items.index(of: self.separatorLineTop)!+1
-        let endIndex = self.statusMenu.items.index(of: self.sepatatorLineEndProxySelect)!
+        let startIndex = self.statusMenu.items.firstIndex(of: self.separatorLineTop)!+1
+        let endIndex = self.statusMenu.items.firstIndex(of: self.sepatatorLineEndProxySelect)!
         var items = self.statusMenu.items
         
         self.sepatatorLineEndProxySelect.isHidden = menus.count == 0
