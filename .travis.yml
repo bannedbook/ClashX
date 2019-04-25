@@ -18,6 +18,8 @@ install:
 - cd ClashX/Resources
 - git clone -b gh-pages https://github.com/Dreamacro/clash-dashboard.git dashboard
 - cd ..
+- brew update
+- brew upgrade go
 - echo `go version`
 - go build -buildmode=c-archive
 - cd $TRAVIS_BUILD_DIR
