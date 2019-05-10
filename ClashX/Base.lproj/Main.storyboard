@@ -149,6 +149,16 @@
                                             <action selector="actionUpdateConfig:" target="Voe-Tx-rLC" id="oW5-Ll-SY8"/>
                                         </connections>
                                     </menuItem>
+                                    <menuItem title="Show current proxy in menu" id="j9o-36-NTd">
+                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                        <connections>
+                                            <binding destination="dwS-am-r7H" name="value" keyPath="values.kSDisableShowCurrentProxyInMenu" id="MoG-1X-cvu">
+                                                <dictionary key="options">
+                                                    <string key="NSValueTransformerName">NSNegateBoolean</string>
+                                                </dictionary>
+                                            </binding>
+                                        </connections>
+                                    </menuItem>
                                     <menuItem title="Log level" id="3Da-fL-Mzr">
                                         <modifierMask key="keyEquivalentModifierMask"/>
                                         <menu key="submenu" title="Log level" id="wqo-3T-4qO">

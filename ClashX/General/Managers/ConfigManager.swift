@@ -18,6 +18,13 @@ class ConfigManager {
     var apiPort = "8080"
     var apiSecret:String? = nil
     
+    init() {
+        UserDefaults.standard.rx.observe(Bool.self, "kSDisableShowCurrentProxyInMenu").bind {
+            [weak self] disable in
+            self?.disableShowCurrentProxyInMenu = disable ?? false
+        }
+    }
+    
     var currentConfig:ClashConfig?{
         get {
             return currentConfigVariable.value
@@ -38,6 +45,8 @@ class ConfigManager {
             isRunningVariable.value = newValue
         }
     }
+    
+    var disableShowCurrentProxyInMenu = false
     
     static var selectConfigName:String{
         get {

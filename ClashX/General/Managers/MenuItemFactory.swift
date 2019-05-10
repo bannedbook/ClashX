@@ -23,7 +23,7 @@ class MenuItemFactory {
                 var menu:NSMenuItem?
                 switch proxy.type {
                 case .select: menu = self.generateSelectorMenuItem(proxyGroup: proxy, proxyInfo: proxyInfo)
-                case .urltest,.fallback: menu = generateUrlTestMenuItem(proxyGroup: proxy, proxyInfo: proxyInfo)
+                case .urltest,.fallback: menu = generateUrlTestFallBackMenuItem(proxyGroup: proxy, proxyInfo: proxyInfo)
                 case .loadBalance:
                     menu = generateLoadBalanceMenuItem(proxyGroup: proxy, proxyInfo: proxyInfo)
                 default: continue
@@ -38,12 +38,24 @@ class MenuItemFactory {
         }
     }
     
+    static func proxygroupTitle(name:String,now:String) -> NSAttributedString? {
+        if ConfigManager.shared.disableShowCurrentProxyInMenu {
+            return nil
+        }
+        let now = now.prefix(15)
+        let str = "\(name)    \(now)"
+        let attributed = NSMutableAttributedString(string: str)
+        let nowAttr = [NSAttributedString.Key.foregroundColor:NSColor.gray]
+        attributed.setAttributes(nowAttr, range: NSRange(name.utf16.count+1 ..< str.utf16.count))
+        return attributed
+    }
+    
     static func generateSelectorMenuItem(proxyGroup:ClashProxy,
                                          proxyInfo:ClashProxyResp) -> NSMenuItem? {
         let proxyMap = proxyInfo.proxiesMap
         
         let isGlobalMode = ConfigManager.shared.currentConfig?.mode == .global
-        if (isGlobalMode) {
+        if isGlobalMode {
             if proxyGroup.name != "GLOBAL" {return nil}
         } else {
             if proxyGroup.name == "GLOBAL" {return nil}
@@ -51,6 +63,7 @@ class MenuItemFactory {
         
         let menu = NSMenuItem(title: proxyGroup.name, action: nil, keyEquivalent: "")
         let selectedName = proxyGroup.now ?? ""
+        menu.attributedTitle = proxygroupTitle(name: proxyGroup.name, now: selectedName)
         let submenu = NSMenu(title: proxyGroup.name)
         var hasSelected = false
         
@@ -76,38 +89,51 @@ class MenuItemFactory {
         return menu
     }
     
-    static func generateUrlTestMenuItem(proxyGroup:ClashProxy,proxyInfo:ClashProxyResp)->NSMenuItem? {
+    
+    static func generateUrlTestFallBackMenuItem(proxyGroup:ClashProxy,proxyInfo:ClashProxyResp)->NSMenuItem? {
         
         let proxyMap = proxyInfo.proxiesMap
-        
-        let menu = NSMenuItem(title: proxyGroup.name, action: nil, keyEquivalent: "")
         let selectedName = proxyGroup.now ?? ""
+        let menu = NSMenuItem(title: proxyGroup.name, action: nil, keyEquivalent: "")
+        menu.attributedTitle = proxygroupTitle(name: proxyGroup.name, now: selectedName)
+        
         let submenu = NSMenu(title: proxyGroup.name)
 
         let nowMenuItem = NSMenuItem(title: "now:\(selectedName)", action: #selector(empty), keyEquivalent: "")
         nowMenuItem.target = MenuItemFactory.self
+        
+        if let nowProxy = proxyMap[selectedName],let historyMenu = generateHistoryMenu(nowProxy) {
+            nowMenuItem.submenu = historyMenu
+        }
 
         submenu.addItem(nowMenuItem)
         submenu.addItem(NSMenuItem.separator())
 
         for proxyName in proxyGroup.all ?? [] {
             guard let proxy = proxyMap[proxyName] else {continue}
-            let proxyMenuItem = NSMenuItem(title: proxy.name, action: nil, keyEquivalent: "")
+            let proxyMenuItem = NSMenuItem(title: proxy.name, action: #selector(empty), keyEquivalent: "")
+            proxyMenuItem.target = MenuItemFactory.self
             if proxy.name == selectedName {
                 proxyMenuItem.state = .on
             }
-            let historyMenu = NSMenu(title: "")
-            for his in proxy.history {
-                historyMenu.addItem(
-                    NSMenuItem(title: "\(his.dateDisplay) \(his.delayDisplay)", action: nil, keyEquivalent: ""))
-            }
-            if historyMenu.items.count > 0 {
+            
+            if let historyMenu = generateHistoryMenu(proxy){
                 proxyMenuItem.submenu = historyMenu
-                submenu.addItem(proxyMenuItem)
             }
+            
+            submenu.addItem(proxyMenuItem)
         }
         menu.submenu = submenu
         return menu
+    }
+    
+    static func generateHistoryMenu(_ proxy:ClashProxy) -> NSMenu? {
+        let historyMenu = NSMenu(title: "")
+        for his in proxy.history {
+            historyMenu.addItem(
+                NSMenuItem(title: "\(his.dateDisplay) \(his.delayDisplay)", action: nil, keyEquivalent: ""))
+        }
+        return historyMenu.items.count > 0 ? historyMenu : nil
     }
     
     static func generateLoadBalanceMenuItem(proxyGroup:ClashProxy, proxyInfo:ClashProxyResp)->NSMenuItem? {
