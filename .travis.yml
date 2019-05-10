@@ -19,7 +19,7 @@ install:
 - git clone -b gh-pages https://github.com/Dreamacro/clash-dashboard.git dashboard
 - cd ..
 - echo `go version`
-- go build -buildmode=c-archive
+- CGO_CFLAGS=-mmacosx-version-min=10.10 CGO_LDFLAGS=-mmacosx-version-min=10.10 go build -buildmode=c-archive
 - cd $TRAVIS_BUILD_DIR
 script:
 - 'xcodebuild -workspace ClashX.xcworkspace -scheme "ClashX" build CODE_SIGN_IDENTITY="Developer
