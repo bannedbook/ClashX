@@ -13,8 +13,8 @@
 //   to endorse or promote products derived from this software without specific
 //   prior written permission of Deusty, LLC.
 
-#import "DDFileLogger+Buffering.h"
-#import "DDFileLogger+Internal.h"
+#import <CocoaLumberjack/DDFileLogger+Internal.h>
+#import <CocoaLumberjack/DDFileLogger+Buffering.h>
 
 #import <sys/mount.h>
 
@@ -25,13 +25,16 @@ static const NSUInteger kDDMaxBufferSize = 1048576; // ~1 mB, f_iosize on iphone
 // see statfs in sys/mount.h for descriptions of f_iosize and f_bsize.
 // f_bsize == "default", and f_iosize == "max"
 static inline NSUInteger p_DDGetDefaultBufferSizeBytesMax(const BOOL max) {
-    struct statfs *mntbufp = NULL;
-    int count = getmntinfo(&mntbufp, 0);
+    struct statfs *mountedFileSystems = NULL;
+    int count = getmntinfo(&mountedFileSystems, 0);
 
     for (int i = 0; i < count; i++) {
-        const char *name = mntbufp[i].f_mntonname;
-        if (strlen(name) == 1 && *name == '/') {
-            return max ? mntbufp[i].f_iosize : mntbufp[i].f_bsize;
+        struct statfs mounted = mountedFileSystems[i];
+        const char *name = mounted.f_mntonname;
+
+        // We can use 2 as max here, since any length > 1 will fail the if-statement.
+        if (strnlen(name, 2) == 1 && *name == '/') {
+            return max ? (NSUInteger)mounted.f_iosize : (NSUInteger)mounted.f_bsize;
         }
     }
 
