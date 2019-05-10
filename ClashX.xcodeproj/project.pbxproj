@@ -12,7 +12,6 @@
 		492C4869210EE6B9004554A0 /* ApiRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 492C4868210EE6B9004554A0 /* ApiRequest.swift */; };
 		492C4871210EF62E004554A0 /* ClashConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 492C4870210EF62E004554A0 /* ClashConfig.swift */; };
 		492D7321216CEC4000146BC1 /* ClashX.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 492D731F216CEC4000146BC1 /* ClashX.a */; };
-		493196A2216331F400A8E6E7 /* NetworkChangeNotifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493196A1216331F400A8E6E7 /* NetworkChangeNotifier.swift */; };
 		493AEAE3221AE3420016FE98 /* AppVersionUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493AEAE2221AE3420016FE98 /* AppVersionUtil.swift */; };
 		493AEAE5221AE7230016FE98 /* ProxyMenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493AEAE4221AE7230016FE98 /* ProxyMenuItem.swift */; };
 		4949D154213242F600EF85E6 /* Paths.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4949D153213242F600EF85E6 /* Paths.swift */; };
@@ -103,7 +102,6 @@
 		492C4870210EF62E004554A0 /* ClashConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClashConfig.swift; sourceTree = "<group>"; };
 		492D731F216CEC4000146BC1 /* ClashX.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = ClashX.a; path = ClashX/ClashX.a; sourceTree = SOURCE_ROOT; };
 		492D7320216CEC4000146BC1 /* ClashX.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ClashX.h; path = ClashX/ClashX.h; sourceTree = SOURCE_ROOT; };
-		493196A1216331F400A8E6E7 /* NetworkChangeNotifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkChangeNotifier.swift; sourceTree = "<group>"; };
 		493AEAE2221AE3420016FE98 /* AppVersionUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppVersionUtil.swift; sourceTree = "<group>"; };
 		493AEAE4221AE7230016FE98 /* ProxyMenuItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProxyMenuItem.swift; sourceTree = "<group>"; };
 		4949D153213242F600EF85E6 /* Paths.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Paths.swift; sourceTree = "<group>"; };
@@ -262,7 +260,6 @@
 			isa = PBXGroup;
 			children = (
 				49722FE9211F338B00650A41 /* Witness */,
-				493196A1216331F400A8E6E7 /* NetworkChangeNotifier.swift */,
 			);
 			path = Vendor;
 			sourceTree = "<group>";
@@ -629,7 +626,6 @@
 			files = (
 				49CF3B5C20CE8068001EBF94 /* ProxyConfigHelperManager.swift in Sources */,
 				4952C3D02117027C004A4FA8 /* ConfigFileManager.swift in Sources */,
-				493196A2216331F400A8E6E7 /* NetworkChangeNotifier.swift in Sources */,
 				4997732520D251A60009B136 /* SWBApplication.m in Sources */,
 				49BC061C212931F4005A0FE7 /* AboutViewController.swift in Sources */,
 				4949D154213242F600EF85E6 /* Paths.swift in Sources */,
@@ -872,10 +868,7 @@
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = MEWHFZ92DY;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/Mac",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = ClashX/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -884,7 +877,6 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/ClashX",
-					"$(PROJECT_DIR)/ClashX/clash",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				PRODUCT_BUNDLE_IDENTIFIER = com.west2online.ClashX;
@@ -906,10 +898,7 @@
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = MEWHFZ92DY;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/Mac",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = ClashX/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -918,7 +907,6 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/ClashX",
-					"$(PROJECT_DIR)/ClashX/clash",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				PRODUCT_BUNDLE_IDENTIFIER = com.west2online.ClashX;

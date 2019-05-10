@@ -17,10 +17,6 @@ class ConfigManager {
     private let disposeBag = DisposeBag()
     var apiPort = "8080"
     var apiSecret:String? = nil
-
-    private init(){
-        setupNetworkNotifier()
-    }
     
     var currentConfig:ClashConfig?{
         get {
@@ -137,23 +133,6 @@ class ConfigManager {
         }
     }
     
-    func setupNetworkNotifier() {
-        NetworkChangeNotifier.start()
-        NotificationCenter
-            .default
-            .rx
-            .notification(kSystemNetworkStatusDidChange)
-            .debounce(2, scheduler: MainScheduler.instance)
-            .subscribeOn(MainScheduler.instance)
-            .bind{ _ in
-            let (http,https,socks) = NetworkChangeNotifier.currentSystemProxySetting()
-            let proxySetted =
-                http == (self.currentConfig?.port ?? 0) &&
-                https == (self.currentConfig?.port ?? 0) &&
-                socks == (self.currentConfig?.socketPort ?? 0)
-            self.proxyPortAutoSet = proxySetted
-        }.disposed(by: disposeBag)
-    }
 }
 
 extension ConfigManager {

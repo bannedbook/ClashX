@@ -1,4 +1,5 @@
 target 'ClashX' do
+  inhibit_all_warnings!
   use_frameworks!
   pod "LetsMove"
   pod 'Sparkle'
