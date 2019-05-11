@@ -15,6 +15,9 @@ import RxSwift
 import Fabric
 import Crashlytics
 
+private let statusItemLengthWithSpeed:CGFloat = 70
+
+
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
     var statusItem: NSStatusItem!
@@ -51,11 +54,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         signal(SIGPIPE, SIG_IGN)
         
         // setup menu item first
-        statusItem = NSStatusBar.system.statusItem(withLength:65)
+        statusItem = NSStatusBar.system.statusItem(withLength:statusItemLengthWithSpeed)
         statusItem.menu = statusMenu
         
         statusItemView = StatusItemView.create(statusItem: statusItem)
-        statusItemView.frame = CGRect(x: 0, y: 0, width: 65, height: 22)
+        statusItemView.frame = CGRect(x: 0, y: 0, width: statusItemLengthWithSpeed, height: 22)
         statusMenu.delegate = self
         
         // crash recorder
@@ -111,7 +114,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             .bind {[weak self] (show) in
                 guard let self = self else {return}
                 self.showNetSpeedIndicatorMenuItem.state = (show ?? true) ? .on : .off
-                let statusItemLength:CGFloat = (show ?? true) ? 65 : 25
+                let statusItemLength:CGFloat = (show ?? true) ? statusItemLengthWithSpeed : 25
                 self.statusItem.length = statusItemLength
                 self.statusItemView.frame.size.width = statusItemLength
                 self.statusItemView.showSpeedContainer(show: (show ?? true))

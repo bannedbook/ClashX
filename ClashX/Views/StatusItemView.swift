@@ -64,7 +64,7 @@ class StatusItemView: NSView {
         }.disposed(by: disposeBag)
         
         if #available(OSX 10.11, *) {
-            let font = NSFont.systemFont(ofSize: 8, weight: .medium)
+            let font = NSFont.systemFont(ofSize: 9, weight: .regular)
             uploadSpeedLabel.font = font
             downloadSpeedLabel.font = font
         }
