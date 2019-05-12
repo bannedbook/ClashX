@@ -89,9 +89,12 @@ class ProxyConfigHelperManager {
     static func setUpSystemProxy(port: Int?,socksPort: Int?) -> Bool {
         let task = Process()
         task.launchPath = "\(kProxyConfigFolder)/ProxyConfig"
+        let hookTask:String?
         if let port = port,let socksPort = socksPort {
+            hookTask = UserDefaults.standard.string(forKey: "kProxyEnableHook")
             task.arguments = [String(port),String(socksPort), "enable"]
         } else {
+            hookTask = UserDefaults.standard.string(forKey: "kProxyDisableHook")
             task.arguments = ["0", "0", "disable"]
         }
         
@@ -102,6 +105,15 @@ class ProxyConfigHelperManager {
         if task.terminationStatus != 0 {
             return false
         }
+        
+        DispatchQueue.global().async {
+            if let command = hookTask {
+                let appleScriptStr = "do shell script \"\(command)\""
+                let appleScript = NSAppleScript(source: appleScriptStr)
+                _ = appleScript?.executeAndReturnError(nil)
+            }
+        }
+        
         return true
     }
     
