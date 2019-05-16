@@ -90,8 +90,11 @@ class ClashWebViewContoller: NSViewController {
     
     override func keyDown(with event: NSEvent) {
         switch event.modifierFlags.intersection(.deviceIndependentFlagsMask) {
-        case [.command] where event.characters == "w":
-            self.view.window?.close()
+        case [.command,.capsLock]:fallthrough
+        case [.command]:
+            if event.characters?.lowercased() == "w" {
+                self.view.window?.close()
+            }
         default:
             break
         }
