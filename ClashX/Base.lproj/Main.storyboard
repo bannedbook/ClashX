@@ -42,20 +42,20 @@
                         <menuItem title="API Connect Error" id="jGT-1M-xJu">
                             <menu key="submenu" title="API Connect Error" id="UU2-uE-YB4">
                                 <items>
-                                    <menuItem title="Global" id="yiM-U4-MNg">
-                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                    <menuItem title="Global" keyEquivalent="g" id="yiM-U4-MNg">
+                                        <modifierMask key="keyEquivalentModifierMask" option="YES"/>
                                         <connections>
                                             <action selector="actionSwitchProxyMode:" target="Voe-Tx-rLC" id="qv6-up-ubF"/>
                                         </connections>
                                     </menuItem>
-                                    <menuItem title="Rule" id="89n-bD-JHk">
-                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                    <menuItem title="Rule" keyEquivalent="r" id="89n-bD-JHk">
+                                        <modifierMask key="keyEquivalentModifierMask" option="YES"/>
                                         <connections>
                                             <action selector="actionSwitchProxyMode:" target="Voe-Tx-rLC" id="hGb-uh-9p3"/>
                                         </connections>
                                     </menuItem>
-                                    <menuItem title="Direct" id="Np6-Pm-Lo3">
-                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                    <menuItem title="Direct" keyEquivalent="d" id="Np6-Pm-Lo3">
+                                        <modifierMask key="keyEquivalentModifierMask" option="YES"/>
                                         <connections>
                                             <action selector="actionSwitchProxyMode:" target="Voe-Tx-rLC" id="vbj-a5-5O0"/>
                                         </connections>
@@ -144,7 +144,7 @@
                                             <action selector="openConfigFolder:" target="Voe-Tx-rLC" id="6Ke-Bi-AAZ"/>
                                         </connections>
                                     </menuItem>
-                                    <menuItem title="Reload config" keyEquivalent="e" id="q3G-VH-eyy">
+                                    <menuItem title="Reload config" keyEquivalent="r" id="q3G-VH-eyy">
                                         <connections>
                                             <action selector="actionUpdateConfig:" target="Voe-Tx-rLC" id="oW5-Ll-SY8"/>
                                         </connections>
