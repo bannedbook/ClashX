@@ -18,6 +18,7 @@ class ApiRequest{
         configuration.timeoutIntervalForRequest = 604800
         configuration.timeoutIntervalForResource = 604800
         configuration.httpMaximumConnectionsPerHost = 50
+        configuration.requestCachePolicy = .reloadIgnoringLocalCacheData
         alamoFireManager = Alamofire.SessionManager(configuration: configuration)
     }
     

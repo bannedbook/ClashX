@@ -100,8 +100,9 @@ class RemoteConfigManager: NSObject {
         guard let urlString = configUrl,
             let fileName = configFileName
             else {alert(with: "Not config url set!");return}
-        
-        request(urlString, method: .get).responseString(encoding: .utf8) { (res) in
+        guard var urlRequest = try? URLRequest(url: urlString, method: .get) else {alert(with: "url incorrect");return}
+        urlRequest.cachePolicy = .reloadIgnoringCacheData
+        request(urlRequest).responseString(encoding: .utf8) { (res) in
             if let s = res.result.value {
                 handler(fileName,s)
             } else {
