@@ -115,13 +115,21 @@ class ClashProxyResp{
         self.proxies = proxiesModel
     }
     
+    lazy var proxiesSortMap : [ClashProxyName:Int] = {
+        var map = [ClashProxyName:Int]()
+        for (idx,proxy) in (self.proxiesMap["GLOBAL"]?.all ?? []).enumerated(){
+            map[proxy] = idx
+        }
+        return map
+    }()
+    
     lazy var proxyGroups:[ClashProxy] = {
         return proxies.filter{
             switch $0.type {
             case .select,.urltest,.fallback,.loadBalance:return true
             default:return false
             }
-            }.sorted(by: {$0.name < $1.name})
+            }.sorted(by: {proxiesSortMap[$0.name] ?? -1  < proxiesSortMap[$1.name] ?? -1 })
     }()
     
     lazy var longestProxyGroupName = {
