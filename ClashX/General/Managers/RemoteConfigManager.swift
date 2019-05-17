@@ -145,6 +145,7 @@ class RemoteConfigManager: NSObject {
                 } else {
                     self.alert(with: "Update Success!")
                 }
+                self.didUpdateConfig()
             } catch let err {
                 if let complete = complete {
                     complete(err.localizedDescription)
@@ -152,6 +153,15 @@ class RemoteConfigManager: NSObject {
                     self.alert(with: err.localizedDescription)
                 }
             }
+        }
+    }
+    
+    static func didUpdateConfig() {
+        guard let hook = UserDefaults.standard.string(forKey: "kDidUpdateRemoteConfigHook") else {return}
+        DispatchQueue.global().async {
+            let appleScriptStr = "do shell script \"\(hook)\""
+            let appleScript = NSAppleScript(source: appleScriptStr)
+            _ = appleScript?.executeAndReturnError(nil)
         }
     }
     
