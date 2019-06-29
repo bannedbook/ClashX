@@ -26,6 +26,7 @@ class ProxyConfigHelperManager {
     static func install() -> Bool {
         checkConfigDir()
         checkMMDB()
+        upgardeYmlExtensionName()
         
         let proxyHelperPath = Bundle.main.path(forResource: "ProxyConfig", ofType: nil)
         let targetPath = "\(kProxyConfigFolder)/ProxyConfig"
@@ -84,6 +85,21 @@ class ProxyConfigHelperManager {
                 try? fileManage.copyItem(at: URL(fileURLWithPath: mmdbPath), to: URL(fileURLWithPath: destMMDBPath))
             }
         }
+    }
+    
+    static func upgardeYmlExtensionName() {
+        do {
+            let fileURLs = try FileManager.default.contentsOfDirectory(at: URL(fileURLWithPath: kConfigFolderPath, isDirectory: true), includingPropertiesForKeys: nil, options: [.skipsSubdirectoryDescendants])
+            
+            for upgradeUrl in fileURLs.filter({$0.pathExtension == "yml" }) {
+                let dest = upgradeUrl.deletingPathExtension().appendingPathExtension("yaml")
+                try FileManager.default.moveItem(at: upgradeUrl, to: dest)
+            }
+            
+        } catch let err {
+            Logger.log(msg: err.localizedDescription)
+        }
+        
     }
     
     static func setUpSystemProxy(port: Int?,socksPort: Int?) -> Bool {

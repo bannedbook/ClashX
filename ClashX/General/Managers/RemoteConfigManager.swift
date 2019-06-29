@@ -122,7 +122,7 @@ class RemoteConfigManager: NSObject {
                 return
             }
             
-            let savePath = kConfigFolderPath.appending(configName).appending(".yml")
+            let savePath = kConfigFolderPath.appending(configName).appending(".yaml")
             let fm = FileManager.default
             do {
                 if fm.fileExists(atPath: savePath) {

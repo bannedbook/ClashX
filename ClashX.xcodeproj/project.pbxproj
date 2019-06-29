@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -37,7 +37,7 @@
 		4981C890216BAF0C008CC14A /* String+Localized.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4981C88F216BAF0C008CC14A /* String+Localized.swift */; };
 		49862FA0218418C600A1D5EC /* ClashRule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49862F9F218418C600A1D5EC /* ClashRule.swift */; };
 		4989F98420D02D200001E564 /* Country.mmdb in Resources */ = {isa = PBXBuildFile; fileRef = 4989F98320D02D200001E564 /* Country.mmdb */; };
-		4989F98E20D0AE990001E564 /* sampleConfig.yml in Resources */ = {isa = PBXBuildFile; fileRef = 4989F98D20D0AE990001E564 /* sampleConfig.yml */; };
+		4989F98E20D0AE990001E564 /* sampleConfig.yaml in Resources */ = {isa = PBXBuildFile; fileRef = 4989F98D20D0AE990001E564 /* sampleConfig.yaml */; };
 		4997732520D251A60009B136 /* SWBApplication.m in Sources */ = {isa = PBXBuildFile; fileRef = 4997732320D251A60009B136 /* SWBApplication.m */; };
 		499976C821359F0400E7BF83 /* ClashWebViewContoller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499976C721359F0400E7BF83 /* ClashWebViewContoller.swift */; };
 		49AF9104225B2B03004CC077 /* ProxyConfig in CopyFiles */ = {isa = PBXBuildFile; fileRef = 49AF9103225B2A96004CC077 /* ProxyConfig */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
@@ -133,7 +133,7 @@
 		4981C88F216BAF0C008CC14A /* String+Localized.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Localized.swift"; sourceTree = "<group>"; };
 		49862F9F218418C600A1D5EC /* ClashRule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClashRule.swift; sourceTree = "<group>"; };
 		4989F98320D02D200001E564 /* Country.mmdb */ = {isa = PBXFileReference; lastKnownFileType = file; path = Country.mmdb; sourceTree = "<group>"; };
-		4989F98D20D0AE990001E564 /* sampleConfig.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = sampleConfig.yml; sourceTree = "<group>"; };
+		4989F98D20D0AE990001E564 /* sampleConfig.yaml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = sampleConfig.yaml; sourceTree = "<group>"; };
 		4997732320D251A60009B136 /* SWBApplication.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWBApplication.m; sourceTree = "<group>"; };
 		4997732420D251A60009B136 /* SWBApplication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWBApplication.h; sourceTree = "<group>"; };
 		499976C721359F0400E7BF83 /* ClashWebViewContoller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClashWebViewContoller.swift; sourceTree = "<group>"; };
@@ -367,7 +367,7 @@
 			children = (
 				492D731F216CEC4000146BC1 /* ClashX.a */,
 				492D7320216CEC4000146BC1 /* ClashX.h */,
-				4989F98D20D0AE990001E564 /* sampleConfig.yml */,
+				4989F98D20D0AE990001E564 /* sampleConfig.yaml */,
 				4989F98320D02D200001E564 /* Country.mmdb */,
 				4981C88D216BAE4A008CC14A /* Localizable.strings */,
 			);
@@ -535,7 +535,7 @@
 				4989F98420D02D200001E564 /* Country.mmdb in Resources */,
 				497F0DF320DE2FE50077AD41 /* Icon.icns in Resources */,
 				49722FF2211F338B00650A41 /* Info.plist in Resources */,
-				4989F98E20D0AE990001E564 /* sampleConfig.yml in Resources */,
+				4989F98E20D0AE990001E564 /* sampleConfig.yaml in Resources */,
 				49CF3B6320CED9CF001EBF94 /* check_proxy_helper.sh in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -33,7 +33,8 @@ extension NSUserNotificationCenter {
     }
     
     func postConfigErrorNotice(msg:String) {
-        self.post(title: "Config loading Fail!", info: msg)
+        let message =  "\(ConfigManager.selectConfigName).ymal: \(msg)"
+        self.post(title: "Config loading Fail!", info: message)
     }
     
     func postImportConfigFromUrlFailNotice(urlStr:String) {

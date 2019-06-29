@@ -250,11 +250,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             let error = String(cString: cstring)
             if (error != "success") {
                 ConfigManager.shared.isRunning = false
+                proxyModeMenuItem.isEnabled = false
                 NSUserNotificationCenter.default.postConfigErrorNotice(msg:error)
             } else {
                 ConfigManager.shared.isRunning = true
-                self.resetStreamApi()
-                self.dashboardMenuItem.isEnabled = true
+                proxyModeMenuItem.isEnabled = true
+                resetStreamApi()
+                dashboardMenuItem.isEnabled = true
             }
         }
     }
@@ -269,7 +271,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     func resetStreamApi() {
         ApiRequest.shared.requestTrafficInfo(){ [weak self] up,down in
-            guard let `self` = self else {return}
+            guard let self = self else {return}
             DispatchQueue.main.async {
                 self.statusItemView.updateSpeedLabel(up: up, down: down)
             }

@@ -50,7 +50,10 @@ class ConfigManager {
     
     static var selectConfigName:String{
         get {
-            return UserDefaults.standard.string(forKey: "selectConfigName") ?? "config"
+            if shared.isRunning {
+                return UserDefaults.standard.string(forKey: "selectConfigName") ?? "config"
+            }
+            return "config"
         }
         set {
             UserDefaults.standard.set(newValue, forKey: "selectConfigName")
@@ -149,7 +152,7 @@ extension ConfigManager {
         do {
             let fileURLs = try FileManager.default.contentsOfDirectory(atPath: kConfigFolderPath)
             return fileURLs
-                .filter { String($0.split(separator: ".").last ?? "") == "yml"}
+                .filter { String($0.split(separator: ".").last ?? "") == "yaml"}
                 .map{$0.split(separator: ".").dropLast().joined(separator: ".")}
         } catch {
             return ["config"]

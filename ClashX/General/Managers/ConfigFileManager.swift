@@ -14,7 +14,7 @@ class ConfigFileManager {
     static let shared = ConfigFileManager()
     var witness:Witness?
     func watchConfigFile(configName:String) {
-        let path = "\(kConfigFolderPath)/\(configName).yml"
+        let path = "\(kConfigFolderPath)/\(configName).yaml"
         witness = Witness(paths: [path], flags: .FileEvents, latency: 0.3) { events in
             for event in events {
                 if event.flags.contains(.ItemModified) || event.flags.contains(.ItemCreated){
@@ -30,7 +30,7 @@ class ConfigFileManager {
     
     
     static func saveToClashConfigFile(config:[String:Any]) {
-        // save to ~/.config/clash/config.yml
+        // save to ~/.config/clash/config.yaml
         _ = self.backupAndRemoveConfigFile(showAlert: false)
         var config = config
         var finalConfigString = ""
@@ -74,7 +74,7 @@ class ConfigFileManager {
             if (showAlert) {
                 if !self.showReplacingConfigFileAlert() {return false}
             }
-            let newPath = "\(kConfigFolderPath)config_\(Date().timeIntervalSince1970).yml"
+            let newPath = "\(kConfigFolderPath)config_\(Date().timeIntervalSince1970).yaml"
             try? FileManager.default.moveItem(atPath: path, toPath: newPath)
         }
         return true
@@ -90,7 +90,7 @@ class ConfigFileManager {
         if (!backupAndRemoveConfigFile(showAlert: true)) {
             return false
         }
-        let path = Bundle.main.path(forResource: "sampleConfig", ofType: "yml")!
+        let path = Bundle.main.path(forResource: "sampleConfig", ofType: "yaml")!
         try? FileManager.default.copyItem(atPath: path, toPath: kDefaultConfigFilePath)
         NSUserNotificationCenter.default.postGenerateSimpleConfigNotice()
         return true
