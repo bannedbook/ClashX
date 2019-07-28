@@ -371,7 +371,7 @@ extension AppDelegate {
         pasteboard.clearContents()
         let port = ConfigManager.shared.currentConfig?.port ?? 0
         let socksport = ConfigManager.shared.currentConfig?.socketPort ?? 0
-        pasteboard.setString("export https_proxy=http://127.0.0.1:\(port);export http_proxy=http://127.0.0.1:\(port);export all_proxy=socks5://127.0.0.1:\(socksport)", forType: .string)
+        pasteboard.setString("export https_proxy=http://127.0.0.1:\(port);export http_proxy=http://127.0.0.1:\(port);export all_proxy=socks5h://127.0.0.1:\(socksport)", forType: .string)
     }
     
     @IBAction func actionSpeedTest(_ sender: Any) {
