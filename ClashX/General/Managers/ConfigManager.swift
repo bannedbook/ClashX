@@ -128,7 +128,7 @@ class ConfigManager {
     }
     
     func refreshApiInfo(){
-        apiPort = "7892"
+        apiPort = "9090"
         apiSecret = nil;
         if let yamlStr = try? String(contentsOfFile: kDefaultConfigFilePath),
             var yaml = (try? Yams.load(yaml: yamlStr)) as? [String:Any] {

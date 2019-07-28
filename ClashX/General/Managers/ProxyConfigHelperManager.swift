@@ -27,6 +27,7 @@ class ProxyConfigHelperManager {
         checkConfigDir()
         checkMMDB()
         upgardeYmlExtensionName()
+        checkAndRemoveOldErrorConfig()
         
         let proxyHelperPath = Bundle.main.path(forResource: "ProxyConfig", ofType: nil)
         let targetPath = "\(kProxyConfigFolder)/ProxyConfig"
@@ -83,6 +84,26 @@ class ProxyConfigHelperManager {
         if !fileManage.fileExists(atPath: destMMDBPath) {
             if let mmdbPath = Bundle.main.path(forResource: "Country", ofType: "mmdb") {
                 try? fileManage.copyItem(at: URL(fileURLWithPath: mmdbPath), to: URL(fileURLWithPath: destMMDBPath))
+            }
+        }
+    }
+    
+    static func checkAndRemoveOldErrorConfig() {
+        if FileManager.default.fileExists(atPath: kDefaultConfigFilePath) {
+            do {
+                let defaultConfigData = try Data(contentsOf: URL(fileURLWithPath: kDefaultConfigFilePath))
+                var checkSum: UInt8 = 0
+                for byte in defaultConfigData {
+                    checkSum &+= byte
+                }
+                
+                if checkSum == 101 {
+                    // old error config
+                    Logger.log(msg: "removing old config.yaml")
+                    try FileManager.default.removeItem(atPath: kDefaultConfigFilePath)
+                }
+            } catch let err {
+                Logger.log(msg: "removing old config.yaml fail: \(err.localizedDescription)")
             }
         }
     }
