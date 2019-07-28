@@ -131,14 +131,10 @@ class ConfigManager {
         apiPort = "9090"
         apiSecret = nil;
         if let yamlStr = try? String(contentsOfFile: kDefaultConfigFilePath),
-            var yaml = (try? Yams.load(yaml: yamlStr)) as? [String:Any] {
-            if let controller = yaml["external-controller"] as? String,
-                let port = controller.split(separator: ":").last{
-                apiPort = String(port)
-            } else {
-                yaml["external-controller"] = apiPort
-                ConfigFileManager.saveToClashConfigFile(config: yaml)
-            }
+            let yaml = (try? Yams.load(yaml: yamlStr)) as? [String:Any],
+            let controller = yaml["external-controller"] as? String,
+            let port = controller.components(separatedBy: ":").last {
+            apiPort = String(port)
             apiSecret = yaml["secret"] as? String
         } else {
             _ = ConfigFileManager.replaceConfigWithSampleConfig()

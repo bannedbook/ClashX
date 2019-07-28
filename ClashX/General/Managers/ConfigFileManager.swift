@@ -13,11 +13,12 @@ import Yams
 class ConfigFileManager {
     static let shared = ConfigFileManager()
     var witness:Witness?
+    
     func watchConfigFile(configName:String) {
-        let path = "\(kConfigFolderPath)/\(configName).yaml"
+        let path = "\(kConfigFolderPath)\(configName).yaml"
         witness = Witness(paths: [path], flags: .FileEvents, latency: 0.3) { events in
             for event in events {
-                if event.flags.contains(.ItemModified) || event.flags.contains(.ItemCreated){
+                if event.flags.contains(.ItemModified){
                     NSUserNotificationCenter.default
                         .postConfigFileChangeDetectionNotice()
                     NotificationCenter.default
@@ -27,44 +28,7 @@ class ConfigFileManager {
             }
         }
     }
-    
-    
-    static func saveToClashConfigFile(config:[String:Any]) {
-        // save to ~/.config/clash/config.yaml
-        _ = self.backupAndRemoveConfigFile(showAlert: false)
-        var config = config
-        var finalConfigString = ""
-        do {
-            if let proxyConfig = config["Proxy"] {
-                finalConfigString += try
-                    Yams.dump(object: ["Proxy":proxyConfig],allowUnicode:true)
-                config["Proxy"] = nil
-            }
-            
-            if let proxyGroupConfig = config["Proxy Group"] {
-                finalConfigString += try
-                    Yams.dump(object: ["Proxy Group":proxyGroupConfig]
-                        ,allowUnicode:true)
-                config["Proxy Group"] = nil
-            }
-            
-            if let rule = config["Rule"] {
-                finalConfigString += try
-                    Yams.dump(object: ["Rule":rule],allowUnicode:true)
-                config["Rule"] = nil
-            }
-            
-            finalConfigString = try Yams.dump(object: config,allowUnicode:true) + finalConfigString
-            
-            try finalConfigString.write(toFile: kDefaultConfigFilePath, atomically: true, encoding: .utf8)
-            
-        } catch {
-            return
-        }
-        
-        
-       
-    }
+
     
     @discardableResult
     static func backupAndRemoveConfigFile(showAlert:Bool = false) -> Bool {

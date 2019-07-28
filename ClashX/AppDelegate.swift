@@ -81,6 +81,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         // check config vaild via api
         ConfigFileManager.checkFinalRuleAndShowAlert()
         
+        // start watch config file change
+        ConfigFileManager.shared.watchConfigFile(configName: ConfigManager.selectConfigName)
+        
         RemoteConfigManager.shared.autoUpdateCheck()
         
     }
@@ -98,8 +101,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         // check and refresh api url
         _ = ConfigManager.apiUrl
         
-        // start watch config file change
-        ConfigFileManager.shared.watchConfigFile(configName: ConfigManager.selectConfigName)
         remoteConfigAutoupdateMenuItem.state = RemoteConfigManager.autoUpdateEnable ? .on : .off
         
         NotificationCenter.default.rx.notification(kShouldUpDateConfig).bind {

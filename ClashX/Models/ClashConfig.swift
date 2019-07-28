@@ -29,7 +29,7 @@ enum ClashLogLevel:String,Codable {
     case error = "error"
     case debug = "debug"
     case silent = "silent"
-    case unknow = "unknow"
+    case unknow = "unknown"
 }
 
 class ClashConfig:Codable {

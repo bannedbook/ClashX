@@ -13,6 +13,8 @@ import Yams
 class RemoteConfigManager {
     
     var configs: [RemoteConfigModel] = []
+    var autoUpateTimer: Timer?
+    
     static let shared = RemoteConfigManager()
 
     private init(){
@@ -25,6 +27,7 @@ class RemoteConfigManager {
             }
         }
         migrateOldRemoteConfig()
+        setupAutoUpdateTimer()
     }
     
     func saveConfigs() {
@@ -43,6 +46,18 @@ class RemoteConfigManager {
         }
     }
     
+    func setupAutoUpdateTimer() {
+        autoUpateTimer?.invalidate()
+        autoUpateTimer = nil
+        guard RemoteConfigManager.autoUpdateEnable else {
+            Logger.log(msg: "autoUpdateEnable did not enable,autoUpateTimer invalidated.")
+            return
+        }
+        Logger.log(msg: "set up autoUpateTimer")
+        let timeInterval: TimeInterval = 60 * 60 * 3 // Three hour
+        autoUpateTimer = Timer.scheduledTimer(timeInterval: timeInterval, target: self, selector: #selector(autoUpdateCheck), userInfo: nil, repeats: true)
+    }
+    
     
     static var autoUpdateEnable:Bool {
         get {
@@ -50,11 +65,13 @@ class RemoteConfigManager {
         }
         set {
             UserDefaults.standard.set(newValue, forKey: "kAutoUpdateEnable")
+            RemoteConfigManager.shared.setupAutoUpdateTimer()
         }
     }
     
-    func autoUpdateCheck() {
+    @objc func autoUpdateCheck() {
         guard RemoteConfigManager.autoUpdateEnable else {return}
+        Logger.log(msg: "Tigger config auto update check")
         updateCheck()
     }
     
