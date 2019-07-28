@@ -42,7 +42,6 @@ class MenuItemFactory {
         if ConfigManager.shared.disableShowCurrentProxyInMenu {
             return nil
         }
-        let now = String(now.utf16.prefix(15)) ?? ""
         let str = "\(name)    \(now)"
         let attributed = NSMutableAttributedString(string: str)
         let nowAttr = [NSAttributedString.Key.foregroundColor:NSColor.gray]
