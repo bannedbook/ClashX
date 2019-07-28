@@ -1,28 +1,66 @@
-/* 
-  Localizable.strings
-  ClashX
 
-  Created by 称一称 on 2018/10/8.
-  Copyright © 2018年 west2online. All rights reserved.
-*/
+/* No comment provided by engineer. */
+"Can't recognize your config file. We will backup and replace your config file in your config folder.\n\nOtherwise the functions of ClashX will not work properly. You may need to restart ClashX or reload Config manually." = "无法识别您的配置文件，ClashX将备份并替换您的配置文件，否则ClashX将无法正常工作。您可能需要重启或者重载配置文件";
 
-"Proxy Mode" = "出站模式";
+/* No comment provided by engineer. */
+"Cancel" = "取消";
 
-"Global" = "全局";
-"Rule" = "规则";
+/* No comment provided by engineer. */
+"ClashX fail to create ~/.config/clash folder. Please check privileges or manually create folder and restart ClashX." = "ClashX 创建 ~/.config/clash 文件夹失败，请检查权限设置或者手动创建文件夹后重启 ClashX";
+
+/* No comment provided by engineer. */
+"ClashX needs to install a small tool to ~/.config/clash with administrator privileges to set system proxy quickly.\n\nOtherwise you need to type in the administrator password every time you change system proxy through ClashX." = "ClashX 需要使用管理员权限安装一个小工具到 ~/.config/clash/ 来帮助设置系统代理。\n否则你需要在每次ClashX设置系统代理时输入管理员密码。";
+
+/* No comment provided by engineer. */
+"Config file have been changed" = "配置文件已被修改";
+
+/* No comment provided by engineer. */
+"Config loading Fail!" = "配置文件加载失败";
+
+/* No comment provided by engineer. */
 "Direct" = "直连";
-"No FINAL rule were found in clash configs,This might caused by incorrect upgradation during earily version of clashX or error setting of FINAL rule.Please check your config file.\n\nNO FINAL rule would cause traffic send to DIRECT which no match any rules." = "Clash规则配置文件中没有找到FINAL/MATCH规则，这可能是由于之前版本ClashX的错误ini到yml的转换引起的，也可能因为对FINAL/MATCH进行了错误的配置，如声明的出口不在Proxy或Proxy Group中等。请再次检查配置文件。\n\n缺失FINAL/MATCH规则将导致无命中任何规则的流量使用DIRECT出口。";
-"ClashX needs to install a small tool to ~/.config/clash with administrator privileges to set system proxy quickly.\n\nOtherwise you need to type in the administrator password every time you change system proxy through ClashX." = "ClashX需要使用管理员权限安装一个小工具到~/.config/clash 从而快捷设置系统代理。\n\n否则你需要在每次设置系统代理的时候进行管理员授权。";
 
+/* No comment provided by engineer. */
+"Global" = "全局";
+
+/* No comment provided by engineer. */
 "Install" = "安装";
 
+/* No comment provided by engineer. */
+"No FINAL rule were found in clash configs,This might caused by incorrect upgradation during earily version of clashX or error setting of FINAL rule.Please check your config file.\n\nNO FINAL rule would cause traffic send to DIRECT which no match any rules." = "Clash规则配置文件中没有找到FINAL/MATCH规则，这可能是由于之前版本ClashX的错误ini到yml的转换引起的，也可能因为对FINAL/MATCH进行了错误的配置，如声明的出口不在Proxy或Proxy Group中等。请再次检查配置文件。\n\n缺失FINAL/MATCH规则将导致无命中任何规则的流量使用DIRECT出口。";
+
+/* No comment provided by engineer. */
+"Proxy Mode" = "出站模式";
+
+/* No comment provided by engineer. */
 "Quit" = "退出";
 
+/* No comment provided by engineer. */
+"Replace" = "替换";
+
+/* No comment provided by engineer. */
+"Rule" = "规则";
+
+/* No comment provided by engineer. */
+"Sample Config File Created!" = "样例配置文件已创建！";
+
+/* No comment provided by engineer. */
 "SpeedTest" = "测速";
 
+/* No comment provided by engineer. */
 "SpeedTest Finished!" = "测速完成!";
 
+/* No comment provided by engineer. */
 "SpeedTest has begun, please wait." = "测速开始,请稍候。";
 
+/* No comment provided by engineer. */
 "SpeedTest is processing, please wait." = "测速正在进行中,请稍候。";
 
+/* No comment provided by engineer. */
+"Tap to reload config" = "点击重载配置文件";
+
+/* No comment provided by engineer. */
+"Use reload config to try reconnect." = "使用重载配置文件按钮尝试重新连接";
+
+/* No comment provided by engineer. */
+"We have created or replaced your current config with a simple config with external-controller specified!" = "ClashX 已创建样例配置文件或者替换您当前没有设置 external-controller 的配置文件";

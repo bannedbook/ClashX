@@ -1,7 +1,66 @@
-/* 
-  Localizable.strings
-  ClashX
 
-  Created by 称一称 on 2018/10/8.
-  Copyright © 2018年 west2online. All rights reserved.
-*/
+/* No comment provided by engineer. */
+"Can't recognize your config file. We will backup and replace your config file in your config folder.\n\nOtherwise the functions of ClashX will not work properly. You may need to restart ClashX or reload Config manually." = "Can't recognize your config file. We will backup and replace your config file in your config folder.\n\nOtherwise the functions of ClashX will not work properly. You may need to restart ClashX or reload Config manually.";
+
+/* No comment provided by engineer. */
+"Cancel" = "Cancel";
+
+/* No comment provided by engineer. */
+"ClashX fail to create ~/.config/clash folder. Please check privileges or manually create folder and restart ClashX." = "ClashX fail to create ~/.config/clash folder. Please check privileges or manually create folder and restart ClashX.";
+
+/* No comment provided by engineer. */
+"ClashX needs to install a small tool to ~/.config/clash with administrator privileges to set system proxy quickly.\n\nOtherwise you need to type in the administrator password every time you change system proxy through ClashX." = "ClashX needs to install a small tool to ~/.config/clash with administrator privileges to set system proxy quickly.\n\nOtherwise you need to type in the administrator password every time you change system proxy through ClashX.";
+
+/* No comment provided by engineer. */
+"Config file have been changed" = "Config file have been changed";
+
+/* No comment provided by engineer. */
+"Config loading Fail!" = "Config loading Fail!";
+
+/* No comment provided by engineer. */
+"Direct" = "Direct";
+
+/* No comment provided by engineer. */
+"Global" = "Global";
+
+/* No comment provided by engineer. */
+"Install" = "Install";
+
+/* No comment provided by engineer. */
+"No FINAL rule were found in clash configs,This might caused by incorrect upgradation during earily version of clashX or error setting of FINAL rule.Please check your config file.\n\nNO FINAL rule would cause traffic send to DIRECT which no match any rules." = "No FINAL rule were found in clash configs,This might caused by incorrect upgradation during earily version of clashX or error setting of FINAL rule.Please check your config file.\n\nNO FINAL rule would cause traffic send to DIRECT which no match any rules.";
+
+/* No comment provided by engineer. */
+"Proxy Mode" = "Proxy Mode";
+
+/* No comment provided by engineer. */
+"Quit" = "Quit";
+
+/* No comment provided by engineer. */
+"Replace" = "Replace";
+
+/* No comment provided by engineer. */
+"Rule" = "Rule";
+
+/* No comment provided by engineer. */
+"Sample Config File Created!" = "Sample Config File Created!";
+
+/* No comment provided by engineer. */
+"SpeedTest" = "SpeedTest";
+
+/* No comment provided by engineer. */
+"SpeedTest Finished!" = "SpeedTest Finished!";
+
+/* No comment provided by engineer. */
+"SpeedTest has begun, please wait." = "SpeedTest has begun, please wait.";
+
+/* No comment provided by engineer. */
+"SpeedTest is processing, please wait." = "SpeedTest is processing, please wait.";
+
+/* No comment provided by engineer. */
+"Tap to reload config" = "Tap to reload config";
+
+/* No comment provided by engineer. */
+"Use reload config to try reconnect." = "Use reload config to try reconnect.";
+
+/* No comment provided by engineer. */
+"We have created or replaced your current config with a simple config with external-controller specified!" = "We have created or replaced your current config with a simple config with external-controller specified!";

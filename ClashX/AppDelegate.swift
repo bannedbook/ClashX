@@ -148,7 +148,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 case .rule:self.proxyModeRuleMenuItem.state = .on
                 }
                 self.allowFromLanMenuItem.state = config.allowLan ? .on : .off
-                self.proxyModeMenuItem.title = "\("Proxy Mode".localized()) (\(config.mode.rawValue.localized()))"
+                
+                self.proxyModeMenuItem.title = "\(NSLocalizedString("Proxy Mode", comment: "")) (\(config.mode.name))"
                 
                 self.updateProxyList()
                 

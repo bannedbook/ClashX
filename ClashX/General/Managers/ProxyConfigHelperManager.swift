@@ -156,24 +156,18 @@ class ProxyConfigHelperManager {
     
     static func showInstallHelperAlert() -> Bool{
         let alert = NSAlert()
-        alert.messageText = """
-        ClashX needs to install a small tool to ~/.config/clash with administrator privileges to set system proxy quickly.
-        
-        Otherwise you need to type in the administrator password every time you change system proxy through ClashX.
-        """.localized()
+        alert.messageText = NSLocalizedString("ClashX needs to install a small tool to ~/.config/clash with administrator privileges to set system proxy quickly.\n\nOtherwise you need to type in the administrator password every time you change system proxy through ClashX.", comment: "")
         alert.alertStyle = .warning
-        alert.addButton(withTitle: "Install".localized())
-        alert.addButton(withTitle: "Quit".localized())
+        alert.addButton(withTitle: NSLocalizedString("Install", comment: ""))
+        alert.addButton(withTitle: NSLocalizedString("Quit", comment: ""))
         return alert.runModal() == .alertFirstButtonReturn
     }
     
     static func showCreateConfigDirFailAlert() {
         let alert = NSAlert()
-        alert.messageText = """
-        ClashX fail to create ~/.config/clash folder. Please check privileges or manually create folder and restart ClashX.
-        """.localized()
+        alert.messageText = NSLocalizedString("ClashX fail to create ~/.config/clash folder. Please check privileges or manually create folder and restart ClashX.", comment: "")
         alert.alertStyle = .warning
-        alert.addButton(withTitle: "Quit".localized())
+        alert.addButton(withTitle: NSLocalizedString("Quit", comment: ""))
         alert.runModal()
         NSApplication.shared.terminate(nil)
     }

@@ -21,41 +21,42 @@ extension NSUserNotificationCenter {
     }
     
     func postGenerateSimpleConfigNotice() {
-        self.post(title: "No External-controller specified in config file!", info: "We have replace current config with a simple config with external-controller specified!")
+        self.post(title: NSLocalizedString("Sample Config File Created!", comment: ""),
+                  info: NSLocalizedString("We have created or replaced your current config with a simple config with external-controller specified!",comment: ""))
     }
     
     func postConfigFileChangeDetectionNotice() {
-        self.post(title: "Config file have been changed", info: "Tap to reload config",identifier:"postConfigFileChangeDetectionNotice")
+        self.post(title: NSLocalizedString("Config file have been changed", comment: ""),
+                  info: NSLocalizedString("Tap to reload config", comment: ""),
+                  identifier:"postConfigFileChangeDetectionNotice")
     }
     
     func postStreamApiConnectFail(api:String) {
-        self.post(title: "\(api) api connect error!", info: "Use reload config to try reconnect.")
+        self.post(title: "\(api) api connect error!",
+            info: NSLocalizedString("Use reload config to try reconnect.", comment: ""))
     }
     
     func postConfigErrorNotice(msg:String) {
-        let message =  "\(ConfigManager.selectConfigName).ymal: \(msg)"
-        self.post(title: "Config loading Fail!", info: message)
+        let configName = ConfigManager.selectConfigName.count > 0 ? "\(ConfigManager.selectConfigName).yaml" : ""
+        
+        let message =  "\(configName): \(msg)"
+        self.post(title: NSLocalizedString("Config loading Fail!", comment: ""), info: message)
     }
     
-    func postImportConfigFromUrlFailNotice(urlStr:String) {
-        self.post(title: "Import config from url fail", info: "Unrecongized Url:\(urlStr)")
-    }
-    
-    
-    func postProxyRemarkDupNotice(name:String) {
-        self.post(title: "Proxy Remark duplicated", info: "Name:\(name)")
-    }
     
     func postSpeedTestBeginNotice() {
-        self.post(title: "SpeedTest".localized(), info: "SpeedTest has begun, please wait.".localized())
+        self.post(title: NSLocalizedString("SpeedTest", comment: ""),
+                  info: NSLocalizedString("SpeedTest has begun, please wait.", comment: ""))
     }
     
     func postSpeedTestingNotice() {
-        self.post(title: "SpeedTest".localized(), info: "SpeedTest is processing, please wait.".localized())
+        self.post(title: NSLocalizedString("SpeedTest", comment: ""),
+                  info: NSLocalizedString("SpeedTest is processing, please wait.", comment: ""))
     }
     
     func postSpeedTestFinishNotice() {
-        self.post(title: "SpeedTest".localized(), info: "SpeedTest Finished!".localized())
+        self.post(title: NSLocalizedString("SpeedTest", comment: ""),
+                  info: NSLocalizedString("SpeedTest Finished!", comment: ""))
     }
 }
 

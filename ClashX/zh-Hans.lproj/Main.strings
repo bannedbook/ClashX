@@ -5,29 +5,11 @@
 /* Class = "NSMenuItem"; title = "Log level"; ObjectID = "3Da-fL-Mzr"; */
 "3Da-fL-Mzr.title" = "日志等级";
 
-/* Class = "NSMenuItem"; title = "Generate config"; ObjectID = "5Ab-VJ-iIm"; */
-"5Ab-VJ-iIm.title" = "生成配置";
-
-/* Class = "NSMenuItem"; title = "Speed test"; ObjectID = "5Mz-Qv-9Yc"; */
-"5Mz-Qv-9Yc.title" = "测速";
-
-/* Class = "NSMenuItem"; title = "QR Code from screen"; ObjectID = "89G-Oc-S3l"; */
-"89G-Oc-S3l.title" = "扫描屏幕二维码";
-
 /* Class = "NSTextFieldCell"; title = "GitHub for ClashX:"; ObjectID = "89f-5u-Eo0"; */
 "89f-5u-Eo0.title" = "GitHub for ClashX:";
 
 /* Class = "NSMenuItem"; title = "Rule"; ObjectID = "89n-bD-JHk"; */
 "89n-bD-JHk.title" = "规则判断";
-
-/* Class = "NSMenuItem"; title = "Remote config"; ObjectID = "h1C-R6-Y9w"; */
-"h1C-R6-Y9w.title" = "托管配置";
-
-/* Class = "NSMenuItem"; title = "Set url"; ObjectID = "k1Z-jQ-kAy"; */
-"k1Z-jQ-kAy.title" = "设置地址";
-
-/* Class = "NSMenuItem"; title = "Update"; ObjectID = "I2P-Wd-Ns7"; */
-"I2P-Wd-Ns7.title" = "更新";
 
 /* Class = "NSMenuItem"; title = "Set as system proxy"; ObjectID = "8se-yr-wmp"; */
 "8se-yr-wmp.title" = "设置为系统代理";
@@ -38,8 +20,14 @@
 /* Class = "NSTextFieldCell"; title = "https://github.com/yichengchen/clashX"; ObjectID = "9ox-Fc-Wk3"; */
 "9ox-Fc-Wk3.title" = "https://github.com/yichengchen/clashX";
 
+/* Class = "NSTextFieldCell"; title = "2018-08-19"; ObjectID = "aib-YP-mvk"; */
+"aib-YP-mvk.title" = "2018-08-19";
+
 /* Class = "NSMenu"; title = "Main Menu"; ObjectID = "AYu-sK-qS6"; */
 "AYu-sK-qS6.title" = "Main Menu";
+
+/* Class = "NSMenu"; title = "Remote Config"; ObjectID = "az2-wz-yyy"; */
+"az2-wz-yyy.title" = "托管配置";
 
 /* Class = "NSMenuItem"; title = "Start at login"; ObjectID = "B1J-XB-BiZ"; */
 "B1J-XB-BiZ.title" = "开机启动";
@@ -47,8 +35,14 @@
 /* Class = "NSTextFieldCell"; title = "https://github.com/Dreamacro/clash"; ObjectID = "Bej-j7-KKV"; */
 "Bej-j7-KKV.title" = "https://github.com/Dreamacro/clash";
 
-/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "DIu-9t-BTE"; */
-"DIu-9t-BTE.title" = "Text Cell";
+/* Class = "NSMenuItem"; title = "SpeedTest"; ObjectID = "COu-UX-bww"; */
+"COu-UX-bww.title" = "测速";
+
+/* Class = "NSMenuItem"; title = "INFO"; ObjectID = "d8V-h0-0zF"; */
+"d8V-h0-0zF.title" = "INFO";
+
+/* Class = "NSMenu"; title = "Switch Configs"; ObjectID = "dcz-b4-hVy"; */
+"dcz-b4-hVy.title" = "切换配置";
 
 /* Class = "NSMenuItem"; title = "Help"; ObjectID = "Dd9-2F-FVY"; */
 "Dd9-2F-FVY.title" = "帮助";
@@ -56,80 +50,8 @@
 /* Class = "NSMenuItem"; title = "Open config Folder"; ObjectID = "DwE-WX-ETZ"; */
 "DwE-WX-ETZ.title" = "打开配置文件夹";
 
-/* Class = "NSMenuItem"; title = "Import bunch json file"; ObjectID = "GRE-Ra-Pkx"; */
-"GRE-Ra-Pkx.title" = "导入批量Json文件";
-
-/* Class = "NSTextFieldCell"; title = "Proxy"; ObjectID = "Gh1-x5-fnZ"; */
-"Gh1-x5-fnZ.title" = "Proxy";
-
-/* Class = "NSMenu"; title = "Generate Config"; ObjectID = "IeJ-1Q-UaF"; */
-"IeJ-1Q-UaF.title" = "Generate Config";
-
-/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "JK9-7d-hkq"; */
-"JK9-7d-hkq.title" = "Text Cell";
-
-/* Class = "NSMenuItem"; title = "Config"; ObjectID = "JMV-Dy-CI0"; */
-"JMV-Dy-CI0.title" = "配置";
-
-/* Class = "NSMenuItem"; title = "Copy export command"; ObjectID = "Jmb-PK-rMW"; */
-"Jmb-PK-rMW.title" = "复制终端代理命令";
-
-/* Class = "NSTextFieldCell"; title = "ClashX"; ObjectID = "MzG-sW-3g7"; */
-"MzG-sW-3g7.title" = "ClashX";
-
-/* Class = "NSMenuItem"; title = "Quit"; ObjectID = "NXU-86-Eem"; */
-"NXU-86-Eem.title" = "退出";
-
-/* Class = "NSMenu"; title = "Ports"; ObjectID = "Ng4-Ia-KSz"; */
-"Ng4-Ia-KSz.title" = "Ports";
-
-/* Class = "NSMenuItem"; title = "Direct"; ObjectID = "Np6-Pm-Lo3"; */
-"Np6-Pm-Lo3.title" = "直接连接";
-
-/* Class = "NSMenuItem"; title = "SSURL from pasteboard"; ObjectID = "QX2-2U-3Ad"; */
-"QX2-2U-3Ad.title" = "从剪贴板导入SSURL";
-
-/* Class = "NSTextFieldCell"; title = "100"; ObjectID = "TLq-Oj-0EH"; */
-"TLq-Oj-0EH.title" = "100";
-
-/* Class = "NSMenu"; title = "Proxy mode (Global)"; ObjectID = "UU2-uE-YB4"; */
-"UU2-uE-YB4.title" = "Proxy mode (Global)";
-
-/* Class = "NSMenuItem"; title = "socks port:"; ObjectID = "Uy1-g8-r6Q"; */
-"Uy1-g8-r6Q.title" = "socks port:";
-
-/* Class = "NSMenuItem"; title = "Allow connect from Lan"; ObjectID = "Vz8-7n-vx6"; */
-"Vz8-7n-vx6.title" = "允许局域网连接";
-
-/* Class = "NSMenuItem"; title = "http port:"; ObjectID = "WNw-8Y-VFw"; */
-"WNw-8Y-VFw.title" = "http port:";
-
-/* Class = "NSTableColumn"; headerCell.title = "Proxies"; ObjectID = "WQk-kX-Jr8"; */
-"WQk-kX-Jr8.headerCell.title" = "代理";
-
-/* Class = "NSMenuItem"; title = "Dashboard (dev)"; ObjectID = "XG6-2M-PNi"; */
-"XG6-2M-PNi.title" = "控制台";
-
-/* Class = "NSMenuItem"; title = "DEBUG"; ObjectID = "XIR-Go-fWA"; */
-"XIR-Go-fWA.title" = "DEBUG";
-
-/* Class = "NSMenuItem"; title = "Show network indicator"; ObjectID = "YIO-Vj-64f"; */
-"YIO-Vj-64f.title" = "显示实时速率";
-
-/* Class = "NSMenuItem"; title = "Generate Config"; ObjectID = "a4G-S3-jxT"; */
-"a4G-S3-jxT.title" = "生成配置文件";
-
-/* Class = "NSTextFieldCell"; title = "2018-08-19"; ObjectID = "aib-YP-mvk"; */
-"aib-YP-mvk.title" = "2018-08-19";
-
-/* Class = "NSMenuItem"; title = "INFO"; ObjectID = "d8V-h0-0zF"; */
-"d8V-h0-0zF.title" = "INFO";
-
-/* Class = "NSTableColumn"; headerCell.title = "Delay(ms)"; ObjectID = "gNv-c4-4xR"; */
-"gNv-c4-4xR.headerCell.title" = "延迟(毫秒)";
-
-/* Class = "NSViewController"; title = "SpeedTest"; ObjectID = "gtD-dn-7Dy"; */
-"gtD-dn-7Dy.title" = "测速";
+/* Class = "NSMenuItem"; title = "Remote Config"; ObjectID = "h1C-R6-Y9w"; */
+"h1C-R6-Y9w.title" = "托管配置";
 
 /* Class = "NSMenuItem"; title = "About"; ObjectID = "hUb-k9-TEf"; */
 "hUb-k9-TEf.title" = "关于";
@@ -137,14 +59,44 @@
 /* Class = "NSMenuItem"; title = "api port:"; ObjectID = "hwG-qf-DeZ"; */
 "hwG-qf-DeZ.title" = "api port:";
 
-/* Class = "NSMenuItem"; title = "Proxy mode (Global)"; ObjectID = "jGT-1M-xJu"; */
-"jGT-1M-xJu.title" = "Proxy mode (Global)";
+/* Class = "NSMenuItem"; title = "Update"; ObjectID = "I2P-Wd-Ns7"; */
+"I2P-Wd-Ns7.title" = "更新";
+
+/* Class = "NSMenuItem"; title = "Show current proxy in menu"; ObjectID = "j9o-36-NTd"; */
+"j9o-36-NTd.title" = "快捷展示策略组策略";
+
+/* Class = "NSMenuItem"; title = "Switch Configs"; ObjectID = "jdX-Cx-5pe"; */
+"jdX-Cx-5pe.title" = "切换配置文件";
+
+/* Class = "NSMenuItem"; title = "API Connect Error"; ObjectID = "jGT-1M-xJu"; */
+"jGT-1M-xJu.title" = "API Connect Error";
+
+/* Class = "NSMenuItem"; title = "Copy export command"; ObjectID = "Jmb-PK-rMW"; */
+"Jmb-PK-rMW.title" = "复制终端代理命令";
+
+/* Class = "NSMenuItem"; title = "Config"; ObjectID = "JMV-Dy-CI0"; */
+"JMV-Dy-CI0.title" = "配置";
+
+/* Class = "NSMenuItem"; title = "Set Url"; ObjectID = "k1Z-jQ-kAy"; */
+"k1Z-jQ-kAy.title" = "设置地址";
 
 /* Class = "NSMenuItem"; title = "WARNING"; ObjectID = "ko2-Ir-DxA"; */
 "ko2-Ir-DxA.title" = "WARNING";
 
 /* Class = "NSTextFieldCell"; title = "GitHub for Clash:"; ObjectID = "lsq-AW-K0M"; */
 "lsq-AW-K0M.title" = "GitHub for Clash:";
+
+/* Class = "NSTextFieldCell"; title = "ClashX"; ObjectID = "MzG-sW-3g7"; */
+"MzG-sW-3g7.title" = "ClashX";
+
+/* Class = "NSMenu"; title = "Ports"; ObjectID = "Ng4-Ia-KSz"; */
+"Ng4-Ia-KSz.title" = "Ports";
+
+/* Class = "NSMenuItem"; title = "Direct"; ObjectID = "Np6-Pm-Lo3"; */
+"Np6-Pm-Lo3.title" = "直接连接";
+
+/* Class = "NSMenuItem"; title = "Quit"; ObjectID = "NXU-86-Eem"; */
+"NXU-86-Eem.title" = "退出";
 
 /* Class = "NSMenu"; title = "Help"; ObjectID = "ogW-pn-jeR"; */
 "ogW-pn-jeR.title" = "帮助";
@@ -158,11 +110,32 @@
 /* Class = "NSMenuItem"; title = "Reload config"; ObjectID = "q3G-VH-eyy"; */
 "q3G-VH-eyy.title" = "重载配置文件";
 
+/* Class = "NSMenuItem"; title = "Auto Update"; ObjectID = "r8s-OI-tgf"; */
+"r8s-OI-tgf.title" = "自动更新";
+
 /* Class = "NSMenu"; title = "Config"; ObjectID = "tck-zU-JKQ"; */
 "tck-zU-JKQ.title" = "配置";
 
+/* Class = "NSMenu"; title = "API Connect Error"; ObjectID = "UU2-uE-YB4"; */
+"UU2-uE-YB4.title" = "API Connect Error";
+
+/* Class = "NSMenuItem"; title = "socks port:"; ObjectID = "Uy1-g8-r6Q"; */
+"Uy1-g8-r6Q.title" = "socks port:";
+
+/* Class = "NSMenuItem"; title = "Allow connect from Lan"; ObjectID = "Vz8-7n-vx6"; */
+"Vz8-7n-vx6.title" = "允许局域网连接";
+
+/* Class = "NSMenuItem"; title = "http port:"; ObjectID = "WNw-8Y-VFw"; */
+"WNw-8Y-VFw.title" = "http port:";
+
 /* Class = "NSMenu"; title = "Log level"; ObjectID = "wqo-3T-4qO"; */
 "wqo-3T-4qO.title" = "日志等级";
+
+/* Class = "NSMenuItem"; title = "Dashboard"; ObjectID = "XG6-2M-PNi"; */
+"XG6-2M-PNi.title" = "控制台";
+
+/* Class = "NSMenuItem"; title = "DEBUG"; ObjectID = "XIR-Go-fWA"; */
+"XIR-Go-fWA.title" = "DEBUG";
 
 /* Class = "NSMenuItem"; title = "Show Log"; ObjectID = "xxZ-9l-69m"; */
 "xxZ-9l-69m.title" = "显示日志";
@@ -170,15 +143,5 @@
 /* Class = "NSMenuItem"; title = "Global"; ObjectID = "yiM-U4-MNg"; */
 "yiM-U4-MNg.title" = "全局连接";
 
-/* Class = "NSMenu"; title = "Log level"; ObjectID = "dcz-b4-hVy"; */
-"jdX-Cx-5pe.title" = "切换配置文件";
-
-/* Class = "NSMenuItem"; title = "SpeedTest"; ObjectID = "COu-UX-bww"; */
-"COu-UX-bww.title" = "测速";
-
-"r8s-OI-tgf.title" = "自动更新";
-
-"j9o-36-NTd.title" = "快捷展示策略组策略";
-
-
-
+/* Class = "NSMenuItem"; title = "Show network indicator"; ObjectID = "YIO-Vj-64f"; */
+"YIO-Vj-64f.title" = "显示实时速率";

@@ -117,14 +117,10 @@ extension ConfigFileManager {
 extension ConfigFileManager {
     static func showReplacingConfigFileAlert() -> Bool{
         let alert = NSAlert()
-        alert.messageText = """
-        Can't recognize your config file. We will backup and replace your config file in your config folder.
-        
-        Otherwise the functions of ClashX will not work properly. You may need to restart ClashX or reload Config manually.
-        """
+        alert.messageText = NSLocalizedString("Can't recognize your config file. We will backup and replace your config file in your config folder.\n\nOtherwise the functions of ClashX will not work properly. You may need to restart ClashX or reload Config manually.", comment: "")
         alert.alertStyle = .warning
-        alert.addButton(withTitle: "Replace")
-        alert.addButton(withTitle: "Cancel")
+        alert.addButton(withTitle: NSLocalizedString("Replace", comment: ""))
+        alert.addButton(withTitle: NSLocalizedString("Cancel", comment: ""))
         return alert.runModal() == .alertFirstButtonReturn
     }
     
@@ -132,11 +128,7 @@ extension ConfigFileManager {
     
     static func showNoFinalRuleAlert() {
         let alert = NSAlert()
-        alert.messageText = """
-No FINAL rule were found in clash configs,This might caused by incorrect upgradation during earily version of clashX or error setting of FINAL rule.Please check your config file.
-
-NO FINAL rule would cause traffic send to DIRECT which no match any rules.
-""".localized()
+        alert.messageText = NSLocalizedString("No FINAL rule were found in clash configs,This might caused by incorrect upgradation during earily version of clashX or error setting of FINAL rule.Please check your config file.\n\nNO FINAL rule would cause traffic send to DIRECT which no match any rules.", comment: "")
         alert.alertStyle = .warning
         alert.addButton(withTitle: "OK")
         alert.runModal()

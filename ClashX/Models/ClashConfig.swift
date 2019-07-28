@@ -13,6 +13,16 @@ enum ClashProxyMode: String,Codable {
     case direct = "Direct"
 }
 
+extension ClashProxyMode {
+    var name: String {
+        switch self {
+        case .rule: return NSLocalizedString("Rule", comment: "")
+        case .global: return NSLocalizedString("Global", comment: "")
+        case .direct: return NSLocalizedString("Direct", comment: "")
+        }
+    }
+}
+
 enum ClashLogLevel:String,Codable {
     case info = "info"
     case warning = "warning"
