@@ -438,13 +438,9 @@ extension AppDelegate {
         remoteConfigAutoupdateMenuItem.state = RemoteConfigManager.autoUpdateEnable ? .on : .off
     }
     
-    @IBAction func actionSetRemoteConfigUrl(_ sender: Any) {
-        RemoteConfigManager.showUrlInputAlert()
-    }
-    
     
     @IBAction func actionUpdateRemoteConfig(_ sender: Any) {
-        RemoteConfigManager.updateConfigIfNeed()
+//        RemoteConfigManager.updateConfigIfNeed()
     }
 }
 

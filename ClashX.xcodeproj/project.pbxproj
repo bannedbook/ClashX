@@ -39,6 +39,10 @@
 		4989F98E20D0AE990001E564 /* sampleConfig.yaml in Resources */ = {isa = PBXBuildFile; fileRef = 4989F98D20D0AE990001E564 /* sampleConfig.yaml */; };
 		4997732520D251A60009B136 /* SWBApplication.m in Sources */ = {isa = PBXBuildFile; fileRef = 4997732320D251A60009B136 /* SWBApplication.m */; };
 		499976C821359F0400E7BF83 /* ClashWebViewContoller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499976C721359F0400E7BF83 /* ClashWebViewContoller.swift */; };
+		499A485522ED707300F6C675 /* RemoteConfigViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499A485322ED707300F6C675 /* RemoteConfigViewController.swift */; };
+		499A485822ED715200F6C675 /* RemoteConfigModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499A485722ED715200F6C675 /* RemoteConfigModel.swift */; };
+		499A485A22ED781100F6C675 /* RemoteConfigAddView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 499A485922ED781100F6C675 /* RemoteConfigAddView.xib */; };
+		499A485C22ED793C00F6C675 /* NSView+Nib.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499A485B22ED793C00F6C675 /* NSView+Nib.swift */; };
 		49AF9104225B2B03004CC077 /* ProxyConfig in CopyFiles */ = {isa = PBXBuildFile; fileRef = 49AF9103225B2A96004CC077 /* ProxyConfig */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		49B1086A216A356D0064FFCE /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49B10869216A356D0064FFCE /* String+Extension.swift */; };
 		49BC061C212931F4005A0FE7 /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49BC061B212931F4005A0FE7 /* AboutViewController.swift */; };
@@ -135,6 +139,10 @@
 		4997732320D251A60009B136 /* SWBApplication.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWBApplication.m; sourceTree = "<group>"; };
 		4997732420D251A60009B136 /* SWBApplication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWBApplication.h; sourceTree = "<group>"; };
 		499976C721359F0400E7BF83 /* ClashWebViewContoller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClashWebViewContoller.swift; sourceTree = "<group>"; };
+		499A485322ED707300F6C675 /* RemoteConfigViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteConfigViewController.swift; sourceTree = "<group>"; };
+		499A485722ED715200F6C675 /* RemoteConfigModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteConfigModel.swift; sourceTree = "<group>"; };
+		499A485922ED781100F6C675 /* RemoteConfigAddView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RemoteConfigAddView.xib; sourceTree = "<group>"; };
+		499A485B22ED793C00F6C675 /* NSView+Nib.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSView+Nib.swift"; sourceTree = "<group>"; };
 		49AF90FE225B2A95004CC077 /* ProxyConfig.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ProxyConfig.xcodeproj; path = ProxyConfig/ProxyConfig.xcodeproj; sourceTree = "<group>"; };
 		49B10869216A356D0064FFCE /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
 		49BC061B212931F4005A0FE7 /* AboutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
@@ -188,6 +196,7 @@
 			isa = PBXGroup;
 			children = (
 				4966E9E22118153A00A391FB /* NSUserNotificationCenter+Extension.swift */,
+				499A485B22ED793C00F6C675 /* NSView+Nib.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -229,6 +238,7 @@
 				492C4870210EF62E004554A0 /* ClashConfig.swift */,
 				49862F9F218418C600A1D5EC /* ClashRule.swift */,
 				49C9EF63223E78F5005D8B6A /* ClashProxy.swift */,
+				499A485722ED715200F6C675 /* RemoteConfigModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -239,6 +249,7 @@
 				495340AF20DE5F7200B0D3FF /* StatusItemView.xib */,
 				495340B220DE68C300B0D3FF /* StatusItemView.swift */,
 				493AEAE4221AE7230016FE98 /* ProxyMenuItem.swift */,
+				499A485922ED781100F6C675 /* RemoteConfigAddView.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -288,6 +299,7 @@
 			children = (
 				49BC061B212931F4005A0FE7 /* AboutViewController.swift */,
 				499976C721359F0400E7BF83 /* ClashWebViewContoller.swift */,
+				499A485322ED707300F6C675 /* RemoteConfigViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -529,6 +541,7 @@
 				495340B020DE5F7200B0D3FF /* StatusItemView.xib in Resources */,
 				49CF3B2820CD7465001EBF94 /* Main.storyboard in Resources */,
 				49CF3B5F20CE80D2001EBF94 /* install_proxy_helper.sh in Resources */,
+				499A485A22ED781100F6C675 /* RemoteConfigAddView.xib in Resources */,
 				4989F98420D02D200001E564 /* Country.mmdb in Resources */,
 				497F0DF320DE2FE50077AD41 /* Icon.icns in Resources */,
 				49722FF2211F338B00650A41 /* Info.plist in Resources */,
@@ -604,6 +617,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				499A485522ED707300F6C675 /* RemoteConfigViewController.swift in Sources */,
 				49CF3B5C20CE8068001EBF94 /* ProxyConfigHelperManager.swift in Sources */,
 				4952C3D02117027C004A4FA8 /* ConfigFileManager.swift in Sources */,
 				4997732520D251A60009B136 /* SWBApplication.m in Sources */,
@@ -616,6 +630,7 @@
 				496BDEE021196F1E00C5207F /* Logger.swift in Sources */,
 				49722FEF211F338B00650A41 /* FileEvent.swift in Sources */,
 				4913C82321157D0200F6B87C /* Notification.swift in Sources */,
+				499A485C22ED793C00F6C675 /* NSView+Nib.swift in Sources */,
 				492C4871210EF62E004554A0 /* ClashConfig.swift in Sources */,
 				492C4869210EE6B9004554A0 /* ApiRequest.swift in Sources */,
 				49CF3B6520CEE06C001EBF94 /* ConfigManager.swift in Sources */,
@@ -623,6 +638,7 @@
 				49722FF1211F338B00650A41 /* Witness.swift in Sources */,
 				49722FF0211F338B00650A41 /* EventStream.swift in Sources */,
 				4952C3BF2115C7CA004A4FA8 /* MenuItemFactory.swift in Sources */,
+				499A485822ED715200F6C675 /* RemoteConfigModel.swift in Sources */,
 				4966E9E32118153A00A391FB /* NSUserNotificationCenter+Extension.swift in Sources */,
 				499976C821359F0400E7BF83 /* ClashWebViewContoller.swift in Sources */,
 				4966E9E6211824F300A391FB /* NSImage+extension.swift in Sources */,
