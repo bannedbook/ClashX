@@ -20,6 +20,10 @@ class RemoteConfigModel: Codable {
         self.updateTime = updateTime
     }
     
+    private enum CodingKeys : String, CodingKey {
+        case url, name, updateTime
+    }
+    
     func displayingTimeString() -> String {
         if updating {return NSLocalizedString("Updating", comment: "")}
         let dateFormater = DateFormatter()

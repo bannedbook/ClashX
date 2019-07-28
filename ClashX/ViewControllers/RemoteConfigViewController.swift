@@ -14,6 +14,11 @@ class RemoteConfigViewController: NSViewController {
     @IBOutlet var deleteButton: NSButton!
     @IBOutlet var updateButton: NSButton!
     
+    private var latestAddedConfigName: String?
+    
+    deinit {
+        print("RemoteConfigViewController deinit")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,6 +45,7 @@ class RemoteConfigViewController: NSViewController {
     @IBAction func actionUpdate(_ sender: Any) {
         let model = RemoteConfigManager.shared.configs[tableView.selectedRow]
         requestUpdate(config: model)
+        tableView.reloadDataKeepingSelection()
     }
 }
 
@@ -90,6 +96,8 @@ extension RemoteConfigViewController {
                                              name: remoteConfigInputView.getConfigName(),
                                              updateTime: nil)
         RemoteConfigManager.shared.configs.append(remoteConfig)
+        latestAddedConfigName = remoteConfig.name
+        requestUpdate(config: remoteConfig)
         tableView.reloadData()
     }
     
@@ -105,8 +113,15 @@ extension RemoteConfigViewController {
                 alert.runModal()
             } else {
                 config.updateTime = Date()
-                self?.tableView.reloadData()
+                self?.tableView.reloadDataKeepingSelection()
                 RemoteConfigManager.shared.saveConfigs()
+                
+                if config.name == self?.latestAddedConfigName {
+                    ConfigManager.selectConfigName = config.name
+                }
+                if config.name == ConfigManager.selectConfigName {
+                    NotificationCenter.default.post(Notification(name: kShouldUpDateConfig))
+                }
             }
         }
     }

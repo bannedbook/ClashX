@@ -24,16 +24,22 @@ class RemoteConfigManager {
                 assertionFailure()
             }
         }
-        
-        for config in configs {
-            config.updating = false
-        }
+        migrateOldRemoteConfig()
     }
     
     func saveConfigs() {
         let encoder = JSONEncoder()
         if let encoded = try? encoder.encode(configs) {
              UserDefaults.standard.set(encoded, forKey: "kRemoteConfigs")
+        }
+    }
+    
+    func migrateOldRemoteConfig() {
+        if let url = UserDefaults.standard.string(forKey: "kRemoteConfigUrl"),
+            let name = URL(string: url)?.host{
+            configs.append(RemoteConfigModel(url: url, name: name))
+            UserDefaults.standard.removeObject(forKey: "kRemoteConfigUrl")
+            saveConfigs()
         }
     }
     
@@ -47,28 +53,52 @@ class RemoteConfigManager {
         }
     }
     
+    func autoUpdateCheck() {
+        guard RemoteConfigManager.autoUpdateEnable else {return}
+        updateCheck()
+    }
     
-    static func updateCheckAtLaunch() {
-        guard autoUpdateEnable else {return}
-//        let currentConfig = ConfigManager.selectConfigName
-//
-//        if RemoteConfigManager.configUrl != nil, configFileName == currentConfig {
-//
-//            if Date().timeIntervalSince(lastAutoCheckTime ?? Date(timeIntervalSince1970: 0)) < 60 * 60 * 12 {
-//                // 12hour
-//                return;
-//            }
-//
-//            lastAutoCheckTime = Date()
-//
-//            RemoteConfigManager.updateConfigIfNeed { err in
-//                if let err = err {
-//                    NSUserNotificationCenter.default.post(title: "Remote Config Update Fail", info: err)
-//                } else {
-//                    NSUserNotificationCenter.default.post(title: "Remote Config Update", info: "Succeed!")
-//                }
-//            }
-//        }
+    func updateCheck() {
+        guard RemoteConfigManager.autoUpdateEnable else {return}
+        
+        let currentConfigName = ConfigManager.selectConfigName
+        
+        for config in configs {
+            if config.updating {continue}
+            // 12hour check
+            if Date().timeIntervalSince(config.updateTime ?? Date(timeIntervalSince1970: 0)) < 60 * 60 * 12 {
+                Logger.log(msg: "[Auto Upgrade] Bypassing \(config.name) due to time check")
+                continue
+            }
+            Logger.log(msg: "[Auto Upgrade] Requesting \(config.name)")
+            let isCurrentConfig = config.name == currentConfigName
+            config.updating = true
+            RemoteConfigManager.updateConfig(config: config) { error in
+                config.updating = false
+                
+                if error == nil {
+                    config.updateTime = Date()
+                }
+                
+                if isCurrentConfig {
+                    if let error = error {
+                        // Fail
+                        NSUserNotificationCenter.default
+                            .post(title: NSLocalizedString("Remote Config Update Fail", comment: ""),
+                                  info: error)
+                    } else {
+                        // Success
+                        NSUserNotificationCenter.default
+                            .post(title: NSLocalizedString("Remote Config Update", comment: "")
+                                , info: NSLocalizedString("Succeed!", comment: ""))
+                        NotificationCenter.default.post(Notification(name: kShouldUpDateConfig))
+                        RemoteConfigManager.didUpdateConfig()
+                    }
+                }
+                Logger.log(msg: "[Auto Upgrade] Finish \(config.name) result: \(error ?? "succeed")")
+            }
+            
+        }
     }
     
     
@@ -103,10 +133,6 @@ class RemoteConfigManager {
                     try fm.removeItem(atPath: savePath)
                 }
                 try newData.write(to: URL(fileURLWithPath: savePath))
-                
-//                ConfigManager.selectConfigName = configName
-//                NotificationCenter.default.post(Notification(name: kShouldUpDateConfig))
-//                didUpdateConfig()
                 complete?(nil)
             } catch let err {
                 complete?(err.localizedDescription)
@@ -139,5 +165,3 @@ class RemoteConfigManager {
     
 }
 
-
-extension String: Error {}
