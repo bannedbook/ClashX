@@ -49,12 +49,12 @@ class RemoteConfigViewController: NSViewController {
     }
     
     @IBAction func actionDelete(_ sender: Any) {
-        RemoteConfigManager.shared.configs.remove(at: tableView.selectedRow)
+        RemoteConfigManager.shared.configs.safeRemove(at: tableView.selectedRow)
         tableView.reloadData()
     }
     
     @IBAction func actionUpdate(_ sender: Any) {
-        let model = RemoteConfigManager.shared.configs[tableView.selectedRow]
+        guard let model = RemoteConfigManager.shared.configs[safe:tableView.selectedRow] else {return}
         requestUpdate(config: model)
         tableView.reloadDataKeepingSelection()
     }
@@ -70,8 +70,9 @@ extension RemoteConfigViewController {
             return
         }
         
+        guard let config = RemoteConfigManager.shared.configs[safe:selectIdx] else {return}
         deleteButton.isEnabled = true
-        updateButton.isEnabled = !RemoteConfigManager.shared.configs[selectIdx].updating
+        updateButton.isEnabled = !config.updating
     }
     
     func showAdd(defaultUrl: String? = nil) {
@@ -154,7 +155,7 @@ extension RemoteConfigViewController: NSTableViewDataSource {
     
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
         
-        let config = RemoteConfigManager.shared.configs[row]
+        guard let config = RemoteConfigManager.shared.configs[safe:row] else {return nil}
 
         func setupCell(withIdentifier:String, string:String, textFieldtag:Int = 1) -> NSView? {
             let cell = tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: withIdentifier), owner: nil)
