@@ -438,13 +438,15 @@ extension AppDelegate {
                 if notifaction{
                     NSUserNotificationCenter
                         .default
-                        .post(title: "Reload Config Succeed", info: "Succees")
+                        .post(title: NSLocalizedString("Reload Config Succeed", comment: ""),
+                              info: NSLocalizedString("Succees", comment: ""))
                 }
             } else {
                 if (notifaction) {
                     NSUserNotificationCenter
                         .default
-                        .post(title: "Reload Config Fail", info: error ?? "")
+                        .post(title: NSLocalizedString("Reload Config Fail", comment: ""),
+                              info: error ?? "")
                 }
             }
             

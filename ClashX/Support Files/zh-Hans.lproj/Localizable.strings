@@ -45,6 +45,12 @@
 "Quit" = "退出";
 
 /* No comment provided by engineer. */
+"Reload Config Fail" = "重载配置文件失败";
+
+/* No comment provided by engineer. */
+"Reload Config Succeed" = "重载配置文件成功";
+
+/* No comment provided by engineer. */
 "Remote Config Update" = "更新托管配置文件";
 
 /* No comment provided by engineer. */
@@ -76,6 +82,9 @@
 
 /* No comment provided by engineer. */
 "Succeed!" = "成功！";
+
+/* No comment provided by engineer. */
+"Succees" = "成功";
 
 /* No comment provided by engineer. */
 "Tap to reload config" = "点击重载配置文件";

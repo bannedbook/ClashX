@@ -45,6 +45,12 @@
 "Quit" = "Quit";
 
 /* No comment provided by engineer. */
+"Reload Config Fail" = "Reload Config Fail";
+
+/* No comment provided by engineer. */
+"Reload Config Succeed" = "Reload Config Succeed";
+
+/* No comment provided by engineer. */
 "Remote Config Update" = "Remote Config Update";
 
 /* No comment provided by engineer. */
@@ -76,6 +82,9 @@
 
 /* No comment provided by engineer. */
 "Succeed!" = "Succeed!";
+
+/* No comment provided by engineer. */
+"Succees" = "Succees";
 
 /* No comment provided by engineer. */
 "Tap to reload config" = "Tap to reload config";
