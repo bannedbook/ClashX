@@ -12,11 +12,22 @@ import Yams
 
 class ConfigFileManager {
     static let shared = ConfigFileManager()
-    var witness:Witness?
+    private var witness:Witness?
+    private var pause = false
+    
+    func pauseForNextChange() {
+        pause = true
+    }
     
     func watchConfigFile(configName:String) {
         let path = "\(kConfigFolderPath)\(configName).yaml"
-        witness = Witness(paths: [path], flags: .FileEvents, latency: 0.3) { events in
+        witness = Witness(paths: [path], flags: .FileEvents, latency: 0.3) {
+            [weak self] events in
+            guard let self = self else {return}
+            guard !self.pause else {
+                self.pause = false
+                return
+            }
             for event in events {
                 if event.flags.contains(.ItemModified){
                     NSUserNotificationCenter.default

@@ -153,10 +153,14 @@ class RemoteConfigManager {
                 return
             }
             let savePath = kConfigFolderPath.appending(config.name).appending(".yaml")
-            let fm = FileManager.default
+
+            if config.name == ConfigManager.selectConfigName {
+                ConfigFileManager.shared.pauseForNextChange()
+            }
+            
             do {
-                if fm.fileExists(atPath: savePath) {
-                    try fm.removeItem(atPath: savePath)
+                if FileManager.default.fileExists(atPath: savePath) {
+                    try FileManager.default.removeItem(atPath: savePath)
                 }
                 try newData.write(to: URL(fileURLWithPath: savePath))
                 complete?(nil)
