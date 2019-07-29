@@ -101,11 +101,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         guard let components = URLComponents(string: url.absoluteString),
             let scheme = components.scheme,
-            scheme == "clashx"
+            scheme.hasPrefix("clash")
             else {return}
         
-        switch components.path {
-        case "/install-config":
+        if components.path.hasSuffix("install-config") {
             guard let url = components.queryItems?.first(where: { item in
                 item.name == "url"
             })?.value else {return}
@@ -115,9 +114,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
                 NotificationCenter.default.post(name: Notification.Name(rawValue: "didGetUrl"), object: nil, userInfo: ["url":url])
             }
-        default:
-            Logger.log(msg: "unknown url path:\(components.path)")
+            
+        } else {
+            Logger.log(msg: "Unknown url path:\(components.path)")
         }
+
     }
 
     func setupData() {
