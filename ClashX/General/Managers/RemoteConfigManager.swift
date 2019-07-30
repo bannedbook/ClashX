@@ -146,12 +146,12 @@ class RemoteConfigManager {
     static func updateConfig(config: RemoteConfigModel, complete:((String?)->())?=nil) {
         getRemoteConfigData(config: config) { data in
             guard let newData = data else {
-                complete?("Download fail")
+                complete?(NSLocalizedString("Download fail", comment: "") )
                 return
             }
             guard let newConfigString = String(data: newData, encoding: .utf8),
                 verifyConfig(string: newConfigString) else {
-                complete?("Remote Config Format Error")
+                complete?(NSLocalizedString("Remote Config Format Error", comment: ""))
                 return
             }
             let savePath = kConfigFolderPath.appending(config.name).appending(".yaml")

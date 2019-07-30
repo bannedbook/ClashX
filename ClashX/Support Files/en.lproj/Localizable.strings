@@ -24,6 +24,9 @@
 "Direct" = "Direct";
 
 /* No comment provided by engineer. */
+"Download fail" = "Download fail";
+
+/* No comment provided by engineer. */
 "Global" = "Global";
 
 /* No comment provided by engineer. */
@@ -49,6 +52,9 @@
 
 /* No comment provided by engineer. */
 "Reload Config Succeed" = "Reload Config Succeed";
+
+/* No comment provided by engineer. */
+"Remote Config Format Error" = "Remote Config Format Error";
 
 /* No comment provided by engineer. */
 "Remote Config Update" = "Remote Config Update";

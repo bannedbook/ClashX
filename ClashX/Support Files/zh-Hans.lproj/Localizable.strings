@@ -24,6 +24,9 @@
 "Direct" = "直连";
 
 /* No comment provided by engineer. */
+"Download fail" = "下载失败";
+
+/* No comment provided by engineer. */
 "Global" = "全局";
 
 /* No comment provided by engineer. */
@@ -49,6 +52,9 @@
 
 /* No comment provided by engineer. */
 "Reload Config Succeed" = "重载配置文件成功";
+
+/* No comment provided by engineer. */
+"Remote Config Format Error" = "托管配置文件格式不正确";
 
 /* No comment provided by engineer. */
 "Remote Config Update" = "更新托管配置文件";
