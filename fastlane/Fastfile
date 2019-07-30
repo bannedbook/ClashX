@@ -1,4 +1,0 @@
-lane :notarize do
-  app_path = './ClashX.dmg'
-  notarize(package: app_path)
-end

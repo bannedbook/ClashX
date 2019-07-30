@@ -23,16 +23,19 @@ install:
 - echo `go version`
 - CGO_CFLAGS=-mmacosx-version-min=10.10 CGO_LDFLAGS=-mmacosx-version-min=10.10 go build -buildmode=c-archive
 - cd $TRAVIS_BUILD_DIR
+
 script:
 - 'xcodebuild -workspace ClashX.xcworkspace -scheme "ClashX" build CODE_SIGN_IDENTITY="Developer
   ID Application: Fuzhou West2Online Internet Inc. (MEWHFZ92DY)"| xcpretty'
 
 before_deploy:
 - gem install gym
+- bundle install
 - fastlane gym -s ClashX
 - npm install --global create-dmg
 - create-dmg ClashX.app
 - mv ClashX*.dmg ClashX.dmg
+- fastlane run notarize package:"./ClashX.dmg" bundle_id:"com.west2online.ClashX"
 
 deploy:
   provider: releases
