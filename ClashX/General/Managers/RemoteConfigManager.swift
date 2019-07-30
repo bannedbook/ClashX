@@ -83,7 +83,6 @@ class RemoteConfigManager {
         
         for config in configs {
             if config.updating {continue}
-            group.enter()
             // 12hour check
             let timeLimitNoMantians = Date().timeIntervalSince(config.updateTime ?? Date(timeIntervalSince1970: 0)) < 60 * 60 * 12
             
@@ -94,6 +93,7 @@ class RemoteConfigManager {
             Logger.log(msg: "[Auto Upgrade] Requesting \(config.name)")
             let isCurrentConfig = config.name == currentConfigName
             config.updating = true
+            group.enter()
             RemoteConfigManager.updateConfig(config: config) {
                 [weak config] error in
                 guard let config = config else {return}
