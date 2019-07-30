@@ -27,7 +27,8 @@ class RemoteConfigViewController: NSViewController {
         super.viewDidLoad()
         updateButtonStatus()
         
-        NotificationCenter.default.rx.notification(Notification.Name("didGetUrl")).bind {
+        NotificationCenter.default
+            .rx.notification(Notification.Name("didGetUrl")).bind {
             [weak self] (note)  in
             guard let self = self else {return}
             guard let url = note.userInfo?["url"] as? String else {return}
@@ -51,6 +52,7 @@ class RemoteConfigViewController: NSViewController {
     @IBAction func actionDelete(_ sender: Any) {
         RemoteConfigManager.shared.configs.safeRemove(at: tableView.selectedRow)
         tableView.reloadData()
+        updateButtonStatus()
     }
     
     @IBAction func actionUpdate(_ sender: Any) {
@@ -114,12 +116,15 @@ extension RemoteConfigViewController {
         latestAddedConfigName = remoteConfig.name
         requestUpdate(config: remoteConfig)
         tableView.reloadData()
+        updateButtonStatus()
     }
     
     func requestUpdate(config: RemoteConfigModel) {
         guard !config.updating else {return}
         config.updating = true
-        RemoteConfigManager.updateConfig(config: config) { [weak self] errorString in
+        RemoteConfigManager.updateConfig(config: config) {
+            [weak self, weak config] errorString in
+            guard let self = self, let config = config else {return}
             config.updating = false
             if let errorString = errorString {
                 let alert = NSAlert()
@@ -128,16 +133,16 @@ extension RemoteConfigViewController {
                 alert.runModal()
             } else {
                 config.updateTime = Date()
-                self?.tableView.reloadDataKeepingSelection()
                 RemoteConfigManager.shared.saveConfigs()
                 
-                if config.name == self?.latestAddedConfigName {
+                if config.name == self.latestAddedConfigName {
                     ConfigManager.selectConfigName = config.name
                 }
                 if config.name == ConfigManager.selectConfigName {
                     NotificationCenter.default.post(Notification(name: kShouldUpDateConfig))
                 }
             }
+            self.tableView.reloadDataKeepingSelection()
         }
     }
 }

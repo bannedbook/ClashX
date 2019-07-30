@@ -12,6 +12,12 @@ extension NSTableView {
     func reloadDataKeepingSelection() {
         let selectedRowIndexes = self.selectedRowIndexes
         self.reloadData()
-        self.selectRowIndexes(selectedRowIndexes, byExtendingSelection: false)
+        var indexs = IndexSet()
+        for index in selectedRowIndexes {
+            if 0 <= index && index <= self.numberOfRows {
+                indexs.insert(index)
+            }
+        }
+        self.selectRowIndexes(indexs, byExtendingSelection: false)
     }
 }
