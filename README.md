@@ -55,5 +55,23 @@ Checkout [Clash](https://github.com/Dreamacro/clash) or [SS-Rule-Snippet for Cla
 
     - edit the proxyIgnoreList.plist to set up your own proxy ignore list
 
+### Run custom custom scripts after set/unset system proxy.
+    - set `kProxyEnableHook` and `kProxyDisableHook` or `kDidUpdateRemoteConfigHook` in your termial
+
+      ```
+        defaults write com.west2online.ClashX kProxyEnableHook -string "Your commond"
+        defaults write com.west2online.ClashX kProxyDisableHook -string "Your commond"
+        defaults write com.west2online.ClashX kDidUpdateRemoteConfigHook -string "Your commond"
+      ```
+
+    - For Examole:
+
+      defaults write com.west2online.ClashX KproxyEnableHook -string "/usr/local/bin/python3 /Users/username/.config/clash/proxy_up.py"
+
+### Use url scheme to import remote config.
+    - Using url scheme describe below
+    ```
+    clash://install-config?url=http%3A%2F%2Fexample.com
+    ```
 
 
