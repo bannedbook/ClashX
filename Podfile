@@ -3,7 +3,7 @@ target 'ClashX' do
   inhibit_all_warnings!
   use_frameworks!
   pod 'LetsMove'
-  pod 'Sparkle'
+  pod 'Sparkle',git:'https://github.com/sparkle-project/Sparkle.git',tag:'1.22.0rc1'
   pod 'Alamofire'
   pod 'SwiftyJSON'
   pod 'RxSwift'
