@@ -13,7 +13,6 @@ PODS:
   - RxRelay (5.0.0):
     - RxSwift (~> 5)
   - RxSwift (5.0.0)
-  - Sparkle (1.21.3)
   - SwiftyJSON (5.0.0)
   - WebViewJavascriptBridge (6.0.3)
   - Yams (2.0.0)
@@ -26,7 +25,6 @@ DEPENDENCIES:
   - LetsMove
   - RxCocoa
   - RxSwift
-  - Sparkle (from `https://github.com/sparkle-project/Sparkle.git`, tag `1.22.0rc1`)
   - SwiftyJSON
   - WebViewJavascriptBridge
   - Yams
@@ -45,16 +43,6 @@ SPEC REPOS:
     - WebViewJavascriptBridge
     - Yams
 
-EXTERNAL SOURCES:
-  Sparkle:
-    :git: https://github.com/sparkle-project/Sparkle.git
-    :tag: 1.22.0rc1
-
-CHECKOUT OPTIONS:
-  Sparkle:
-    :git: https://github.com/sparkle-project/Sparkle.git
-    :tag: 1.22.0rc1
-
 SPEC CHECKSUMS:
   Alamofire: ae5c501addb7afdbb13687d7f2f722c78734c2d3
   CocoaLumberjack: 2f44e60eb91c176d471fdba43b9e3eae6a721947
@@ -64,11 +52,10 @@ SPEC CHECKSUMS:
   RxCocoa: fcf32050ac00d801f34a7f71d5e8e7f23026dcd8
   RxRelay: 4f7409406a51a55cd88483f21ed898c234d60f18
   RxSwift: 8b0671caa829a763bbce7271095859121cbd895f
-  Sparkle: 3f75576db8b0265adef36c43249d747f22d0b708
   SwiftyJSON: 36413e04c44ee145039d332b4f4e2d3e8d6c4db7
   WebViewJavascriptBridge: 7f5bc4d3581e672e8f32bd0f812d54bc69bb8e29
   Yams: cb96472112d99e4b368f8dae9ab62e8a3eb8a3f9
 
-PODFILE CHECKSUM: c05e22366eb20f66e3e46bc59c567dc8b411f84e
+PODFILE CHECKSUM: ffa36e521c8287e1558aef4a79e4fa3ba081d8ac
 
 COCOAPODS: 1.7.5

@@ -56,6 +56,8 @@
 		49CF3B6320CED9CF001EBF94 /* check_proxy_helper.sh in Resources */ = {isa = PBXBuildFile; fileRef = 49CF3B6220CED934001EBF94 /* check_proxy_helper.sh */; };
 		49CF3B6520CEE06C001EBF94 /* ConfigManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49CF3B6420CEE06C001EBF94 /* ConfigManager.swift */; };
 		49E07A8C20D501A000A088A3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 49E07A8920D501A000A088A3 /* Main.storyboard */; };
+		49EC8D1922F13F330079B8F4 /* Sparkle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 49EC8D0F22F13DEE0079B8F4 /* Sparkle.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		49EC8D1A22F13FFC0079B8F4 /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49EC8D0F22F13DEE0079B8F4 /* Sparkle.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -83,6 +85,16 @@
 			dstSubfolderSpec = 1;
 			files = (
 				495A44CD20D266BA00888A0A /* ClashXLaunchHelper.app in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		49EC8D1822F13F100079B8F4 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				49EC8D1922F13F330079B8F4 /* Sparkle.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -161,6 +173,7 @@
 		49CF3B6220CED934001EBF94 /* check_proxy_helper.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = check_proxy_helper.sh; sourceTree = "<group>"; };
 		49CF3B6420CEE06C001EBF94 /* ConfigManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigManager.swift; sourceTree = "<group>"; };
 		49E07A8A20D501A000A088A3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Main.storyboard; sourceTree = "<group>"; };
+		49EC8D0F22F13DEE0079B8F4 /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Sparkle.framework; sourceTree = "<group>"; };
 		5217C006C5A22A1CEA24BFC1 /* Pods-ClashX.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ClashX.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ClashX/Pods-ClashX.debug.xcconfig"; sourceTree = "<group>"; };
 		A1485BCE642059532D01B8BA /* Pods-ClashX.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ClashX.release.xcconfig"; path = "Pods/Target Support Files/Pods-ClashX/Pods-ClashX.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -179,6 +192,7 @@
 			files = (
 				492D7321216CEC4000146BC1 /* ClashX.a in Frameworks */,
 				0D318CDAC9464E01DAD1F92B /* Pods_ClashX.framework in Frameworks */,
+				49EC8D1A22F13FFC0079B8F4 /* Sparkle.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -377,6 +391,7 @@
 		49CF3B3A20CD783A001EBF94 /* Support Files */ = {
 			isa = PBXGroup;
 			children = (
+				49EC8D0F22F13DEE0079B8F4 /* Sparkle.framework */,
 				492D731F216CEC4000146BC1 /* ClashX.a */,
 				492D7320216CEC4000146BC1 /* ClashX.h */,
 				4989F98D20D0AE990001E564 /* sampleConfig.yaml */,
@@ -443,6 +458,7 @@
 				495A44CC20D266B000888A0A /* CopyFiles */,
 				A741C26F5755233F0D7CEC6F /* [CP] Embed Pods Frameworks */,
 				663E4677213FCDC4006F11BB /* CopyFiles */,
+				49EC8D1822F13F100079B8F4 /* CopyFiles */,
 				4929F1E621BC170D0059D8B4 /* ShellScript */,
 			);
 			buildRules = (
@@ -868,11 +884,18 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = MEWHFZ92DY;
 				ENABLE_HARDENED_RUNTIME = YES;
-				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/ClashX/Support\\ Files",
+					"$(PROJECT_DIR)/ClashX/Support\\ Files",
+					"$(PROJECT_DIR)/ClashX/Support\\ Files",
+					"$(PROJECT_DIR)/ClashX/Support\\ Files",
+				);
 				INFOPLIST_FILE = ClashX/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -899,11 +922,18 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = MEWHFZ92DY;
 				ENABLE_HARDENED_RUNTIME = YES;
-				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/ClashX/Support\\ Files",
+					"$(PROJECT_DIR)/ClashX/Support\\ Files",
+					"$(PROJECT_DIR)/ClashX/Support\\ Files",
+					"$(PROJECT_DIR)/ClashX/Support\\ Files",
+				);
 				INFOPLIST_FILE = ClashX/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
