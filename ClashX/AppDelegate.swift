@@ -21,7 +21,7 @@ private let statusItemLengthWithSpeed:CGFloat = 70
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
     var statusItem: NSStatusItem!
-
+    
     @IBOutlet weak var statusMenu: NSMenu!
     @IBOutlet weak var proxySettingMenuItem: NSMenuItem!
     @IBOutlet weak var autoStartMenuItem: NSMenuItem!
@@ -53,6 +53,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     func applicationDidFinishLaunching(_ notification: Notification) {
         signal(SIGPIPE, SIG_IGN)
         
+  
+        
         // setup menu item first
         statusItem = NSStatusBar.system.statusItem(withLength:statusItemLengthWithSpeed)
         statusItem.menu = statusMenu
@@ -60,13 +62,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         statusItemView = StatusItemView.create(statusItem: statusItem)
         statusItemView.frame = CGRect(x: 0, y: 0, width: statusItemLengthWithSpeed, height: 22)
         statusMenu.delegate = self
-        
         // crash recorder
         failLaunchProtect()
         registCrashLogger()
         
         // install proxy helper
-        _ = ProxyConfigHelperManager.install()
+        _ = ClashResourceManager.check()
+        SystemProxyManager.shared.checkInstall()
         ConfigFileManager.copySampleConfigIfNeed()
         ConfigManager.shared.refreshApiInfo()
         
@@ -92,7 +94,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     func applicationWillTerminate(_ aNotification: Notification) {
         if ConfigManager.shared.proxyPortAutoSet {
-            _ = ProxyConfigHelperManager.setUpSystemProxy(port: nil,socksPort: nil)
+            SystemProxyManager.shared.disableProxy()
         }
     }
     
@@ -181,7 +183,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 self.updateProxyList()
                 
                 if (old?.port != config.port && ConfigManager.shared.proxyPortAutoSet) {
-                    _ = ProxyConfigHelperManager.setUpSystemProxy(port: config.port,socksPort: config.socketPort)
+                    SystemProxyManager.shared.enableProxy(port: config.port, socksPort: config.socketPort)
                 }
                 
                 self.httpPortMenuItem.title  = "Http Port:\(config.port)"
@@ -361,9 +363,9 @@ extension AppDelegate {
         if ConfigManager.shared.proxyPortAutoSet {
             let port = ConfigManager.shared.currentConfig?.port ?? 0
             let socketPort = ConfigManager.shared.currentConfig?.socketPort ?? 0
-            _ = ProxyConfigHelperManager.setUpSystemProxy(port: port,socksPort:socketPort)
+            SystemProxyManager.shared.enableProxy(port: port, socksPort: socketPort)
         } else {
-            _ = ProxyConfigHelperManager.setUpSystemProxy(port: nil,socksPort: nil)
+            SystemProxyManager.shared.disableProxy()
         }
         
     }

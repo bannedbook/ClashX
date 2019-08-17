@@ -44,20 +44,23 @@
 		499A485C22ED793C00F6C675 /* NSView+Nib.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499A485B22ED793C00F6C675 /* NSView+Nib.swift */; };
 		499A485E22ED9B7C00F6C675 /* NSTableView+Reload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499A485D22ED9B7C00F6C675 /* NSTableView+Reload.swift */; };
 		499A486522EEA3FD00F6C675 /* Array+Safe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499A486422EEA3FC00F6C675 /* Array+Safe.swift */; };
-		49AF9104225B2B03004CC077 /* ProxyConfig in CopyFiles */ = {isa = PBXBuildFile; fileRef = 49AF9103225B2A96004CC077 /* ProxyConfig */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		49B1086A216A356D0064FFCE /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49B10869216A356D0064FFCE /* String+Extension.swift */; };
 		49BC061C212931F4005A0FE7 /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49BC061B212931F4005A0FE7 /* AboutViewController.swift */; };
 		49C9EF64223E78F5005D8B6A /* ClashProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C9EF63223E78F5005D8B6A /* ClashProxy.swift */; };
 		49CF3B2120CD7463001EBF94 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49CF3B2020CD7463001EBF94 /* AppDelegate.swift */; };
 		49CF3B2520CD7465001EBF94 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 49CF3B2420CD7465001EBF94 /* Assets.xcassets */; };
 		49CF3B2820CD7465001EBF94 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 49CF3B2620CD7465001EBF94 /* Main.storyboard */; };
-		49CF3B5C20CE8068001EBF94 /* ProxyConfigHelperManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49CF3B5B20CE8068001EBF94 /* ProxyConfigHelperManager.swift */; };
-		49CF3B5F20CE80D2001EBF94 /* install_proxy_helper.sh in Resources */ = {isa = PBXBuildFile; fileRef = 49CF3B5E20CE80D2001EBF94 /* install_proxy_helper.sh */; };
-		49CF3B6320CED9CF001EBF94 /* check_proxy_helper.sh in Resources */ = {isa = PBXBuildFile; fileRef = 49CF3B6220CED934001EBF94 /* check_proxy_helper.sh */; };
+		49CF3B5C20CE8068001EBF94 /* ClashResourceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49CF3B5B20CE8068001EBF94 /* ClashResourceManager.swift */; };
 		49CF3B6520CEE06C001EBF94 /* ConfigManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49CF3B6420CEE06C001EBF94 /* ConfigManager.swift */; };
 		49E07A8C20D501A000A088A3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 49E07A8920D501A000A088A3 /* Main.storyboard */; };
 		49EC8D1922F13F330079B8F4 /* Sparkle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 49EC8D0F22F13DEE0079B8F4 /* Sparkle.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		49EC8D1A22F13FFC0079B8F4 /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49EC8D0F22F13DEE0079B8F4 /* Sparkle.framework */; };
+		F935B2F02307C52E009E4D33 /* com.west2online.ClashX.ProxyConfigHelper in Copy Files */ = {isa = PBXBuildFile; fileRef = F9A7C0692306E874007163C7 /* com.west2online.ClashX.ProxyConfigHelper */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		F935B2F42307CD32009E4D33 /* ProxyConfigHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = F935B2F32307CD32009E4D33 /* ProxyConfigHelper.m */; };
+		F935B2FA23083EE6009E4D33 /* ProxySettingTool.m in Sources */ = {isa = PBXBuildFile; fileRef = F935B2F923083EE6009E4D33 /* ProxySettingTool.m */; };
+		F935B2FC23085515009E4D33 /* SystemProxyManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F935B2FB23085515009E4D33 /* SystemProxyManager.swift */; };
+		F94245092306DABA0005B196 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 49E07A8A20D501A000A088A3 /* Main.storyboard */; };
+		F9A7C06C2306E874007163C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F9A7C06B2306E874007163C7 /* main.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -68,12 +71,12 @@
 			remoteGlobalIDString = 495A44BB20D2660A00888A0A;
 			remoteInfo = ClashXLaunchHelper;
 		};
-		49AF9102225B2A96004CC077 /* PBXContainerItemProxy */ = {
+		F935B2EB2307B7CD009E4D33 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 49AF90FE225B2A95004CC077 /* ProxyConfig.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 49AF90F3225B17D2004CC077;
-			remoteInfo = ProxyConfig;
+			containerPortal = 49CF3B1520CD7463001EBF94 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F9A7C0682306E874007163C7;
+			remoteInfo = ProxyConfigHelper;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -98,15 +101,26 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		663E4677213FCDC4006F11BB /* CopyFiles */ = {
+		663E4677213FCDC4006F11BB /* Copy Files */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 7;
+			dstPath = Contents/Library/LaunchServices;
+			dstSubfolderSpec = 1;
 			files = (
-				49AF9104225B2B03004CC077 /* ProxyConfig in CopyFiles */,
+				F935B2F02307C52E009E4D33 /* com.west2online.ClashX.ProxyConfigHelper in Copy Files */,
 			);
+			name = "Copy Files";
 			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F9A7C0672306E874007163C7 /* Copy Files */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			name = "Copy Files";
+			runOnlyForDeploymentPostprocessing = 1;
 		};
 /* End PBXCopyFilesBuildPhase section */
 
@@ -157,7 +171,6 @@
 		499A485B22ED793C00F6C675 /* NSView+Nib.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSView+Nib.swift"; sourceTree = "<group>"; };
 		499A485D22ED9B7C00F6C675 /* NSTableView+Reload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSTableView+Reload.swift"; sourceTree = "<group>"; };
 		499A486422EEA3FC00F6C675 /* Array+Safe.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Array+Safe.swift"; sourceTree = "<group>"; };
-		49AF90FE225B2A95004CC077 /* ProxyConfig.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ProxyConfig.xcodeproj; path = ProxyConfig/ProxyConfig.xcodeproj; sourceTree = "<group>"; };
 		49B10869216A356D0064FFCE /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
 		49BC061B212931F4005A0FE7 /* AboutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
 		49C9EF63223E78F5005D8B6A /* ClashProxy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClashProxy.swift; sourceTree = "<group>"; };
@@ -168,14 +181,22 @@
 		49CF3B2920CD7465001EBF94 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		49CF3B2A20CD7465001EBF94 /* ClashX.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ClashX.entitlements; sourceTree = "<group>"; };
 		49CF3B3520CD75DF001EBF94 /* ClashX-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ClashX-Bridging-Header.h"; sourceTree = "<group>"; };
-		49CF3B5B20CE8068001EBF94 /* ProxyConfigHelperManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProxyConfigHelperManager.swift; sourceTree = "<group>"; };
-		49CF3B5E20CE80D2001EBF94 /* install_proxy_helper.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = install_proxy_helper.sh; sourceTree = "<group>"; };
-		49CF3B6220CED934001EBF94 /* check_proxy_helper.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = check_proxy_helper.sh; sourceTree = "<group>"; };
+		49CF3B5B20CE8068001EBF94 /* ClashResourceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClashResourceManager.swift; sourceTree = "<group>"; };
 		49CF3B6420CEE06C001EBF94 /* ConfigManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigManager.swift; sourceTree = "<group>"; };
-		49E07A8A20D501A000A088A3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Main.storyboard; sourceTree = "<group>"; };
+		49E07A8A20D501A000A088A3 /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		49EC8D0F22F13DEE0079B8F4 /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Sparkle.framework; sourceTree = "<group>"; };
 		5217C006C5A22A1CEA24BFC1 /* Pods-ClashX.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ClashX.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ClashX/Pods-ClashX.debug.xcconfig"; sourceTree = "<group>"; };
 		A1485BCE642059532D01B8BA /* Pods-ClashX.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ClashX.release.xcconfig"; path = "Pods/Target Support Files/Pods-ClashX/Pods-ClashX.release.xcconfig"; sourceTree = "<group>"; };
+		F935B2EA2307B6BA009E4D33 /* Helper-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Helper-Info.plist"; sourceTree = "<group>"; };
+		F935B2F12307C802009E4D33 /* Helper-Launchd.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Helper-Launchd.plist"; sourceTree = "<group>"; };
+		F935B2F22307CD32009E4D33 /* ProxyConfigHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProxyConfigHelper.h; sourceTree = "<group>"; };
+		F935B2F32307CD32009E4D33 /* ProxyConfigHelper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProxyConfigHelper.m; sourceTree = "<group>"; };
+		F935B2F52307D00D009E4D33 /* ProxyConfigRemoteProcessProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProxyConfigRemoteProcessProtocol.h; sourceTree = "<group>"; };
+		F935B2F823083EE6009E4D33 /* ProxySettingTool.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProxySettingTool.h; sourceTree = "<group>"; };
+		F935B2F923083EE6009E4D33 /* ProxySettingTool.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProxySettingTool.m; sourceTree = "<group>"; };
+		F935B2FB23085515009E4D33 /* SystemProxyManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemProxyManager.swift; sourceTree = "<group>"; };
+		F9A7C0692306E874007163C7 /* com.west2online.ClashX.ProxyConfigHelper */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = com.west2online.ClashX.ProxyConfigHelper; sourceTree = BUILT_PRODUCTS_DIR; };
+		F9A7C06B2306E874007163C7 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -193,6 +214,13 @@
 				492D7321216CEC4000146BC1 /* ClashX.a in Frameworks */,
 				0D318CDAC9464E01DAD1F92B /* Pods_ClashX.framework in Frameworks */,
 				49EC8D1A22F13FFC0079B8F4 /* Sparkle.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F9A7C0662306E874007163C7 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -232,10 +260,11 @@
 			isa = PBXGroup;
 			children = (
 				4952C3CF2117027C004A4FA8 /* ConfigFileManager.swift */,
-				49CF3B5B20CE8068001EBF94 /* ProxyConfigHelperManager.swift */,
+				49CF3B5B20CE8068001EBF94 /* ClashResourceManager.swift */,
 				49CF3B6420CEE06C001EBF94 /* ConfigManager.swift */,
 				495BFB8721919B9800C8779D /* RemoteConfigManager.swift */,
 				4952C3BE2115C7CA004A4FA8 /* MenuItemFactory.swift */,
+				F935B2FB23085515009E4D33 /* SystemProxyManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -275,6 +304,7 @@
 		495A44BD20D2660A00888A0A /* ClashXLaunchHelper */ = {
 			isa = PBXGroup;
 			children = (
+				49E07A8A20D501A000A088A3 /* Main.storyboard */,
 				49E07A8920D501A000A088A3 /* Main.storyboard */,
 				495A44BE20D2660A00888A0A /* AppDelegate.swift */,
 				495A44C720D2660B00888A0A /* Info.plist */,
@@ -306,7 +336,6 @@
 			isa = PBXGroup;
 			children = (
 				49761DA621C9497000AE13EF /* dashboard */,
-				49CF3B5D20CE80D2001EBF94 /* script */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -334,19 +363,12 @@
 			path = Basic;
 			sourceTree = "<group>";
 		};
-		49AF90FF225B2A95004CC077 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				49AF9103225B2A96004CC077 /* ProxyConfig */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		49CF3B1420CD7463001EBF94 = {
 			isa = PBXGroup;
 			children = (
 				49CF3B1F20CD7463001EBF94 /* ClashX */,
 				495A44BD20D2660A00888A0A /* ClashXLaunchHelper */,
+				F9A7C06A2306E874007163C7 /* ProxyConfigHelper */,
 				49CF3B1E20CD7463001EBF94 /* Products */,
 				76229F122B00E935D126742A /* Pods */,
 				CF1AC9FACC36FCE7663C5583 /* Frameworks */,
@@ -359,6 +381,7 @@
 			children = (
 				49CF3B1D20CD7463001EBF94 /* ClashX.app */,
 				495A44BC20D2660A00888A0A /* ClashXLaunchHelper.app */,
+				F9A7C0692306E874007163C7 /* com.west2online.ClashX.ProxyConfigHelper */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -376,7 +399,6 @@
 				4989F98520D0AA300001E564 /* ViewControllers */,
 				49761DA521C9490400AE13EF /* Resources */,
 				49CF3B3A20CD783A001EBF94 /* Support Files */,
-				49AF90FE225B2A95004CC077 /* ProxyConfig.xcodeproj */,
 				49CF3B2020CD7463001EBF94 /* AppDelegate.swift */,
 				49CF3B2420CD7465001EBF94 /* Assets.xcassets */,
 				497F0DF220DE2FE50077AD41 /* Icon.icns */,
@@ -401,15 +423,6 @@
 			path = "Support Files";
 			sourceTree = "<group>";
 		};
-		49CF3B5D20CE80D2001EBF94 /* script */ = {
-			isa = PBXGroup;
-			children = (
-				49CF3B5E20CE80D2001EBF94 /* install_proxy_helper.sh */,
-				49CF3B6220CED934001EBF94 /* check_proxy_helper.sh */,
-			);
-			path = script;
-			sourceTree = "<group>";
-		};
 		76229F122B00E935D126742A /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -425,6 +438,21 @@
 				0358BF8F0CBD7FF9A7EA4E30 /* Pods_ClashX.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		F9A7C06A2306E874007163C7 /* ProxyConfigHelper */ = {
+			isa = PBXGroup;
+			children = (
+				F9A7C06B2306E874007163C7 /* main.m */,
+				F935B2F12307C802009E4D33 /* Helper-Launchd.plist */,
+				F935B2EA2307B6BA009E4D33 /* Helper-Info.plist */,
+				F935B2F22307CD32009E4D33 /* ProxyConfigHelper.h */,
+				F935B2F32307CD32009E4D33 /* ProxyConfigHelper.m */,
+				F935B2F52307D00D009E4D33 /* ProxyConfigRemoteProcessProtocol.h */,
+				F935B2F823083EE6009E4D33 /* ProxySettingTool.h */,
+				F935B2F923083EE6009E4D33 /* ProxySettingTool.m */,
+			);
+			path = ProxyConfigHelper;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -457,13 +485,14 @@
 				49CF3B1B20CD7463001EBF94 /* Resources */,
 				495A44CC20D266B000888A0A /* CopyFiles */,
 				A741C26F5755233F0D7CEC6F /* [CP] Embed Pods Frameworks */,
-				663E4677213FCDC4006F11BB /* CopyFiles */,
+				663E4677213FCDC4006F11BB /* Copy Files */,
 				49EC8D1822F13F100079B8F4 /* CopyFiles */,
-				4929F1E621BC170D0059D8B4 /* ShellScript */,
+				4929F1E621BC170D0059D8B4 /* Run Script - Fabric */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				F935B2EC2307B7CD009E4D33 /* PBXTargetDependency */,
 				495A44CF20D2671F00888A0A /* PBXTargetDependency */,
 			);
 			name = ClashX;
@@ -471,13 +500,30 @@
 			productReference = 49CF3B1D20CD7463001EBF94 /* ClashX.app */;
 			productType = "com.apple.product-type.application";
 		};
+		F9A7C0682306E874007163C7 /* com.west2online.ClashX.ProxyConfigHelper */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F9A7C06D2306E874007163C7 /* Build configuration list for PBXNativeTarget "com.west2online.ClashX.ProxyConfigHelper" */;
+			buildPhases = (
+				F9A7C0652306E874007163C7 /* Sources */,
+				F9A7C0662306E874007163C7 /* Frameworks */,
+				F9A7C0672306E874007163C7 /* Copy Files */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = com.west2online.ClashX.ProxyConfigHelper;
+			productName = ProxyConfigHelper;
+			productReference = F9A7C0692306E874007163C7 /* com.west2online.ClashX.ProxyConfigHelper */;
+			productType = "com.apple.product-type.tool";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		49CF3B1520CD7463001EBF94 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0940;
+				LastSwiftUpdateCheck = 1030;
 				LastUpgradeCheck = 1020;
 				ORGANIZATIONNAME = west2online;
 				TargetAttributes = {
@@ -502,6 +548,9 @@
 							};
 						};
 					};
+					F9A7C0682306E874007163C7 = {
+						CreatedOnToolsVersion = 10.3;
+					};
 				};
 			};
 			buildConfigurationList = 49CF3B1820CD7463001EBF94 /* Build configuration list for PBXProject "ClashX" */;
@@ -512,40 +561,25 @@
 				en,
 				Base,
 				"zh-Hans",
-				global,
 			);
 			mainGroup = 49CF3B1420CD7463001EBF94;
 			productRefGroup = 49CF3B1E20CD7463001EBF94 /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = 49AF90FF225B2A95004CC077 /* Products */;
-					ProjectRef = 49AF90FE225B2A95004CC077 /* ProxyConfig.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				49CF3B1C20CD7463001EBF94 /* ClashX */,
 				495A44BB20D2660A00888A0A /* ClashXLaunchHelper */,
+				F9A7C0682306E874007163C7 /* com.west2online.ClashX.ProxyConfigHelper */,
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		49AF9103225B2A96004CC077 /* ProxyConfig */ = {
-			isa = PBXReferenceProxy;
-			fileType = "compiled.mach-o.executable";
-			path = ProxyConfig;
-			remoteRef = 49AF9102225B2A96004CC077 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		495A44BA20D2660A00888A0A /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F94245092306DABA0005B196 /* Main.storyboard in Resources */,
 				49E07A8C20D501A000A088A3 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -559,12 +593,10 @@
 				4981C88B216BAE4A008CC14A /* Localizable.strings in Resources */,
 				495340B020DE5F7200B0D3FF /* StatusItemView.xib in Resources */,
 				49CF3B2820CD7465001EBF94 /* Main.storyboard in Resources */,
-				49CF3B5F20CE80D2001EBF94 /* install_proxy_helper.sh in Resources */,
 				499A485A22ED781100F6C675 /* RemoteConfigAddView.xib in Resources */,
 				4989F98420D02D200001E564 /* Country.mmdb in Resources */,
 				497F0DF320DE2FE50077AD41 /* Icon.icns in Resources */,
 				4989F98E20D0AE990001E564 /* sampleConfig.yaml in Resources */,
-				49CF3B6320CED9CF001EBF94 /* check_proxy_helper.sh in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -589,7 +621,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		4929F1E621BC170D0059D8B4 /* ShellScript */ = {
+		4929F1E621BC170D0059D8B4 /* Run Script - Fabric */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -597,6 +629,7 @@
 			inputPaths = (
 				"$(BUILT_PRODUCTS_DIR)/$(INFOPLIST_PATH)",
 			);
+			name = "Run Script - Fabric";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -636,12 +669,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				499A485522ED707300F6C675 /* RemoteConfigViewController.swift in Sources */,
-				49CF3B5C20CE8068001EBF94 /* ProxyConfigHelperManager.swift in Sources */,
+				49CF3B5C20CE8068001EBF94 /* ClashResourceManager.swift in Sources */,
 				4952C3D02117027C004A4FA8 /* ConfigFileManager.swift in Sources */,
 				4997732520D251A60009B136 /* SWBApplication.m in Sources */,
 				49BC061C212931F4005A0FE7 /* AboutViewController.swift in Sources */,
 				4949D154213242F600EF85E6 /* Paths.swift in Sources */,
 				495340B320DE68C300B0D3FF /* StatusItemView.swift in Sources */,
+				F935B2FC23085515009E4D33 /* SystemProxyManager.swift in Sources */,
 				495A44D320D267D000888A0A /* LaunchAtLogin.swift in Sources */,
 				493AEAE3221AE3420016FE98 /* AppVersionUtil.swift in Sources */,
 				49CF3B2120CD7463001EBF94 /* AppDelegate.swift in Sources */,
@@ -670,6 +704,16 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		F9A7C0652306E874007163C7 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F935B2F42307CD32009E4D33 /* ProxyConfigHelper.m in Sources */,
+				F9A7C06C2306E874007163C7 /* main.m in Sources */,
+				F935B2FA23083EE6009E4D33 /* ProxySettingTool.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -677,6 +721,11 @@
 			isa = PBXTargetDependency;
 			target = 495A44BB20D2660A00888A0A /* ClashXLaunchHelper */;
 			targetProxy = 495A44CE20D2671F00888A0A /* PBXContainerItemProxy */;
+		};
+		F935B2EC2307B7CD009E4D33 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F9A7C0682306E874007163C7 /* com.west2online.ClashX.ProxyConfigHelper */;
+			targetProxy = F935B2EB2307B7CD009E4D33 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -702,7 +751,6 @@
 		49E07A8920D501A000A088A3 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				49E07A8A20D501A000A088A3 /* Base */,
 				4981C888216BAB8A008CC14A /* zh-Hans */,
 			);
 			name = Main.storyboard;
@@ -716,6 +764,7 @@
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = ClashXLaunchHelper/ClashXLaunchHelper.entitlements;
+				CODE_SIGN_IDENTITY = "Developer ID Application";
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = MEWHFZ92DY;
@@ -879,7 +928,7 @@
 			baseConfigurationReference = 5217C006C5A22A1CEA24BFC1 /* Pods-ClashX.debug.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_IDENTITY = "Developer ID Application";
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = MEWHFZ92DY;
@@ -950,6 +999,57 @@
 			};
 			name = Release;
 		};
+		F9A7C06E2306E874007163C7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "Developer ID Application";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = MEWHFZ92DY;
+				INFOPLIST_FILE = "$(SRCROOT)/ProxyConfigHelper/Helper-Info.plist";
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				OTHER_LDFLAGS = (
+					"-sectcreate",
+					__TEXT,
+					__info_plist,
+					"\"$(SRCROOT)/ProxyConfigHelper/Helper-Info.plist\"",
+					"-sectcreate",
+					__TEXT,
+					__launchd_plist,
+					"\"$(SRCROOT)/ProxyConfigHelper/Helper-Launchd.plist\"",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.west2online.ClashX.ProxyConfigHelper;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+			};
+			name = Debug;
+		};
+		F9A7C06F2306E874007163C7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "Developer ID Application";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = MEWHFZ92DY;
+				INFOPLIST_FILE = "$(SRCROOT)/ProxyConfigHelper/Helper-Info.plist";
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_FAST_MATH = YES;
+				OTHER_LDFLAGS = (
+					"-sectcreate",
+					__TEXT,
+					__info_plist,
+					"\"$(SRCROOT)/ProxyConfigHelper/Helper-Info.plist\"",
+					"-sectcreate",
+					__TEXT,
+					__launchd_plist,
+					"\"$(SRCROOT)/ProxyConfigHelper/Helper-Launchd.plist\"",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.west2online.ClashX.ProxyConfigHelper;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -976,6 +1076,15 @@
 			buildConfigurations = (
 				49CF3B2E20CD7465001EBF94 /* Debug */,
 				49CF3B2F20CD7465001EBF94 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F9A7C06D2306E874007163C7 /* Build configuration list for PBXNativeTarget "com.west2online.ClashX.ProxyConfigHelper" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F9A7C06E2306E874007163C7 /* Debug */,
+				F9A7C06F2306E874007163C7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

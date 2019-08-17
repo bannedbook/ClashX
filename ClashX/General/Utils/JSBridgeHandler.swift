@@ -48,13 +48,12 @@ class JsBridgeUtil {
             if let enable = anydata as? Bool {
                 ConfigManager.shared.proxyPortAutoSet = enable
                 if let config = ConfigManager.shared.currentConfig {
-                    let success:Bool
                     if enable{
-                        success = ProxyConfigHelperManager.setUpSystemProxy(port:  config.port,socksPort: config.socketPort)
+                        SystemProxyManager.shared.enableProxy(port: config.port, socksPort: config.socketPort)
                     } else {
-                        success = ProxyConfigHelperManager.setUpSystemProxy(port:  nil,socksPort: nil)
+                        SystemProxyManager.shared.disableProxy()
                     }
-                    responseCallback?(success)
+                    responseCallback?(true)
                 } else {
                     responseCallback?(false)
                 }
