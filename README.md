@@ -48,25 +48,20 @@ Checkout [Clash](https://github.com/Dreamacro/clash) or [SS-Rule-Snippet for Cla
 ### Change your status menu icon
 
     Place your icon file in the ~/.config/clash/menuImage.png then restart ClashX
-
+    
+### Disable auto restore proxy setting.
+    
+    ```
+    defaults write com.west2online.ClashX kDisableRestoreProxy -bool true
+    ```
+    
+    
 ### Change default system ignore list.
 
     - Download sample plist in the [Here](https://baidu.com) and place in the ~/.config/clash/proxyIgnoreList.plist
 
     - edit the proxyIgnoreList.plist to set up your own proxy ignore list
 
-### Run custom custom scripts after set/unset system proxy.
-    - set `kProxyEnableHook` and `kProxyDisableHook` or `kDidUpdateRemoteConfigHook` in your termial
-
-      ```
-        defaults write com.west2online.ClashX kProxyEnableHook -string "Your commond"
-        defaults write com.west2online.ClashX kProxyDisableHook -string "Your commond"
-        defaults write com.west2online.ClashX kDidUpdateRemoteConfigHook -string "Your commond"
-      ```
-
-    - For Examole:
-
-      defaults write com.west2online.ClashX KproxyEnableHook -string "/usr/local/bin/python3 /Users/username/.config/clash/proxy_up.py"
 
 ### Use url scheme to import remote config.
     - Using url scheme describe below

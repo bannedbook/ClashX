@@ -17,6 +17,23 @@ class SystemProxyManager: NSObject {
     private var authRef: AuthorizationRef?
     private var connection: NSXPCConnection?
     private var _helper: ProxyConfigRemoteProcessProtocol?
+    private var savedProxyInfo: [String:Any] {
+        get {
+            return UserDefaults.standard.dictionary(forKey: "kSavedProxyInfo") ?? [:]
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: "kSavedProxyInfo")
+        }
+    }
+    
+    private var disableRestoreProxy:Bool {
+        get {
+            return UserDefaults.standard.bool(forKey: "kDisableRestoreProxy")
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: "kDisableRestoreProxy")
+        }
+    }
     
     // MARK: - LifeCycle
     
@@ -40,6 +57,16 @@ class SystemProxyManager: NSObject {
         }
     }
     
+    func saveProxy() {
+        guard !disableRestoreProxy else {return}
+        
+        helper()?.getCurrentProxySetting({ [weak self] info in
+            if let info = info as? [String : Any] {
+                self?.savedProxyInfo = info
+            }
+        })
+    }
+    
     func enableProxy(port: Int,socksPort: Int) {
         Logger.log(msg: "enableProxy", level: .debug)
         helper()?.enableProxy(withPort: Int32(port), socksPort: Int32(socksPort), authData: authData(), error: { error in
@@ -49,13 +76,23 @@ class SystemProxyManager: NSObject {
         })
     }
     
-    func disableProxy() {
+    func disableProxy(port: Int,socksPort: Int) {
         Logger.log(msg: "disableProxy", level: .debug)
-        helper()?.disableProxy(withAuthData: authData(), error: { error  in
+        
+        if disableRestoreProxy {
+            helper()?.disableProxy(withAuthData: authData(), error: { error  in
+                if let error = error{
+                    Logger.log(msg: "disableProxy \(error)", level: .error)
+                }
+            })
+            return
+        }
+        
+        helper()?.restoreProxy(withCurrentPort: Int32(port), socksPort: Int32(socksPort), info: savedProxyInfo, authData: authData(), error: { error in
             if let error = error{
-                Logger.log(msg: "disableProxy \(error)", level: .error)
+                Logger.log(msg: "restoreProxy \(error)", level: .error)
             }
-        })
+        })        
     }
     
     // MARK: - Private
@@ -208,7 +245,7 @@ extension SystemProxyManager {
     
     private func showInstallHelperAlert() -> Bool{
         let alert = NSAlert()
-        alert.messageText = NSLocalizedString("ClashX needs to install a small tool to ~/.config/clash with administrator privileges to set system proxy quickly.\n\nOtherwise you need to type in the administrator password every time you change system proxy through ClashX.", comment: "")
+        alert.messageText = NSLocalizedString("ClashX needs to install a helper tool with administrator privileges to set system proxy quickly.", comment: "")
         alert.alertStyle = .warning
         alert.addButton(withTitle: NSLocalizedString("Install", comment: ""))
         alert.addButton(withTitle: NSLocalizedString("Quit", comment: ""))

@@ -12,7 +12,7 @@
 "ClashX fail to create ~/.config/clash folder. Please check privileges or manually create folder and restart ClashX." = "ClashX 创建 ~/.config/clash 文件夹失败，请检查权限设置或者手动创建文件夹后重启 ClashX";
 
 /* No comment provided by engineer. */
-"ClashX needs to install a small tool to ~/.config/clash with administrator privileges to set system proxy quickly.\n\nOtherwise you need to type in the administrator password every time you change system proxy through ClashX." = "ClashX 需要使用管理员权限安装一个小工具到 ~/.config/clash/ 来帮助设置系统代理。\n否则你需要在每次ClashX设置系统代理时输入管理员密码。";
+"ClashX needs to install a helper tool with administrator privileges to set system proxy quickly." = "ClashX 需要使用管理员权限安装一个帮助程序来帮助设置系统代理。";
 
 /* No comment provided by engineer. */
 "Config file have been changed" = "配置文件已被修改";

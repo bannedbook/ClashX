@@ -52,9 +52,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     func applicationDidFinishLaunching(_ notification: Notification) {
         signal(SIGPIPE, SIG_IGN)
-        
-  
-        
+                
         // setup menu item first
         statusItem = NSStatusBar.system.statusItem(withLength:statusItemLengthWithSpeed)
         statusItem.menu = statusMenu
@@ -94,7 +92,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     func applicationWillTerminate(_ aNotification: Notification) {
         if ConfigManager.shared.proxyPortAutoSet {
-            SystemProxyManager.shared.disableProxy()
+            let port = ConfigManager.shared.currentConfig?.port ?? 0
+            let socketPort = ConfigManager.shared.currentConfig?.socketPort ?? 0
+            SystemProxyManager.shared.disableProxy(port: port, socksPort: socketPort)
         }
     }
     
@@ -360,12 +360,14 @@ extension AppDelegate {
     
     @IBAction func actionSetSystemProxy(_ sender: Any) {
         ConfigManager.shared.proxyPortAutoSet = !ConfigManager.shared.proxyPortAutoSet
+        let port = ConfigManager.shared.currentConfig?.port ?? 0
+        let socketPort = ConfigManager.shared.currentConfig?.socketPort ?? 0
+        
         if ConfigManager.shared.proxyPortAutoSet {
-            let port = ConfigManager.shared.currentConfig?.port ?? 0
-            let socketPort = ConfigManager.shared.currentConfig?.socketPort ?? 0
+            SystemProxyManager.shared.saveProxy()
             SystemProxyManager.shared.enableProxy(port: port, socksPort: socketPort)
         } else {
-            SystemProxyManager.shared.disableProxy()
+            SystemProxyManager.shared.disableProxy(port: port, socksPort: socketPort)
         }
         
     }

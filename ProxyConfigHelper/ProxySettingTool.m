@@ -21,7 +21,7 @@
 
 - (void)enableProxyWithport:(int)port socksPort:(int)socksPort {
     [self applySCNetworkSettingWithRef:^(SCPreferencesRef ref) {
-        [self getDiviceListWithPrefRef:ref devices:^(NSString *key) {
+        [ProxySettingTool getDiviceListWithPrefRef:ref devices:^(NSString *key, NSDictionary *dict) {
             [self enableProxySettings:ref interface:key port:port socksPort:socksPort];
         }];
     }];
@@ -29,10 +29,53 @@
 
 - (void)disableProxy {
     [self applySCNetworkSettingWithRef:^(SCPreferencesRef ref) {
-        [self getDiviceListWithPrefRef:ref devices:^(NSString *key) {
+        [ProxySettingTool getDiviceListWithPrefRef:ref devices:^(NSString *key, NSDictionary *dict) {
             [self disableProxySetting:ref interface:key];
         }];
     }];
+}
+
+- (void)restoreProxySettint:(NSDictionary *)savedInfo currentPort:(int)port currentSocksPort:(int)socksPort {
+    [self applySCNetworkSettingWithRef:^(SCPreferencesRef ref) {
+        [ProxySettingTool getDiviceListWithPrefRef:ref devices:^(NSString *key, NSDictionary *dict) {
+            NSDictionary *proxySetting = savedInfo[key];
+            if (![proxySetting isKindOfClass:[NSDictionary class]]) {
+                proxySetting = nil;
+            }
+            
+            if (!proxySetting) {
+                [self disableProxySetting:ref interface:key];
+                return;
+            }
+            BOOL isClashSetting =
+            [proxySetting[(NSString *)kCFNetworkProxiesHTTPProxy] isEqualToString:@"127.0.0.1"] &&
+            [proxySetting[(NSString *)kCFNetworkProxiesSOCKSProxy] isEqualToString:@"127.0.0.1"] &&
+            ((NSNumber *)(proxySetting[(NSString *)kCFNetworkProxiesHTTPEnable])).boolValue &&
+            ((NSNumber *)(proxySetting[(NSString *)kCFNetworkProxiesHTTPSEnable])).boolValue&&
+            ((NSNumber *)(proxySetting[(NSString *)kCFNetworkProxiesHTTPPort])).intValue == port&&
+            ((NSNumber *)(proxySetting[(NSString *)kCFNetworkProxiesHTTPSPort])).intValue == port&&
+            ((NSNumber *)(proxySetting[(NSString *)kCFNetworkProxiesSOCKSPort])).intValue == socksPort;
+
+            if (isClashSetting) {
+                [self disableProxySetting:ref interface:key];
+                return;
+            }
+            
+            [self setProxyConfig:ref interface:key proxySetting:proxySetting];
+            
+        }];
+    }];
+}
+
++ (NSMutableDictionary<NSString *,NSDictionary *> *)currentProxySettings {
+    __block NSMutableDictionary<NSString *,NSDictionary *> *info = [NSMutableDictionary dictionary];
+    SCPreferencesRef ref = SCPreferencesCreate(nil, CFSTR("ClashX"), nil);
+    [ProxySettingTool getDiviceListWithPrefRef:ref devices:^(NSString *key, NSDictionary *dev) {
+        NSDictionary *proxySettings = dev[(__bridge NSString *)kSCEntNetProxies];
+        info[key] = [proxySettings copy];
+    }];
+    
+    return info;
 }
 
 // MARK: - Private
@@ -104,23 +147,26 @@
                  socksPort:(int) socksPort {
     
     NSDictionary *proxySettings = [self getProxySetting:YES port:port socksPort:socksPort];
-    NSString *path = [self proxySettingPathWithInterface:interfaceKey];
-    SCPreferencesPathSetValue(prefs,
-                              (__bridge CFStringRef)path,
-                              (__bridge CFDictionaryRef)proxySettings);
+    [self setProxyConfig:prefs interface:interfaceKey proxySetting:proxySettings];
+
 }
 
 - (void)disableProxySetting:(SCPreferencesRef)prefs
                   interface:(NSString *)interfaceKey {
-    
     NSDictionary *proxySettings = [self getProxySetting:NO port:0 socksPort:0];
+    [self setProxyConfig:prefs interface:interfaceKey proxySetting:proxySettings];
+}
+
+- (void)setProxyConfig:(SCPreferencesRef)prefs
+                 interface:(NSString *)interfaceKey
+              proxySetting:(NSDictionary *)proxySettings {
     NSString *path = [self proxySettingPathWithInterface:interfaceKey];
     SCPreferencesPathSetValue(prefs,
                               (__bridge CFStringRef)path,
                               (__bridge CFDictionaryRef)proxySettings);
 }
 
-- (void)getDiviceListWithPrefRef:(SCPreferencesRef)ref devices:(void(^)(NSString *))callback {
++ (void)getDiviceListWithPrefRef:(SCPreferencesRef)ref devices:(void(^)(NSString *, NSDictionary *))callback {
     NSDictionary *sets = (__bridge NSDictionary *)SCPreferencesGetValue(ref, kSCPrefNetworkServices);
     for (NSString *key in [sets allKeys]) {
         NSMutableDictionary *dict = [sets objectForKey:key];
@@ -128,7 +174,7 @@
         if ([hardware isEqualToString:@"AirPort"]
             || [hardware isEqualToString:@"Wi-Fi"]
             || [hardware isEqualToString:@"Ethernet"]) {
-            callback(key);
+            callback(key,dict);
         }
     }
 }
@@ -144,9 +190,6 @@
     SCPreferencesApplyChanges(ref);
     SCPreferencesSynchronize(ref);
 }
-
-
-
 
 - (AuthorizationFlags)authFlags {
     AuthorizationFlags authFlags = kAuthorizationFlagDefaults

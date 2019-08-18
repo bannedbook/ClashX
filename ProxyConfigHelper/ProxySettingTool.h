@@ -15,6 +15,10 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSString *)setupAuth:(NSData *)authData;
 - (void)enableProxyWithport:(int)port socksPort:(int)socksPort;
 - (void)disableProxy;
+
+- (void)restoreProxySettint:(NSDictionary *)savedInfo currentPort:(int)port currentSocksPort:(int)socksPort;
++ (NSMutableDictionary<NSString *,NSDictionary *> *)currentProxySettings;
+
 @end
 
 NS_ASSUME_NONNULL_END

@@ -49,9 +49,10 @@ class JsBridgeUtil {
                 ConfigManager.shared.proxyPortAutoSet = enable
                 if let config = ConfigManager.shared.currentConfig {
                     if enable{
+                        SystemProxyManager.shared.saveProxy()
                         SystemProxyManager.shared.enableProxy(port: config.port, socksPort: config.socketPort)
                     } else {
-                        SystemProxyManager.shared.disableProxy()
+                        SystemProxyManager.shared.disableProxy(port: config.port, socksPort: config.socketPort)
                     }
                     responseCallback?(true)
                 } else {
@@ -62,7 +63,6 @@ class JsBridgeUtil {
             }
         }
         
-        // 剪贴板
         bridge.registerHandler("setPasteboard") {(anydata, responseCallback) in
             if let str = anydata as? String {
                 NSPasteboard.general.setString(str, forType: .string)

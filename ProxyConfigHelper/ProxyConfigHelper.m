@@ -113,4 +113,26 @@ ProxyConfigRemoteProcessProtocol
     reply(nil);
 }
 
+
+- (void)restoreProxyWithCurrentPort:(int)port
+                          socksPort:(int)socksPort
+                               info:(NSDictionary *)dict
+                           authData:(NSData *)authData
+                              error:(stringReplyBlock)reply {
+    ProxySettingTool *tool = [ProxySettingTool new];
+    NSString *err = [tool setupAuth:authData];
+    if (err != nil) {
+        reply(err);
+        return;
+    }
+    [tool restoreProxySettint:dict currentPort:port currentSocksPort:socksPort];
+    reply(nil);
+}
+
+- (void)getCurrentProxySetting:(dictReplyBlock)reply {
+    NSDictionary *info = [ProxySettingTool currentProxySettings];
+    reply(info);
+}
+
+
 @end
