@@ -76,7 +76,7 @@ class RemoteConfigManager {
         updateCheck()
     }
     
-    func updateCheck(ignoreTimeLimit: Bool = false) {
+    func updateCheck(ignoreTimeLimit: Bool = false, showNotification: Bool = false) {
         let currentConfigName = ConfigManager.selectConfigName
         
         let group = DispatchGroup()
@@ -107,15 +107,22 @@ class RemoteConfigManager {
                 if isCurrentConfig {
                     if let error = error {
                         // Fail
-                        NSUserNotificationCenter.default
-                            .post(title: NSLocalizedString("Remote Config Update Fail", comment: ""),
-                                  info: error)
+                        if showNotification {
+                            NSUserNotificationCenter.default
+                                .post(title: NSLocalizedString("Remote Config Update Fail", comment: "") ,
+                                      info: "\(config.name): \(error)")
+                        }
+                        
                     } else {
                         // Success
-                        NSUserNotificationCenter.default
-                            .post(title: NSLocalizedString("Remote Config Update", comment: "")
-                                , info: NSLocalizedString("Succeed!", comment: ""))
-                        NotificationCenter.default.post(Notification(name: kShouldUpDateConfig))
+                        if showNotification {
+                            let info = "\(config.name): \(NSLocalizedString("Succeed!", comment: ""))"
+                            NSUserNotificationCenter.default
+                                .post(title: NSLocalizedString("Remote Config Update", comment: ""), info:info)
+                        }
+                        NotificationCenter.default.post(name: kShouldUpDateConfig,
+                                                        object: nil,
+                                                        userInfo: ["notification": false])
                         RemoteConfigManager.didUpdateConfig()
                     }
                 }

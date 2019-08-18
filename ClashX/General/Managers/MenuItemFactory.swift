@@ -191,7 +191,9 @@ extension MenuItemFactory {
     @objc static func actionSelectConfig(sender:NSMenuItem){
         let config = sender.title
         ConfigManager.selectConfigName = config
-        NotificationCenter.default.post(Notification(name: kShouldUpDateConfig))
+        NotificationCenter.default.post(name: kShouldUpDateConfig,
+                                        object: nil,
+                                        userInfo: ["notification": false])
     }
     
     @objc static func empty(){}

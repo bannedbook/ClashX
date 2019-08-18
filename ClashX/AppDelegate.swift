@@ -74,7 +74,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         // start proxy
         setupData()
-        actionUpdateConfig(self)
+        updateConfig(showNotification: false)
         updateLoggingLevel()
         hideFunctionIfNeed()
         
@@ -134,7 +134,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         NotificationCenter.default.rx.notification(kShouldUpDateConfig).bind {
             [weak self] (note)  in
             guard let self = self else {return}
-            self.actionUpdateConfig(nil)
+            let showNotice = note.userInfo?["notification"] as? Bool ?? true
+            self.updateConfig(showNotification: showNotice)
         }.disposed(by: disposeBag)
         
         
@@ -312,6 +313,32 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
     }
     
+    func updateConfig(showNotification: Bool = true) {
+        startProxy()
+        guard ConfigManager.shared.isRunning else {return}
+        
+        ApiRequest.requestConfigUpdate() { [weak self] error in
+            guard let self = self else {return}
+            if (error == nil) {
+                self.syncConfig()
+                self.resetStreamApi()
+                self.selectProxyGroupWithMemory()
+                self.selectOutBoundModeWithMenory()
+                self.selectAllowLanWithMenory()
+                ConfigFileManager.checkFinalRuleAndShowAlert()
+                if showNotification {
+                    NSUserNotificationCenter.default
+                        .post(title: NSLocalizedString("Reload Config Succeed", comment: ""),
+                              info: NSLocalizedString("Succees", comment: ""))
+                }
+            } else if showNotification {
+                NSUserNotificationCenter.default
+                    .post(title: NSLocalizedString("Reload Config Fail", comment: ""),
+                          info: error ?? "")
+            }
+        }
+    }
+    
 }
 
 // MARK: Main actions
@@ -427,35 +454,8 @@ extension AppDelegate {
         NSWorkspace.shared.openFile(kConfigFolderPath)
     }
     
-    @IBAction func actionUpdateConfig(_ sender: Any?) {
-        startProxy()
-        guard ConfigManager.shared.isRunning else {return}
-        let notifaction = self != (sender as? NSObject)
-        ApiRequest.requestConfigUpdate() { [weak self] error in
-            guard let self = self else {return}
-            if (error == nil) {
-                self.syncConfig()
-                self.resetStreamApi()
-                self.selectProxyGroupWithMemory()
-                self.selectOutBoundModeWithMenory()
-                self.selectAllowLanWithMenory()
-                ConfigFileManager.checkFinalRuleAndShowAlert()
-                if notifaction{
-                    NSUserNotificationCenter
-                        .default
-                        .post(title: NSLocalizedString("Reload Config Succeed", comment: ""),
-                              info: NSLocalizedString("Succees", comment: ""))
-                }
-            } else {
-                if (notifaction) {
-                    NSUserNotificationCenter
-                        .default
-                        .post(title: NSLocalizedString("Reload Config Fail", comment: ""),
-                              info: error ?? "")
-                }
-            }
-            
-        }
+    @IBAction func actionUpdateConfig(_ sender: AnyObject) {
+        updateConfig()
     }
     
     @IBAction func actionSetLogLevel(_ sender: NSMenuItem) {
@@ -473,7 +473,7 @@ extension AppDelegate {
     
     
     @IBAction func actionUpdateRemoteConfig(_ sender: Any) {
-        RemoteConfigManager.shared.updateCheck(ignoreTimeLimit: true)
+        RemoteConfigManager.shared.updateCheck(ignoreTimeLimit: true, showNotification: true)
     }
 }
 
