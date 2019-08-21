@@ -45,6 +45,7 @@ class SystemProxyManager: NSObject {
     // MARK: - Public
     
     func checkInstall() {
+        Logger.log(msg: "checkInstall", level: .debug)
         helperStatus { [weak self] installed in
             if installed {return}
             if Thread.isMainThread {
@@ -59,8 +60,9 @@ class SystemProxyManager: NSObject {
     
     func saveProxy() {
         guard !disableRestoreProxy else {return}
-        
+        Logger.log(msg: "saveProxy", level: .debug)
         helper()?.getCurrentProxySetting({ [weak self] info in
+            Logger.log(msg: "saveProxy done", level: .debug)
             if let info = info as? [String : Any] {
                 self?.savedProxyInfo = info
             }
@@ -109,7 +111,8 @@ class SystemProxyManager: NSObject {
     
     /// Install new helper daemon
     private func installHelperDaemon() {
-        
+        Logger.log(msg: "installHelperDaemon", level: .info)
+
         // Create authorization reference for the user
         var authRef: AuthorizationRef?
         var authStatus = AuthorizationCreate(nil, nil, [], &authRef)
@@ -189,9 +192,12 @@ class SystemProxyManager: NSObject {
             connection = NSXPCConnection(machServiceName: SystemProxyManager.machServiceName, options: NSXPCConnection.Options.privileged)
             connection?.remoteObjectInterface = NSXPCInterface(with: ProxyConfigRemoteProcessProtocol.self)
             connection?.invalidationHandler = {
+                [weak self] in
+                guard let self = self else {return}
                 self.connection?.invalidationHandler = nil
                 OperationQueue.main.addOperation() {
                     self.connection = nil
+                    self._helper = nil
                     Logger.log(msg: "XPC Connection Invalidated")
                 }
             }
@@ -227,6 +233,7 @@ class SystemProxyManager: NSObject {
         var installed = false
         let semaphore = DispatchSemaphore(value: 0)
         helper.getVersion { installedHelperVersion in
+            Logger.log(msg: "helper version \(installedHelperVersion)", level: .debug)
             installed = installedHelperVersion == helperVersion
         }
         _ = semaphore.wait(timeout: DispatchTime.now()+1)
