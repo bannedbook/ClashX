@@ -10,6 +10,10 @@
 #import <SystemConfiguration/SystemConfiguration.h>
 #import <AppKit/AppKit.h>
 
+#include <unistd.h>
+#include <sys/types.h>
+#include <pwd.h>
+
 @interface ProxySettingTool()
 @property (nonatomic, assign) AuthorizationRef authRef;
 
@@ -48,13 +52,13 @@
                 return;
             }
             BOOL isClashSetting =
-            [proxySetting[(NSString *)kCFNetworkProxiesHTTPProxy] isEqualToString:@"127.0.0.1"] &&
-            [proxySetting[(NSString *)kCFNetworkProxiesSOCKSProxy] isEqualToString:@"127.0.0.1"] &&
-            ((NSNumber *)(proxySetting[(NSString *)kCFNetworkProxiesHTTPEnable])).boolValue &&
-            ((NSNumber *)(proxySetting[(NSString *)kCFNetworkProxiesHTTPSEnable])).boolValue&&
-            ((NSNumber *)(proxySetting[(NSString *)kCFNetworkProxiesHTTPPort])).intValue == port&&
-            ((NSNumber *)(proxySetting[(NSString *)kCFNetworkProxiesHTTPSPort])).intValue == port&&
-            ((NSNumber *)(proxySetting[(NSString *)kCFNetworkProxiesSOCKSPort])).intValue == socksPort;
+            [proxySetting[(__bridge NSString *)kCFNetworkProxiesHTTPProxy] isEqualToString:@"127.0.0.1"] &&
+            [proxySetting[(__bridge NSString *)kCFNetworkProxiesSOCKSProxy] isEqualToString:@"127.0.0.1"] &&
+            ((NSNumber *)(proxySetting[(__bridge NSString *)kCFNetworkProxiesHTTPEnable])).boolValue &&
+            ((NSNumber *)(proxySetting[(__bridge NSString *)kCFNetworkProxiesHTTPSEnable])).boolValue&&
+            ((NSNumber *)(proxySetting[(__bridge NSString *)kCFNetworkProxiesHTTPPort])).intValue == port&&
+            ((NSNumber *)(proxySetting[(__bridge NSString *)kCFNetworkProxiesHTTPSPort])).intValue == port&&
+            ((NSNumber *)(proxySetting[(__bridge NSString *)kCFNetworkProxiesSOCKSPort])).intValue == socksPort;
 
             if (isClashSetting) {
                 [self disableProxySetting:ref interface:key];
@@ -84,12 +88,37 @@
     [self freeAuth];
 }
 
+
++ (NSString *)getUserHomePath {
+    SCDynamicStoreRef store = SCDynamicStoreCreate(NULL, CFSTR("com.west2online.ClashX.ProxyConfigHelper"), NULL, NULL);
+    CFStringRef CopyCurrentConsoleUsername(SCDynamicStoreRef store);
+    CFStringRef result;
+    uid_t uid;
+    result = SCDynamicStoreCopyConsoleUser(store, &uid, NULL);
+    if ((result != NULL) && CFEqual(result, CFSTR("loginwindow"))) {
+        CFRelease(result);
+        result = NULL;
+        CFRelease(store);
+        return nil;
+    }
+    CFRelease(result);
+    result = NULL;
+    CFRelease(store);
+    char *dir = getpwuid(uid)->pw_dir;
+    NSString *path = [NSString stringWithUTF8String:dir];
+    return path;
+}
+
+
 - (NSArray<NSString *> *)getIgnoreList {
-    NSString *configPath = [NSHomeDirectory() stringByAppendingString:@"/.config/clash/proxyIgnoreList.plist"];
-    if ([NSFileManager.defaultManager fileExistsAtPath:configPath]) {
-        NSArray *arr = [[NSArray alloc] initWithContentsOfFile:configPath];
-        if (arr != nil && arr.count > 0 && [arr containsObject:@"127.0.0.1"]) {
-            return arr;
+    NSString *homePath = [ProxySettingTool getUserHomePath];
+    if (homePath.length > 0) {
+        NSString *configPath = [homePath stringByAppendingString:@"/.config/clash/proxyIgnoreList.plist"];
+        if ([NSFileManager.defaultManager fileExistsAtPath:configPath]) {
+            NSArray *arr = [[NSArray alloc] initWithContentsOfFile:configPath];
+            if (arr != nil && arr.count > 0 && [arr containsObject:@"127.0.0.1"]) {
+                return arr;
+            }
         }
     }
     NSArray *ignoreList = @[
@@ -110,26 +139,26 @@
     NSString *ip = enable ? @"127.0.0.1" : @"";
     NSInteger enableInt = enable ? 1 : 0;
     
-    proxySettings[(NSString *)kCFNetworkProxiesHTTPProxy] = ip;
-    proxySettings[(NSString *)kCFNetworkProxiesHTTPEnable] = @(enableInt);
-    proxySettings[(NSString *)kCFNetworkProxiesHTTPSProxy] = ip;
-    proxySettings[(NSString *)kCFNetworkProxiesHTTPSEnable] = @(enableInt);
+    proxySettings[(__bridge NSString *)kCFNetworkProxiesHTTPProxy] = ip;
+    proxySettings[(__bridge NSString *)kCFNetworkProxiesHTTPEnable] = @(enableInt);
+    proxySettings[(__bridge NSString *)kCFNetworkProxiesHTTPSProxy] = ip;
+    proxySettings[(__bridge NSString *)kCFNetworkProxiesHTTPSEnable] = @(enableInt);
     
-    proxySettings[(NSString *)kCFNetworkProxiesSOCKSProxy] = ip;
-    proxySettings[(NSString *)kCFNetworkProxiesSOCKSEnable] = @(enableInt);
+    proxySettings[(__bridge NSString *)kCFNetworkProxiesSOCKSProxy] = ip;
+    proxySettings[(__bridge NSString *)kCFNetworkProxiesSOCKSEnable] = @(enableInt);
     
     if (enable) {
-        proxySettings[(NSString *)kCFNetworkProxiesHTTPPort] = @(port);
-        proxySettings[(NSString *)kCFNetworkProxiesHTTPSPort] = @(port);
-        proxySettings[(NSString *)kCFNetworkProxiesSOCKSPort] = @(socksPort);
+        proxySettings[(__bridge NSString *)kCFNetworkProxiesHTTPPort] = @(port);
+        proxySettings[(__bridge NSString *)kCFNetworkProxiesHTTPSPort] = @(port);
+        proxySettings[(__bridge NSString *)kCFNetworkProxiesSOCKSPort] = @(socksPort);
     } else {
-        proxySettings[(NSString *)kCFNetworkProxiesHTTPPort] = nil;
-        proxySettings[(NSString *)kCFNetworkProxiesHTTPSPort] = nil;
-        proxySettings[(NSString *)kCFNetworkProxiesSOCKSPort] = nil;
+        proxySettings[(__bridge NSString *)kCFNetworkProxiesHTTPPort] = nil;
+        proxySettings[(__bridge NSString *)kCFNetworkProxiesHTTPSPort] = nil;
+        proxySettings[(__bridge NSString *)kCFNetworkProxiesSOCKSPort] = nil;
     }
     
     
-    proxySettings[(NSString *)kCFNetworkProxiesExceptionsList] = [self getIgnoreList];
+    proxySettings[(__bridge NSString *)kCFNetworkProxiesExceptionsList] = [self getIgnoreList];
     
     return proxySettings;
 }
