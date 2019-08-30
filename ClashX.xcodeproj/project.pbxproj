@@ -52,7 +52,6 @@
 		49CF3B2820CD7465001EBF94 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 49CF3B2620CD7465001EBF94 /* Main.storyboard */; };
 		49CF3B5C20CE8068001EBF94 /* ClashResourceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49CF3B5B20CE8068001EBF94 /* ClashResourceManager.swift */; };
 		49CF3B6520CEE06C001EBF94 /* ConfigManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49CF3B6420CEE06C001EBF94 /* ConfigManager.swift */; };
-		49E07A8C20D501A000A088A3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 49E07A8920D501A000A088A3 /* Main.storyboard */; };
 		49EC8D1922F13F330079B8F4 /* Sparkle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 49EC8D0F22F13DEE0079B8F4 /* Sparkle.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		49EC8D1A22F13FFC0079B8F4 /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49EC8D0F22F13DEE0079B8F4 /* Sparkle.framework */; };
 		F935B2F02307C52E009E4D33 /* com.west2online.ClashX.ProxyConfigHelper in Copy Files */ = {isa = PBXBuildFile; fileRef = F9A7C0692306E874007163C7 /* com.west2online.ClashX.ProxyConfigHelper */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
@@ -156,7 +155,6 @@
 		49761DA621C9497000AE13EF /* dashboard */ = {isa = PBXFileReference; lastKnownFileType = folder; path = dashboard; sourceTree = "<group>"; };
 		497F0DF220DE2FE50077AD41 /* Icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Icon.icns; sourceTree = "<group>"; };
 		4981C887216BAB8A008CC14A /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Main.strings"; sourceTree = "<group>"; };
-		4981C888216BAB8A008CC14A /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = "zh-Hans"; path = "../zh-Hans.lproj/Main.storyboard"; sourceTree = "<group>"; };
 		4981C88C216BAE4A008CC14A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		4981C88E216BAE4D008CC14A /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		49862F9F218418C600A1D5EC /* ClashRule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClashRule.swift; sourceTree = "<group>"; };
@@ -305,7 +303,6 @@
 			isa = PBXGroup;
 			children = (
 				49E07A8A20D501A000A088A3 /* Main.storyboard */,
-				49E07A8920D501A000A088A3 /* Main.storyboard */,
 				495A44BE20D2660A00888A0A /* AppDelegate.swift */,
 				495A44C720D2660B00888A0A /* Info.plist */,
 				495A44C820D2660B00888A0A /* ClashXLaunchHelper.entitlements */,
@@ -580,7 +577,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				F94245092306DABA0005B196 /* Main.storyboard in Resources */,
-				49E07A8C20D501A000A088A3 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -744,14 +740,6 @@
 			children = (
 				49CF3B2720CD7465001EBF94 /* Base */,
 				4981C887216BAB8A008CC14A /* zh-Hans */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		49E07A8920D501A000A088A3 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				4981C888216BAB8A008CC14A /* zh-Hans */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";

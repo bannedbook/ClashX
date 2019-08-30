@@ -61,9 +61,9 @@ ProxyConfigRemoteProcessProtocol
 // MARK: - NSXPCListenerDelegate
 
 - (BOOL)listener:(NSXPCListener *)listener shouldAcceptNewConnection:(NSXPCConnection *)newConnection {
-    if (![self connectionIsVaild:newConnection]) {
-        return NO;
-    }
+//    if (![self connectionIsVaild:newConnection]) {
+//        return NO;
+//    }
     newConnection.exportedInterface = [NSXPCInterface interfaceWithProtocol:@protocol(ProxyConfigRemoteProcessProtocol)];
     newConnection.exportedObject = self;
     __weak NSXPCConnection *weakConnection = newConnection;

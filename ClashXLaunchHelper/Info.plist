@@ -30,10 +30,5 @@
 	<string>Main</string>
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
-	<key>SMPrivilegedExecutables</key>
-	<dict>
-		<key>com.github.erikberglund.SwiftPrivilegedHelper</key>
-		<string>identifier &quot;com.github.erikberglund.SwiftPrivilegedHelper&quot; and anchor apple generic and certificate leaf[subject.CN] = &quot;Mac Developer: chen yicheng (96U846XGYH)&quot; and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
-	</dict>
 </dict>
 </plist>
