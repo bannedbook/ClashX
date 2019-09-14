@@ -46,14 +46,14 @@ class SystemProxyManager: NSObject {
     
     func checkInstall() {
         Logger.log(msg: "checkInstall", level: .debug)
-        helperStatus { [weak self] installed in
-            if installed {return}
-            if Thread.isMainThread {
-                self?.notifyInstall()
-            } else {
-                DispatchQueue.main.async {
-                    self?.notifyInstall()
-                }
+        let installed = helperStatus()
+        if installed {return}
+        Logger.log(msg: "need to install helper", level: .debug)
+        if Thread.isMainThread {
+            self.notifyInstall()
+        } else {
+            DispatchQueue.main.async {
+                self.notifyInstall()
             }
         }
     }
@@ -218,27 +218,23 @@ class SystemProxyManager: NSObject {
         return _helper
     }
     
-    private func helperStatus(completion: @escaping (_ installed: Bool) -> Void) {
+    private func helperStatus() -> Bool {
         let helperURL = Bundle.main.bundleURL.appendingPathComponent("Contents/Library/LaunchServices/" + SystemProxyManager.machServiceName)
-        var callback:((Bool)->Void)? = completion
-        
         guard
             let helperBundleInfo = CFBundleCopyInfoDictionaryForURL(helperURL as CFURL) as? [String: Any],
             let helperVersion = helperBundleInfo["CFBundleShortVersionString"] as? String,
             let helper = self.helper() else {
-                callback?(false)
-                callback = nil
-                return
+                return false
         }
         var installed = false
         let semaphore = DispatchSemaphore(value: 0)
         helper.getVersion { installedHelperVersion in
-            Logger.log(msg: "helper version \(installedHelperVersion)", level: .debug)
+            Logger.log(msg: "helper version \(installedHelperVersion ?? "") require version \(helperVersion)", level: .debug)
             installed = installedHelperVersion == helperVersion
+            semaphore.signal()
         }
-        _ = semaphore.wait(timeout: DispatchTime.now()+1)
-        callback?(installed)
-        callback = nil
+        _ = semaphore.wait(timeout: DispatchTime.now()+3)
+        return installed
     }
     
     
@@ -247,7 +243,7 @@ class SystemProxyManager: NSObject {
 extension SystemProxyManager {
     private func notifyInstall() {
         guard showInstallHelperAlert() else {exit(0)}
-        self.installHelperDaemon()
+        installHelperDaemon()
     }
     
     private func showInstallHelperAlert() -> Bool{
