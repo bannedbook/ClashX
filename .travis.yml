@@ -1,7 +1,8 @@
 language: objective-c
-osx_image: xcode11
+osx_image: xcode10.3
 node_js: 10
 before_install:
+- set -euxo pipefail
 - openssl aes-256-cbc -K $encrypted_a43c9d4ca4d4_key -iv $encrypted_a43c9d4ca4d4_iv
   -in dist.p12.enc -out scripts/travis/dist.p12 -d
 - security create-keychain -p mysecretpassword build.keychain
@@ -27,7 +28,7 @@ install:
 
 script:
 - 'xcodebuild -workspace ClashX.xcworkspace -scheme "ClashX" build CODE_SIGN_IDENTITY="Developer
-  ID Application: Fuzhou West2Online Internet Inc. (MEWHFZ92DY)"'
+  ID Application: Fuzhou West2Online Internet Inc. (MEWHFZ92DY)"|xcpretty'
 
 - echo "Checking SMJobBless Vailded"
 - build_dir=`xcodebuild -workspace ClashX.xcworkspace -scheme "ClashX" -showBuildSettings -configuration Debug | grep -m 1 "TARGET_BUILD_DIR" | grep -oEi "\/.*"`
