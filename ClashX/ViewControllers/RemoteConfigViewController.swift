@@ -75,8 +75,8 @@ extension RemoteConfigViewController {
         }
         
         guard let config = RemoteConfigManager.shared.configs[safe:selectIdx] else {return}
-//        deleteButton.isEnabled = true
-//        updateButton.isEnabled = !config.updating
+        deleteButton.isEnabled = true
+        updateButton.isEnabled = !config.updating
     }
     
     func showAdd(defaultUrl: String? = nil, name: String? = nil) {
