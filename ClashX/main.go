@@ -1,8 +1,6 @@
 package main // import "github.com/yichengchen/clashX/ClashX"
 import (
 	"C"
-	"os"
-
 	"github.com/Dreamacro/clash/hub"
 	"github.com/Dreamacro/clash/hub/route"
 )
