@@ -130,11 +130,11 @@ extension ClashWebViewContoller:WKUIDelegate,WKNavigationDelegate {
     }
     
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-        Logger.log(msg: "\(String(describing: navigation))", level: .debug)
+        Logger.log("\(String(describing: navigation))", level: .debug)
     }
     
     func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
-        Logger.log(msg: "\(error)", level: .debug)
+        Logger.log("\(error)", level: .debug)
     }
     
     func webView(_ webView: WKWebView, createWebViewWith configuration: WKWebViewConfiguration, for navigationAction: WKNavigationAction, windowFeatures: WKWindowFeatures) -> WKWebView? {

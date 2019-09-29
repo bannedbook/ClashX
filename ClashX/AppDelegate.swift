@@ -254,7 +254,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             setUIPath(buffer)
         }
         
-        Logger.log(msg: "Trying start proxy")
+        Logger.log("Trying start proxy")
         if let cstring = run() {
             let error = String(cString: cstring)
             if (error != "success") {
@@ -264,7 +264,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             } else {
                 ConfigManager.shared.isRunning = true
                 proxyModeMenuItem.isEnabled = true
-                resetStreamApi()
                 dashboardMenuItem.isEnabled = true
             }
         }
@@ -279,16 +278,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     func resetStreamApi() {
-        ApiRequest.shared.requestTrafficInfo(){ [weak self] up,down in
-            guard let self = self else {return}
-            DispatchQueue.main.async {
-                self.statusItemView.updateSpeedLabel(up: up, down: down)
-            }
-        }
+        ApiRequest.shared.delegate = self
         
-        ApiRequest.shared.requestLog { (type, msg) in
-            Logger.log(msg: msg,level: ClashLogLevel(rawValue: type) ?? .unknow)
-        }
+        ApiRequest.shared.resetStreamApis()
     }
     
     func updateConfig(showNotification: Bool = true) {
@@ -413,6 +405,19 @@ extension AppDelegate {
     
     @IBAction func actionQuit(_ sender: Any) {
         NSApplication.shared.terminate(self)
+    }
+}
+
+// MARK: Streaming Info
+extension AppDelegate: ApiRequestStreamDelegate {
+    func didUpdateTraffic(up: Int, down: Int) {
+        DispatchQueue.main.async {
+            self.statusItemView.updateSpeedLabel(up: up, down: down)
+        }
+    }
+    
+    func didGetLog(log: String, level: String) {
+        Logger.log(log, level: ClashLogLevel(rawValue: level) ?? .unknow)
     }
 }
 

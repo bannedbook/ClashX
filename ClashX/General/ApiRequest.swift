@@ -9,7 +9,12 @@
 import Cocoa
 import Alamofire
 import SwiftyJSON
+import Starscream
 
+protocol ApiRequestStreamDelegate: class {
+    func didUpdateTraffic(up: Int, down: Int)
+    func didGetLog(log: String, level: String)
+}
 
 class ApiRequest{
     static let shared = ApiRequest()
@@ -22,10 +27,9 @@ class ApiRequest{
         alamoFireManager = Alamofire.SessionManager(configuration: configuration)
     }
     
-    private static func authHeader() -> HTTPHeaders? {
+    private static func authHeader() -> HTTPHeaders {
         let secret = ConfigManager.shared.apiSecret
-        return (secret != nil) ? ["Authorization":"Bearer \(secret ?? "")"] : nil;
-        
+        return (secret != nil) ? ["Authorization":"Bearer \(secret ?? "")"] : [:]
     }
     
     private static func req(
@@ -46,9 +50,15 @@ class ApiRequest{
                 headers: authHeader())
     }
     
-    var trafficReq:DataRequest? = nil
-    var logReq:DataRequest? = nil
-    var alamoFireManager:SessionManager!
+    weak var delegate: ApiRequestStreamDelegate?
+
+    private var trafficWebSocket: WebSocket? = nil
+    private var loggingWebSocket: WebSocket? = nil
+
+    private var trafficWebSocketRetryCount = 0
+    private var loggingWebSocketRetryCount = 0
+
+    private var alamoFireManager: SessionManager
     
 
     static func requestConfig(completeHandler:@escaping ((ClashConfig)->())){
@@ -156,67 +166,92 @@ class ApiRequest{
 
 // Stream Apis
 extension ApiRequest {
-    func requestTrafficInfo(retryTimes:Int = 0, callback:@escaping ((Int,Int)->()) ){
-        trafficReq?.cancel()
-        var retry = retryTimes
-        if (retry > 5) {
+    
+    func resetStreamApis() {
+        trafficWebSocketRetryCount = 0
+        loggingWebSocketRetryCount = 0
+        requestTrafficInfo()
+        requestLog()
+    }
+    
+    private func requestTrafficInfo() {
+        trafficWebSocket?.disconnect(forceTimeout: 0, closeCode: 0)
+        trafficWebSocketRetryCount += 1
+        if trafficWebSocketRetryCount > 5 {
             NSUserNotificationCenter.default.postStreamApiConnectFail(api:"Traffic")
             return
         }
         
-        trafficReq =
-            alamoFireManager
-                .request(ConfigManager.apiUrl + "/traffic",
-                         headers:ApiRequest.authHeader())
-                .stream {(data) in
-                    retry = 0
-                    if let jsonData = try? JSONSerialization.jsonObject(with: data) as? [String:Int] {
-                        callback(jsonData["up"] ?? 0, jsonData["down"] ?? 0)
-                    }
-                }.response {[weak self] res in
-                    guard let err = res.error else {return}
-                    guard let self = self else {return}
-                    if (err as NSError).code != -999 {
-                        Logger.log(msg: "Traffic Api.\(err.localizedDescription)")
-                        // delay 1s,prevent recursive
-                        DispatchQueue.global().asyncAfter(deadline: .now() + 1, execute: {
-                            self.requestTrafficInfo(retryTimes: retry + 1, callback: callback)
-                        })
-                    }
+        let socket = WebSocket(url: URL(string: ConfigManager.apiUrl.appending("/traffic"))!)
+        
+        for header in ApiRequest.authHeader() {
+            socket.request.setValue(header.value, forHTTPHeaderField: header.key)
         }
+        socket.delegate = self
+        socket.connect()
+        trafficWebSocket = socket
+                
     }
     
-    func requestLog(retryTimes:Int = 0,callback:@escaping ((String,String)->())){
-        logReq?.cancel()
-        var retry = retryTimes
-        if (retry > 5) {
+    private func requestLog() {
+        loggingWebSocket?.disconnect()
+        loggingWebSocketRetryCount += 1
+        if loggingWebSocketRetryCount > 5 {
             NSUserNotificationCenter.default.postStreamApiConnectFail(api:"Log")
             return
         }
         
-        logReq =
-            alamoFireManager
-                .request(ConfigManager.apiUrl + "/logs?level=\(ConfigManager.selectLoggingApiLevel.rawValue)",
-                    headers:ApiRequest.authHeader())
-                .stream {(data) in
-                    retry = 0
-                    if let jsonData = try? JSONSerialization.jsonObject(with: data) as? [String:String] {
-                        let type = jsonData["type"] ?? "info"
-                        let payload = jsonData["payload"] ?? ""
-                        callback(type,payload)
-                    }
-                }
-                .response { [weak self] res in
-                    guard let err = res.error else {return}
-                    guard let self = self else {return}
-                    if (err as NSError).code != -999 {
-                        Logger.log(msg: "Loging api disconnected.\(err.localizedDescription)")
-                        // delay 1s,prevent recursive
-                        DispatchQueue.global().asyncAfter(deadline: .now() + 1, execute: {
-                            self.requestLog(retryTimes: retry + 1, callback: callback)
-                        })
-                    }
+        let uriString = "/logs?level=".appending(ConfigManager.selectLoggingApiLevel.rawValue)
+        let socket = WebSocket(url: URL(string: ConfigManager.apiUrl.appending(uriString))!)
+        
+        for header in ApiRequest.authHeader() {
+            socket.request.setValue(header.value, forHTTPHeaderField: header.key)
+        }
+        socket.delegate = self
+        socket.connect()
+        loggingWebSocket = socket
+    }
+    
+}
+
+extension ApiRequest: WebSocketDelegate {
+    func websocketDidConnect(socket: WebSocketClient) {
+        guard let webSocket = socket as? WebSocket else {return}
+        if webSocket == trafficWebSocket {
+            Logger.log("trafficWebSocket did Connect", level: .debug)
+        } else {
+            Logger.log("loggingWebSocket did Connect", level: .debug)
         }
     }
     
+    func websocketDidDisconnect(socket: WebSocketClient, error: Error?) {
+        guard let err = error else {
+            return
+        }
+        
+        Logger.log(err.localizedDescription, level: .error)
+        DispatchQueue.global().asyncAfter(deadline: .now() + 1) {
+            guard let webSocket = socket as? WebSocket else {return}
+            if webSocket == self.trafficWebSocket {
+                Logger.log("trafficWebSocket did disconnect", level: .debug)
+                self.requestTrafficInfo()
+            } else {
+                Logger.log("loggingWebSocket did disconnect", level: .debug)
+                self.requestLog()
+            }
+        }
+        
+    }
+    
+    func websocketDidReceiveMessage(socket: WebSocketClient, text: String) {
+        guard let webSocket = socket as? WebSocket else {return}
+        let json = JSON(parseJSON: text)
+        if webSocket == trafficWebSocket {
+            delegate?.didUpdateTraffic(up: json["up"].intValue, down: json["down"].intValue)
+        } else {
+            delegate?.didGetLog(log: json["payload"].stringValue, level: json["type"].string ?? "info")
+        }
+    }
+    
+    func websocketDidReceiveData(socket: WebSocketClient, data: Data) {}
 }

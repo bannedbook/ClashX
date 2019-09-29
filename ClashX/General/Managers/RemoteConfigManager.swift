@@ -31,7 +31,7 @@ class RemoteConfigManager {
     }
     
     func saveConfigs() {
-        Logger.log(msg: "Saving Remote Config Setting")
+        Logger.log("Saving Remote Config Setting")
         let encoder = JSONEncoder()
         if let encoded = try? encoder.encode(configs) {
              UserDefaults.standard.set(encoded, forKey: "kRemoteConfigs")
@@ -51,10 +51,10 @@ class RemoteConfigManager {
         autoUpateTimer?.invalidate()
         autoUpateTimer = nil
         guard RemoteConfigManager.autoUpdateEnable else {
-            Logger.log(msg: "autoUpdateEnable did not enable,autoUpateTimer invalidated.")
+            Logger.log("autoUpdateEnable did not enable,autoUpateTimer invalidated.")
             return
         }
-        Logger.log(msg: "set up autoUpateTimer")
+        Logger.log("set up autoUpateTimer")
         let timeInterval: TimeInterval = 60 * 60 * 3 // Three hour
         autoUpateTimer = Timer.scheduledTimer(timeInterval: timeInterval, target: self, selector: #selector(autoUpdateCheck), userInfo: nil, repeats: true)
     }
@@ -72,7 +72,7 @@ class RemoteConfigManager {
     
     @objc func autoUpdateCheck() {
         guard RemoteConfigManager.autoUpdateEnable else {return}
-        Logger.log(msg: "Tigger config auto update check")
+        Logger.log("Tigger config auto update check")
         updateCheck()
     }
     
@@ -87,10 +87,10 @@ class RemoteConfigManager {
             let timeLimitNoMantians = Date().timeIntervalSince(config.updateTime ?? Date(timeIntervalSince1970: 0)) < 60 * 60 * 12
             
             if timeLimitNoMantians && !ignoreTimeLimit {
-                Logger.log(msg: "[Auto Upgrade] Bypassing \(config.name) due to time check")
+                Logger.log("[Auto Upgrade] Bypassing \(config.name) due to time check")
                 continue
             }
-            Logger.log(msg: "[Auto Upgrade] Requesting \(config.name)")
+            Logger.log("[Auto Upgrade] Requesting \(config.name)")
             let isCurrentConfig = config.name == currentConfigName
             config.updating = true
             group.enter()
@@ -126,7 +126,7 @@ class RemoteConfigManager {
                         RemoteConfigManager.didUpdateConfig()
                     }
                 }
-                Logger.log(msg: "[Auto Upgrade] Finish \(config.name) result: \(error ?? "succeed")")
+                Logger.log("[Auto Upgrade] Finish \(config.name) result: \(error ?? "succeed")")
             }
         }
         
@@ -140,7 +140,7 @@ class RemoteConfigManager {
     static func getRemoteConfigData(config: RemoteConfigModel, complete:@escaping ((Data?)->Void)) {
         guard var urlRequest = try? URLRequest(url: config.url, method: .get) else {
             assertionFailure()
-            Logger.log(msg: "[getRemoteConfigData] url incorrect,\(config.name) \(config.url)")
+            Logger.log("[getRemoteConfigData] url incorrect,\(config.name) \(config.url)")
             return
         }
         urlRequest.cachePolicy = .reloadIgnoringCacheData
@@ -187,7 +187,7 @@ class RemoteConfigManager {
                 return true
             }
         } catch let error {
-            Logger.log(msg: error.localizedDescription)
+            Logger.log("error.localizedDescription)
             return false
         }
         return false

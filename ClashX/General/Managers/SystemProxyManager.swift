@@ -45,10 +45,10 @@ class SystemProxyManager: NSObject {
     // MARK: - Public
     
     func checkInstall() {
-        Logger.log(msg: "checkInstall", level: .debug)
+        Logger.log("checkInstall", level: .debug)
         let installed = helperStatus()
         if installed {return}
-        Logger.log(msg: "need to install helper", level: .debug)
+        Logger.log("need to install helper", level: .debug)
         if Thread.isMainThread {
             self.notifyInstall()
         } else {
@@ -60,9 +60,9 @@ class SystemProxyManager: NSObject {
     
     func saveProxy() {
         guard !disableRestoreProxy else {return}
-        Logger.log(msg: "saveProxy", level: .debug)
+        Logger.log("saveProxy", level: .debug)
         helper()?.getCurrentProxySetting({ [weak self] info in
-            Logger.log(msg: "saveProxy done", level: .debug)
+            Logger.log("saveProxy done", level: .debug)
             if let info = info as? [String : Any] {
                 self?.savedProxyInfo = info
             }
@@ -70,21 +70,21 @@ class SystemProxyManager: NSObject {
     }
     
     func enableProxy(port: Int,socksPort: Int) {
-        Logger.log(msg: "enableProxy", level: .debug)
+        Logger.log("enableProxy", level: .debug)
         helper()?.enableProxy(withPort: Int32(port), socksPort: Int32(socksPort), authData: authData(), error: { error in
             if let error = error{
-                Logger.log(msg: "enableProxy \(error)", level: .error)
+                Logger.log("enableProxy \(error)", level: .error)
             }
         })
     }
     
     func disableProxy(port: Int,socksPort: Int) {
-        Logger.log(msg: "disableProxy", level: .debug)
+        Logger.log("disableProxy", level: .debug)
         
         if disableRestoreProxy {
             helper()?.disableProxy(withAuthData: authData(), error: { error  in
                 if let error = error{
-                    Logger.log(msg: "disableProxy \(error)", level: .error)
+                    Logger.log("disableProxy \(error)", level: .error)
                 }
             })
             return
@@ -92,7 +92,7 @@ class SystemProxyManager: NSObject {
         
         helper()?.restoreProxy(withCurrentPort: Int32(port), socksPort: Int32(socksPort), info: savedProxyInfo, authData: authData(), error: { error in
             if let error = error{
-                Logger.log(msg: "restoreProxy \(error)", level: .error)
+                Logger.log("restoreProxy \(error)", level: .error)
             }
         })        
     }
@@ -103,7 +103,7 @@ class SystemProxyManager: NSObject {
         // Create an empty AuthorizationRef
         let status = AuthorizationCreate(nil, nil, AuthorizationFlags(), &authRef)
         if (status != OSStatus(errAuthorizationSuccess)) {
-            Logger.log(msg:"initAuthorizationRef AuthorizationCreate failed",level: .error)
+            Logger.log("initAuthorizationRef AuthorizationCreate failed",level: .error)
             return
         }
     }
@@ -111,7 +111,7 @@ class SystemProxyManager: NSObject {
     
     /// Install new helper daemon
     private func installHelperDaemon() {
-        Logger.log(msg: "installHelperDaemon", level: .info)
+        Logger.log("installHelperDaemon", level: .info)
 
         // Create authorization reference for the user
         var authRef: AuthorizationRef?
@@ -119,7 +119,7 @@ class SystemProxyManager: NSObject {
         
         // Check if the reference is valid
         guard authStatus == errAuthorizationSuccess else {
-            Logger.log(msg: "Authorization failed: \(authStatus)", level: .error)
+            Logger.log("Authorization failed: \(authStatus)", level: .error)
             return
         }
         
@@ -135,7 +135,7 @@ class SystemProxyManager: NSObject {
         }
         // Check if the authorization went succesfully
         guard authStatus == errAuthorizationSuccess else {
-            Logger.log(msg: "Couldn't obtain admin privileges: \(authStatus)", level: .error)
+            Logger.log("Couldn't obtain admin privileges: \(authStatus)", level: .error)
             return
         }
         
@@ -144,9 +144,9 @@ class SystemProxyManager: NSObject {
         
         if(SMJobBless(kSMDomainSystemLaunchd, SystemProxyManager.machServiceName as CFString, authRef, &error) == false) {
             let blessError = error!.takeRetainedValue() as Error
-            Logger.log(msg: "Bless Error: \(blessError)", level: .error)
+            Logger.log("Bless Error: \(blessError)", level: .error)
         } else {
-            Logger.log(msg: "\(SystemProxyManager.machServiceName) installed successfully", level: .info)
+            Logger.log("\(SystemProxyManager.machServiceName) installed successfully", level: .info)
         }
         
         connection?.invalidate()
@@ -161,7 +161,7 @@ class SystemProxyManager: NSObject {
         // Make an external form of the AuthorizationRef
         var status = AuthorizationMakeExternalForm(authRef, &authRefExtForm)
         if (status != OSStatus(errAuthorizationSuccess)) {
-            Logger.log(msg: "AppviewController: AuthorizationMakeExternalForm failed", level: .error)
+            Logger.log("AppviewController: AuthorizationMakeExternalForm failed", level: .error)
             return nil
         }
         
@@ -198,7 +198,7 @@ class SystemProxyManager: NSObject {
                 OperationQueue.main.addOperation() {
                     self.connection = nil
                     self._helper = nil
-                    Logger.log(msg: "XPC Connection Invalidated")
+                    Logger.log("XPC Connection Invalidated")
                 }
             }
             connection?.resume()
@@ -210,7 +210,7 @@ class SystemProxyManager: NSObject {
     private func helper(failture: (() -> Void)? = nil) -> ProxyConfigRemoteProcessProtocol? {
         if _helper == nil {
             guard let newHelper = self.helperConnection()?.remoteObjectProxyWithErrorHandler({ error in
-                Logger.log(msg: "Helper connection was closed with error: \(error)")
+                Logger.log("Helper connection was closed with error: \(error)")
                 failture?()
             }) as? ProxyConfigRemoteProcessProtocol else { return nil }
             _helper = newHelper
@@ -229,7 +229,7 @@ class SystemProxyManager: NSObject {
         var installed = false
         let semaphore = DispatchSemaphore(value: 0)
         helper.getVersion { installedHelperVersion in
-            Logger.log(msg: "helper version \(installedHelperVersion ?? "") require version \(helperVersion)", level: .debug)
+            Logger.log("helper version \(installedHelperVersion ?? "") require version \(helperVersion)", level: .debug)
             installed = installedHelperVersion == helperVersion
             semaphore.signal()
         }

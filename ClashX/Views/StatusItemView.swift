@@ -92,7 +92,7 @@ class StatusItemView: NSView {
         DispatchQueue.main.async {
             self.downloadSpeedLabel.stringValue = finalDownStr
             self.uploadSpeedLabel.stringValue = finalUpStr
-            if self.updating {Logger.log(msg: "update during update"); return}
+            if self.updating {Logger.log("update during update"); return}
             self.updating = true
             self.updateStatusItemView()
             self.updating = false

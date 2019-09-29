@@ -55,11 +55,11 @@ class ClashResourceManager {
                 
                 if checkSum == 101 {
                     // old error config
-                    Logger.log(msg: "removing old config.yaml")
+                    Logger.log("removing old config.yaml")
                     try FileManager.default.removeItem(atPath: kDefaultConfigFilePath)
                 }
             } catch let err {
-                Logger.log(msg: "removing old config.yaml fail: \(err.localizedDescription)")
+                Logger.log("removing old config.yaml fail: \(err.localizedDescription)")
             }
         }
     }
@@ -74,7 +74,7 @@ class ClashResourceManager {
             }
             
         } catch let err {
-            Logger.log(msg: err.localizedDescription)
+            Logger.log("err.localizedDescription)
         }
         
     }

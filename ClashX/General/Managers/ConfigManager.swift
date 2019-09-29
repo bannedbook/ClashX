@@ -84,9 +84,11 @@ class ConfigManager {
     let showNetSpeedIndicatorObservable = UserDefaults.standard.rx.observe(Bool.self, "showNetSpeedIndicator")
     
     static var apiUrl:String{
-        get {
-            return "http://127.0.0.1:\(shared.apiPort)"
-        }
+        return "http://127.0.0.1:\(shared.apiPort)"
+    }
+    
+    static var webSocketUrl: String {
+        return "ws://127.0.0.1:\(shared.apiPort)"
     }
     
     

@@ -35,7 +35,7 @@ class Logger {
         }
     }
     
-    static func log(msg:String ,level:ClashLogLevel = .info) {
+    static func log(_ msg:String ,level:ClashLogLevel = .info) {
         DispatchQueue.global().async {
             shared.logToFile(msg: "[\(level.rawValue)] \(msg)", level: level)
         }
