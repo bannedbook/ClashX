@@ -145,8 +145,8 @@ class RemoteConfigManager {
         }
         urlRequest.cachePolicy = .reloadIgnoringCacheData
 
-        request(urlRequest).responseData { res in
-            complete(res.result.value)
+        AF.request(urlRequest).responseData { res in
+            complete(try? res.result.get())
         }
     }
     
@@ -187,7 +187,7 @@ class RemoteConfigManager {
                 return true
             }
         } catch let error {
-            Logger.log("error.localizedDescription)
+            Logger.log(error.localizedDescription)
             return false
         }
         return false

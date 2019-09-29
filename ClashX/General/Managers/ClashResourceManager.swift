@@ -74,7 +74,7 @@ class ClashResourceManager {
             }
             
         } catch let err {
-            Logger.log("err.localizedDescription)
+            Logger.log(err.localizedDescription)
         }
         
     }

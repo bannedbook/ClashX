@@ -16,7 +16,11 @@ protocol ApiRequestStreamDelegate: class {
     func didGetLog(log: String, level: String)
 }
 
-class ApiRequest{
+enum RequestError: Error {
+    case decodeFail
+}
+
+class ApiRequest {
     static let shared = ApiRequest()
     private init(){
         let configuration = URLSessionConfiguration.default
@@ -24,7 +28,7 @@ class ApiRequest{
         configuration.timeoutIntervalForResource = 604800
         configuration.httpMaximumConnectionsPerHost = 50
         configuration.requestCachePolicy = .reloadIgnoringLocalCacheData
-        alamoFireManager = Alamofire.SessionManager(configuration: configuration)
+        alamoFireManager = Session(configuration: configuration)
     }
     
     private static func authHeader() -> HTTPHeaders {
@@ -39,7 +43,7 @@ class ApiRequest{
         encoding: ParameterEncoding = URLEncoding.default)
         -> DataRequest {
             guard ConfigManager.shared.isRunning else {
-                return request("")
+                return AF.request("")
             }
             
             return shared.alamoFireManager
@@ -58,24 +62,27 @@ class ApiRequest{
     private var trafficWebSocketRetryCount = 0
     private var loggingWebSocketRetryCount = 0
 
-    private var alamoFireManager: SessionManager
+    private var alamoFireManager: Session
     
 
     static func requestConfig(completeHandler:@escaping ((ClashConfig)->())){
-        req("/configs").responseData{
+        req("/configs").responseData {
             res in
-            if let data = res.result.value,
-                let config = ClashConfig.fromData(data) {
+            do {
+                let data = try res.result.get()
+                guard let config = ClashConfig.fromData(data) else {
+                    throw RequestError.decodeFail
+                }
                 completeHandler(config)
-            } else {
-                NSUserNotificationCenter.default.post(title: "Error", info: "Get clash config failed. Try Fix your config file then reload config or restart ClashX")
+            } catch let err {
+                NSUserNotificationCenter.default.post(title: "Error", info: "Get clash config failed. Try Fix your config file then reload config or restart ClashX. \(err.localizedDescription)")
                 (NSApplication.shared.delegate as? AppDelegate)?.startProxy()
             }
         }
     }
     
     
-    static func requestConfigUpdate(callback:@escaping ((String?)->())){
+    static func requestConfigUpdate(callback: @escaping ((String?)->())){
         let filePath = "\(kConfigFolderPath)\(ConfigManager.selectConfigName).yaml"
         
         req("/configs", method: .put,parameters: ["Path":filePath],encoding: JSONEncoding.default).responseJSON {res in
@@ -83,7 +90,8 @@ class ApiRequest{
                 ConfigManager.shared.isRunning = true
                 callback(nil)
             } else {
-                let err = JSON(res.result.value as Any)["message"].string ?? "Error occoured, Please try to fix it by restarting ClashX. "
+                let errorJson = try? res.result.get()
+                let err = JSON(errorJson ?? "")["message"].string ?? "Error occoured, Please try to fix it by restarting ClashX. "
                 if err.contains("no such file or directory") {
                     ConfigManager.selectConfigName = "config"
                 } else {
@@ -108,7 +116,7 @@ class ApiRequest{
     static func requestProxyGroupList(completeHandler:@escaping ((ClashProxyResp)->())){
         req("/proxies").responseJSON{
             res in
-            let proxies = ClashProxyResp(res.result.value)
+            let proxies = ClashProxyResp(try? res.result.get())
             completeHandler(proxies)
         }
     }
@@ -146,18 +154,24 @@ class ApiRequest{
     
     static func getProxyDelay(proxyName:String,callback:@escaping ((Int)->())) {
         let proxyNameEncoded = proxyName.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-
+        
         req("/proxies/\(proxyNameEncoded)/delay"
             , method: .get
             , parameters: ["timeout":5000,"url":"http://www.gstatic.com/generate_204"])
-            .responseJSON { (res) in let json = JSON(res.result.value ?? [])
-                callback(json["delay"].int ?? Int.max)
+            .responseJSON { res in
+                switch res.result {
+                case .success(let value):
+                    let json = JSON(value)
+                    callback(json["delay"].intValue)
+                case .failure(_):
+                    callback(0)
+                }
         }
     }
     
     static func getRules(completeHandler:@escaping ([ClashRule])->()) {
         req("/rules").responseData { res in
-            guard let data = res.result.value else {return}
+            guard let data = try? res.result.get() else {return}
             let rule = ClashRuleResponse.fromData(data)
             completeHandler(rule.rules ?? [])
         }
@@ -185,7 +199,7 @@ extension ApiRequest {
         let socket = WebSocket(url: URL(string: ConfigManager.apiUrl.appending("/traffic"))!)
         
         for header in ApiRequest.authHeader() {
-            socket.request.setValue(header.value, forHTTPHeaderField: header.key)
+            socket.request.setValue(header.value, forHTTPHeaderField: header.name)
         }
         socket.delegate = self
         socket.connect()
@@ -205,7 +219,7 @@ extension ApiRequest {
         let socket = WebSocket(url: URL(string: ConfigManager.apiUrl.appending(uriString))!)
         
         for header in ApiRequest.authHeader() {
-            socket.request.setValue(header.value, forHTTPHeaderField: header.key)
+            socket.request.setValue(header.value, forHTTPHeaderField: header.name)
         }
         socket.delegate = self
         socket.connect()
