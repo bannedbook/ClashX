@@ -21,7 +21,7 @@ target 'ClashX' do
   pod 'CocoaLumberjack/Swift'
   pod 'WebViewJavascriptBridge'
   pod 'Yams'
-  pod 'Starscream', '~> 3.0.2'
+  pod 'Starscream',:git=>'https://github.com/daltoniam/Starscream.git', :branch => 'master'
   pod 'Fabric'
   pod 'Crashlytics'
   
