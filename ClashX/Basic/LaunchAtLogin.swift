@@ -9,7 +9,7 @@
 import Foundation
 import ServiceManagement
 import RxSwift
-
+import RxCocoa
 
 
 public class LaunchAtLogin {
@@ -18,7 +18,7 @@ public class LaunchAtLogin {
     static let shared = LaunchAtLogin()
 
     private init() {
-        self.isEnableVirable.value = self.isEnabled
+        isEnableVirable.accept(isEnabled)
     }
     
     public var isEnabled: Bool {
@@ -31,9 +31,9 @@ public class LaunchAtLogin {
         }
         set {
             SMLoginItemSetEnabled(LaunchAtLogin.id as CFString, newValue)
-            isEnableVirable.value = newValue
+            isEnableVirable.accept(newValue)
         }
     }
     
-    var isEnableVirable = Variable<Bool>(false)
+    var isEnableVirable = BehaviorRelay<Bool>(value: false)
 }

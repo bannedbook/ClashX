@@ -9,6 +9,7 @@
 import Foundation
 import Cocoa
 import RxSwift
+import RxCocoa
 import Yams
 
 class ConfigManager {
@@ -25,24 +26,24 @@ class ConfigManager {
         }.disposed(by: disposeBag)
     }
     
-    var currentConfig:ClashConfig?{
+    var currentConfig: ClashConfig?{
         get {
             return currentConfigVariable.value
         }
         
         set {
-            currentConfigVariable.value = newValue
+            currentConfigVariable.accept(newValue)
         }
     }
-    var currentConfigVariable = Variable<ClashConfig?>(nil)
+    var currentConfigVariable = BehaviorRelay<ClashConfig?>(value: nil)
     
-    var isRunning:Bool{
+    var isRunning: Bool{
         get {
             return isRunningVariable.value
         }
         
         set {
-            isRunningVariable.value = newValue
+            isRunningVariable.accept(newValue)
         }
     }
     
@@ -61,7 +62,7 @@ class ConfigManager {
         }
     }
     
-    var isRunningVariable = Variable<Bool>(false)
+    var isRunningVariable = BehaviorRelay<Bool>(value: false)
     
     var proxyPortAutoSet:Bool {
         get{
