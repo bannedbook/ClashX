@@ -77,7 +77,7 @@
 	<key>NSMainStoryboardFile</key>
 	<string>Main</string>
 	<key>NSPrincipalClass</key>
-	<string>SWBApplication</string>
+	<string>NSApplication</string>
 	<key>SMAuthorizedClients</key>
 	<array>
 		<string>identifier "com.west2online.ClashX" and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: chen yicheng (96U846XGYH)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>

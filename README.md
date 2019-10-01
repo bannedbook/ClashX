@@ -72,6 +72,6 @@ defaults write com.west2online.ClashX kDisableRestoreProxy -bool true
 - Using url scheme describe below
 
   ```
-  clash://install-config?url=http%3A%2F%2Fexample.com
+  clash://install-config?url=http%3A%2F%2Fexample.com&name=example
   ```
 
