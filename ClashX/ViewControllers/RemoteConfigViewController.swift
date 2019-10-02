@@ -2,7 +2,7 @@
 //  RemoteConfigViewController.swift
 //  ClashX
 //
-//  Created by 称一称 on 2019/7/28.
+//  Created by yicheng on 2019/7/28.
 //  Copyright © 2019 west2online. All rights reserved.
 //
 

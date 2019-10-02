@@ -12,17 +12,13 @@ before_install:
   -P ""
 - 'security set-key-partition-list -S apple-tool:,apple: -s -k mysecretpassword build.keychain'
 install:
-- wget http://geolite.maxmind.com/download/geoip/database/GeoLite2-Country.tar.gz
-- tar -zxvf GeoLite2-Country.tar.gz
-- mv GeoLite2-Country_*/GeoLite2-Country.mmdb ./ClashX/Resources/Country.mmdb
-- cd ClashX/Resources
-- git clone -b gh-pages https://github.com/Dreamacro/clash-dashboard.git dashboard
-- cd ..
-- brew update
+- bash install_dependency.sh
+- cd $TRAVIS_BUILD_DIR/ClashX
 - echo `go version`
+#- brew update
 #- brew upgrade go || true
 #- echo `go version`
-- python3 ci_build_clash.py
+- python3 build_clash.py
 - cd $TRAVIS_BUILD_DIR
 
 script:

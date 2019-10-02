@@ -8,7 +8,6 @@
 
 import Cocoa
 import Alamofire
-import Yams
 
 class RemoteConfigManager {
     
@@ -123,7 +122,6 @@ class RemoteConfigManager {
                         NotificationCenter.default.post(name: kShouldUpDateConfig,
                                                         object: nil,
                                                         userInfo: ["notification": false])
-                        RemoteConfigManager.didUpdateConfig()
                     }
                 }
                 Logger.log("[Auto Upgrade] Finish \(config.name) result: \(error ?? "succeed")")
@@ -181,26 +179,13 @@ class RemoteConfigManager {
     }
     
     static func verifyConfig(string: String) -> Bool {
-        do {
-            let yaml = try Yams.load(yaml: string) as? [String: Any]
-            if let proxies = yaml?["Proxy"] as? [Any], proxies.count > 0 {
-                return true
-            }
-        } catch let error {
-            Logger.log(error.localizedDescription)
+        let res = verifyClashConfig(string.goStringBuffer())?.toString() ?? "unknown error"
+        if res == "success" {
+            return true
+        } else {
+            Logger.log(res,level: .error)
             return false
         }
-        return false
     }
-    
-    static func didUpdateConfig() {
-        guard let hook = UserDefaults.standard.string(forKey: "kDidUpdateRemoteConfigHook") else {return}
-        DispatchQueue.global().async {
-            let appleScriptStr = "do shell script \"\(hook)\""
-            let appleScript = NSAppleScript(source: appleScriptStr)
-            _ = appleScript?.executeAndReturnError(nil)
-        }
-    }
-    
 }
 

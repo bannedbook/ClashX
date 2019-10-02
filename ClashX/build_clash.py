@@ -1,12 +1,12 @@
 import subprocess
 import datetime
 import plistlib
-
+import os
 
 def get_version():
     with open('./go.mod') as file:
         for line in file.readlines():
-            if "require" in line:
+            if "clash" in line and "ClashX" not in line:
                 return line.split(" ")[-1].strip()
     return "unknown"
 
@@ -38,11 +38,12 @@ def write_to_info(version):
 
 def run():
     version = get_version()
-    print("current clash version: ", version)
+    print("current clash version:", version)
     build_clash(version)
     print("build static library complete!")
-    print("writing info.plist")
-    write_to_info(version)
+    if os.environ.get("CI", False):
+        print("writing info.plist")
+        write_to_info(version)
     print("done")
 
 

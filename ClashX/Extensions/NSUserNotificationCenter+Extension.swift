@@ -20,10 +20,6 @@ extension NSUserNotificationCenter {
         self.deliver(notification)
     }
     
-    func postGenerateSimpleConfigNotice() {
-        self.post(title: NSLocalizedString("Sample Config File Created!", comment: ""),
-                  info: NSLocalizedString("We have created or replaced your current config with a simple config with external-controller specified!",comment: ""))
-    }
     
     func postConfigFileChangeDetectionNotice() {
         self.post(title: NSLocalizedString("Config file have been changed", comment: ""),

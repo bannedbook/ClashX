@@ -68,7 +68,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         _ = ClashResourceManager.check()
         SystemProxyManager.shared.checkInstall()
         ConfigFileManager.copySampleConfigIfNeed()
-        ConfigManager.shared.refreshApiInfo()
         
         PFMoveToApplicationsFolderIfNecessary()
         
@@ -76,10 +75,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         setupData()
         updateConfig(showNotification: false)
         updateLoggingLevel()
-        hideFunctionIfNeed()
-        
-        // check config vaild via api
-        ConfigFileManager.checkFinalRuleAndShowAlert()
         
         // start watch config file change
         ConfigFileManager.shared.watchConfigFile(configName: ConfigManager.selectConfigName)
@@ -103,10 +98,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
     func setupData() {
-        
-        // check and refresh api url
-        _ = ConfigManager.apiUrl
-        
         remoteConfigAutoupdateMenuItem.state = RemoteConfigManager.autoUpdateEnable ? .on : .off
         
         NotificationCenter.default.rx.notification(kShouldUpDateConfig).bind {
@@ -191,15 +182,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
   
     }
-    
-    func hideFunctionIfNeed() {
-        if #available(OSX 10.11, *) {
-            // pass
-        } else {
-            dashboardMenuItem.isHidden = true
-        }
-    }
-
 
     
     func updateProxyList() {
@@ -241,37 +223,40 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     
+    
     func startProxy() {
         if (ConfigManager.shared.isRunning){return}
+        
+        struct StartProxyResp: Codable {
+            let externalController: String
+            let secret: String
+        }
     
         // setup ui config first
         if let htmlPath = Bundle.main.path(forResource: "index", ofType: "html", inDirectory: "dashboard") {
             let uiPath = URL(fileURLWithPath: htmlPath).deletingLastPathComponent().path
-            let path = String(uiPath)
-            let length = path.count + 1
-            let buffer = UnsafeMutablePointer<Int8>.allocate(capacity: length)
-            (path as NSString).getCString(buffer, maxLength: length, encoding: String.Encoding.utf8.rawValue)
-            setUIPath(buffer)
+            setUIPath(uiPath.goStringBuffer())
         }
         
         Logger.log("Trying start proxy")
-        if let cstring = run() {
-            let error = String(cString: cstring)
-            if (error != "success") {
-                ConfigManager.shared.isRunning = false
-                proxyModeMenuItem.isEnabled = false
-                NSUserNotificationCenter.default.postConfigErrorNotice(msg:error)
-            } else {
-                ConfigManager.shared.isRunning = true
-                proxyModeMenuItem.isEnabled = true
-                dashboardMenuItem.isEnabled = true
-            }
+        let string = run(ConfigManager.developerMode.goObject())?.toString() ?? ""
+        let jsonData = string.data(using: .utf8) ?? Data()
+        if let res = try? JSONDecoder().decode(StartProxyResp.self, from:jsonData) {
+            let port = res.externalController.components(separatedBy: ":").last ?? "9090"
+            ConfigManager.shared.apiPort = port
+            ConfigManager.shared.apiSecret = res.secret
+            ConfigManager.shared.isRunning = true
+            proxyModeMenuItem.isEnabled = true
+            dashboardMenuItem.isEnabled = true
+        } else {
+            ConfigManager.shared.isRunning = false
+            proxyModeMenuItem.isEnabled = false
+            NSUserNotificationCenter.default.postConfigErrorNotice(msg:string)
         }
     }
     
     func syncConfig(completeHandler:(()->())? = nil){
         ApiRequest.requestConfig{ (config) in
-            guard config.port > 0 else {return}
             ConfigManager.shared.currentConfig = config
             completeHandler?()
         }
@@ -279,7 +264,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     func resetStreamApi() {
         ApiRequest.shared.delegate = self
-        
         ApiRequest.shared.resetStreamApis()
     }
     

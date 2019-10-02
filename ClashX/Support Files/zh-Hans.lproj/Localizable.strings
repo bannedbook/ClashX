@@ -72,9 +72,6 @@
 "Rule" = "规则";
 
 /* No comment provided by engineer. */
-"Sample Config File Created!" = "样例配置文件已创建！";
-
-/* No comment provided by engineer. */
 "SpeedTest" = "测速";
 
 /* No comment provided by engineer. */
@@ -103,6 +100,3 @@
 
 /* No comment provided by engineer. */
 "Use reload config to try reconnect." = "使用重载配置文件按钮尝试重新连接";
-
-/* No comment provided by engineer. */
-"We have created or replaced your current config with a simple config with external-controller specified!" = "ClashX 已创建样例配置文件或者替换您当前没有设置 external-controller 的配置文件";

@@ -23,15 +23,14 @@ A rule based proxy For Mac base on [Clash](https://github.com/Dreamacro/clash).
 You can download from [release](https://github.com/yichengchen/clashX/releases) page
 
 ## Build
-- Download mmdb from http://geolite.maxmind.com/download/geoip/database/GeoLite2-Country.tar.gz unzip and put it in the `ClashX/Support Files/Country.mmdb`.
-
-- Open the `ClashX/Resources` folder and clone the dashboard project.
+- Download deps
   ```
-  git clone -b gh-pages git@github.com:Dreamacro/clash-dashboard.git dashboard
+  bash install_dependency.sh
   ```
 - Build clash core. 
   ```
-  go build -buildmode=c-archive
+  cd ClashX
+  python3 build_clash.py
   ```
 - Build and run.
 
@@ -40,7 +39,7 @@ You can download from [release](https://github.com/yichengchen/clashX/releases) 
 
 The default configuration directory is `$HOME/.config/clash`
 
-The default name of the configuration file is `config.yml`. You can use your custom config name and switch config in menu `Config` section.
+The default name of the configuration file is `config.ymal`. You can use your custom config name and switch config in menu `Config` section.
 
 To Change the ports of ClashX, you need to modify the `config.ymal` file. The `General` section settings in your custom config file would be ignored.
 
@@ -49,13 +48,13 @@ Checkout [Clash](https://github.com/Dreamacro/clash) or [SS-Rule-Snippet for Cla
 ## Advance Config
 ### Change your status menu icon
 
-Place your icon file in the `~/.config/clash/menuImage.png`  then restart ClashX
+  Place your icon file in the `~/.config/clash/menuImage.png`  then restart ClashX
 
 ### Disable auto restore proxy setting.
 
-```
-defaults write com.west2online.ClashX kDisableRestoreProxy -bool true
-```
+  ```
+  defaults write com.west2online.ClashX kDisableRestoreProxy -bool true
+  ```
 
 ### Change default system ignore list.
 
@@ -74,4 +73,15 @@ defaults write com.west2online.ClashX kDisableRestoreProxy -bool true
   ```
   clash://install-config?url=http%3A%2F%2Fexample.com&name=example
   ```
+
+### Use own clash core.
+
+- Enable develop mode by command line
+  ```
+  defaults write com.west2online.ClashX kDeveloperMode -bool true
+  ```
+
+- Launch your own clash core before clashX started.
+
+
 

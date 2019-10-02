@@ -10,14 +10,13 @@ import Foundation
 import Cocoa
 import RxSwift
 import RxCocoa
-import Yams
 
 class ConfigManager {
     
     static let shared = ConfigManager()
     private let disposeBag = DisposeBag()
     var apiPort = "8080"
-    var apiSecret:String? = nil
+    var apiSecret:String = ""
     
     init() {
         UserDefaults.standard.rx.observe(Bool.self, "kSDisableShowCurrentProxyInMenu").bind {
@@ -130,19 +129,15 @@ class ConfigManager {
         }
     }
     
-    func refreshApiInfo(){
-        apiPort = "9090"
-        apiSecret = nil;
-        if let yamlStr = try? String(contentsOfFile: kDefaultConfigFilePath),
-            let yaml = (try? Yams.load(yaml: yamlStr)) as? [String:Any],
-            let controller = yaml["external-controller"] as? String,
-            let port = controller.components(separatedBy: ":").last {
-            apiPort = String(port)
-            apiSecret = yaml["secret"] as? String
-        } else {
-            _ = ConfigFileManager.replaceConfigWithSampleConfig()
+    static var developerMode:Bool {
+        get{
+            return UserDefaults.standard.bool(forKey: "kDeveloperMode")
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: "kDeveloperMode")
         }
     }
+    
     
 }
 

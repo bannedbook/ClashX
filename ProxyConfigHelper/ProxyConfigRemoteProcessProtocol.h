@@ -6,7 +6,7 @@
 //  Copyright © 2019 west2online. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+@import Foundation;
 
 typedef void(^stringReplyBlock)(NSString *);
 typedef void(^boolReplyBlock)(BOOL);

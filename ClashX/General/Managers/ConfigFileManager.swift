@@ -8,7 +8,6 @@
 import Foundation
 import AppKit
 import SwiftyJSON
-import Yams
 
 class ConfigFileManager {
     static let shared = ConfigFileManager()
@@ -42,13 +41,9 @@ class ConfigFileManager {
 
     
     @discardableResult
-    static func backupAndRemoveConfigFile(showAlert:Bool = false) -> Bool {
+    static func backupAndRemoveConfigFile() -> Bool {
         let path = kDefaultConfigFilePath
-        
         if (FileManager.default.fileExists(atPath: path)) {
-            if (showAlert) {
-                if !self.showReplacingConfigFileAlert() {return false}
-            }
             let newPath = "\(kConfigFolderPath)config_\(Date().timeIntervalSince1970).yaml"
             try? FileManager.default.moveItem(atPath: path, toPath: newPath)
         }
@@ -57,18 +52,9 @@ class ConfigFileManager {
     
     static func copySampleConfigIfNeed() {
         if !FileManager.default.fileExists(atPath: kDefaultConfigFilePath) {
-            _ = replaceConfigWithSampleConfig()
+            let path = Bundle.main.path(forResource: "sampleConfig", ofType: "yaml")!
+            try? FileManager.default.copyItem(atPath: path, toPath: kDefaultConfigFilePath)
         }
-    }
-    
-    static func replaceConfigWithSampleConfig() -> Bool {
-        if (!backupAndRemoveConfigFile(showAlert: true)) {
-            return false
-        }
-        let path = Bundle.main.path(forResource: "sampleConfig", ofType: "yaml")!
-        try? FileManager.default.copyItem(atPath: path, toPath: kDefaultConfigFilePath)
-        NSUserNotificationCenter.default.postGenerateSimpleConfigNotice()
-        return true
     }
     
     
@@ -90,16 +76,6 @@ extension ConfigFileManager {
 
 
 extension ConfigFileManager {
-    static func showReplacingConfigFileAlert() -> Bool{
-        let alert = NSAlert()
-        alert.messageText = NSLocalizedString("Can't recognize your config file. We will backup and replace your config file in your config folder.\n\nOtherwise the functions of ClashX will not work properly. You may need to restart ClashX or reload Config manually.", comment: "")
-        alert.alertStyle = .warning
-        alert.addButton(withTitle: NSLocalizedString("Replace", comment: ""))
-        alert.addButton(withTitle: NSLocalizedString("Cancel", comment: ""))
-        return alert.runModal() == .alertFirstButtonReturn
-    }
-    
-    
     
     static func showNoFinalRuleAlert() {
         let alert = NSAlert()

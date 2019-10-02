@@ -72,9 +72,6 @@
 "Rule" = "Rule";
 
 /* No comment provided by engineer. */
-"Sample Config File Created!" = "Sample Config File Created!";
-
-/* No comment provided by engineer. */
 "SpeedTest" = "SpeedTest";
 
 /* No comment provided by engineer. */
@@ -104,5 +101,3 @@
 /* No comment provided by engineer. */
 "Use reload config to try reconnect." = "Use reload config to try reconnect.";
 
-/* No comment provided by engineer. */
-"We have created or replaced your current config with a simple config with external-controller specified!" = "We have created or replaced your current config with a simple config with external-controller specified!";
