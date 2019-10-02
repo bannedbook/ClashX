@@ -20,7 +20,6 @@ target 'ClashX' do
   pod 'RxCocoa'
   pod 'CocoaLumberjack/Swift'
   pod 'WebViewJavascriptBridge'
-  pod 'Yams'
   pod 'Starscream',:git=>'https://github.com/daltoniam/Starscream.git', :branch => 'master'
   pod 'Fabric'
   pod 'Crashlytics'

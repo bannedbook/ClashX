@@ -10,4 +10,3 @@ ${PODS_ROOT}/Sparkle/Sparkle.framework.dSYM
 ${BUILT_PRODUCTS_DIR}/Starscream/Starscream.framework
 ${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework
 ${BUILT_PRODUCTS_DIR}/WebViewJavascriptBridge/WebViewJavascriptBridge.framework
-${BUILT_PRODUCTS_DIR}/Yams/Yams.framework

@@ -17,7 +17,6 @@ PODS:
   - Starscream (3.1.0)
   - SwiftyJSON (5.0.0)
   - WebViewJavascriptBridge (6.0.3)
-  - Yams (2.0.0)
 
 DEPENDENCIES:
   - Alamofire (~> 5.0.0-rc.2)
@@ -31,7 +30,6 @@ DEPENDENCIES:
   - Starscream (from `https://github.com/daltoniam/Starscream.git`, branch `master`)
   - SwiftyJSON
   - WebViewJavascriptBridge
-  - Yams
 
 SPEC REPOS:
   https://cdn.cocoapods.org/:
@@ -46,7 +44,6 @@ SPEC REPOS:
     - Sparkle
     - SwiftyJSON
     - WebViewJavascriptBridge
-    - Yams
 
 EXTERNAL SOURCES:
   Starscream:
@@ -71,8 +68,7 @@ SPEC CHECKSUMS:
   Starscream: 5cbf3d36bf5af6906d1362bba4ce326bb011d4cc
   SwiftyJSON: 36413e04c44ee145039d332b4f4e2d3e8d6c4db7
   WebViewJavascriptBridge: 7f5bc4d3581e672e8f32bd0f812d54bc69bb8e29
-  Yams: cb96472112d99e4b368f8dae9ab62e8a3eb8a3f9
 
-PODFILE CHECKSUM: c2f52a2a93d7174b656e43d50bd8a321c5482f37
+PODFILE CHECKSUM: 4cce6751291417c5665afcb7dc39fa3e81d17cd5
 
 COCOAPODS: 1.7.5
