@@ -20,6 +20,8 @@ enum RequestError: Error {
     case decodeFail
 }
 
+typealias ErrorString = String
+
 class ApiRequest {
     static let shared = ApiRequest()
     private init(){
@@ -66,6 +68,23 @@ class ApiRequest {
     
 
     static func requestConfig(completeHandler:@escaping ((ClashConfig)->())){
+        
+        if ConfigManager.developerMode {
+            req("/configs").responseData {
+                res in
+                do {
+                    let data = try res.result.get()
+                    guard let config = ClashConfig.fromData(data) else {
+                        throw RequestError.decodeFail
+                    }
+                    completeHandler(config)
+                } catch let err {
+                    Logger.log(err.localizedDescription)
+                }
+            }
+            return
+        }
+            
         let data = clashGetConfigs()?.toString().data(using: .utf8) ?? Data()
         guard let config = ClashConfig.fromData(data) else {
             NSUserNotificationCenter.default.post(title: "Error", info: "Get clash config failed. Try Fix your config file then reload config or restart ClashX.")
@@ -76,15 +95,40 @@ class ApiRequest {
     }
     
     
-    static func requestConfigUpdate() -> String?{
+    static func requestConfigUpdate(callback: @escaping ((ErrorString?)->())){
         let filePath = "\(kConfigFolderPath)\(ConfigManager.selectConfigName).yaml"
-        
-        let res = clashUpdateConfig(filePath.goStringBuffer())?.toString() ?? "unknown error"
-        
-        if res == "success" {
-            return nil
+        let placeHolderErrorDesp = "Error occoured, Please try to fix it by restarting ClashX. "
+        let errorHanlder: (ErrorString)->Void = {
+            err in
+            if err.contains("no such file or directory") {
+                ConfigManager.selectConfigName = "config"
+            } else {
+                callback(err)
+            }
         }
-        return res
+
+        // DEV MODE: Use API
+        if ConfigManager.developerMode {
+            req("/configs", method: .put,parameters: ["Path":filePath],encoding: JSONEncoding.default).responseJSON {res in
+                if (res.response?.statusCode == 204) {
+                    ConfigManager.shared.isRunning = true
+                    callback(nil)
+                } else {
+                    let errorJson = try? res.result.get()
+                    let err = JSON(errorJson ?? "")["message"].string ?? placeHolderErrorDesp
+                    errorHanlder(err)
+                }
+            }
+            return
+        }
+        
+        // NORMAL MODE: Use internal api
+        let res = clashUpdateConfig(filePath.goStringBuffer())?.toString() ?? placeHolderErrorDesp
+        if res == "success" {
+            callback(nil)
+        } else {
+            errorHanlder(res)
+        }
     }
     
     static func updateOutBoundMode(mode:ClashProxyMode, callback:@escaping ((Bool)->())) {
@@ -99,9 +143,18 @@ class ApiRequest {
         }
     }
     
-    static func requestProxyGroupList() -> ClashProxyResp {
+    static func requestProxyGroupList(completeHandler:@escaping ((ClashProxyResp)->Void)) {
+        if ConfigManager.developerMode {
+            req("/proxies").responseJSON{
+                res in
+                let proxies = ClashProxyResp(try? res.result.get())
+                completeHandler(proxies)
+            }
+            return
+        }
+        
         let json = JSON(parseJSON: clashGetProxies()?.toString() ?? "")
-        return ClashProxyResp(json.object)
+        completeHandler(ClashProxyResp(json.object))
     }
     
     static func updateAllowLan(allow:Bool,completeHandler:@escaping (()->())) {
@@ -126,12 +179,14 @@ class ApiRequest {
     }
     
     static func getAllProxyList(callback:@escaping (([ClashProxyName])->())) {
-        let proxyInfo = requestProxyGroupList()
-        let proxyGroupType:[ClashProxyType] = [.urltest,.fallback,.loadBalance,.select,.direct,.reject]
-        let lists:[ClashProxyName] = proxyInfo.proxies
-            .filter{$0.name == "GLOBAL" && proxyGroupType.contains($0.type)}
-            .first?.all ?? []
-        callback(lists)
+        requestProxyGroupList() {
+            proxyInfo in
+            let proxyGroupType:[ClashProxyType] = [.urltest,.fallback,.loadBalance,.select,.direct,.reject]
+            let lists:[ClashProxyName] = proxyInfo.proxies
+                .filter{$0.name == "GLOBAL" && proxyGroupType.contains($0.type)}
+                .first?.all ?? []
+            callback(lists)
+        }
     }
     
     static func getProxyDelay(proxyName:String,callback:@escaping ((Int)->())) {

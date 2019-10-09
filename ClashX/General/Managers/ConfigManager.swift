@@ -129,15 +129,7 @@ class ConfigManager {
         }
     }
     
-    static var developerMode:Bool {
-        get{
-            return UserDefaults.standard.bool(forKey: "kDeveloperMode")
-        }
-        set {
-            UserDefaults.standard.set(newValue, forKey: "kDeveloperMode")
-        }
-    }
-    
+    static var developerMode = UserDefaults.standard.bool(forKey: "kDeveloperMode")
     
 }
 
