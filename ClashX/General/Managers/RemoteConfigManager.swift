@@ -12,7 +12,7 @@ import Alamofire
 class RemoteConfigManager {
     
     var configs: [RemoteConfigModel] = []
-    var autoUpateTimer: Timer?
+    var refreshActivity: NSBackgroundActivityScheduler?
     
     static let shared = RemoteConfigManager()
 
@@ -47,15 +47,24 @@ class RemoteConfigManager {
     }
     
     func setupAutoUpdateTimer() {
-        autoUpateTimer?.invalidate()
-        autoUpateTimer = nil
+        refreshActivity?.invalidate()
+        refreshActivity = nil
         guard RemoteConfigManager.autoUpdateEnable else {
             Logger.log("autoUpdateEnable did not enable,autoUpateTimer invalidated.")
             return
         }
         Logger.log("set up autoUpateTimer")
-        let timeInterval: TimeInterval = 60 * 60 * 3 // Three hour
-        autoUpateTimer = Timer.scheduledTimer(timeInterval: timeInterval, target: self, selector: #selector(autoUpdateCheck), userInfo: nil, repeats: true)
+        
+        
+        refreshActivity = NSBackgroundActivityScheduler(identifier: "com.ClashX.configupdate")
+        refreshActivity?.repeats = true
+        refreshActivity?.interval = 60 * 60 * 3 // Three hour
+        refreshActivity?.tolerance = 90
+
+        refreshActivity?.schedule() { [weak self] completionHandler in
+            self?.autoUpdateCheck()
+            completionHandler(NSBackgroundActivityScheduler.Result.finished)
+        }
     }
     
     
