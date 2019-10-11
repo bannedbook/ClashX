@@ -229,6 +229,7 @@ class SystemProxyManager: NSObject {
         let helperFileExists = FileManager.default.fileExists(atPath: "/Library/PrivilegedHelperTools/com.west2online.ClashX.ProxyConfigHelper")
         let timeout: TimeInterval = helperFileExists ? 8 : 2
         var installed = false
+        let time = Date()
         let semaphore = DispatchSemaphore(value: 0)
         helper.getVersion { installedHelperVersion in
             Logger.log("helper version \(installedHelperVersion ?? "") require version \(helperVersion)", level: .debug)
@@ -236,6 +237,8 @@ class SystemProxyManager: NSObject {
             semaphore.signal()
         }
         _ = semaphore.wait(timeout: DispatchTime.now()+timeout)
+        let interval = Date().timeIntervalSince(time)
+        Logger.log("check helper using time: \(interval)")
         return installed
     }
     

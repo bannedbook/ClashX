@@ -128,7 +128,6 @@
                             @"127.0.0.1",
                             @"localhost",
                             @"*.local",
-                            @"*.crashlytics.com"
                             ];
     return ignoreList;
 }
