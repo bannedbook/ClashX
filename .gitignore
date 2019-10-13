@@ -7,3 +7,4 @@ ClashX.app
 *.dmg
 **/xcuserdata/
 .idea
+*.pyc
