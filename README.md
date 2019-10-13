@@ -74,14 +74,4 @@ Checkout [Clash](https://github.com/Dreamacro/clash) or [SS-Rule-Snippet for Cla
   clash://install-config?url=http%3A%2F%2Fexample.com&name=example
   ```
 
-### Use own clash core.
-
-- Enable develop mode by command line
-  ```
-  defaults write com.west2online.ClashX kDeveloperMode -bool true
-  ```
-
-- Launch your own clash core before clashX started.
-
-
 

@@ -43,10 +43,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     @IBOutlet weak var socksPortMenuItem: NSMenuItem!
     @IBOutlet weak var apiPortMenuItem: NSMenuItem!
     @IBOutlet weak var remoteConfigAutoupdateMenuItem: NSMenuItem!
+    @IBOutlet weak var buildApiModeMenuitem: NSMenuItem!
     
     var disposeBag = DisposeBag()
     var statusItemView:StatusItemView!
-    
     var isSpeedTesting = false
 
     
@@ -60,6 +60,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         statusItemView = StatusItemView.create(statusItem: statusItem)
         statusItemView.frame = CGRect(x: 0, y: 0, width: statusItemLengthWithSpeed, height: 22)
         statusMenu.delegate = self
+        updateExperimentalFeatureStatus()
+        
         // crash recorder
         failLaunchProtect()
         registCrashLogger()
@@ -236,7 +238,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
         
         Logger.log("Trying start proxy")
-        let string = run(ConfigManager.developerMode.goObject())?.toString() ?? ""
+        let string = run(ConfigManager.builtInApiMode.goObject())?.toString() ?? ""
         let jsonData = string.data(using: .utf8) ?? Data()
         if let res = try? JSONDecoder().decode(StartProxyResp.self, from:jsonData) {
             let port = res.externalController.components(separatedBy: ":").last ?? "9090"
@@ -291,6 +293,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 }
             }
         }
+    }
+    
+    func updateExperimentalFeatureStatus() {
+        buildApiModeMenuitem.state = ConfigManager.builtInApiMode ? .on : .off
     }
 }
 
@@ -441,6 +447,18 @@ extension AppDelegate {
     @IBAction func actionUpdateRemoteConfig(_ sender: Any) {
         RemoteConfigManager.shared.updateCheck(ignoreTimeLimit: true, showNotification: true)
     }
+    
+    @IBAction func actionSetUseApiMode(_ sender: Any) {
+        let alert = NSAlert()
+        alert.informativeText = NSLocalizedString("Need to Restart the ClashX to Take effect, Please start clashX manually",comment: "")
+        alert.addButton(withTitle: NSLocalizedString("Apply and Quit",comment: ""))
+        alert.addButton(withTitle: NSLocalizedString("Cancel", comment: ""))
+        if alert.runModal() == .alertFirstButtonReturn {
+            ConfigManager.builtInApiMode = !ConfigManager.builtInApiMode
+            NSApp.terminate(nil)
+        }
+    }
+    
 }
 
 // MARK: crash hanlder

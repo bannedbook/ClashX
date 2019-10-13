@@ -144,7 +144,7 @@ class RemoteConfigManager {
     }
     
     
-    static func getRemoteConfigData(config: RemoteConfigModel, complete:@escaping ((Data?)->Void)) {
+    static func getRemoteConfigData(config: RemoteConfigModel, complete:@escaping ((String?)->Void)) {
         guard var urlRequest = try? URLRequest(url: config.url, method: .get) else {
             assertionFailure()
             Logger.log("[getRemoteConfigData] url incorrect,\(config.name) \(config.url)")
@@ -152,20 +152,21 @@ class RemoteConfigManager {
         }
         urlRequest.cachePolicy = .reloadIgnoringCacheData
 
-        AF.request(urlRequest).responseData { res in
+        AF.request(urlRequest).responseString { res in
             complete(try? res.result.get())
         }
     }
     
     static func updateConfig(config: RemoteConfigModel, complete:((String?)->())?=nil) {
-        getRemoteConfigData(config: config) { data in
-            guard let newData = data else {
+        getRemoteConfigData(config: config) { configString in
+            guard let newConfig = configString else {
                 complete?(NSLocalizedString("Download fail", comment: "") )
                 return
             }
-            guard let newConfigString = String(data: newData, encoding: .utf8),
-                verifyConfig(string: newConfigString) else {
-                complete?(NSLocalizedString("Remote Config Format Error", comment: ""))
+            
+            let verifyRes = verifyConfig(string: newConfig)
+            if let error = verifyRes {
+                complete?(NSLocalizedString("Remote Config Format Error", comment: "") + ": " + error)
                 return
             }
             let savePath = kConfigFolderPath.appending(config.name).appending(".yaml")
@@ -178,7 +179,7 @@ class RemoteConfigManager {
                 if FileManager.default.fileExists(atPath: savePath) {
                     try FileManager.default.removeItem(atPath: savePath)
                 }
-                try newData.write(to: URL(fileURLWithPath: savePath))
+                try newConfig.write(to:  URL(fileURLWithPath: savePath), atomically: true, encoding: .utf8)
                 complete?(nil)
             } catch let err {
                 complete?(err.localizedDescription)
@@ -187,13 +188,13 @@ class RemoteConfigManager {
         
     }
     
-    static func verifyConfig(string: String) -> Bool {
+    static func verifyConfig(string: String) -> ErrorString? {
         let res = verifyClashConfig(string.goStringBuffer())?.toString() ?? "unknown error"
         if res == "success" {
-            return true
+            return nil
         } else {
             Logger.log(res,level: .error)
-            return false
+            return res
         }
     }
 }

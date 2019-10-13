@@ -7,11 +7,8 @@
 //
 
 extension String {
-    func goStringBuffer() ->  UnsafeMutablePointer<Int8> {
-        let length = self.count + 1
-        let buffer = UnsafeMutablePointer<Int8>.allocate(capacity: length)
-        (self as NSString).getCString(buffer, maxLength: length, encoding: String.Encoding.utf8.rawValue)
-        return buffer
+    func goStringBuffer() -> UnsafeMutablePointer<Int8> {
+        return UnsafeMutablePointer<Int8>(mutating: withCString{$0})
     }
 }
 

@@ -69,7 +69,7 @@ class ApiRequest {
 
     static func requestConfig(completeHandler:@escaping ((ClashConfig)->())){
         
-        if ConfigManager.developerMode {
+        if !ConfigManager.builtInApiMode {
             req("/configs").responseData {
                 res in
                 do {
@@ -80,6 +80,7 @@ class ApiRequest {
                     completeHandler(config)
                 } catch let err {
                     Logger.log(err.localizedDescription)
+                    NSUserNotificationCenter.default.post(title: "Error", info: err.localizedDescription)
                 }
             }
             return
@@ -108,7 +109,7 @@ class ApiRequest {
         }
 
         // DEV MODE: Use API
-        if ConfigManager.developerMode {
+        if !ConfigManager.builtInApiMode {
             req("/configs", method: .put,parameters: ["Path":filePath],encoding: JSONEncoding.default).responseJSON {res in
                 if (res.response?.statusCode == 204) {
                     ConfigManager.shared.isRunning = true
@@ -144,7 +145,7 @@ class ApiRequest {
     }
     
     static func requestProxyGroupList(completeHandler:@escaping ((ClashProxyResp)->Void)) {
-        if ConfigManager.developerMode {
+        if !ConfigManager.builtInApiMode {
             req("/proxies").responseJSON{
                 res in
                 let proxies = ClashProxyResp(try? res.result.get())

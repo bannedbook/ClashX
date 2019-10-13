@@ -50,6 +50,9 @@
 /* Class = "NSMenuItem"; title = "Help"; ObjectID = "Dd9-2F-FVY"; */
 "Dd9-2F-FVY.title" = "帮助";
 
+/* Class = "NSMenuItem"; title = "SILENT"; ObjectID = "dVr-Xp-C0C"; */
+"dVr-Xp-C0C.title" = "SILENT";
+
 /* Class = "NSMenuItem"; title = "Open config Folder"; ObjectID = "DwE-WX-ETZ"; */
 "DwE-WX-ETZ.title" = "打开配置文件夹";
 
@@ -104,6 +107,9 @@
 /* Class = "NSMenu"; title = "Help"; ObjectID = "ogW-pn-jeR"; */
 "ogW-pn-jeR.title" = "帮助";
 
+/* Class = "NSMenuItem"; title = "Experimental"; ObjectID = "OLP-Uv-at6"; */
+"OLP-Uv-at6.title" = "试验性功能";
+
 /* Class = "NSMenuItem"; title = "Check Update"; ObjectID = "p0T-J8-Emx"; */
 "p0T-J8-Emx.title" = "检查更新";
 
@@ -115,6 +121,9 @@
 
 /* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "RCv-zz-HKW"; */
 "RCv-zz-HKW.title" = "Text Cell";
+
+/* Class = "NSMenu"; title = "Experimental"; ObjectID = "sbS-Fj-gxn"; */
+"sbS-Fj-gxn.title" = "试验性功能";
 
 /* Class = "NSMenu"; title = "Config"; ObjectID = "tck-zU-JKQ"; */
 "tck-zU-JKQ.title" = "配置";
@@ -137,6 +146,9 @@
 /* Class = "NSMenu"; title = "Log level"; ObjectID = "wqo-3T-4qO"; */
 "wqo-3T-4qO.title" = "日志等级";
 
+/* Class = "NSMenuItem"; title = "Use built in api"; ObjectID = "xG5-B4-mlw"; */
+"xG5-B4-mlw.title" = "使用内置接口";
+
 /* Class = "NSMenuItem"; title = "Dashboard"; ObjectID = "XG6-2M-PNi"; */
 "XG6-2M-PNi.title" = "控制台";
 
@@ -157,3 +169,6 @@
 
 /* Class = "NSMenuItem"; title = "Show network indicator"; ObjectID = "YIO-Vj-64f"; */
 "YIO-Vj-64f.title" = "显示实时速率";
+
+/* Class = "NSTextFieldCell"; title = "Core Version"; ObjectID = "zwo-q5-k5N"; */
+"zwo-q5-k5N.title" = "内核版本";

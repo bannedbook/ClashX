@@ -3,7 +3,7 @@
 "Add a remote config" = "添加托管配置文件";
 
 /* No comment provided by engineer. */
-"Can't recognize your config file. We will backup and replace your config file in your config folder.\n\nOtherwise the functions of ClashX will not work properly. You may need to restart ClashX or reload Config manually." = "无法识别您的配置文件，ClashX将备份并替换您的配置文件，否则ClashX将无法正常工作。您可能需要重启或者重载配置文件";
+"Apply and Quit" = "应用并退出";
 
 /* No comment provided by engineer. */
 "Cancel" = "取消";
@@ -31,6 +31,9 @@
 
 /* No comment provided by engineer. */
 "Install" = "安装";
+
+/* No comment provided by engineer. */
+"Need to Restart the ClashX to Take effect, Please start clashX manually" = "需要重启ClashX生效，请手动启动ClashX";
 
 /* No comment provided by engineer. */
 "Never" = "从未";
@@ -64,9 +67,6 @@
 
 /* No comment provided by engineer. */
 "Remote Config Vaild Fail" = "托管配置文件格式校验失败";
-
-/* No comment provided by engineer. */
-"Replace" = "替换";
 
 /* No comment provided by engineer. */
 "Rule" = "规则";

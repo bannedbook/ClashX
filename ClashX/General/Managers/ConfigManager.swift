@@ -129,7 +129,11 @@ class ConfigManager {
         }
     }
     
-    static var developerMode = UserDefaults.standard.bool(forKey: "kDeveloperMode")
+    static var builtInApiMode = (UserDefaults.standard.object(forKey: "kBuiltInApiMode") as? Bool) ?? true {
+        didSet {
+            UserDefaults.standard.set(builtInApiMode, forKey: "kBuiltInApiMode")
+        }
+    }
     
 }
 
