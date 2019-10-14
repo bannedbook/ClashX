@@ -3,6 +3,7 @@ import (
 	"C"
 	"encoding/json"
 	"github.com/Dreamacro/clash/config"
+	"github.com/Dreamacro/clash/constant"
 	"github.com/Dreamacro/clash/hub/executor"
 	"github.com/Dreamacro/clash/hub/route"
 	T "github.com/Dreamacro/clash/tunnel"
@@ -10,6 +11,7 @@ import (
 	"io/ioutil"
 	"net"
 	"os"
+	"path/filepath"
 	"strconv"
 	"strings"
 )
@@ -48,6 +50,9 @@ func checkPortAvailable(port int, lan bool) bool{
 
 
 func parseConfig(checkPort bool) (*config.Config, error) {
+	configFile := filepath.Join(constant.Path.HomeDir(), constant.Path.Config())
+	constant.SetConfig(configFile)
+
 	cfg, err := executor.Parse()
 	if err != nil {
 		return nil, err
@@ -110,8 +115,8 @@ func verifyClashConfig(content *C.char) *C.char {
 
 
 //export run
-func run(developerMode bool) *C.char {
-	cfg,err := parseConfig(!developerMode)
+func run(checkConfig bool) *C.char {
+	cfg,err := parseConfig(checkConfig)
 	if err != nil {
 		return C.CString(err.Error())
 	}
