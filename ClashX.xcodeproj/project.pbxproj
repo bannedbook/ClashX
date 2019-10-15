@@ -52,6 +52,7 @@
 		49CF3B2820CD7465001EBF94 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 49CF3B2620CD7465001EBF94 /* Main.storyboard */; };
 		49CF3B5C20CE8068001EBF94 /* ClashResourceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49CF3B5B20CE8068001EBF94 /* ClashResourceManager.swift */; };
 		49CF3B6520CEE06C001EBF94 /* ConfigManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49CF3B6420CEE06C001EBF94 /* ConfigManager.swift */; };
+		49D176A72355FE680093DD7B /* NetworkChangeNotifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49D176A62355FE680093DD7B /* NetworkChangeNotifier.swift */; };
 		F935B2F02307C52E009E4D33 /* com.west2online.ClashX.ProxyConfigHelper in Copy Files */ = {isa = PBXBuildFile; fileRef = F9A7C0692306E874007163C7 /* com.west2online.ClashX.ProxyConfigHelper */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		F935B2F42307CD32009E4D33 /* ProxyConfigHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = F935B2F32307CD32009E4D33 /* ProxyConfigHelper.m */; };
 		F935B2FA23083EE6009E4D33 /* ProxySettingTool.m in Sources */ = {isa = PBXBuildFile; fileRef = F935B2F923083EE6009E4D33 /* ProxySettingTool.m */; };
@@ -178,6 +179,7 @@
 		49CF3B3520CD75DF001EBF94 /* ClashX-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ClashX-Bridging-Header.h"; sourceTree = "<group>"; };
 		49CF3B5B20CE8068001EBF94 /* ClashResourceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClashResourceManager.swift; sourceTree = "<group>"; };
 		49CF3B6420CEE06C001EBF94 /* ConfigManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigManager.swift; sourceTree = "<group>"; };
+		49D176A62355FE680093DD7B /* NetworkChangeNotifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkChangeNotifier.swift; sourceTree = "<group>"; };
 		49E07A8A20D501A000A088A3 /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		5217C006C5A22A1CEA24BFC1 /* Pods-ClashX.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ClashX.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ClashX/Pods-ClashX.debug.xcconfig"; sourceTree = "<group>"; };
 		A1485BCE642059532D01B8BA /* Pods-ClashX.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ClashX.release.xcconfig"; path = "Pods/Target Support Files/Pods-ClashX/Pods-ClashX.release.xcconfig"; sourceTree = "<group>"; };
@@ -246,6 +248,7 @@
 			children = (
 				4960A6DA2136529200B940C9 /* JSBridgeHandler.swift */,
 				493AEAE2221AE3420016FE98 /* AppVersionUtil.swift */,
+				49D176A62355FE680093DD7B /* NetworkChangeNotifier.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -670,6 +673,7 @@
 				49CF3B2120CD7463001EBF94 /* AppDelegate.swift in Sources */,
 				496BDEE021196F1E00C5207F /* Logger.swift in Sources */,
 				49722FEF211F338B00650A41 /* FileEvent.swift in Sources */,
+				49D176A72355FE680093DD7B /* NetworkChangeNotifier.swift in Sources */,
 				4913C82321157D0200F6B87C /* Notification.swift in Sources */,
 				499A485C22ED793C00F6C675 /* NSView+Nib.swift in Sources */,
 				492C4871210EF62E004554A0 /* ClashConfig.swift in Sources */,

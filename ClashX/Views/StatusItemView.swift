@@ -21,7 +21,11 @@ class StatusItemView: NSView {
     var updating = false
     
     weak var statusItem:NSStatusItem?
-    var disposeBag = DisposeBag()
+    
+    lazy var menuImage: NSImage = {
+        let customImagePath = (NSHomeDirectory() as NSString).appendingPathComponent("/.config/clash/menuImage.png")
+        return NSImage(contentsOfFile: customImagePath) ?? NSImage(named: "menu_icon")!
+    }()
     
     
     static func create(statusItem:NSStatusItem?)->StatusItemView{
@@ -36,39 +40,27 @@ class StatusItemView: NSView {
     }
     
     func setupView() {
-        let proxySetObservable = ConfigManager.shared.proxyPortAutoSetObservable.map { $0 as AnyObject }
-        proxySetObservable
-            .bind { [weak self] _ in
-                guard let self = self else {return}
-                let enableProxy = ConfigManager.shared.proxyPortAutoSet;
-                
-                let customImagePath = (NSHomeDirectory() as NSString).appendingPathComponent("/.config/clash/menuImage.png")
-                
-                let selectedColor = NSColor.red
-                let unselectedColor: NSColor
-                if #available(OSX 10.14, *) {
-                    unselectedColor = selectedColor.withSystemEffect(.disabled)
-                } else {
-                    unselectedColor = selectedColor.withAlphaComponent(0.5)
-                }
-                
-                let image = NSImage(contentsOfFile: customImagePath) ??
-                    NSImage(named: "menu_icon")!.tint(color: enableProxy ? selectedColor : unselectedColor)
-                
-                self.imageView.image = image
-                
-                self.uploadSpeedLabel.textColor = NSColor.black
-                self.downloadSpeedLabel.textColor = self.uploadSpeedLabel.textColor
-                
-                self.updateStatusItemView()
-        }.disposed(by: disposeBag)
-        
         if #available(OSX 10.11, *) {
             let font = NSFont.systemFont(ofSize: 9, weight: .regular)
             uploadSpeedLabel.font = font
             downloadSpeedLabel.font = font
         }
         
+    }
+    
+    func updateViewStatus(enableProxy: Bool) {
+       let selectedColor = NSColor.red
+       let unselectedColor: NSColor
+       if #available(OSX 10.14, *) {
+           unselectedColor = selectedColor.withSystemEffect(.disabled)
+       } else {
+           unselectedColor = selectedColor.withAlphaComponent(0.5)
+       }
+       
+       imageView.image = menuImage.tint(color: enableProxy ? selectedColor : unselectedColor)
+       uploadSpeedLabel.textColor = NSColor.black
+       downloadSpeedLabel.textColor = uploadSpeedLabel.textColor
+       updateStatusItemView()
     }
     
     func updateSpeedLabel(up:Int,down:Int) {

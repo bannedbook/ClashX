@@ -52,7 +52,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     func applicationDidFinishLaunching(_ notification: Notification) {
         signal(SIGPIPE, SIG_IGN)
-                
+        
+        checkOnlyOneClashX()
+        
         // setup menu item first
         statusItem = NSStatusBar.system.statusItem(withLength:statusItemLengthWithSpeed)
         statusItem.menu = statusMenu
@@ -88,6 +90,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                              andSelector: #selector(handleURL(event:reply:)),
                              forEventClass: AEEventClass(kInternetEventClass),
                              andEventID: AEEventID(kAEGetURL))
+        
+        setupNetworkNotifier()
+        
     }
 
 
@@ -122,15 +127,21 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 self.statusItemView.updateStatusItemView()
             }.disposed(by: disposeBag)
         
-        ConfigManager.shared
-            .proxyPortAutoSetObservable
-            .distinctUntilChanged()
-            .bind{ [weak self]
-                en in
+        Observable
+            .merge([ConfigManager.shared.proxyPortAutoSetObservable,
+                    ConfigManager.shared.isProxySetByOtherVariable.asObservable()])
+            .map { _ -> NSControl.StateValue in
+                if ConfigManager.shared.isProxySetByOtherVariable.value && ConfigManager.shared.proxyPortAutoSet{
+                    return .mixed
+                }
+                return ConfigManager.shared.proxyPortAutoSet ? .on : .off
+        }.distinctUntilChanged()
+            .bind { [weak self] status in
                 guard let self = self else {return}
-                let enable = en ?? false
-                self.proxySettingMenuItem.state = enable ? .on : .off
-            }.disposed(by: disposeBag)
+                self.proxySettingMenuItem.state = status
+                self.statusItemView.updateViewStatus(enableProxy: status == .on)
+        }.disposed(by: disposeBag)
+        
         
         let configObservable = ConfigManager.shared
             .currentConfigVariable
@@ -181,8 +192,33 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 guard let self = self else {return}
                 self.autoStartMenuItem.state = enable ? .on : .off
             }).disposed(by: disposeBag)
+    }
+    
+    func checkOnlyOneClashX() {
+        if NSRunningApplication.runningApplications(withBundleIdentifier: Bundle.main.bundleIdentifier ?? "").count > 1 {
+            assertionFailure()
+            NSApp.terminate(nil)
+        }
+    }
+    
+    func setupNetworkNotifier() {
+        DispatchQueue.global().asyncAfter(deadline: .now() + 0.5) {
+            NetworkChangeNotifier.start()
+        }
         
-  
+        NotificationCenter
+            .default
+            .rx
+            .notification(kSystemNetworkStatusDidChange)
+            .observeOn(MainScheduler.instance)
+            .bind{ _ in
+                guard let (http,https,socks) = NetworkChangeNotifier.currentSystemProxySetting(),
+                    let currentPort = ConfigManager.shared.currentConfig?.port,
+                    let currentSocks = ConfigManager.shared.currentConfig?.socketPort else {return}
+                
+                let proxySetted = http == currentPort && https == currentPort && socks == currentSocks
+                ConfigManager.shared.isProxySetByOtherVariable.accept(!proxySetted)
+        }.disposed(by: disposeBag)
     }
 
     
@@ -345,7 +381,11 @@ extension AppDelegate {
     }
     
     @IBAction func actionSetSystemProxy(_ sender: Any) {
-        ConfigManager.shared.proxyPortAutoSet = !ConfigManager.shared.proxyPortAutoSet
+        if ConfigManager.shared.isProxySetByOtherVariable.value && ConfigManager.shared.proxyPortAutoSet {
+            // should reset proxy to clashx
+        } else {
+            ConfigManager.shared.proxyPortAutoSet = !ConfigManager.shared.proxyPortAutoSet
+        }
         let port = ConfigManager.shared.currentConfig?.port ?? 0
         let socketPort = ConfigManager.shared.currentConfig?.socketPort ?? 0
         
@@ -355,7 +395,6 @@ extension AppDelegate {
         } else {
             SystemProxyManager.shared.disableProxy(port: port, socksPort: socketPort)
         }
-        
     }
     
     @IBAction func actionCopyExportCommand(_ sender: Any) {

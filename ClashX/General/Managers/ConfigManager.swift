@@ -71,7 +71,9 @@ class ConfigManager {
             UserDefaults.standard.set(newValue, forKey: "proxyPortAutoSet")
         }
     }
-    let proxyPortAutoSetObservable = UserDefaults.standard.rx.observe(Bool.self, "proxyPortAutoSet")
+    let proxyPortAutoSetObservable = UserDefaults.standard.rx.observe(Bool.self, "proxyPortAutoSet").map({$0 ?? false})
+    
+    var isProxySetByOtherVariable = BehaviorRelay<Bool>(value: false)
     
     var showNetSpeedIndicator:Bool {
         get{
