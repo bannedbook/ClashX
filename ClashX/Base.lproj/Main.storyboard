@@ -306,16 +306,6 @@
                                             <action selector="actionUpdateConfig:" target="Voe-Tx-rLC" id="oW5-Ll-SY8"/>
                                         </connections>
                                     </menuItem>
-                                    <menuItem title="Show current proxy in menu" id="j9o-36-NTd">
-                                        <modifierMask key="keyEquivalentModifierMask"/>
-                                        <connections>
-                                            <binding destination="dwS-am-r7H" name="value" keyPath="values.kSDisableShowCurrentProxyInMenu" id="MoG-1X-cvu">
-                                                <dictionary key="options">
-                                                    <string key="NSValueTransformerName">NSNegateBoolean</string>
-                                                </dictionary>
-                                            </binding>
-                                        </connections>
-                                    </menuItem>
                                     <menuItem title="Log level" id="3Da-fL-Mzr">
                                         <modifierMask key="keyEquivalentModifierMask"/>
                                         <menu key="submenu" title="Log level" id="wqo-3T-4qO">
@@ -357,6 +347,16 @@
                                         <modifierMask key="keyEquivalentModifierMask"/>
                                         <menu key="submenu" title="Experimental" id="sbS-Fj-gxn">
                                             <items>
+                                                <menuItem title="Show current proxy in menu" id="j9o-36-NTd">
+                                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                                    <connections>
+                                                        <binding destination="dwS-am-r7H" name="value" keyPath="values.kSDisableShowCurrentProxyInMenu" id="MoG-1X-cvu">
+                                                            <dictionary key="options">
+                                                                <string key="NSValueTransformerName">NSNegateBoolean</string>
+                                                            </dictionary>
+                                                        </binding>
+                                                    </connections>
+                                                </menuItem>
                                                 <menuItem title="Use built in api" id="xG5-B4-mlw">
                                                     <modifierMask key="keyEquivalentModifierMask"/>
                                                     <connections>
@@ -588,7 +588,7 @@
                                             <tableColumns>
                                                 <tableColumn identifier="url" editable="NO" width="176" minWidth="40" maxWidth="1000" id="C79-J5-30z">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Url">
-                                                        <font key="font" metaFont="menu" size="11"/>
+                                                        <font key="font" metaFont="controlContent" size="11"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                                     </tableHeaderCell>
@@ -628,7 +628,7 @@
                                                 </tableColumn>
                                                 <tableColumn identifier="configName" width="86" minWidth="40" maxWidth="1000" id="lRE-Xa-euB">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Config Name">
-                                                        <font key="font" metaFont="menu" size="11"/>
+                                                        <font key="font" metaFont="controlContent" size="11"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                                     </tableHeaderCell>
@@ -668,7 +668,7 @@
                                                 </tableColumn>
                                                 <tableColumn identifier="updateTime" width="95" minWidth="40" maxWidth="1000" id="xoc-hs-9qa">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Update Time">
-                                                        <font key="font" metaFont="menu" size="11"/>
+                                                        <font key="font" metaFont="controlContent" size="11"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                                     </tableHeaderCell>

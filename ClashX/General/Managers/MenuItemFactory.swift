@@ -41,16 +41,6 @@ class MenuItemFactory {
         }
     }
     
-    static func proxygroupTitle(name:String,now:String) -> NSAttributedString? {
-        if ConfigManager.shared.disableShowCurrentProxyInMenu {
-            return nil
-        }
-        let str = "\(name)    \(now)"
-        let attributed = NSMutableAttributedString(string: str)
-        let nowAttr = [NSAttributedString.Key.foregroundColor:NSColor.gray]
-        attributed.setAttributes(nowAttr, range: NSRange(name.utf16.count+1 ..< str.utf16.count))
-        return attributed
-    }
     
     static func generateSelectorMenuItem(proxyGroup:ClashProxy,
                                          proxyInfo:ClashProxyResp) -> NSMenuItem? {
@@ -65,7 +55,9 @@ class MenuItemFactory {
         
         let menu = NSMenuItem(title: proxyGroup.name, action: nil, keyEquivalent: "")
         let selectedName = proxyGroup.now ?? ""
-        menu.attributedTitle = proxygroupTitle(name: proxyGroup.name, now: selectedName)
+        if !ConfigManager.shared.disableShowCurrentProxyInMenu {
+            menu.view = ProxyGroupMenuItemView(group: proxyGroup.name, targetProxy: selectedName)
+        }
         let submenu = NSMenu(title: proxyGroup.name)
         var hasSelected = false
         
@@ -84,9 +76,13 @@ class MenuItemFactory {
             submenu.addItem(proxyItem)
         }
         
-        menu.submenu = submenu
         if (!hasSelected && submenu.items.count>0) {
             self.actionSelectProxy(sender: submenu.items[0] as! ProxyMenuItem)
+        }
+        addSpeedTestMenuItem(submenu, proxyGroup: proxyGroup)
+        menu.submenu = submenu
+        if !ConfigManager.shared.disableShowCurrentProxyInMenu {
+            menu.view = ProxyGroupMenuItemView(group: proxyGroup.name, targetProxy: selectedName)
         }
         return menu
     }
@@ -97,8 +93,9 @@ class MenuItemFactory {
         let proxyMap = proxyInfo.proxiesMap
         let selectedName = proxyGroup.now ?? ""
         let menu = NSMenuItem(title: proxyGroup.name, action: nil, keyEquivalent: "")
-        menu.attributedTitle = proxygroupTitle(name: proxyGroup.name, now: selectedName)
-        
+        if !ConfigManager.shared.disableShowCurrentProxyInMenu {
+            menu.view = ProxyGroupMenuItemView(group: proxyGroup.name, targetProxy: selectedName)
+        }
         let submenu = NSMenu(title: proxyGroup.name)
 
         let nowMenuItem = NSMenuItem(title: "now:\(selectedName)", action: #selector(empty), keyEquivalent: "")
@@ -127,6 +124,13 @@ class MenuItemFactory {
         }
         menu.submenu = submenu
         return menu
+    }
+    
+    static func addSpeedTestMenuItem(_ menus: NSMenu, proxyGroup: ClashProxy) {
+        menus.addItem(NSMenuItem.separator())
+        let speedTestItem = ProxyGroupSpeedTestMenuItem(group: proxyGroup, selector: #selector(actionSpeedTestGroup(sender:)))
+        speedTestItem.target = MenuItemFactory.self
+        menus.addItem(speedTestItem)
     }
     
     static func generateHistoryMenu(_ proxy:ClashProxy) -> NSMenu? {
@@ -197,6 +201,20 @@ extension MenuItemFactory {
         NotificationCenter.default.post(name: kShouldUpDateConfig,
                                         object: nil,
                                         userInfo: ["notification": false])
+    }
+    
+    @objc static func actionSpeedTestGroup(sender: ProxyGroupSpeedTestMenuItem) {
+        let testGroup = DispatchGroup()
+        
+        for proxyName in sender.proxyGroup.all ?? [] {
+            testGroup.enter()
+            ApiRequest.getProxyDelay(proxyName: proxyName) { delay in
+                testGroup.leave()
+            }
+        }
+        testGroup.notify(queue: DispatchQueue.main, execute: {
+            NSUserNotificationCenter.default.postSpeedTestFinishNotice()
+        })
     }
     
     @objc static func empty(){}

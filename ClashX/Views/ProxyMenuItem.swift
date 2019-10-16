@@ -33,8 +33,7 @@ class ProxyMenuItem:NSMenuItem {
             let delayAttr = [NSAttributedString.Key.font:NSFont.menuFont(ofSize: 12)]
             attributed.addAttributes(delayAttr, range: NSRange(proxy.name.utf16.count+1 ..< str.utf16.count))
             self.attributedTitle = attributed
-        }
-        
+        }        
         
     }
     
@@ -47,8 +46,5 @@ class ProxyMenuItem:NSMenuItem {
             self.state = isSelected ? .on : .off
         }
     }
-    
-    
-
 }
 
