@@ -38,8 +38,8 @@
 /* Class = "NSTableColumn"; headerCell.title = "Url"; ObjectID = "C79-J5-30z"; */
 "C79-J5-30z.headerCell.title" = "链接";
 
-/* Class = "NSMenuItem"; title = "SpeedTest"; ObjectID = "COu-UX-bww"; */
-"COu-UX-bww.title" = "测速";
+/* Class = "NSMenuItem"; title = "Benchmark"; ObjectID = "COu-UX-bww"; */
+"COu-UX-bww.title" = "延迟测速";
 
 /* Class = "NSMenuItem"; title = "INFO"; ObjectID = "d8V-h0-0zF"; */
 "d8V-h0-0zF.title" = "INFO";
@@ -121,6 +121,9 @@
 
 /* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "RCv-zz-HKW"; */
 "RCv-zz-HKW.title" = "Text Cell";
+
+/* Class = "NSMenuItem"; title = "Set benchmark url"; ObjectID = "rls-O1-mpQ"; */
+"rls-O1-mpQ.title" = "设置延迟测速链接";
 
 /* Class = "NSMenu"; title = "Experimental"; ObjectID = "sbS-Fj-gxn"; */
 "sbS-Fj-gxn.title" = "试验性功能";

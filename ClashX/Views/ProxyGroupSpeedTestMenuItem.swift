@@ -33,7 +33,7 @@ fileprivate class ProxyGroupSpeedTestMenuItemView: NSView {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.leftAnchor.constraint(equalTo: leftAnchor, constant: 20).isActive = true
         label.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-        label.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
+        label.rightAnchor.constraint(equalTo: rightAnchor, constant: -20).isActive = true
     }
     
     required init?(coder: NSCoder) {

@@ -41,18 +41,18 @@ extension NSUserNotificationCenter {
     
     
     func postSpeedTestBeginNotice() {
-        self.post(title: NSLocalizedString("SpeedTest", comment: ""),
-                  info: NSLocalizedString("SpeedTest has begun, please wait.", comment: ""))
+        self.post(title: NSLocalizedString("Benchmark", comment: ""),
+                  info: NSLocalizedString("Benchmark has begun, please wait.", comment: ""))
     }
     
     func postSpeedTestingNotice() {
-        self.post(title: NSLocalizedString("SpeedTest", comment: ""),
-                  info: NSLocalizedString("SpeedTest is processing, please wait.", comment: ""))
+        self.post(title: NSLocalizedString("Benchmark", comment: ""),
+                  info: NSLocalizedString("Benchmark is processing, please wait.", comment: ""))
     }
     
     func postSpeedTestFinishNotice() {
-        self.post(title: NSLocalizedString("SpeedTest", comment: ""),
-                  info: NSLocalizedString("SpeedTest Finished!", comment: ""))
+        self.post(title: NSLocalizedString("Benchmark", comment: ""),
+                  info: NSLocalizedString("Benchmark Finished!", comment: ""))
     }
 }
 

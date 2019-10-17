@@ -6,6 +6,18 @@
 "Apply and Quit" = "Apply and Quit";
 
 /* No comment provided by engineer. */
+"Benchmark" = "Benchmark";
+
+/* No comment provided by engineer. */
+"Benchmark Finished!" = "Benchmark Finished!";
+
+/* No comment provided by engineer. */
+"Benchmark has begun, please wait." = "Benchmark has begun, please wait.";
+
+/* No comment provided by engineer. */
+"Benchmark is processing, please wait." = "Benchmark is processing, please wait.";
+
+/* No comment provided by engineer. */
 "Cancel" = "Cancel";
 
 /* No comment provided by engineer. */
@@ -72,18 +84,6 @@
 "Rule" = "Rule";
 
 /* No comment provided by engineer. */
-"SpeedTest" = "SpeedTest";
-
-/* No comment provided by engineer. */
-"SpeedTest Finished!" = "SpeedTest Finished!";
-
-/* No comment provided by engineer. */
-"SpeedTest has begun, please wait." = "SpeedTest has begun, please wait.";
-
-/* No comment provided by engineer. */
-"SpeedTest is processing, please wait." = "SpeedTest is processing, please wait.";
-
-/* No comment provided by engineer. */
 "Succeed!" = "Succeed!";
 
 /* No comment provided by engineer. */
@@ -97,6 +97,9 @@
 
 /* No comment provided by engineer. */
 "Updating" = "Updating";
+
+/* No comment provided by engineer. */
+"URL is not valid" = "URL is not valid";
 
 /* No comment provided by engineer. */
 "Use reload config to try reconnect." = "Use reload config to try reconnect.";

@@ -6,6 +6,18 @@
 "Apply and Quit" = "应用并退出";
 
 /* No comment provided by engineer. */
+"Benchmark" = "延迟测速";
+
+/* No comment provided by engineer. */
+"Benchmark Finished!" = "延迟测速完成";
+
+/* No comment provided by engineer. */
+"Benchmark has begun, please wait." = "延迟测速开始，请稍后";
+
+/* No comment provided by engineer. */
+"Benchmark is processing, please wait." = "延迟测速正在进行中，请稍后。";
+
+/* No comment provided by engineer. */
 "Cancel" = "取消";
 
 /* No comment provided by engineer. */
@@ -72,18 +84,6 @@
 "Rule" = "规则";
 
 /* No comment provided by engineer. */
-"SpeedTest" = "测速";
-
-/* No comment provided by engineer. */
-"SpeedTest Finished!" = "测速完成!";
-
-/* No comment provided by engineer. */
-"SpeedTest has begun, please wait." = "测速开始,请稍候。";
-
-/* No comment provided by engineer. */
-"SpeedTest is processing, please wait." = "测速正在进行中,请稍候。";
-
-/* No comment provided by engineer. */
 "Succeed!" = "成功！";
 
 /* No comment provided by engineer. */
@@ -97,6 +97,9 @@
 
 /* No comment provided by engineer. */
 "Updating" = "更新中";
+
+/* No comment provided by engineer. */
+"URL is not valid" = "链接不合法";
 
 /* No comment provided by engineer. */
 "Use reload config to try reconnect." = "使用重载配置文件按钮尝试重新连接";

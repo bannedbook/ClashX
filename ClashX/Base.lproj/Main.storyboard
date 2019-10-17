@@ -253,7 +253,7 @@
                             </connections>
                         </menuItem>
                         <menuItem isSeparatorItem="YES" id="HZ7-Hd-kA2"/>
-                        <menuItem title="SpeedTest" keyEquivalent="t" id="COu-UX-bww">
+                        <menuItem title="Benchmark" keyEquivalent="t" id="COu-UX-bww">
                             <connections>
                                 <action selector="actionSpeedTest:" target="Voe-Tx-rLC" id="wQV-1R-Ym6"/>
                             </connections>
