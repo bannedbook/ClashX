@@ -128,8 +128,9 @@ class MenuItemFactory {
     
     static func addSpeedTestMenuItem(_ menus: NSMenu, proxyGroup: ClashProxy) {
         menus.addItem(NSMenuItem.separator())
-        let speedTestItem = ProxyGroupSpeedTestMenuItem(group: proxyGroup, selector: #selector(actionSpeedTestGroup(sender:)))
+        let speedTestItem = ProxyGroupSpeedTestMenuItem(group: proxyGroup)
         speedTestItem.target = MenuItemFactory.self
+        speedTestItem.action = #selector(empty)
         menus.addItem(speedTestItem)
     }
     
@@ -201,20 +202,6 @@ extension MenuItemFactory {
         NotificationCenter.default.post(name: kShouldUpDateConfig,
                                         object: nil,
                                         userInfo: ["notification": false])
-    }
-    
-    @objc static func actionSpeedTestGroup(sender: ProxyGroupSpeedTestMenuItem) {
-        let testGroup = DispatchGroup()
-        
-        for proxyName in sender.proxyGroup.all ?? [] {
-            testGroup.enter()
-            ApiRequest.getProxyDelay(proxyName: proxyName) { delay in
-                testGroup.leave()
-            }
-        }
-        testGroup.notify(queue: DispatchQueue.main, execute: {
-            NSUserNotificationCenter.default.postSpeedTestFinishNotice()
-        })
     }
     
     @objc static func empty(){}

@@ -24,6 +24,9 @@ typealias ErrorString = String
 
 class ApiRequest {
     static let shared = ApiRequest()
+    
+    private var proxyRespCache: ClashProxyResp? = nil
+    
     private init(){
         let configuration = URLSessionConfiguration.default
         configuration.timeoutIntervalForRequest = 604800
@@ -149,13 +152,16 @@ class ApiRequest {
             req("/proxies").responseJSON{
                 res in
                 let proxies = ClashProxyResp(try? res.result.get())
+                ApiRequest.shared.proxyRespCache = proxies
                 completeHandler(proxies)
             }
             return
         }
         
         let json = JSON(parseJSON: clashGetProxies()?.toString() ?? "")
-        completeHandler(ClashProxyResp(json.object))
+        let proxies = ClashProxyResp(json.object)
+        completeHandler(proxies)
+        ApiRequest.shared.proxyRespCache = proxies
     }
     
     static func updateAllowLan(allow:Bool,completeHandler:@escaping (()->())) {

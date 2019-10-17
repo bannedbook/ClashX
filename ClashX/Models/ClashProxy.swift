@@ -20,6 +20,22 @@ enum ClashProxyType:String,Codable {
     case http = "Http"
     case vmess = "Vmess"
     case unknow = "Unknow"
+    
+    static let proxyGroups:[ClashProxyType] = [.select,.urltest,.fallback,.loadBalance]
+    
+    static func isProxyGroup(_ proxy: ClashProxy) -> Bool{
+        switch proxy.type {
+        case .select,.urltest,.fallback,.loadBalance: return true
+        default: return false
+        }
+    }
+    
+    static func isBuiltInProxy(_ proxy: ClashProxy) -> Bool{
+        switch proxy.name {
+        case "DIRECT","REJECT": return true
+        default: return false
+        }
+    }
 }
 
 typealias ClashProxyName = String
@@ -57,6 +73,18 @@ class ClashProxy:Codable {
     let all:[ClashProxyName]?
     let history:[ClashProxySpeedHistory]
     let now:ClashProxyName?
+    weak var enclosingResp: ClashProxyResp? = nil
+    
+    lazy var speedtestAble:[ClashProxyName] = {
+        guard let resp = enclosingResp, let allProxys = all else {return all ?? []}
+        var proxys = [ClashProxyName]()
+        for proxy in allProxys {
+            if let p = resp.proxiesMap[proxy], !ClashProxyType.isProxyGroup(p), !ClashProxyType.isBuiltInProxy(p) {
+                proxys.append(proxy)
+            }
+        }
+        return proxys
+    }()
 
     private enum CodingKeys : String, CodingKey {
         case type,all,history,now
@@ -80,7 +108,7 @@ class ClashProxyResp{
     
     let proxies:[ClashProxy]
     let proxiesMap:[ClashProxyName:ClashProxy]
-    
+
     init(_ data:Any?) {
         guard
             let data = data as? [String:[String:Any]],
@@ -113,6 +141,10 @@ class ClashProxyResp{
         }
         self.proxiesMap = proxiesMap
         self.proxies = proxiesModel
+        
+        for proxy in self.proxies  {
+            proxy.enclosingResp = self
+        }
     }
     
     lazy var proxiesSortMap : [ClashProxyName:Int] = {
@@ -125,10 +157,7 @@ class ClashProxyResp{
     
     lazy var proxyGroups:[ClashProxy] = {
         return proxies.filter{
-            switch $0.type {
-            case .select,.urltest,.fallback,.loadBalance:return true
-            default:return false
-            }
+            ClashProxyType.isProxyGroup($0)
             }.sorted(by: {proxiesSortMap[$0.name] ?? -1  < proxiesSortMap[$1.name] ?? -1 })
     }()
     
