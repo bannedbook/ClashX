@@ -207,7 +207,7 @@ class RemoteConfigAddView: NSView, NibLoadable {
     }
     
     func isVaild() -> Bool {
-        return isUrlVaild() && getConfigName().count > 0
+        return urlTextField.stringValue.isUrlVaild() && getConfigName().count > 0
     }
     
     func setUrl(string: String, name: String?) {
@@ -219,24 +219,12 @@ class RemoteConfigAddView: NSView, NibLoadable {
         }
     }
     
-    private func isUrlVaild() -> Bool {
-        let urlString = urlTextField.stringValue
-        guard let url = URL(string: urlString) else {return false}
-        
-        guard url.host != nil,
-            let scheme = url.scheme else {
-            return false
-        }
-        return ["http","https"].contains(scheme)
-    }
-    
     private func updateConfigName() {
-        guard isUrlVaild() else {return}
+        guard urlTextField.stringValue.isUrlVaild() else {return}
         let urlString = urlTextField.stringValue
         configNameTextField.placeholderString = URL(string: urlString)?.host ?? "unknown"
     }
     
-
 }
 
 extension RemoteConfigAddView: NSTextFieldDelegate {

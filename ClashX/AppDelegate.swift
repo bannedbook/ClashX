@@ -498,6 +498,27 @@ extension AppDelegate {
         }
     }
     
+    @IBAction func actionSetBenchmarkUrl(_ sender: Any) {
+        let alert = NSAlert()
+        let textfiled = NSTextField(frame: NSRect(x: 0, y: 0, width: 300, height: 20))
+        textfiled.stringValue = ConfigManager.shared.benchMarkUrl
+        alert.messageText = NSLocalizedString("Benchmark", comment: "")
+        alert.accessoryView = textfiled
+        alert.addButton(withTitle: NSLocalizedString("OK", comment: ""))
+        alert.addButton(withTitle: NSLocalizedString("Cancel", comment: ""))
+
+        if alert.runModal() == .alertFirstButtonReturn {
+            if textfiled.stringValue.isUrlVaild() {
+                ConfigManager.shared.benchMarkUrl = textfiled.stringValue
+            } else {
+                let err = NSAlert()
+                err.messageText = NSLocalizedString("URL is not valid", comment: "")
+                err.runModal()
+            }
+        }
+    }
+     
+    
 }
 
 // MARK: crash hanlder

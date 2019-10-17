@@ -19,7 +19,8 @@ enum ClashProxyType:String,Codable {
     case socks5 = "Socks5"
     case http = "Http"
     case vmess = "Vmess"
-    case unknow = "Unknow"
+    case snell = "Snell"
+    case unknown = "Unknown"
     
     static let proxyGroups:[ClashProxyType] = [.select,.urltest,.fallback,.loadBalance]
     
@@ -79,7 +80,7 @@ class ClashProxy:Codable {
         guard let resp = enclosingResp, let allProxys = all else {return all ?? []}
         var proxys = [ClashProxyName]()
         for proxy in allProxys {
-            if let p = resp.proxiesMap[proxy], !ClashProxyType.isProxyGroup(p), !ClashProxyType.isBuiltInProxy(p) {
+            if let p = resp.proxiesMap[proxy], !ClashProxyType.isProxyGroup(p) {
                 proxys.append(proxy)
             }
         }

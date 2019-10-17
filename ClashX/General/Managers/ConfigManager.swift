@@ -85,6 +85,12 @@ class ConfigManager {
     }
     let showNetSpeedIndicatorObservable = UserDefaults.standard.rx.observe(Bool.self, "showNetSpeedIndicator")
     
+    var benchMarkUrl: String = UserDefaults.standard.string(forKey: "benchMarkUrl") ?? "http://www.gstatic.com/generate_204" {
+        didSet {
+            UserDefaults.standard.set(benchMarkUrl, forKey: "benchMarkUrl")
+        }
+    }
+    
     static var apiUrl:String{
         return "http://127.0.0.1:\(shared.apiPort)"
     }

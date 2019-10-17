@@ -363,6 +363,12 @@
                                                         <action selector="actionSetUseApiMode:" target="Voe-Tx-rLC" id="00l-6K-2IL"/>
                                                     </connections>
                                                 </menuItem>
+                                                <menuItem title="Set benchmark url" id="rls-O1-mpQ">
+                                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                                    <connections>
+                                                        <action selector="actionSetBenchmarkUrl:" target="Voe-Tx-rLC" id="uok-Pz-Uuz"/>
+                                                    </connections>
+                                                </menuItem>
                                             </items>
                                         </menu>
                                     </menuItem>
