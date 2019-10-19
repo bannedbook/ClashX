@@ -15,7 +15,11 @@ class ProxyGroupMenuItemView: NSView {
     init(group: ClashProxyName, targetProxy: ClashProxyName) {
         groupNameLabel = NSTextField(labelWithString: group)
         selectProxyLabel = NSTextField(labelWithString: targetProxy)
-        super.init(frame: .zero)
+        if #available(macOS 10.15, *) {
+            super.init(frame: .zero)
+        } else {
+            super.init(frame: NSRect(x: 0, y: 0, width: 0, height: 20))
+        }
         // self
         translatesAutoresizingMaskIntoConstraints = false
         heightAnchor.constraint(equalToConstant: 20).isActive = true
@@ -51,6 +55,15 @@ class ProxyGroupMenuItemView: NSView {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func viewDidMoveToSuperview() {
+        super.viewDidMoveToSuperview()
+        if #available(macOS 10.15, *) {} else {
+            if let view = superview {
+                view.autoresizingMask = [.width]
+            }
+        }
     }
     
     override func draw(_ dirtyRect: NSRect) {

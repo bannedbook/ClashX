@@ -44,6 +44,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     @IBOutlet weak var apiPortMenuItem: NSMenuItem!
     @IBOutlet weak var remoteConfigAutoupdateMenuItem: NSMenuItem!
     @IBOutlet weak var buildApiModeMenuitem: NSMenuItem!
+    @IBOutlet weak var showProxyGroupCurrentMenuItem: NSMenuItem!
     
     var disposeBag = DisposeBag()
     var statusItemView:StatusItemView!
@@ -333,6 +334,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     func updateExperimentalFeatureStatus() {
         buildApiModeMenuitem.state = ConfigManager.builtInApiMode ? .on : .off
+        showProxyGroupCurrentMenuItem.state = ConfigManager.shared.disableShowCurrentProxyInMenu ? .off : .on
     }
 }
 
@@ -496,6 +498,11 @@ extension AppDelegate {
             ConfigManager.builtInApiMode = !ConfigManager.builtInApiMode
             NSApp.terminate(nil)
         }
+    }
+    
+    @IBAction func actionUpdateProxyGroupMenu(_ sender: Any) {
+        ConfigManager.shared.disableShowCurrentProxyInMenu = !ConfigManager.shared.disableShowCurrentProxyInMenu
+        updateExperimentalFeatureStatus()
     }
     
     @IBAction func actionSetBenchmarkUrl(_ sender: Any) {

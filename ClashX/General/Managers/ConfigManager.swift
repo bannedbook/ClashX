@@ -19,10 +19,14 @@ class ConfigManager {
     var apiSecret:String = ""
     
     init() {
-        UserDefaults.standard.rx.observe(Bool.self, "kSDisableShowCurrentProxyInMenu").bind {
-            [weak self] disable in
-            self?.disableShowCurrentProxyInMenu = disable ?? false
-        }.disposed(by: disposeBag)
+        let defaultValue: Bool
+        if #available(macOS 10.15, *) {
+            defaultValue = false
+        } else {
+            defaultValue = true
+        }
+        disableShowCurrentProxyInMenu = UserDefaults.standard.object(forKey: "kSDisableShowCurrentProxyInMenu") as? Bool ?? defaultValue
+        
     }
     
     var currentConfig: ClashConfig?{
@@ -46,7 +50,6 @@ class ConfigManager {
         }
     }
     
-    var disableShowCurrentProxyInMenu = false
     
     static var selectConfigName:String{
         get {
@@ -142,6 +145,13 @@ class ConfigManager {
             UserDefaults.standard.set(builtInApiMode, forKey: "kBuiltInApiMode")
         }
     }
+    
+    var disableShowCurrentProxyInMenu: Bool {
+        didSet {
+            UserDefaults.standard.set(disableShowCurrentProxyInMenu, forKey: "kSDisableShowCurrentProxyInMenu")
+        }
+    }
+
     
 }
 
