@@ -254,9 +254,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     func updateLoggingLevel() {
+        ApiRequest.updateLogLevel(level: ConfigManager.selectLoggingApiLevel)
         for item in self.logLevelMenuItem.submenu?.items ?? [] {
             item.state = item.title.lowercased() == ConfigManager.selectLoggingApiLevel.rawValue ? .on : .off
         }
+        NotificationCenter.default.post(name: kLogLevelDidChange, object: nil)
     }
     
     func startProxy() {
@@ -290,7 +292,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
     }
     
-    func syncConfig(completeHandler:(()->())? = nil){
+    func syncConfig(completeHandler:(()->Void)? = nil){
         ApiRequest.requestConfig{ (config) in
             ConfigManager.shared.currentConfig = config
             completeHandler?()

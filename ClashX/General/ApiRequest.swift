@@ -70,7 +70,7 @@ class ApiRequest {
     private var alamoFireManager: Session
     
 
-    static func requestConfig(completeHandler:@escaping ((ClashConfig)->())){
+    static func requestConfig(completeHandler: @escaping((ClashConfig)->Void)){
         
         if !ConfigManager.builtInApiMode {
             req("/configs").responseData {
@@ -99,7 +99,7 @@ class ApiRequest {
     }
     
     
-    static func requestConfigUpdate(callback: @escaping ((ErrorString?)->())){
+    static func requestConfigUpdate(callback: @escaping ((ErrorString?)->Void)){
         let filePath = "\(kConfigFolderPath)\(ConfigManager.selectConfigName).yaml"
         let placeHolderErrorDesp = "Error occoured, Please try to fix it by restarting ClashX. "
         let errorHanlder: (ErrorString)->Void = {
@@ -135,46 +135,57 @@ class ApiRequest {
         }
     }
     
-    static func updateOutBoundMode(mode:ClashProxyMode, callback:@escaping ((Bool)->())) {
+    static func updateOutBoundMode(mode:ClashProxyMode, callback:((Bool)->Void)? = nil) {
         req("/configs", method: .patch, parameters: ["mode":mode.rawValue], encoding: JSONEncoding.default)
             .responseJSON{ response in
             switch response.result {
             case .success(_):
-                callback(true)
+                callback?(true)
             case .failure(_):
-                callback(false)
+                callback?(false)
             }
         }
     }
     
-    static func requestProxyGroupList(completeHandler:@escaping ((ClashProxyResp)->Void)) {
+    static func updateLogLevel(level: ClashLogLevel, callback:((Bool) -> Void)? = nil) {
+        req("/configs", method: .patch, parameters: ["log-level": level.rawValue], encoding: JSONEncoding.default).responseJSON(completionHandler: { response in
+            switch response.result {
+            case .success(_):
+                callback?(true)
+            case .failure(_):
+                callback?(false)
+            }
+        })
+    }
+    
+    static func requestProxyGroupList(completeHandler:((ClashProxyResp)->Void)?=nil) {
         if !ConfigManager.builtInApiMode {
             req("/proxies").responseJSON{
                 res in
                 let proxies = ClashProxyResp(try? res.result.get())
                 ApiRequest.shared.proxyRespCache = proxies
-                completeHandler(proxies)
+                completeHandler?(proxies)
             }
             return
         }
         
         let json = JSON(parseJSON: clashGetProxies()?.toString() ?? "")
         let proxies = ClashProxyResp(json.object)
-        completeHandler(proxies)
+        completeHandler?(proxies)
         ApiRequest.shared.proxyRespCache = proxies
     }
     
-    static func updateAllowLan(allow:Bool,completeHandler:@escaping (()->())) {
+    static func updateAllowLan(allow:Bool, completeHandler: (()->Void)?=nil) {
         req("/configs",
             method: .patch,
             parameters: ["allow-lan":allow],
             encoding: JSONEncoding.default).response{
             _ in
-            completeHandler()
+            completeHandler?()
         }
     }
     
-    static func updateProxyGroup(group:String,selectProxy:String,callback:@escaping ((Bool)->())) {
+    static func updateProxyGroup(group:String,selectProxy:String,callback:@escaping ((Bool)->Void)) {
         let groupEncoded = group.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
         req("/proxies/\(groupEncoded)",
             method: .put,
@@ -185,7 +196,7 @@ class ApiRequest {
         }
     }
     
-    static func getAllProxyList(callback:@escaping (([ClashProxyName])->())) {
+    static func getAllProxyList(callback:@escaping (([ClashProxyName])->Void)) {
         requestProxyGroupList() {
             proxyInfo in
             let proxyGroupType:[ClashProxyType] = [.urltest,.fallback,.loadBalance,.select,.direct,.reject]
@@ -196,7 +207,7 @@ class ApiRequest {
         }
     }
     
-    static func getProxyDelay(proxyName:String,callback:@escaping ((Int)->())) {
+    static func getProxyDelay(proxyName:String,callback:@escaping ((Int)->Void)) {
         let proxyNameEncoded = proxyName.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
         
         req("/proxies/\(proxyNameEncoded)/delay"
@@ -213,7 +224,7 @@ class ApiRequest {
         }
     }
     
-    static func getRules(completeHandler:@escaping ([ClashRule])->()) {
+    static func getRules(completeHandler:@escaping ([ClashRule])->Void) {
         req("/rules").responseData { res in
             guard let data = try? res.result.get() else {return}
             let rule = ClashRuleResponse.fromData(data)

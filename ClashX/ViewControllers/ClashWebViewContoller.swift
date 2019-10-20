@@ -44,16 +44,16 @@ class ClashWebViewContoller: NSViewController {
         webview.configuration.preferences.setValue(true, forKey: "developerExtrasEnabled")
 
         NotificationCenter.default.rx.notification(kConfigFileChange).bind {
-            [weak self] (note)  in
+            [weak self] _ in
             self?.bridge?.callHandler("onConfigChange")
-            }.disposed(by: disposeBag)
+        }.disposed(by: disposeBag)
+        
+        NotificationCenter.default.rx.notification(kLogLevelDidChange).bind {
+            [weak self] _ in
+            self?.webview.reload()
+        }.disposed(by: disposeBag)
 
         loadWebRecourses()
-        
-        NSEvent.addLocalMonitorForEvents(matching: .keyDown) {[weak self] in
-            self?.keyDown(with: $0)
-            return $0
-        }
     }
     
     func loadWebRecourses() {
@@ -87,21 +87,6 @@ class ClashWebViewContoller: NSViewController {
     deinit {
         NSApp.setActivationPolicy(.accessory)
     }
-    
-    override func keyDown(with event: NSEvent) {
-        switch event.modifierFlags.intersection(.deviceIndependentFlagsMask) {
-        case [.command,.capsLock]:fallthrough
-        case [.command]:
-            if event.characters?.lowercased() == "w" {
-                self.view.window?.close()
-            }
-        default:
-            break
-        }
-    }
-    
-
-    
     
 }
 
@@ -160,9 +145,7 @@ class CustomWKWebView: WKWebView {
         let y = (self.window?.frame.size.height ?? 0) - event.locationInWindow.y
         
         if x < alwaysDragableLeftAreaWidth || y < dragableAreaHeight {
-            if #available(OSX 10.11, *) {
-                self.window?.performDrag(with: event)
-            }
+            window?.performDrag(with: event)
         }
     }
 }
