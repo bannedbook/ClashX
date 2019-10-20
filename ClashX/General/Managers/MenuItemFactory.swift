@@ -127,6 +127,7 @@ class MenuItemFactory {
     }
     
     static func addSpeedTestMenuItem(_ menus: NSMenu, proxyGroup: ClashProxy) {
+        guard proxyGroup.speedtestAble.count > 0 else {return}
         menus.addItem(NSMenuItem.separator())
         let speedTestItem = ProxyGroupSpeedTestMenuItem(group: proxyGroup)
         speedTestItem.target = MenuItemFactory.self

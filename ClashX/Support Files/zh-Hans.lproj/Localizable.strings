@@ -93,6 +93,9 @@
 "Tap to reload config" = "点击重载配置文件";
 
 /* No comment provided by engineer. */
+"Testing" = "测速中";
+
+/* No comment provided by engineer. */
 "The remote config name is duplicated" = "托管配置文件名称重复";
 
 /* No comment provided by engineer. */

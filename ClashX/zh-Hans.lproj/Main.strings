@@ -44,9 +44,6 @@
 /* Class = "NSMenuItem"; title = "INFO"; ObjectID = "d8V-h0-0zF"; */
 "d8V-h0-0zF.title" = "INFO";
 
-/* Class = "NSMenu"; title = "Switch Configs"; ObjectID = "dcz-b4-hVy"; */
-"dcz-b4-hVy.title" = "切换配置";
-
 /* Class = "NSMenuItem"; title = "Help"; ObjectID = "Dd9-2F-FVY"; */
 "Dd9-2F-FVY.title" = "帮助";
 
@@ -76,9 +73,6 @@
 
 /* Class = "NSMenuItem"; title = "Show current proxy in menu"; ObjectID = "j9o-36-NTd"; */
 "j9o-36-NTd.title" = "快捷展示策略组策略";
-
-/* Class = "NSMenuItem"; title = "Switch Configs"; ObjectID = "jdX-Cx-5pe"; */
-"jdX-Cx-5pe.title" = "切换配置文件";
 
 /* Class = "NSMenuItem"; title = "API Connect Error"; ObjectID = "jGT-1M-xJu"; */
 "jGT-1M-xJu.title" = "API Connect Error";
