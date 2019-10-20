@@ -11,6 +11,6 @@ let kConfigFolderPath = "\(NSHomeDirectory())/.config/clash/"
 
 let kDefaultConfigFilePath = "\(kConfigFolderPath)config.yaml"
 
-var kCurrentConfigPath:String {
+var kCurrentConfigPath: String {
     return "\(kConfigFolderPath)\(ConfigManager.selectConfigName).yaml"
 }

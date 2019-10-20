@@ -8,19 +8,18 @@
 
 extension String {
     func goStringBuffer() -> UnsafeMutablePointer<Int8> {
-        return UnsafeMutablePointer<Int8>(mutating: withCString{$0})
+        return UnsafeMutablePointer<Int8>(mutating: withCString { $0 })
     }
 }
 
-
 extension UnsafeMutablePointer where Pointee == Int8 {
-    func toString() -> String{
+    func toString() -> String {
         return String(cString: self)
     }
 }
 
 extension Bool {
-    func goObject()->GoUint8 {
+    func goObject() -> GoUint8 {
         return self == true ? 1 : 0
     }
 }

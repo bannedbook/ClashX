@@ -7,8 +7,8 @@
 //
 import Foundation
 
-let kShouldUpDateConfig =  Notification.Name("kShouldUpDateConfig")
-let kConfigFileChange =  Notification.Name("kConfigFileChange")
-let kSystemNetworkStatusDidChange =  Notification.Name("kSystemNetworkStatusDidChange")
+let kShouldUpDateConfig = Notification.Name("kShouldUpDateConfig")
+let kConfigFileChange = Notification.Name("kConfigFileChange")
+let kSystemNetworkStatusDidChange = Notification.Name("kSystemNetworkStatusDidChange")
 let kSpeedTestFinishForProxy = Notification.Name("kSpeedTestFinishForProxy")
 let kLogLevelDidChange = Notification.Name("kLogLevelDidChange")

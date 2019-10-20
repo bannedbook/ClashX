@@ -7,20 +7,19 @@
 //
 
 import Foundation
-import ServiceManagement
-import RxSwift
 import RxCocoa
-
+import RxSwift
+import ServiceManagement
 
 public class LaunchAtLogin {
     private static let id = "com.west2online.ClashX.LaunchHelper"
-    
+
     static let shared = LaunchAtLogin()
 
     private init() {
         isEnableVirable.accept(isEnabled)
     }
-    
+
     public var isEnabled: Bool {
         get {
             guard let jobs = (SMCopyAllJobDictionaries(kSMDomainUserLaunchd).takeRetainedValue() as? [[String: AnyObject]]) else {
@@ -34,6 +33,6 @@ public class LaunchAtLogin {
             isEnableVirable.accept(newValue)
         }
     }
-    
+
     var isEnableVirable = BehaviorRelay<Bool>(value: false)
 }

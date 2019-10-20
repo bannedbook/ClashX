@@ -6,18 +6,17 @@
 //  Copyright © 2018年 yichengchen. All rights reserved.
 //
 
-import Foundation
 import Cocoa
-import RxSwift
+import Foundation
 import RxCocoa
+import RxSwift
 
 class ConfigManager {
-    
     static let shared = ConfigManager()
     private let disposeBag = DisposeBag()
     var apiPort = "8080"
-    var apiSecret:String = ""
-    
+    var apiSecret: String = ""
+
     init() {
         let defaultValue: Bool
         if #available(macOS 10.15, *) {
@@ -26,32 +25,31 @@ class ConfigManager {
             defaultValue = true
         }
         disableShowCurrentProxyInMenu = UserDefaults.standard.object(forKey: "kSDisableShowCurrentProxyInMenu") as? Bool ?? defaultValue
-        
     }
-    
-    var currentConfig: ClashConfig?{
+
+    var currentConfig: ClashConfig? {
         get {
             return currentConfigVariable.value
         }
-        
+
         set {
             currentConfigVariable.accept(newValue)
         }
     }
+
     var currentConfigVariable = BehaviorRelay<ClashConfig?>(value: nil)
-    
-    var isRunning: Bool{
+
+    var isRunning: Bool {
         get {
             return isRunningVariable.value
         }
-        
+
         set {
             isRunningVariable.accept(newValue)
         }
     }
-    
-    
-    static var selectConfigName:String{
+
+    static var selectConfigName: String {
         get {
             if shared.isRunning {
                 return UserDefaults.standard.string(forKey: "selectConfigName") ?? "config"
@@ -63,105 +61,104 @@ class ConfigManager {
             ConfigFileManager.shared.watchConfigFile(configName: newValue)
         }
     }
-    
+
     var isRunningVariable = BehaviorRelay<Bool>(value: false)
-    
-    var proxyPortAutoSet:Bool {
-        get{
+
+    var proxyPortAutoSet: Bool {
+        get {
             return UserDefaults.standard.bool(forKey: "proxyPortAutoSet")
         }
         set {
             UserDefaults.standard.set(newValue, forKey: "proxyPortAutoSet")
         }
     }
-    let proxyPortAutoSetObservable = UserDefaults.standard.rx.observe(Bool.self, "proxyPortAutoSet").map({$0 ?? false})
-    
+
+    let proxyPortAutoSetObservable = UserDefaults.standard.rx.observe(Bool.self, "proxyPortAutoSet").map({ $0 ?? false })
+
     var isProxySetByOtherVariable = BehaviorRelay<Bool>(value: false)
-    
-    var showNetSpeedIndicator:Bool {
-        get{
+
+    var showNetSpeedIndicator: Bool {
+        get {
             return UserDefaults.standard.bool(forKey: "showNetSpeedIndicator")
         }
         set {
             UserDefaults.standard.set(newValue, forKey: "showNetSpeedIndicator")
         }
     }
+
     let showNetSpeedIndicatorObservable = UserDefaults.standard.rx.observe(Bool.self, "showNetSpeedIndicator")
-    
+
     var benchMarkUrl: String = UserDefaults.standard.string(forKey: "benchMarkUrl") ?? "http://www.gstatic.com/generate_204" {
         didSet {
             UserDefaults.standard.set(benchMarkUrl, forKey: "benchMarkUrl")
         }
     }
-    
-    static var apiUrl:String{
+
+    static var apiUrl: String {
         return "http://127.0.0.1:\(shared.apiPort)"
     }
-    
+
     static var webSocketUrl: String {
         return "ws://127.0.0.1:\(shared.apiPort)"
     }
-    
-    
-    static var selectedProxyMap:[String:String] {
-        get{
-            let map = UserDefaults.standard.dictionary(forKey: "selectedProxyMap") as? [String:String] ?? ["Proxy":"ProxyAuto"]
-            return map.count == 0 ? ["Proxy":"ProxyAuto"] : map
+
+    static var selectedProxyMap: [String: String] {
+        get {
+            let map = UserDefaults.standard.dictionary(forKey: "selectedProxyMap") as? [String: String] ?? ["Proxy": "ProxyAuto"]
+            return map.count == 0 ? ["Proxy": "ProxyAuto"] : map
         }
         set {
             UserDefaults.standard.set(newValue, forKey: "selectedProxyMap")
         }
     }
-    
-    static var selectOutBoundMode:ClashProxyMode {
-        get{
+
+    static var selectOutBoundMode: ClashProxyMode {
+        get {
             return ClashProxyMode(rawValue: UserDefaults.standard.string(forKey: "selectOutBoundMode") ?? "") ?? .rule
         }
         set {
             UserDefaults.standard.set(newValue.rawValue, forKey: "selectOutBoundMode")
         }
     }
-    
-    static var allowConnectFromLan:Bool {
-        get{
+
+    static var allowConnectFromLan: Bool {
+        get {
             return UserDefaults.standard.bool(forKey: "allowConnectFromLan")
         }
         set {
             UserDefaults.standard.set(newValue, forKey: "allowConnectFromLan")
         }
     }
-    
-    static var selectLoggingApiLevel:ClashLogLevel {
-        get{
+
+    static var selectLoggingApiLevel: ClashLogLevel {
+        get {
             return ClashLogLevel(rawValue: UserDefaults.standard.string(forKey: "selectLoggingApiLevel") ?? "") ?? .info
         }
         set {
             UserDefaults.standard.set(newValue.rawValue, forKey: "selectLoggingApiLevel")
         }
     }
-    
+
     static var builtInApiMode = (UserDefaults.standard.object(forKey: "kBuiltInApiMode") as? Bool) ?? true {
         didSet {
             UserDefaults.standard.set(builtInApiMode, forKey: "kBuiltInApiMode")
         }
     }
-    
+
     var disableShowCurrentProxyInMenu: Bool {
         didSet {
             UserDefaults.standard.set(disableShowCurrentProxyInMenu, forKey: "kSDisableShowCurrentProxyInMenu")
         }
     }
-
-    
 }
 
 extension ConfigManager {
-    static func getConfigFilesList()->[String] {
+    static func getConfigFilesList() -> [String] {
         do {
             let fileURLs = try FileManager.default.contentsOfDirectory(atPath: kConfigFolderPath)
             return fileURLs
-                .filter { String($0.split(separator: ".").last ?? "") == "yaml"}
-                .map{$0.split(separator: ".").dropLast().joined(separator: ".")}
+                .filter { String($0.split(separator: ".").last ?? "") == "yaml" }
+                .map { $0.split(separator: ".").dropLast().joined(separator: ".") }
         } catch {
             return ["config"]
         }
