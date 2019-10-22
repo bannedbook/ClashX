@@ -206,9 +206,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             .notification(kSystemNetworkStatusDidChange)
             .observeOn(MainScheduler.instance)
             .bind { _ in
-                guard let (http, https, socks) = NetworkChangeNotifier.currentSystemProxySetting(),
-                    let currentPort = ConfigManager.shared.currentConfig?.port,
-                    let currentSocks = ConfigManager.shared.currentConfig?.socketPort else { return }
+                let (http, https, socks) = NetworkChangeNotifier.currentSystemProxySetting()
+                let currentPort = ConfigManager.shared.currentConfig?.port ?? 0
+                let currentSocks = ConfigManager.shared.currentConfig?.socketPort ?? 0
 
                 let proxySetted = http == currentPort && https == currentPort && socks == currentSocks
                 ConfigManager.shared.isProxySetByOtherVariable.accept(!proxySetted)
@@ -377,6 +377,7 @@ extension AppDelegate {
     @IBAction func actionSetSystemProxy(_ sender: Any) {
         if ConfigManager.shared.isProxySetByOtherVariable.value && ConfigManager.shared.proxyPortAutoSet {
             // should reset proxy to clashx
+            ConfigManager.shared.isProxySetByOtherVariable.accept(false)
         } else {
             ConfigManager.shared.proxyPortAutoSet = !ConfigManager.shared.proxyPortAutoSet
         }

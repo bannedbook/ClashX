@@ -26,11 +26,11 @@ class NetworkChangeNotifier {
         }
     }
 
-    static func currentSystemProxySetting() -> (UInt, UInt, UInt)? {
+    static func currentSystemProxySetting() -> (UInt, UInt, UInt) {
         let proxiesSetting = CFNetworkCopySystemProxySettings()?.takeRetainedValue() as! [String: AnyObject]
-        guard let httpProxy = proxiesSetting[kCFNetworkProxiesHTTPPort as String] as? UInt,
-            let socksProxy = proxiesSetting[kCFNetworkProxiesSOCKSPort as String] as? UInt,
-            let httpsProxy = proxiesSetting[kCFNetworkProxiesHTTPSPort as String] as? UInt else { return nil }
+        let httpProxy = proxiesSetting[kCFNetworkProxiesHTTPPort as String] as? UInt ?? 0
+        let socksProxy = proxiesSetting[kCFNetworkProxiesSOCKSPort as String] as? UInt ?? 0
+        let httpsProxy = proxiesSetting[kCFNetworkProxiesHTTPSPort as String] as? UInt ?? 0
         return (httpProxy, httpsProxy, socksProxy)
     }
 }
