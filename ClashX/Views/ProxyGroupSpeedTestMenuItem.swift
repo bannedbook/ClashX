@@ -80,7 +80,7 @@ fileprivate class ProxyGroupSpeedTestMenuItemView: NSView {
             if enclosingMenuItem?.isEnabled ?? true {
                 label.textColor = NSColor.labelColor
             } else {
-                label.textColor = NSColor.gray
+                label.textColor = NSColor.secondaryLabelColor
             }
         }
         dirtyRect.fill()

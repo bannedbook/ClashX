@@ -76,7 +76,7 @@ class ProxyGroupMenuItemView: NSView {
             NSColor.clear.setFill()
             groupNameLabel.textColor = NSColor.labelColor
             arrowImageView.textColor = NSColor.labelColor
-            selectProxyLabel.textColor = NSColor.gray
+            selectProxyLabel.textColor = NSColor.secondaryLabelColor
         }
         dirtyRect.fill()
     }
