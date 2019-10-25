@@ -12,8 +12,6 @@ import RxSwift
 import ServiceManagement
 
 public class LaunchAtLogin {
-    private static let id = "com.west2online.ClashX.LaunchHelper"
-
     static let shared = LaunchAtLogin()
 
     private init() {
@@ -22,14 +20,14 @@ public class LaunchAtLogin {
 
     public var isEnabled: Bool {
         get {
-            guard let jobs = (SMCopyAllJobDictionaries(kSMDomainUserLaunchd).takeRetainedValue() as? [[String: AnyObject]]) else {
-                return false
-            }
-            let job = jobs.first { $0["Label"] as! String == LaunchAtLogin.id }
-            return job?["OnDemand"] as? Bool ?? false
+            return LoginServiceKit.isExistLoginItems()
         }
         set {
-            SMLoginItemSetEnabled(LaunchAtLogin.id as CFString, newValue)
+            if newValue {
+                LoginServiceKit.addLoginItems()
+            } else {
+                LoginServiceKit.removeLoginItems()
+            }
             isEnableVirable.accept(newValue)
         }
     }
