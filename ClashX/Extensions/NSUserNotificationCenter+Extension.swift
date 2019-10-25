@@ -60,7 +60,7 @@ class UserNotificationCenterDelegate: NSObject, NSUserNotificationCenterDelegate
     func userNotificationCenter(_ center: NSUserNotificationCenter, didActivate notification: NSUserNotification) {
         switch notification.userInfo?["identifier"] as? String {
         case "postConfigFileChangeDetectionNotice":
-            NotificationCenter.default.post(Notification(name: kShouldUpDateConfig))
+            AppDelegate.shared.updateConfig()
             center.removeAllDeliveredNotifications()
         default:
             break

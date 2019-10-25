@@ -134,10 +134,9 @@ extension RemoteConfigViewController {
                 RemoteConfigManager.shared.saveConfigs()
 
                 if config.name == self.latestAddedConfigName {
-                    ConfigManager.selectConfigName = config.name
-                }
-                if config.name == ConfigManager.selectConfigName {
-                    NotificationCenter.default.post(Notification(name: kShouldUpDateConfig))
+                    AppDelegate.shared.updateConfig(configName: config.name)
+                } else if config.name == ConfigManager.selectConfigName {
+                    AppDelegate.shared.updateConfig()
                 }
             }
             self.tableView.reloadDataKeepingSelection()

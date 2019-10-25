@@ -97,17 +97,9 @@ class ApiRequest {
         completeHandler(config)
     }
 
-    static func requestConfigUpdate(callback: @escaping ((ErrorString?) -> Void)) {
-        let filePath = "\(kConfigFolderPath)\(ConfigManager.selectConfigName).yaml"
+    static func requestConfigUpdate(configName: String, callback: @escaping ((ErrorString?) -> Void)) {
+        let filePath = "\(kConfigFolderPath)\(configName).yaml"
         let placeHolderErrorDesp = "Error occoured, Please try to fix it by restarting ClashX. "
-        let errorHanlder: (ErrorString) -> Void = {
-            err in
-            if err.contains("no such file or directory") {
-                ConfigManager.selectConfigName = "config"
-            } else {
-                callback(err)
-            }
-        }
 
         // DEV MODE: Use API
         if !ConfigManager.builtInApiMode {
@@ -118,7 +110,7 @@ class ApiRequest {
                 } else {
                     let errorJson = try? res.result.get()
                     let err = JSON(errorJson ?? "")["message"].string ?? placeHolderErrorDesp
-                    errorHanlder(err)
+                    callback(err)
                 }
             }
             return
@@ -129,7 +121,7 @@ class ApiRequest {
         if res == "success" {
             callback(nil)
         } else {
-            errorHanlder(res)
+            callback(res)
         }
     }
 

@@ -104,13 +104,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     func setupData() {
         remoteConfigAutoupdateMenuItem.state = RemoteConfigManager.autoUpdateEnable ? .on : .off
 
-        NotificationCenter.default.rx.notification(kShouldUpDateConfig).bind {
-            [weak self] note in
-            guard let self = self else { return }
-            let showNotice = note.userInfo?["notification"] as? Bool ?? true
-            self.updateConfig(showNotification: showNotice)
-        }.disposed(by: disposeBag)
-
         ConfigManager.shared
             .showNetSpeedIndicatorObservable
             .bind { [weak self] show in
@@ -300,11 +293,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         ApiRequest.shared.resetStreamApis()
     }
 
-    func updateConfig(showNotification: Bool = true) {
+    func updateConfig(configName: String? = nil, showNotification: Bool = true) {
         startProxy()
         guard ConfigManager.shared.isRunning else { return }
 
-        ApiRequest.requestConfigUpdate {
+        let config = configName ?? ConfigManager.selectConfigName
+
+        ApiRequest.requestConfigUpdate(configName: config) {
             [weak self] err in
             guard let self = self else { return }
             if let error = err {
@@ -322,6 +317,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                     NSUserNotificationCenter.default
                         .post(title: NSLocalizedString("Reload Config Succeed", comment: ""),
                               info: NSLocalizedString("Succees", comment: ""))
+                }
+
+                if let newConfigName = configName {
+                    ConfigManager.selectConfigName = newConfigName
                 }
             }
         }

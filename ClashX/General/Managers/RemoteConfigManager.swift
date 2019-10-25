@@ -125,9 +125,7 @@ class RemoteConfigManager {
                             NSUserNotificationCenter.default
                                 .post(title: NSLocalizedString("Remote Config Update", comment: ""), info: info)
                         }
-                        NotificationCenter.default.post(name: kShouldUpDateConfig,
-                                                        object: nil,
-                                                        userInfo: ["notification": false])
+                        AppDelegate.shared.updateConfig(showNotification: false)
                     }
                 }
                 Logger.log("[Auto Upgrade] Finish \(config.name) result: \(error ?? "succeed")")
