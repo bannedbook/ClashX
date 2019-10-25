@@ -307,11 +307,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             [weak self] err in
             guard let self = self else { return }
             if let error = err {
-                if showNotification {
-                    NSUserNotificationCenter.default
-                        .post(title: NSLocalizedString("Reload Config Fail", comment: "") + error,
-                              info: error)
-                }
+                NSUserNotificationCenter.default
+                    .post(title: NSLocalizedString("Reload Config Fail", comment: ""),
+                          info: error)
             } else {
                 self.syncConfig()
                 self.resetStreamApi()
