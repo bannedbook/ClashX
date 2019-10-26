@@ -1,0 +1,85 @@
+name: ClashX
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: macOS-latest
+    env:
+      CODE_SIGN_IDENTITY: "Developer ID Application: Fuzhou West2Online Internet Inc. (MEWHFZ92DY)"
+  
+    steps:
+    - uses: actions/checkout@v1
+    - name: import certs
+      run: |
+        openssl aes-256-cbc -k  "${{ secrets.ENCRYPTION_SECRET }}" -in ".github/certs/dist.p12.enc" -d -a -out ".github/certs/dist.p12"
+        security create-keychain -p mysecretpassword build.keychain
+        security default-keychain -s build.keychain
+        security unlock-keychain -p mysecretpassword build.keychain
+        security set-keychain-settings -t 3600 -u build.keychain
+        security import "./.github/certs/dist.p12" -k build.keychain -T /usr/bin/codesign -P ""
+        bash .github/enableKeyChain.sh
+
+    - name: setup Go
+      uses: actions/setup-go@v1
+      with:
+        go-version: 1.13.x
+
+    - name: build
+      run: |
+        bash install_dependency.sh
+        cd ClashX
+        python3 build_clash.py
+        cd ..
+        set -o pipefail && xcodebuild -workspace ClashX.xcworkspace -scheme "ClashX" build |xcpretty
+
+    - name: check SMJobBless
+      run: |
+        echo "Checking SMJobBless Vailded"
+        build_dir=`xcodebuild -workspace ClashX.xcworkspace -scheme "ClashX" -showBuildSettings -configuration Debug | grep -m 1 "TARGET_BUILD_DIR" | grep -oEi "\/.*"`
+        build_dir=${build_dir}"/ClashX.app"
+        python SMJobBlessUtil.py check ${build_dir}
+
+    - name: setup node
+      # if: startsWith(github.ref, 'refs/tags/')
+      uses: actions/setup-node@v1
+      with:
+        node-version: '10.x'
+  
+    - name: release build
+      if: startsWith(github.ref, 'refs/tags/')
+      env:
+        FASTLANE_PASSWORD: ${{ secrets.FASTLANE_PASSWORD }}
+        FASTLANE_USER: ${{ secrets.FASTLANE_USER }}
+      run: |
+        gem install bundler:1.16.2
+        gem install gym
+        bundle install
+        npm install --global create-dmg
+        fastlane gym -s ClashX
+        create-dmg ClashX.app
+        mv ClashX*.dmg ClashX-action.dmg
+        fastlane run notarize package:"./ClashX.dmg" bundle_id:"com.west2online.ClashX"
+
+    - name: upload build
+      uses: softprops/action-gh-release@v1
+      if: startsWith(github.ref, 'refs/tags/')
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        files: ClashX-action.dmg
+        draft: true
+        prerelease: true
+
+    - name: update gitpage
+      if: startsWith(github.ref, 'refs/tags/')
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: 'curl -u yichengchen:$GITHUB_TOKEN -X POST https://api.github.com/repos/yichengchen/clashX/pages/builds -H "Accept: application/vnd.github.mister-fantastic-preview+json"'
+
+    - name: upload crashlytics symbols
+      if: startsWith(github.ref, 'refs/tags/')
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: fastlane run upload_symbols_to_crashlytics
+
