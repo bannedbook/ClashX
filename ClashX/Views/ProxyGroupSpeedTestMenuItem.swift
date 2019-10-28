@@ -13,7 +13,14 @@ class ProxyGroupSpeedTestMenuItem: NSMenuItem {
     init(group: ClashProxy) {
         proxyGroup = group
         super.init(title: NSLocalizedString("Benchmark", comment: ""), action: nil, keyEquivalent: "")
-        view = ProxyGroupSpeedTestMenuItemView(title: title)
+        switch group.type {
+        case .urltest, .fallback:
+            view = ProxyGroupSpeedTestMenuItemView(.reTest)
+        case .select:
+            view = ProxyGroupSpeedTestMenuItemView(.benchmark)
+        default:
+            assertionFailure()
+        }
     }
 
     required init(coder: NSCoder) {
@@ -22,10 +29,13 @@ class ProxyGroupSpeedTestMenuItem: NSMenuItem {
 }
 
 fileprivate class ProxyGroupSpeedTestMenuItemView: NSView {
+    let testType: TestType
     let label: NSTextField
     let font = NSFont.menuFont(ofSize: 14)
-    init(title: String) {
-        label = NSTextField(labelWithString: title)
+
+    init(_ type: TestType) {
+        testType = type
+        label = NSTextField(labelWithString: type.title)
         label.font = font
         label.sizeToFit()
         super.init(frame: NSRect(x: 0, y: 0, width: label.bounds.width + 40, height: 20))
@@ -65,8 +75,13 @@ fileprivate class ProxyGroupSpeedTestMenuItemView: NSView {
         }
     }
 
+    private func retest() {}
+
     override func mouseUp(with event: NSEvent) {
-        startBenchmark()
+        switch testType {
+        case .benchmark: startBenchmark()
+        case .reTest: retest()
+        }
     }
 
     override func draw(_ dirtyRect: NSRect) {
@@ -84,5 +99,19 @@ fileprivate class ProxyGroupSpeedTestMenuItemView: NSView {
             }
         }
         dirtyRect.fill()
+    }
+}
+
+extension ProxyGroupSpeedTestMenuItemView {
+    enum TestType {
+        case benchmark
+        case reTest
+
+        var title: String {
+            switch self {
+            case .benchmark: return NSLocalizedString("Benchmark", comment: "")
+            case .reTest: return NSLocalizedString("ReTest", comment: "")
+            }
+        }
     }
 }
