@@ -386,9 +386,10 @@ extension AppDelegate {
     }
 
     @IBAction func actionSetSystemProxy(_ sender: Any) {
-        if ConfigManager.shared.isProxySetByOtherVariable.value && ConfigManager.shared.proxyPortAutoSet {
+        if ConfigManager.shared.isProxySetByOtherVariable.value {
             // should reset proxy to clashx
             ConfigManager.shared.isProxySetByOtherVariable.accept(false)
+            ConfigManager.shared.proxyPortAutoSet = true
         } else {
             ConfigManager.shared.proxyPortAutoSet = !ConfigManager.shared.proxyPortAutoSet
         }
