@@ -294,7 +294,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         ApiRequest.shared.resetStreamApis()
     }
 
-    func updateConfig(configName: String? = nil, showNotification: Bool = true) {
+    func updateConfig(configName: String? = nil, showNotification: Bool = true, completeHandler: ((ErrorString?) -> Void)? = nil) {
         startProxy()
         guard ConfigManager.shared.isRunning else { return }
 
@@ -303,6 +303,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         ApiRequest.requestConfigUpdate(configName: config) {
             [weak self] err in
             guard let self = self else { return }
+
+            defer {
+                completeHandler?(err)
+            }
+
             if let error = err {
                 NSUserNotificationCenter.default
                     .post(title: NSLocalizedString("Reload Config Fail", comment: ""),
@@ -328,6 +333,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
     func setupExperimentalMenuItem() {
+        ConnectionManager.addCloseOptionMenuItem(&experimentalMenu)
         AutoUpgardeManager.shared.setup()
         AutoUpgardeManager.shared.addChanelMenuItem(&experimentalMenu)
         updateExperimentalFeatureStatus()

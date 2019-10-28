@@ -31,7 +31,7 @@ class ApiRequest {
         let configuration = URLSessionConfiguration.default
         configuration.timeoutIntervalForRequest = 604800
         configuration.timeoutIntervalForResource = 604800
-        configuration.httpMaximumConnectionsPerHost = 50
+        configuration.httpMaximumConnectionsPerHost = 100
         configuration.requestCachePolicy = .reloadIgnoringLocalCacheData
         alamoFireManager = Session(configuration: configuration)
     }
@@ -41,6 +41,7 @@ class ApiRequest {
         return (secret.count > 0) ? ["Authorization": "Bearer \(secret)"] : [:]
     }
 
+    @discardableResult
     private static func req(
         _ url: String,
         method: HTTPMethod = .get,
@@ -223,7 +224,24 @@ class ApiRequest {
     }
 }
 
-// Stream Apis
+// MARK: - Connections
+
+extension ApiRequest {
+    static func getConnections(completeHandler: @escaping ([ClashConnectionSnapShot.Connection]) -> Void) {
+        req("/connections").responseData { res in
+            guard let data = try? res.result.get() else { return }
+            let resp = ClashConnectionSnapShot.fromData(data)
+            completeHandler(resp.connections)
+        }
+    }
+
+    static func terminalConnection(_ conn: ClashConnectionSnapShot.Connection) {
+        req("/connections/".appending(conn.id), method: .delete)
+    }
+}
+
+// MARK: - Stream Apis
+
 extension ApiRequest {
     func resetStreamApis() {
         trafficWebSocketRetryCount = 0

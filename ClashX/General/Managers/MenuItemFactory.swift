@@ -186,13 +186,20 @@ extension MenuItemFactory {
                 sender.state = .on
                 // remember select proxy
                 ConfigManager.selectedProxyMap[proxyGroup] = proxyName
+                // terminal Connections for this group
+                ConnectionManager.closeConnection(for: proxyGroup)
             }
         }
     }
 
     @objc static func actionSelectConfig(sender: NSMenuItem) {
         let config = sender.title
-        AppDelegate.shared.updateConfig(configName: config, showNotification: false)
+        AppDelegate.shared.updateConfig(configName: config, showNotification: false) {
+            err in
+            if err == nil {
+                ConnectionManager.closeConnectionExpectDirect()
+            }
+        }
     }
 
     @objc static func empty() {}

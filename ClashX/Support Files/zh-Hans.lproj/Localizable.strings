@@ -6,6 +6,9 @@
 "Apply and Quit" = "应用并退出";
 
 /* No comment provided by engineer. */
+"Auto Close Connection" = "切换代理时中断连接";
+
+/* No comment provided by engineer. */
 "Benchmark" = "延迟测速";
 
 /* No comment provided by engineer. */
