@@ -235,7 +235,7 @@ extension ApiRequest {
         }
     }
 
-    static func terminalConnection(_ conn: ClashConnectionSnapShot.Connection) {
+    static func closeConnection(_ conn: ClashConnectionSnapShot.Connection) {
         req("/connections/".appending(conn.id), method: .delete)
     }
 }

@@ -27,7 +27,7 @@ class ConnectionManager {
         ApiRequest.getConnections { conns in
             for conn in conns {
                 if conn.chains.contains(group) {
-                    ApiRequest.terminalConnection(conn)
+                    ApiRequest.closeConnection(conn)
                 }
             }
         }
@@ -38,7 +38,7 @@ class ConnectionManager {
         ApiRequest.getConnections { conns in
             for conn in conns {
                 if !conn.chains.contains("DIRECT") {
-                    ApiRequest.terminalConnection(conn)
+                    ApiRequest.closeConnection(conn)
                 }
             }
         }
