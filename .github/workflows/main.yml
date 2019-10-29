@@ -58,8 +58,8 @@ jobs:
         npm install --global create-dmg
         fastlane gym -s ClashX
         create-dmg ClashX.app
-        mv ClashX*.dmg ClashX-action.dmg
-        fastlane run notarize package:"./ClashX-action.dmg" bundle_id:"com.west2online.ClashX"
+        mv ClashX*.dmg ClashX.dmg
+        fastlane run notarize package:"./ClashX.dmg" bundle_id:"com.west2online.ClashX"
 
     - name: upload build
       uses: softprops/action-gh-release@v1
@@ -67,19 +67,17 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        files: ClashX-action.dmg
+        files: ClashX.dmg
         # draft: true
         prerelease: true
 
     - name: update gitpage
       if: startsWith(github.ref, 'refs/tags/')
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.GITPAGE_TOKEN }}
       run: 'curl -u yichengchen:$GITHUB_TOKEN -X POST https://api.github.com/repos/yichengchen/clashX/pages/builds -H "Accept: application/vnd.github.mister-fantastic-preview+json"'
 
     - name: upload crashlytics symbols
       if: startsWith(github.ref, 'refs/tags/')
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: fastlane run upload_symbols_to_crashlytics
 
