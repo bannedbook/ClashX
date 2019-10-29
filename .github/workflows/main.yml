@@ -59,7 +59,7 @@ jobs:
         fastlane gym -s ClashX
         create-dmg ClashX.app
         mv ClashX*.dmg ClashX-action.dmg
-        fastlane run notarize package:"./ClashX.dmg" bundle_id:"com.west2online.ClashX"
+        fastlane run notarize package:"./ClashX-action.dmg" bundle_id:"com.west2online.ClashX"
 
     - name: upload build
       uses: softprops/action-gh-release@v1
