@@ -190,9 +190,8 @@ class ApiRequest {
     static func getAllProxyList(callback: @escaping (([ClashProxyName]) -> Void)) {
         requestProxyGroupList {
             proxyInfo in
-            let proxyGroupType: [ClashProxyType] = [.urltest, .fallback, .loadBalance, .select, .direct, .reject]
             let lists: [ClashProxyName] = proxyInfo.proxies
-                .filter { $0.name == "GLOBAL" && proxyGroupType.contains($0.type) }
+                .filter { $0.name == "GLOBAL"}
                 .first?.all ?? []
             callback(lists)
         }
