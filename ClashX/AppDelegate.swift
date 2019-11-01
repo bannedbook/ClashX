@@ -74,6 +74,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         ConfigFileManager.copySampleConfigIfNeed()
 
         PFMoveToApplicationsFolderIfNecessary()
+        
+        // claer not existed selected model
+        removeUnExistProxyGroups()
 
         // start proxy
         setupData()
@@ -315,7 +318,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             } else {
                 self.syncConfig()
                 self.resetStreamApi()
-                self.selectProxyGroupWithMemory()
                 self.selectOutBoundModeWithMenory()
                 self.selectAllowLanWithMenory()
                 ConfigFileManager.checkFinalRuleAndShowAlert()
@@ -328,6 +330,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 if let newConfigName = configName {
                     ConfigManager.selectConfigName = newConfigName
                 }
+                self.selectProxyGroupWithMemory()
             }
         }
     }
@@ -559,12 +562,26 @@ extension AppDelegate {
 
 extension AppDelegate {
     func selectProxyGroupWithMemory() {
-        for item in ConfigManager.selectedProxyMap {
-            ApiRequest.updateProxyGroup(group: item.key, selectProxy: item.value) { success in
+        let copy = [SavedProxyModel](ConfigManager.selectedProxyMap)
+        for item in copy {
+            guard item.config == ConfigManager.selectConfigName else {continue}
+            ApiRequest.updateProxyGroup(group: item.group, selectProxy: item.selected) { success in
                 if !success {
-                    ConfigManager.selectedProxyMap[item.key] = nil
+                    ConfigManager.selectedProxyMap.removeAll { model -> Bool in
+                        return model == item
+                    }
                 }
             }
+        }
+    }
+    
+    func removeUnExistProxyGroups() {
+        let list = ConfigManager.getConfigFilesList()
+        let unexists = ConfigManager.selectedProxyMap.filter {
+            !list.contains($0.config)
+        }
+        ConfigManager.selectedProxyMap.removeAll {
+            unexists.contains($0)
         }
     }
 

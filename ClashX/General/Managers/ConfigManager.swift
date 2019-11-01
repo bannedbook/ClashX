@@ -102,16 +102,12 @@ class ConfigManager {
         return "ws://127.0.0.1:\(shared.apiPort)"
     }
 
-    static var selectedProxyMap: [String: String] {
-        get {
-            let map = UserDefaults.standard.dictionary(forKey: "selectedProxyMap") as? [String: String] ?? ["Proxy": "ProxyAuto"]
-            return map.count == 0 ? ["Proxy": "ProxyAuto"] : map
-        }
-        set {
-            UserDefaults.standard.set(newValue, forKey: "selectedProxyMap")
+    static var selectedProxyMap = SavedProxyModel.loadsFromUserDefault() {
+        didSet {
+            SavedProxyModel.save(selectedProxyMap)
         }
     }
-
+    
     static var selectOutBoundMode: ClashProxyMode {
         get {
             return ClashProxyMode(rawValue: UserDefaults.standard.string(forKey: "selectOutBoundMode") ?? "") ?? .rule
