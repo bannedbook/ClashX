@@ -116,8 +116,7 @@ fileprivate class ProxyGroupSpeedTestMenuItemView: NSView {
                     guard let userData = userData else { return 0 }
                     let itemView: ProxyGroupSpeedTestMenuItemView = bridge(ptr: userData)
                     itemView.startBenchmark()
-                    let response = CallNextEventHandler(eventHandlerCallRef, eventRef!)
-                    return response
+                    return 0
                 }
 
                 let eventSpecs = [EventTypeSpec(eventClass: OSType(kEventClassMouse), eventKind: UInt32(kEventMouseUp))]
