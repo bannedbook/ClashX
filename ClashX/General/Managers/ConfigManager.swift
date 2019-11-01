@@ -102,9 +102,9 @@ class ConfigManager {
         return "ws://127.0.0.1:\(shared.apiPort)"
     }
 
-    static var selectedProxyMap = SavedProxyModel.loadsFromUserDefault() {
+    static var selectedProxyRecords = SavedProxyModel.loadsFromUserDefault() {
         didSet {
-            SavedProxyModel.save(selectedProxyMap)
+            SavedProxyModel.save(selectedProxyRecords)
         }
     }
     

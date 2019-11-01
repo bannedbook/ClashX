@@ -186,10 +186,10 @@ extension MenuItemFactory {
                 sender.state = .on
                 // remember select proxy
                 let newModel = SavedProxyModel(group: proxyGroup, selected: proxyName, config: ConfigManager.selectConfigName)
-                ConfigManager.selectedProxyMap.removeAll { model -> Bool in
+                ConfigManager.selectedProxyRecords.removeAll { model -> Bool in
                     return model == newModel
                 }
-                ConfigManager.selectedProxyMap.append(newModel)
+                ConfigManager.selectedProxyRecords.append(newModel)
                 // terminal Connections for this group
                 ConnectionManager.closeConnection(for: proxyGroup)
             }

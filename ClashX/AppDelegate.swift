@@ -562,12 +562,12 @@ extension AppDelegate {
 
 extension AppDelegate {
     func selectProxyGroupWithMemory() {
-        let copy = [SavedProxyModel](ConfigManager.selectedProxyMap)
+        let copy = [SavedProxyModel](ConfigManager.selectedProxyRecords)
         for item in copy {
             guard item.config == ConfigManager.selectConfigName else {continue}
             ApiRequest.updateProxyGroup(group: item.group, selectProxy: item.selected) { success in
                 if !success {
-                    ConfigManager.selectedProxyMap.removeAll { model -> Bool in
+                    ConfigManager.selectedProxyRecords.removeAll { model -> Bool in
                         return model == item
                     }
                 }
@@ -577,10 +577,10 @@ extension AppDelegate {
     
     func removeUnExistProxyGroups() {
         let list = ConfigManager.getConfigFilesList()
-        let unexists = ConfigManager.selectedProxyMap.filter {
+        let unexists = ConfigManager.selectedProxyRecords.filter {
             !list.contains($0.config)
         }
-        ConfigManager.selectedProxyMap.removeAll {
+        ConfigManager.selectedProxyRecords.removeAll {
             unexists.contains($0)
         }
     }
