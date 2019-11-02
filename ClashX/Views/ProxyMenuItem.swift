@@ -41,10 +41,10 @@ class ProxyMenuItem: NSMenuItem {
     func getAttributedTitle(name: String, delay: String) -> NSAttributedString {
         let paragraph = NSMutableParagraphStyle()
         paragraph.tabStops = [
-            NSTextTab(textAlignment: .right, location: maxProxyNameLength + 100, options: [:]),
+            NSTextTab(textAlignment: .right, location: maxProxyNameLength + 90, options: [:]),
         ]
 
-        let str = "\(name)\t\(delay)"
+        let str = "\(name.replacingOccurrences(of: "\t", with: " "))\t\(delay)"
 
         let attributed = NSMutableAttributedString(
             string: str,

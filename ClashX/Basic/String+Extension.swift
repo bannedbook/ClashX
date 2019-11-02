@@ -9,7 +9,7 @@ import Foundation
 
 extension String {
     func trimed() -> String {
-        let whitespaces = CharacterSet(charactersIn: " \n\r\t")
+        let whitespaces = CharacterSet.whitespacesAndNewlines
         return trimmingCharacters(in: whitespaces)
     }
 

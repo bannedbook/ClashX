@@ -153,7 +153,7 @@ class RemoteConfigManager {
 
     static func updateConfig(config: RemoteConfigModel, complete: ((String?) -> Void)? = nil) {
         getRemoteConfigData(config: config) { configString in
-            guard let newConfig = configString else {
+            guard let newConfig = configString?.trimed() else {
                 complete?(NSLocalizedString("Download fail", comment: ""))
                 return
             }
