@@ -94,16 +94,6 @@ class MenuItemFactory {
         }
         let submenu = NSMenu(title: proxyGroup.name)
 
-        let nowMenuItem = NSMenuItem(title: "now:\(selectedName)", action: #selector(empty), keyEquivalent: "")
-        nowMenuItem.target = MenuItemFactory.self
-
-        if let nowProxy = proxyMap[selectedName], let historyMenu = generateHistoryMenu(nowProxy) {
-            nowMenuItem.submenu = historyMenu
-        }
-
-        submenu.addItem(nowMenuItem)
-        submenu.addItem(NSMenuItem.separator())
-
         for proxyName in proxyGroup.all ?? [] {
             guard let proxy = proxyMap[proxyName] else { continue }
             let proxyMenuItem = NSMenuItem(title: proxy.name, action: #selector(empty), keyEquivalent: "")

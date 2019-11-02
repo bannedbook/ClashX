@@ -14,7 +14,7 @@ struct SavedProxyModel: Codable {
     let config: String
 
     static let key = "SavedProxyModels"
-    
+
     static func migrate() -> [SavedProxyModel]? {
         if let mapping = UserDefaults.standard.dictionary(forKey: "selectedProxyMap") as? [ClashProxyName: ClashProxyName] {
             var models = [SavedProxyModel]()
@@ -25,9 +25,8 @@ struct SavedProxyModel: Codable {
             return models
         }
         return nil
-        
     }
-    
+
     static func loadsFromUserDefault() -> [SavedProxyModel] {
         if let data = UserDefaults.standard.object(forKey: key) as? Data,
             let models = try? JSONDecoder().decode([SavedProxyModel].self, from: data) {
@@ -39,7 +38,7 @@ struct SavedProxyModel: Codable {
         }
         return []
     }
-    
+
     static func save(_ models: [SavedProxyModel]) {
         if let data = try? JSONEncoder().encode(models) {
             UserDefaults.standard.set(data, forKey: key)
@@ -47,6 +46,4 @@ struct SavedProxyModel: Codable {
     }
 }
 
-extension SavedProxyModel: Equatable {
-    
-}
+extension SavedProxyModel: Equatable {}

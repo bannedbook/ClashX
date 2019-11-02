@@ -191,7 +191,7 @@ class ApiRequest {
         requestProxyGroupList {
             proxyInfo in
             let lists: [ClashProxyName] = proxyInfo.proxies
-                .filter { $0.name == "GLOBAL"}
+                .filter { $0.name == "GLOBAL" }
                 .first?.all ?? []
             callback(lists)
         }

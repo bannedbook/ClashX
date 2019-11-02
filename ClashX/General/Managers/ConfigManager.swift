@@ -107,7 +107,7 @@ class ConfigManager {
             SavedProxyModel.save(selectedProxyRecords)
         }
     }
-    
+
     static var selectOutBoundMode: ClashProxyMode {
         get {
             return ClashProxyMode(rawValue: UserDefaults.standard.string(forKey: "selectOutBoundMode") ?? "") ?? .rule

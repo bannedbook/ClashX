@@ -48,7 +48,7 @@ fileprivate class ProxyGroupSpeedTestMenuItemView: MenuItemBaseView {
         label = NSTextField(labelWithString: title)
         label.font = Self.labelFont
         label.sizeToFit()
-        let rect =  NSRect(x: 0, y: 0, width: label.bounds.width + 40, height: 20)
+        let rect = NSRect(x: 0, y: 0, width: label.bounds.width + 40, height: 20)
         super.init(frame: rect, handleClick: true, autolayout: false)
         addSubview(label)
         label.frame = NSRect(x: 20, y: 0, width: label.bounds.width, height: 20)
@@ -58,7 +58,11 @@ fileprivate class ProxyGroupSpeedTestMenuItemView: MenuItemBaseView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
+    override var labels: [NSTextField] {
+        return [label]
+    }
+
     override func didClickView() {
         startBenchmark()
     }
@@ -89,7 +93,7 @@ fileprivate class ProxyGroupSpeedTestMenuItemView: MenuItemBaseView {
             self.setNeedsDisplay()
         }
     }
-   
+
     override func draw(_ dirtyRect: NSRect) {
         super.draw(dirtyRect)
         label.textColor = (enclosingMenuItem?.isEnabled ?? true) ? NSColor.labelColor : NSColor.placeholderTextColor

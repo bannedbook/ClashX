@@ -74,7 +74,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         ConfigFileManager.copySampleConfigIfNeed()
 
         PFMoveToApplicationsFolderIfNecessary()
-        
+
         // claer not existed selected model
         removeUnExistProxyGroups()
 
@@ -564,7 +564,7 @@ extension AppDelegate {
     func selectProxyGroupWithMemory() {
         let copy = [SavedProxyModel](ConfigManager.selectedProxyRecords)
         for item in copy {
-            guard item.config == ConfigManager.selectConfigName else {continue}
+            guard item.config == ConfigManager.selectConfigName else { continue }
             ApiRequest.updateProxyGroup(group: item.group, selectProxy: item.selected) { success in
                 if !success {
                     ConfigManager.selectedProxyRecords.removeAll { model -> Bool in
@@ -574,7 +574,7 @@ extension AppDelegate {
             }
         }
     }
-    
+
     func removeUnExistProxyGroups() {
         let list = ConfigManager.getConfigFilesList()
         let unexists = ConfigManager.selectedProxyRecords.filter {

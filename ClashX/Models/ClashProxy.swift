@@ -95,7 +95,7 @@ class ClashProxy: Codable {
 
     lazy var maxProxyNameLength: CGFloat = {
         let rect = CGSize(width: CGFloat.greatestFiniteMagnitude, height: 20)
-        let attr = [NSAttributedString.Key.font: NSFont.menuBarFont(ofSize: 0)]
+        let attr = [NSAttributedString.Key.font: NSFont.menuBarFont(ofSize: 14)]
         return (self.maxProxyName as NSString)
             .boundingRect(with: rect,
                           options: .usesLineFragmentOrigin,

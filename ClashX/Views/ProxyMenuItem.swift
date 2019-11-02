@@ -42,7 +42,7 @@ class ProxyMenuItem: NSMenuItem {
     func getAttributedTitle(name: String, delay: String) -> NSAttributedString {
         let paragraph = NSMutableParagraphStyle()
         paragraph.tabStops = [
-            NSTextTab(textAlignment: .right, location: maxProxyNameLength + 80, options: [:]),
+            NSTextTab(textAlignment: .right, location: maxProxyNameLength + 100, options: [:]),
         ]
 
         let str = "\(name)\t\(delay)"
