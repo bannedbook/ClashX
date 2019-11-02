@@ -46,7 +46,7 @@ fileprivate class ProxyGroupSpeedTestMenuItemView: MenuItemBaseView {
 
     init(_ title: String) {
         label = NSTextField(labelWithString: title)
-        label.font = Self.labelFont
+        label.font = type(of: self).labelFont
         label.sizeToFit()
         let rect = NSRect(x: 0, y: 0, width: label.bounds.width + 40, height: 20)
         super.init(frame: rect, handleClick: true, autolayout: false)
