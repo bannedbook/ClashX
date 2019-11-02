@@ -20,8 +20,7 @@ class ProxyGroupMenuItemView: MenuItemBaseView {
     init(group: ClashProxyName, targetProxy: ClashProxyName) {
         groupNameLabel = VibrancyTextField(labelWithString: group)
         selectProxyLabel = VibrancyTextField(labelWithString: targetProxy)
-        let rect = NSRect(x: 0, y: 0, width: 0, height: 20) // requeie for system before 10.15
-        super.init(frame: rect, handleClick: false, autolayout: true)
+        super.init(handleClick: false, autolayout: true)
 
         // arrow
         effectView.addSubview(arrowLabel)

@@ -42,7 +42,9 @@ class MenuItemBaseView: NSView {
 
     static let labelFont = NSFont.menuFont(ofSize: 14)
 
-    init(frame frameRect: NSRect = .zero, handleClick: Bool, autolayout: Bool) {
+    init(frame frameRect: NSRect = NSRect(x: 0, y: 0, width: 0, height: 20),
+         handleClick: Bool,
+         autolayout: Bool) {
         self.handleClick = handleClick
         self.autolayout = autolayout
         super.init(frame: frameRect)

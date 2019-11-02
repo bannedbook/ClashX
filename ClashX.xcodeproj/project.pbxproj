@@ -59,6 +59,7 @@
 		F92D0B24236BC12000575E15 /* SavedProxyModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F92D0B23236BC12000575E15 /* SavedProxyModel.swift */; };
 		F92D0B2A236C759100575E15 /* NSTextField+Vibrancy.swift in Sources */ = {isa = PBXBuildFile; fileRef = F92D0B29236C759100575E15 /* NSTextField+Vibrancy.swift */; };
 		F92D0B2C236C7C3600575E15 /* MenuItemBaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F92D0B2B236C7C3600575E15 /* MenuItemBaseView.swift */; };
+		F92D0B2E236D35C000575E15 /* ProxyItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F92D0B2D236D35C000575E15 /* ProxyItemView.swift */; };
 		F935B2F02307C52E009E4D33 /* com.west2online.ClashX.ProxyConfigHelper in Copy Files */ = {isa = PBXBuildFile; fileRef = F9A7C0692306E874007163C7 /* com.west2online.ClashX.ProxyConfigHelper */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		F935B2F42307CD32009E4D33 /* ProxyConfigHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = F935B2F32307CD32009E4D33 /* ProxyConfigHelper.m */; };
 		F935B2FA23083EE6009E4D33 /* ProxySettingTool.m in Sources */ = {isa = PBXBuildFile; fileRef = F935B2F923083EE6009E4D33 /* ProxySettingTool.m */; };
@@ -168,6 +169,7 @@
 		F92D0B23236BC12000575E15 /* SavedProxyModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedProxyModel.swift; sourceTree = "<group>"; };
 		F92D0B29236C759100575E15 /* NSTextField+Vibrancy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSTextField+Vibrancy.swift"; sourceTree = "<group>"; };
 		F92D0B2B236C7C3600575E15 /* MenuItemBaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuItemBaseView.swift; sourceTree = "<group>"; };
+		F92D0B2D236D35C000575E15 /* ProxyItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProxyItemView.swift; sourceTree = "<group>"; };
 		F935B2EA2307B6BA009E4D33 /* Helper-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Helper-Info.plist"; sourceTree = "<group>"; };
 		F935B2F12307C802009E4D33 /* Helper-Launchd.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Helper-Launchd.plist"; sourceTree = "<group>"; };
 		F935B2F22307CD32009E4D33 /* ProxyConfigHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProxyConfigHelper.h; sourceTree = "<group>"; };
@@ -277,13 +279,14 @@
 		4931969C21631F2E00A8E6E7 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				495340AF20DE5F7200B0D3FF /* StatusItemView.xib */,
-				495340B220DE68C300B0D3FF /* StatusItemView.swift */,
+				F92D0B2B236C7C3600575E15 /* MenuItemBaseView.swift */,
+				49D176AA23575BB20093DD7B /* ProxyGroupMenuItemView.swift */,
+				49D176A8235614340093DD7B /* ProxyGroupSpeedTestMenuItem.swift */,
+				F92D0B2D236D35C000575E15 /* ProxyItemView.swift */,
 				493AEAE4221AE7230016FE98 /* ProxyMenuItem.swift */,
 				499A485922ED781100F6C675 /* RemoteConfigAddView.xib */,
-				49D176A8235614340093DD7B /* ProxyGroupSpeedTestMenuItem.swift */,
-				49D176AA23575BB20093DD7B /* ProxyGroupMenuItemView.swift */,
-				F92D0B2B236C7C3600575E15 /* MenuItemBaseView.swift */,
+				495340B220DE68C300B0D3FF /* StatusItemView.swift */,
+				495340AF20DE5F7200B0D3FF /* StatusItemView.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -640,6 +643,7 @@
 				49D176A9235614340093DD7B /* ProxyGroupSpeedTestMenuItem.swift in Sources */,
 				F976275C23634DF8000EDEFE /* LoginServiceKit.swift in Sources */,
 				4966E9E6211824F300A391FB /* NSImage+extension.swift in Sources */,
+				F92D0B2E236D35C000575E15 /* ProxyItemView.swift in Sources */,
 				49B1086A216A356D0064FFCE /* String+Extension.swift in Sources */,
 				F92D0B2C236C7C3600575E15 /* MenuItemBaseView.swift in Sources */,
 				4960A6DB2136529200B940C9 /* JSBridgeHandler.swift in Sources */,
