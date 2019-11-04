@@ -63,7 +63,9 @@ extension ConfigFileManager {
             rules in
             let hasFinal = rules.reversed().contains() { $0.type.lowercased() == "match" }
             if !hasFinal {
-                showNoFinalRuleAlert()
+                DispatchQueue.main.async {
+                    showNoFinalRuleAlert()
+                }
             }
         }
     }
