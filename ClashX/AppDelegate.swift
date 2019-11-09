@@ -103,6 +103,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             let socketPort = ConfigManager.shared.currentConfig?.socketPort ?? 0
             SystemProxyManager.shared.disableProxy(port: port, socksPort: socketPort)
         }
+        UserDefaults.standard.set(0, forKey: "launch_fail_times")
     }
 
     func setupData() {
@@ -556,7 +557,7 @@ extension AppDelegate {
             }
             NSUserNotificationCenter.default.post(title: "Fail on launch protect", info: "You origin Config has been renamed")
         }
-        DispatchQueue.global().asyncAfter(deadline: DispatchTime.now() + Double(Int64(1 * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC), execute: {
+        DispatchQueue.global().asyncAfter(deadline: DispatchTime.now() + Double(Int64(5 * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC), execute: {
             x.set(0, forKey: "launch_fail_times")
         })
     }

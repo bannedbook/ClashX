@@ -15,12 +15,17 @@ class MenuItemBaseView: NSView {
     private var eventHandler: EventHandlerRef?
     private let handleClick: Bool
     private let autolayout: Bool
+    
+    deinit {
+        freeEventHandler()
+    }
 
     // MARK: Public
 
     var isHighlighted: Bool {
+        let enable = enclosingMenuItem?.isEnabled ?? true
         if #available(macOS 10.15.1, *) {
-            return isMouseInsideView || isMenuOpen
+            return (isMouseInsideView || isMenuOpen) && enable
         } else {
             return enclosingMenuItem?.isHighlighted ?? false
         }
@@ -83,6 +88,7 @@ class MenuItemBaseView: NSView {
 
     private func updateCarbon() {
         if window != nil {
+            freeEventHandler()
             if let dispatcher = GetEventDispatcherTarget() {
                 let eventHandlerCallback: EventHandlerUPP = { eventHandlerCallRef, eventRef, userData in
                     guard let userData = userData else { return 0 }
@@ -96,7 +102,14 @@ class MenuItemBaseView: NSView {
                 InstallEventHandler(dispatcher, eventHandlerCallback, 1, eventSpecs, bridge(obj: self), &eventHandler)
             }
         } else {
-            RemoveEventHandler(eventHandler)
+            freeEventHandler()
+        }
+    }
+    
+    private func freeEventHandler() {
+        if let handler = eventHandler {
+            RemoveEventHandler(handler)
+            eventHandler = nil
         }
     }
 
