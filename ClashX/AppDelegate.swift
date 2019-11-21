@@ -322,7 +322,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 self.resetStreamApi()
                 self.selectOutBoundModeWithMenory()
                 self.selectAllowLanWithMenory()
-                ConfigFileManager.checkFinalRuleAndShowAlert()
                 if showNotification {
                     NSUserNotificationCenter.default
                         .post(title: NSLocalizedString("Reload Config Succeed", comment: ""),

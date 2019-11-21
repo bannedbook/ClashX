@@ -63,9 +63,6 @@
 "Never" = "从未";
 
 /* No comment provided by engineer. */
-"No FINAL rule were found in clash configs,This might caused by incorrect upgradation during earily version of clashX or error setting of FINAL rule.Please check your config file.\n\nNO FINAL rule would cause traffic send to DIRECT which no match any rules." = "Clash规则配置文件中没有找到FINAL/MATCH规则，这可能是由于之前版本ClashX的错误ini到yml的转换引起的，也可能因为对FINAL/MATCH进行了错误的配置，如声明的出口不在Proxy或Proxy Group中等。请再次检查配置文件。\n\n缺失FINAL/MATCH规则将导致无命中任何规则的流量使用DIRECT出口。";
-
-/* No comment provided by engineer. */
 "OK" = "确定";
 
 /* No comment provided by engineer. */
