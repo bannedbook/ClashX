@@ -34,11 +34,10 @@ class NetworkChangeNotifier {
         return (httpProxy, httpsProxy, socksProxy)
     }
 
-    static func getPrimaryIPAddress() -> String? {
+    static func getPrimaryInterface() -> String? {
         let key: CFString
         let store: SCDynamicStore?
         let dict: [String: String]?
-        let primaryIntf: String?
 
         store = SCDynamicStoreCreate(nil, "ClashX" as CFString, nil, nil)
         if store == nil {
@@ -47,8 +46,11 @@ class NetworkChangeNotifier {
 
         key = SCDynamicStoreKeyCreateNetworkGlobalEntity(nil, kSCDynamicStoreDomainState, kSCEntNetIPv4)
         dict = SCDynamicStoreCopyValue(store, key) as? [String: String]
-        primaryIntf = dict?[kSCDynamicStorePropNetPrimaryInterface as String]
-        guard let primary = primaryIntf else {
+        return dict?[kSCDynamicStorePropNetPrimaryInterface as String]
+    }
+
+    static func getPrimaryIPAddress() -> String? {
+        guard let primary = getPrimaryInterface() else {
             return nil
         }
 

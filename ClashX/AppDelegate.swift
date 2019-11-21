@@ -205,6 +205,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             .notification(kSystemNetworkStatusDidChange)
             .observeOn(MainScheduler.instance)
             .bind { _ in
+                guard NetworkChangeNotifier.getPrimaryInterface() != nil else { return }
                 let (http, https, socks) = NetworkChangeNotifier.currentSystemProxySetting()
                 let currentPort = ConfigManager.shared.currentConfig?.port ?? 0
                 let currentSocks = ConfigManager.shared.currentConfig?.socketPort ?? 0
