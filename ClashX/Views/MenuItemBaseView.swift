@@ -15,7 +15,7 @@ class MenuItemBaseView: NSView {
     private var eventHandler: EventHandlerRef?
     private let handleClick: Bool
     private let autolayout: Bool
-    
+
     deinit {
         freeEventHandler()
     }
@@ -105,7 +105,7 @@ class MenuItemBaseView: NSView {
             freeEventHandler()
         }
     }
-    
+
     private func freeEventHandler() {
         if let handler = eventHandler {
             RemoveEventHandler(handler)

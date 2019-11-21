@@ -47,7 +47,7 @@ class StatusItemView: NSView {
         }
         uploadSpeedLabel.font = font
         downloadSpeedLabel.font = font
-        
+
         uploadSpeedLabel.textColor = NSColor.black
         downloadSpeedLabel.textColor = NSColor.black
     }
@@ -83,7 +83,7 @@ class StatusItemView: NSView {
         } else {
             finalDownStr = String(format: "%.2fMB/s", Double(kbdown) / 1024.0)
         }
-        
+
         if downloadSpeedLabel.stringValue == finalDownStr && uploadSpeedLabel.stringValue == finalUpStr {
             return
         }
@@ -91,7 +91,6 @@ class StatusItemView: NSView {
         uploadSpeedLabel.stringValue = finalUpStr
         updateStatusItemView()
     }
-    
 
     func showSpeedContainer(show: Bool) {
         speedContainerView.isHidden = !show
