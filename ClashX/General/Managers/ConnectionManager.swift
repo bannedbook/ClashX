@@ -43,6 +43,14 @@ class ConnectionManager {
             }
         }
     }
+
+    static func closeAllConnection() {
+        ApiRequest.getConnections { conns in
+            for conn in conns {
+                ApiRequest.closeConnection(conn)
+            }
+        }
+    }
 }
 
 private extension ConnectionManager {

@@ -191,7 +191,7 @@ extension MenuItemFactory {
         AppDelegate.shared.updateConfig(configName: config, showNotification: false) {
             err in
             if err == nil {
-                ConnectionManager.closeConnectionExpectDirect()
+                ConnectionManager.closeAllConnection()
             }
         }
     }

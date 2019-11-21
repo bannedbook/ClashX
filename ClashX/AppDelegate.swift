@@ -591,6 +591,7 @@ extension AppDelegate {
     func selectOutBoundModeWithMenory() {
         ApiRequest.updateOutBoundMode(mode: ConfigManager.selectOutBoundMode) {
             [weak self] _ in
+            ConnectionManager.closeAllConnection()
             self?.syncConfig()
         }
     }
