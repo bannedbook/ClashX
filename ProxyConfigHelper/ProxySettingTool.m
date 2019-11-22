@@ -78,6 +78,7 @@
         NSDictionary *proxySettings = dev[(__bridge NSString *)kSCEntNetProxies];
         info[key] = [proxySettings copy];
     }];
+    CFRelease(ref);
     
     return info;
 }
@@ -217,6 +218,7 @@
     SCPreferencesCommitChanges(ref);
     SCPreferencesApplyChanges(ref);
     SCPreferencesSynchronize(ref);
+    CFRelease(ref);
 }
 
 - (AuthorizationFlags)authFlags {
