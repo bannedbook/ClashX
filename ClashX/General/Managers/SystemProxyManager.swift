@@ -45,14 +45,14 @@ class SystemProxyManager: NSObject {
 
     func checkInstall() {
         Logger.log("checkInstall", level: .debug)
-        let installed = helperStatus()
-        if installed { return }
-        Logger.log("need to install helper", level: .debug)
-        if Thread.isMainThread {
-            notifyInstall()
-        } else {
-            DispatchQueue.main.async {
-                self.notifyInstall()
+        while !helperStatus() {
+            Logger.log("need to install helper", level: .debug)
+            if Thread.isMainThread {
+                notifyInstall()
+            } else {
+                DispatchQueue.main.async {
+                    self.notifyInstall()
+                }
             }
         }
     }
@@ -223,7 +223,7 @@ class SystemProxyManager: NSObject {
             return false
         }
         let helperFileExists = FileManager.default.fileExists(atPath: "/Library/PrivilegedHelperTools/com.west2online.ClashX.ProxyConfigHelper")
-        let timeout: TimeInterval = helperFileExists ? 8 : 2
+        let timeout: TimeInterval = helperFileExists ? 15 : 2
         var installed = false
         let time = Date()
         let semaphore = DispatchSemaphore(value: 0)
