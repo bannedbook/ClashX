@@ -290,8 +290,7 @@
                                                         <segue destination="6WI-Hi-v9j" kind="modal" id="Ot5-gq-dhX"/>
                                                     </connections>
                                                 </menuItem>
-                                                <menuItem title="Update" id="I2P-Wd-Ns7">
-                                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                                <menuItem title="Update" keyEquivalent="u" id="I2P-Wd-Ns7">
                                                     <connections>
                                                         <action selector="actionUpdateRemoteConfig:" target="Voe-Tx-rLC" id="umk-nZ-asT"/>
                                                     </connections>
@@ -343,7 +342,8 @@
                                             <segue destination="UWQ-O3-RVk" kind="show" id="ZDv-Fo-P5y"/>
                                         </connections>
                                     </menuItem>
-                                    <menuItem title="Check Update" keyEquivalent="u" id="p0T-J8-Emx">
+                                    <menuItem title="Check Update" id="p0T-J8-Emx">
+                                        <modifierMask key="keyEquivalentModifierMask"/>
                                         <connections>
                                             <action selector="checkForUpdates:" target="fth-rt-saN" id="gaF-35-d7h"/>
                                         </connections>
