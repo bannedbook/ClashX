@@ -30,6 +30,9 @@
 "ClashX needs to install a helper tool with administrator privileges to set system proxy quickly." = "ClashX 需要使用管理员权限安装一个帮助程序来帮助设置系统代理。";
 
 /* No comment provided by engineer. */
+"ClashX Start Error!" = "ClashX 启动出错";
+
+/* No comment provided by engineer. */
 "Config file have been changed" = "配置文件已被修改";
 
 /* No comment provided by engineer. */
@@ -64,6 +67,9 @@
 
 /* No comment provided by engineer. */
 "OK" = "确定";
+
+/* No comment provided by engineer. */
+"Ports Open Fail, Please try to restart ClashX" = "端口打开失败，请尝试重启ClashX";
 
 /* No comment provided by engineer. */
 "Prelease" = "Prelease";

@@ -30,6 +30,9 @@
 "ClashX needs to install a helper tool with administrator privileges to set system proxy quickly." = "ClashX needs to install a helper tool with administrator privileges to set system proxy quickly.";
 
 /* No comment provided by engineer. */
+"ClashX Start Error!" = "ClashX Start Error!";
+
+/* No comment provided by engineer. */
 "Config file have been changed" = "Config file have been changed";
 
 /* No comment provided by engineer. */
@@ -64,6 +67,9 @@
 
 /* No comment provided by engineer. */
 "OK" = "OK";
+
+/* No comment provided by engineer. */
+"Ports Open Fail, Please try to restart ClashX" = "Ports Open Fail, Please try to restart ClashX";
 
 /* No comment provided by engineer. */
 "Prelease" = "Prelease";

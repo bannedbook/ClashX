@@ -40,6 +40,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     @IBOutlet var httpPortMenuItem: NSMenuItem!
     @IBOutlet var socksPortMenuItem: NSMenuItem!
     @IBOutlet var apiPortMenuItem: NSMenuItem!
+    @IBOutlet var ipMenuItem: NSMenuItem!
     @IBOutlet var remoteConfigAutoupdateMenuItem: NSMenuItem!
     @IBOutlet var buildApiModeMenuitem: NSMenuItem!
     @IBOutlet var showProxyGroupCurrentMenuItem: NSMenuItem!
@@ -162,9 +163,14 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                     SystemProxyManager.shared.enableProxy(port: config.port, socksPort: config.socketPort)
                 }
 
-                self.httpPortMenuItem.title = "Http Port:\(config.port)"
-                self.socksPortMenuItem.title = "Socks Port:\(config.socketPort)"
-                self.apiPortMenuItem.title = "Api Port:\(ConfigManager.shared.apiPort)"
+                self.httpPortMenuItem.title = "Http Port: \(config.port)"
+                self.socksPortMenuItem.title = "Socks Port: \(config.socketPort)"
+                self.apiPortMenuItem.title = "Api Port: \(ConfigManager.shared.apiPort)"
+                self.ipMenuItem.title = "IP: \(NetworkChangeNotifier.getPrimaryIPAddress() ?? "")"
+
+                if config.port == 0 || config.socketPort == 0 {
+                    self.showClashPortErrorAlert()
+                }
 
             }.disposed(by: disposeBag)
 
@@ -653,5 +659,15 @@ extension AppDelegate {
                 NotificationCenter.default.post(name: Notification.Name(rawValue: "didGetUrl"), object: nil, userInfo: userInfo)
             }
         }
+    }
+}
+
+// MARK: - Alerts
+
+extension AppDelegate {
+    func showClashPortErrorAlert() {
+        let alert = NSAlert()
+        alert.messageText = NSLocalizedString("ClashX Start Error!", comment: "")
+        alert.informativeText = NSLocalizedString("Ports Open Fail, Please try to restart ClashX", comment: "")
     }
 }

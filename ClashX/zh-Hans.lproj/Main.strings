@@ -62,9 +62,6 @@
 /* Class = "NSMenuItem"; title = "About"; ObjectID = "hUb-k9-TEf"; */
 "hUb-k9-TEf.title" = "关于";
 
-/* Class = "NSMenuItem"; title = "api port:"; ObjectID = "hwG-qf-DeZ"; */
-"hwG-qf-DeZ.title" = "api port:";
-
 /* Class = "NSMenuItem"; title = "Update"; ObjectID = "I2P-Wd-Ns7"; */
 "I2P-Wd-Ns7.title" = "更新";
 
@@ -88,9 +85,6 @@
 
 /* Class = "NSTableColumn"; headerCell.title = "Config Name"; ObjectID = "lRE-Xa-euB"; */
 "lRE-Xa-euB.headerCell.title" = "配置文件名称";
-
-/* Class = "NSMenu"; title = "Ports"; ObjectID = "Ng4-Ia-KSz"; */
-"Ng4-Ia-KSz.title" = "Ports";
 
 /* Class = "NSMenuItem"; title = "Direct"; ObjectID = "Np6-Pm-Lo3"; */
 "Np6-Pm-Lo3.title" = "直接连接";
@@ -131,14 +125,8 @@
 /* Class = "NSMenu"; title = "API Connect Error"; ObjectID = "UU2-uE-YB4"; */
 "UU2-uE-YB4.title" = "API Connect Error";
 
-/* Class = "NSMenuItem"; title = "socks port:"; ObjectID = "Uy1-g8-r6Q"; */
-"Uy1-g8-r6Q.title" = "socks port:";
-
 /* Class = "NSMenuItem"; title = "Allow connect from Lan"; ObjectID = "Vz8-7n-vx6"; */
 "Vz8-7n-vx6.title" = "允许局域网连接";
-
-/* Class = "NSMenuItem"; title = "http port:"; ObjectID = "WNw-8Y-VFw"; */
-"WNw-8Y-VFw.title" = "http port:";
 
 /* Class = "NSMenu"; title = "Log level"; ObjectID = "wqo-3T-4qO"; */
 "wqo-3T-4qO.title" = "日志等级";

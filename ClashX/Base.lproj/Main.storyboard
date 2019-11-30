@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="15400" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="15400"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="15505"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -182,6 +182,7 @@
                         <outlet property="dashboardMenuItem" destination="XG6-2M-PNi" id="hzn-77-3Uc"/>
                         <outlet property="experimentalMenu" destination="sbS-Fj-gxn" id="m2U-Zq-cKD"/>
                         <outlet property="httpPortMenuItem" destination="WNw-8Y-VFw" id="ldW-Gw-Q9L"/>
+                        <outlet property="ipMenuItem" destination="D2R-eG-cms" id="ugc-iD-j9T"/>
                         <outlet property="logLevelMenuItem" destination="3Da-fL-Mzr" id="ZCW-Il-fOZ"/>
                         <outlet property="proxyModeDirectMenuItem" destination="Np6-Pm-Lo3" id="DER-K7-DNW"/>
                         <outlet property="proxyModeGlobalMenuItem" destination="yiM-U4-MNg" id="M7s-kl-aPh"/>
@@ -396,14 +397,32 @@
                                             <items>
                                                 <menuItem title="http port:" id="WNw-8Y-VFw">
                                                     <modifierMask key="keyEquivalentModifierMask"/>
+                                                    <attributedString key="userComments">
+                                                        <fragment content="#bc-ignore!"/>
+                                                    </attributedString>
                                                 </menuItem>
                                                 <menuItem title="socks port:" id="Uy1-g8-r6Q">
                                                     <modifierMask key="keyEquivalentModifierMask"/>
+                                                    <attributedString key="userComments">
+                                                        <fragment content="#bc-ignore!"/>
+                                                    </attributedString>
                                                 </menuItem>
                                                 <menuItem title="api port:" id="hwG-qf-DeZ">
                                                     <modifierMask key="keyEquivalentModifierMask"/>
+                                                    <attributedString key="userComments">
+                                                        <fragment content="#bc-ignore!"/>
+                                                    </attributedString>
+                                                </menuItem>
+                                                <menuItem title="IP:" id="D2R-eG-cms">
+                                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                                    <attributedString key="userComments">
+                                                        <fragment content="#bc-ignore!"/>
+                                                    </attributedString>
                                                 </menuItem>
                                             </items>
+                                            <attributedString key="userComments">
+                                                <fragment content="#bc-ignore!"/>
+                                            </attributedString>
                                         </menu>
                                     </menuItem>
                                 </items>
@@ -589,7 +608,7 @@
                                             <tableColumns>
                                                 <tableColumn identifier="url" editable="NO" width="176" minWidth="40" maxWidth="1000" id="C79-J5-30z">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Url">
-                                                        <font key="font" metaFont="controlContent" size="11"/>
+                                                        <font key="font" metaFont="menu" size="11"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                                     </tableHeaderCell>
@@ -629,7 +648,7 @@
                                                 </tableColumn>
                                                 <tableColumn identifier="configName" width="86" minWidth="40" maxWidth="1000" id="lRE-Xa-euB">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Config Name">
-                                                        <font key="font" metaFont="controlContent" size="11"/>
+                                                        <font key="font" metaFont="menu" size="11"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                                     </tableHeaderCell>
@@ -669,7 +688,7 @@
                                                 </tableColumn>
                                                 <tableColumn identifier="updateTime" width="95" minWidth="40" maxWidth="1000" id="xoc-hs-9qa">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Update Time">
-                                                        <font key="font" metaFont="controlContent" size="11"/>
+                                                        <font key="font" metaFont="menu" size="11"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                                     </tableHeaderCell>
@@ -799,7 +818,7 @@
                 <customObject id="1Mg-7q-ojs" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
                 <userDefaultsController id="r6q-tD-5zt"/>
             </objects>
-            <point key="canvasLocation" x="538" y="616"/>
+            <point key="canvasLocation" x="586" y="759"/>
         </scene>
         <!--Clash Web View Contoller-->
         <scene sceneID="hPF-qG-B6J">
