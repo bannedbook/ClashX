@@ -8,11 +8,6 @@
 import Foundation
 
 extension String {
-    func trimed() -> String {
-        let whitespaces = CharacterSet.whitespacesAndNewlines
-        return trimmingCharacters(in: whitespaces)
-    }
-
     func isUrlVaild() -> Bool {
         guard let url = URL(string: self) else { return false }
 

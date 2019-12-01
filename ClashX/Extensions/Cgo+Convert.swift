@@ -8,10 +8,13 @@
 
 extension String {
     func goStringBuffer() -> UnsafeMutablePointer<Int8> {
-        let pointer = (self as NSString)
-            .cString(using: String.defaultCStringEncoding.rawValue) ??
-            ("" as NSString).cString(using: String.defaultCStringEncoding.rawValue)!
-        return UnsafeMutablePointer(mutating: pointer)
+        if let pointer = (self as NSString)
+            .cString(using: String.defaultCStringEncoding.rawValue) {
+            return UnsafeMutablePointer(mutating: pointer)
+        }
+        Logger.log("Convert goStringBuffer Fail!!!!", level: .error)
+        let p = ("" as NSString).cString(using: String.defaultCStringEncoding.rawValue)!
+        return UnsafeMutablePointer(mutating: p)
     }
 }
 

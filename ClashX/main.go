@@ -8,20 +8,18 @@ import (
 	"github.com/Dreamacro/clash/hub/route"
 	T "github.com/Dreamacro/clash/tunnel"
 	"github.com/phayes/freeport"
-	"io/ioutil"
 	"net"
-	"os"
 	"path/filepath"
 	"strconv"
 	"strings"
 )
 
-func isAddrValid(addr string) bool{
+func isAddrValid(addr string) bool {
 	if addr != "" {
-		comps := strings.Split(addr,":")
+		comps := strings.Split(addr, ":")
 		v := comps[len(comps)-1]
 		if port, err := strconv.Atoi(v); err == nil {
-			if port > 0 && port < 65535  && checkPortAvailable(port,false){
+			if port > 0 && port < 65535 && checkPortAvailable(port, false) {
 				return true
 			}
 		}
@@ -29,7 +27,7 @@ func isAddrValid(addr string) bool{
 	return false
 }
 
-func checkPortAvailable(port int, lan bool) bool{
+func checkPortAvailable(port int, lan bool) bool {
 	var addr string
 	if port < 1 || port > 65534 {
 		return false
@@ -39,15 +37,13 @@ func checkPortAvailable(port int, lan bool) bool{
 	} else {
 		addr = "127.0.0.1:"
 	}
-	l, err := net.Listen("tcp", addr + strconv.Itoa(port))
+	l, err := net.Listen("tcp", addr+strconv.Itoa(port))
 	if err != nil {
 		return false
 	}
 	_ = l.Close()
-	return  true
+	return true
 }
-
-
 
 func parseConfig(checkPort bool) (*config.Config, error) {
 	configFile := filepath.Join(constant.Path.HomeDir(), constant.Path.Config())
@@ -63,19 +59,19 @@ func parseConfig(checkPort bool) (*config.Config, error) {
 			if err != nil {
 				return nil, err
 			}
-			cfg.General.ExternalController = "127.0.0.1:"+ strconv.Itoa(port)
+			cfg.General.ExternalController = "127.0.0.1:" + strconv.Itoa(port)
 			cfg.General.Secret = ""
 		}
 		lan := cfg.General.AllowLan
 
-		if !checkPortAvailable(cfg.General.Port,lan) {
-			if port, err := freeport.GetFreePort(); err==nil {
+		if !checkPortAvailable(cfg.General.Port, lan) {
+			if port, err := freeport.GetFreePort(); err == nil {
 				cfg.General.Port = port
 			}
 		}
 
-		if !checkPortAvailable(cfg.General.SocksPort,lan) {
-			if port, err := freeport.GetFreePort(); err==nil {
+		if !checkPortAvailable(cfg.General.SocksPort, lan) {
+			if port, err := freeport.GetFreePort(); err == nil {
 				cfg.General.SocksPort = port
 			}
 		}
@@ -89,20 +85,9 @@ func parseConfig(checkPort bool) (*config.Config, error) {
 
 //export verifyClashConfig
 func verifyClashConfig(content *C.char) *C.char {
-	tmpFile, err := ioutil.TempFile(os.TempDir(), "clashVerify-")
-	if err != nil {
-		return C.CString(err.Error())
-	}
-	defer os.Remove(tmpFile.Name())
-	b := []byte(C.GoString(content))
-	if _, err = tmpFile.Write(b); err != nil {
-		return C.CString(err.Error())
-	}
-	if err := tmpFile.Close(); err != nil {
-		return C.CString(err.Error())
-	}
 
-	cfg,err := executor.ParseWithPath(tmpFile.Name())
+	b := []byte(C.GoString(content))
+	cfg, err := executor.ParseWithBytes(b)
 	if err != nil {
 		return C.CString(err.Error())
 	}
@@ -113,21 +98,20 @@ func verifyClashConfig(content *C.char) *C.char {
 	return C.CString("success")
 }
 
-
 //export run
 func run(checkConfig bool) *C.char {
-	cfg,err := parseConfig(checkConfig)
+	cfg, err := parseConfig(checkConfig)
 	if err != nil {
 		return C.CString(err.Error())
 	}
 
 	portInfo := map[string]string{
 		"externalController": cfg.General.ExternalController,
-		"secret":   cfg.General.Secret,
+		"secret":             cfg.General.Secret,
 	}
 
 	jsonString, err := json.Marshal(portInfo)
-	if err!= nil {
+	if err != nil {
 		return C.CString(err.Error())
 	}
 
@@ -152,12 +136,12 @@ func clashUpdateConfig(path *C.char) *C.char {
 //export clashGetProxies
 func clashGetProxies() *C.char {
 	proxies := T.Instance().Proxies()
-	r := map[string]interface{} {
+	r := map[string]interface{}{
 		"proxies": proxies,
 	}
 
 	jsonString, err := json.Marshal(r)
-	if err!= nil {
+	if err != nil {
 		return C.CString(err.Error())
 	}
 	return C.CString(string(jsonString))
@@ -167,7 +151,7 @@ func clashGetProxies() *C.char {
 func clashGetConfigs() *C.char {
 	general := executor.GetGeneral()
 	jsonString, err := json.Marshal(general)
-	if err!= nil {
+	if err != nil {
 		return C.CString(err.Error())
 	}
 	return C.CString(string(jsonString))

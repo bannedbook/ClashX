@@ -146,14 +146,14 @@ class RemoteConfigManager {
         }
         urlRequest.cachePolicy = .reloadIgnoringCacheData
 
-        AF.request(urlRequest).responseString { res in
+        AF.request(urlRequest).responseString(encoding: .utf8) { res in
             complete(try? res.result.get())
         }
     }
 
     static func updateConfig(config: RemoteConfigModel, complete: ((String?) -> Void)? = nil) {
         getRemoteConfigData(config: config) { configString in
-            guard let newConfig = configString?.trimed() else {
+            guard let newConfig = configString else {
                 complete?(NSLocalizedString("Download fail", comment: ""))
                 return
             }
