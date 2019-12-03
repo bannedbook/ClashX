@@ -31,37 +31,51 @@ jobs:
         cd ClashX
         python3 build_clash.py
         cd ..
-        set -o pipefail && xcodebuild -workspace ClashX.xcworkspace -scheme "ClashX" build |xcpretty
-
-    - name: check SMJobBless
-      run: |
+        gem install bundler:1.16.2
+        gem install gym
+        bundle install
+        fastlane gym -s ClashX
         echo "Checking SMJobBless Vailded"
-        build_dir=`xcodebuild -workspace ClashX.xcworkspace -scheme "ClashX" -showBuildSettings -configuration Debug | grep -m 1 "TARGET_BUILD_DIR" | grep -oEi "\/.*"`
-        build_dir=${build_dir}"/ClashX.app"
-        python SMJobBlessUtil.py check ${build_dir}
+        python SMJobBlessUtil.py check ClashX.app
 
     - name: setup node
-      if: startsWith(github.ref, 'refs/tags/')
+      if: startsWith(github.ref, 'refs/tags/') || contains(github.event.head_commit.message, '[appcenter]')
       uses: actions/setup-node@v1
       with:
         node-version: '10.x'
-  
-    - name: release build
-      if: startsWith(github.ref, 'refs/tags/')
+
+    - name: create dmg
+      if: startsWith(github.ref, 'refs/tags/') || contains(github.event.head_commit.message, '[appcenter]')
+      run: |
+        npm install --global create-dmg
+        create-dmg ClashX.app
+        mv ClashX*.dmg ClashX.dmg
+
+    - name: notarize 
+      if: startsWith(github.ref, 'refs/tags/')  || contains(github.event.head_commit.message, '[notarize]')
       env:
         FASTLANE_PASSWORD: ${{ secrets.FASTLANE_PASSWORD }}
         FASTLANE_USER: ${{ secrets.FASTLANE_USER }}
       run: |
-        gem install bundler:1.16.2
-        gem install gym
-        bundle install
-        npm install --global create-dmg
-        fastlane gym -s ClashX
-        create-dmg ClashX.app
-        mv ClashX*.dmg ClashX.dmg
         fastlane run notarize package:"./ClashX.dmg" bundle_id:"com.west2online.ClashX"
 
-    - name: upload build
+    - name: upload to appcenter 
+      if: startsWith(github.ref, 'refs/tags/') || contains(github.event.head_commit.message, '[appcenter]')
+      env:
+        APPCENTER_DISTRIBUTE_UPLOAD_BUILD_ONLY: true
+        APPCENTER_DISTRIBUTE_DESTINATIONS: Public
+        APPCENTER_APP_NAME: ClashX
+        APPCENTER_API_TOKEN: ${{ secrets.APPCENTER_API_TOKEN }}
+        APPCENTER_DISTRIBUTE_FILE: ClashX.dmg
+        APPCENTER_OWNER_NAME: ${{ secrets.APPCENTER_OWNER_NAME }}
+      run: |
+        bundleVersion=`defaults read \`pwd\`/ClashX.app/Contents/Info.plist CFBundleVersion`
+        timeStamp=`date +"%s"`
+        branch=${GITHUB_REF##*/}
+        version=$bundleVersion.$branch
+        fastlane run appcenter_upload version:${version} build_number:${timeStamp}
+
+    - name: upload build to github
       uses: softprops/action-gh-release@v1
       if: startsWith(github.ref, 'refs/tags/')
       env:
@@ -78,6 +92,6 @@ jobs:
       run: 'curl -u yichengchen:$GITHUB_TOKEN -X POST https://api.github.com/repos/yichengchen/clashX/pages/builds -H "Accept: application/vnd.github.mister-fantastic-preview+json"'
 
     - name: upload crashlytics symbols
-      if: startsWith(github.ref, 'refs/tags/')
+      if: startsWith(github.ref, 'refs/tags/')  || contains(github.event.head_commit.message, '[appcenter]')
       run: fastlane run upload_symbols_to_crashlytics
 
