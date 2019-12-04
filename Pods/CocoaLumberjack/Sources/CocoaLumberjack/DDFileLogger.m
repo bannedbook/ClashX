@@ -13,7 +13,7 @@
 //   to endorse or promote products derived from this software without specific
 //   prior written permission of Deusty, LLC.
 
-#import "DDFileLogger.h"
+#import <CocoaLumberjack/DDFileLogger.h>
 
 #import "DDFileLogger+Internal.h"
 
@@ -615,7 +615,10 @@ unsigned long long const kDDDefaultLogFilesDiskQuota   = 20 * 1024 * 1024; // 20
 
 @end
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wincomplete-implementation"
 @implementation DDFileLogger
+#pragma clang diagnostic pop
 
 - (instancetype)init {
     DDLogFileManagerDefault *defaultLogFileManager = [[DDLogFileManagerDefault alloc] init];
@@ -966,7 +969,7 @@ unsigned long long const kDDDefaultLogFilesDiskQuota   = 20 * 1024 * 1024; // 20
         BOOL isUntilFirstAuth = [key isEqualToString:NSFileProtectionCompleteUntilFirstUserAuthentication];
         BOOL isNone = [key isEqualToString:NSFileProtectionNone];
 
-        if (!isUntilFirstAuth && !isNone) {
+        if (key != nil && !isUntilFirstAuth && !isNone) {
             return YES;
         }
     }
@@ -1130,11 +1133,11 @@ static int exception_count = 0;
     [self lt_logData:[message dataUsingEncoding:NSUTF8StringEncoding]];
 }
 
-- (void)willLogMessage {
+- (void)willLogMessage:(DDLogFileInfo *)logFileInfo {
 
 }
 
-- (void)didLogMessage {
+- (void)didLogMessage:(DDLogFileInfo *)logFileInfo {
     [self lt_maybeRollLogFileDueToSize];
 }
 
@@ -1209,7 +1212,33 @@ static int exception_count = 0;
     }
 }
 
+- (void)dummyMethod {}
+
+- (NSMethodSignature *)methodSignatureForSelector:(SEL)aSelector {
+    if (aSelector == @selector(willLogMessage) || aSelector == @selector(didLogMessage)) {
+        // Ignore calls to deprecated methods.
+        return [self methodSignatureForSelector:@selector(dummyMethod)];
+    }
+
+    return [super methodSignatureForSelector:aSelector];
+}
+
+- (void)forwardInvocation:(NSInvocation *)anInvocation {
+    if (anInvocation.selector != @selector(dummyMethod)) {
+        [super forwardInvocation:anInvocation];
+    }
+}
+
 - (void)lt_logData:(NSData *)data {
+    static BOOL implementsDeprecatedWillLog = NO;
+    static BOOL implementsDeprecatedDidLog = NO;
+
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        implementsDeprecatedWillLog = [self respondsToSelector:@selector(willLogMessage)];
+        implementsDeprecatedDidLog = [self respondsToSelector:@selector(didLogMessage)];
+    });
+
     NSAssert([self isOnInternalLoggerQueue], @"logMessage should only be executed on internal queue.");
 
     if (data.length == 0) {
@@ -1217,13 +1246,28 @@ static int exception_count = 0;
     }
 
     @try {
-        [self willLogMessage];
+        if (implementsDeprecatedWillLog) {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+            [self willLogMessage];
+#pragma clang diagnostic pop
+        } else {
+            [self willLogMessage:_currentLogFileInfo];
+        }
 
         NSFileHandle *handle = [self lt_currentLogFileHandle];
         [handle seekToEndOfFile];
         [handle writeData:data];
 
-        [self didLogMessage];
+        if (implementsDeprecatedDidLog) {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+            [self didLogMessage];
+#pragma clang diagnostic pop
+        } else {
+            [self didLogMessage:_currentLogFileInfo];
+        }
+
     } @catch (NSException *exception) {
         exception_count++;
 
@@ -1442,7 +1486,9 @@ static int exception_count = 0;
         NSString *fileDir = [filePath stringByDeletingLastPathComponent];
         NSString *newFilePath = [fileDir stringByAppendingPathComponent:newFileName];
 
-#ifdef DEBUG
+        // We only want to assert when we're not using the simulator, as we're "archiving" a log file with this method in the sim
+        // (in which case the file might not exist anymore and neither does it parent folder).
+#if defined(DEBUG) && (!defined(TARGET_IPHONE_SIMULATOR) || !TARGET_IPHONE_SIMULATOR)
         BOOL directory = NO;
         [[NSFileManager defaultManager] fileExistsAtPath:fileDir isDirectory:&directory];
         NSAssert(directory, @"Containing directory must exist.");
@@ -1457,10 +1503,10 @@ static int exception_count = 0;
 
         success = [[NSFileManager defaultManager] moveItemAtPath:filePath toPath:newFilePath error:&error];
 
-            // When a log file is deleted, moved or renamed on the simulator, we attempt to rename it as a
-            // result of "archiving" it, but since the file doesn't exist anymore, needless error logs are printed
-            // We therefore ignore this error, and assert that the directory we are copying into exists (which
-            // is the only other case where this error code can come up).
+        // When a log file is deleted, moved or renamed on the simulator, we attempt to rename it as a
+        // result of "archiving" it, but since the file doesn't exist anymore, needless error logs are printed
+        // We therefore ignore this error, and assert that the directory we are copying into exists (which
+        // is the only other case where this error code can come up).
 #if TARGET_IPHONE_SIMULATOR
         if (!success && error.code != NSFileNoSuchFileError) {
 #else

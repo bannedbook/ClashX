@@ -1,6 +1,6 @@
 {
   "name": "Starscream",
-  "version": "3.1.0",
+  "version": "3.1.1",
   "summary": "A conforming WebSocket RFC 6455 client library in Swift.",
   "homepage": "https://github.com/daltoniam/Starscream",
   "license": "Apache License, Version 2.0",
@@ -10,7 +10,7 @@
   },
   "source": {
     "git": "https://github.com/daltoniam/Starscream.git",
-    "tag": "3.1.0"
+    "tag": "3.1.1"
   },
   "social_media_url": "http://twitter.com/daltoniam",
   "platforms": {

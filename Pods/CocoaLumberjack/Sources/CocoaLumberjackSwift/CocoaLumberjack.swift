@@ -13,6 +13,11 @@
 //   to endorse or promote products derived from this software without specific
 //   prior written permission of Deusty, LLC.
 
+#if SWIFT_PACKAGE
+import CocoaLumberjack
+import CocoaLumberjackSwiftSupport
+#endif
+
 extension DDLogFlag {
     public static func from(_ logLevel: DDLogLevel) -> DDLogFlag {
         return DDLogFlag(rawValue: logLevel.rawValue)

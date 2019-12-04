@@ -13,19 +13,16 @@
 //   to endorse or promote products derived from this software without specific
 //   prior written permission of Deusty, LLC.
 
-#import <CocoaLumberjack/CocoaLumberjack.h>
+#ifndef SwiftLogLevel_h
+#define SwiftLogLevel_h
 
-NS_ASSUME_NONNULL_BEGIN
+#import <CocoaLumberjack/DDLog.h>
 
-@interface DDFileLogger (Internal)
+#ifndef DD_LOG_LEVEL
+// #warning 'DD_LOG_LEVEL' is not defined. Using 'DDLogLevelAll' as default. Consider defining it yourself.
+#define DD_LOG_LEVEL DDLogLevelAll
+#endif
 
-- (void)logData:(NSData *)data;
+static const DDLogLevel DDDefaultLogLevel = DD_LOG_LEVEL;
 
-// Will assert if used outside logger's queue.
-- (void)lt_logData:(NSData *)data;
-
-- (NSData *)lt_dataForMessage:(DDLogMessage *)message;
-
-@end
-
-NS_ASSUME_NONNULL_END
+#endif /* SwiftLogLevel_h */
