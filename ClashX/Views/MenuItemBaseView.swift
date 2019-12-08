@@ -24,11 +24,7 @@ class MenuItemBaseView: NSView {
 
     var isHighlighted: Bool {
         let enable = enclosingMenuItem?.isEnabled ?? true
-        if #available(macOS 10.15.1, *) {
-            return (isMouseInsideView || isMenuOpen) && enable
-        } else {
-            return enclosingMenuItem?.isHighlighted ?? false
-        }
+        return (isMouseInsideView || isMenuOpen) && enable
     }
 
     let effectView: NSVisualEffectView = {
@@ -61,7 +57,7 @@ class MenuItemBaseView: NSView {
     }
 
     func setNeedsDisplay() {
-        setNeedsDisplay(bounds)
+        needsDisplay = true
     }
 
     func didClickView() {
@@ -140,40 +136,30 @@ class MenuItemBaseView: NSView {
 
     override func updateTrackingAreas() {
         super.updateTrackingAreas()
-        if #available(macOS 10.15.1, *) {
-            trackingAreas.forEach { removeTrackingArea($0) }
-            enclosingMenuItem?.submenu?.delegate = self
-            addTrackingArea(NSTrackingArea(rect: bounds, options: [.mouseEnteredAndExited, .activeAlways], owner: self, userInfo: nil))
-        }
+        trackingAreas.forEach { removeTrackingArea($0) }
+        enclosingMenuItem?.submenu?.delegate = self
+        addTrackingArea(NSTrackingArea(rect: bounds, options: [.mouseEnteredAndExited, .activeAlways], owner: self, userInfo: nil))
     }
 
     override func mouseEntered(with event: NSEvent) {
-        if #available(macOS 10.15.1, *) {
-            isMouseInsideView = true
-            setNeedsDisplay()
-        }
+        isMouseInsideView = true
+        setNeedsDisplay()
     }
 
     override func mouseExited(with event: NSEvent) {
-        if #available(macOS 10.15.1, *) {
-            isMouseInsideView = false
-            setNeedsDisplay()
-        }
+        isMouseInsideView = false
+        setNeedsDisplay()
     }
 }
 
 extension MenuItemBaseView: NSMenuDelegate {
     func menuWillOpen(_ menu: NSMenu) {
-        if #available(macOS 10.15.1, *) {
-            isMenuOpen = true
-            setNeedsDisplay()
-        }
+        isMenuOpen = true
+        setNeedsDisplay()
     }
 
     func menuDidClose(_ menu: NSMenu) {
-        if #available(macOS 10.15.1, *) {
-            isMenuOpen = false
-            setNeedsDisplay()
-        }
+        isMenuOpen = false
+        setNeedsDisplay()
     }
 }

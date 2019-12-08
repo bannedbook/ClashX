@@ -33,16 +33,18 @@ class ProxyGroupMenuItemView: MenuItemBaseView {
         effectView.addSubview(groupNameLabel)
         groupNameLabel.leftAnchor.constraint(equalTo: effectView.leftAnchor, constant: 20).isActive = true
         groupNameLabel.centerYAnchor.constraint(equalTo: effectView.centerYAnchor).isActive = true
+        groupNameLabel.setContentCompressionResistancePriority(.required, for: .horizontal)
 
         // select
         selectProxyLabel.translatesAutoresizingMaskIntoConstraints = false
         effectView.addSubview(selectProxyLabel)
         selectProxyLabel.rightAnchor.constraint(equalTo: effectView.rightAnchor, constant: -30).isActive = true
         selectProxyLabel.centerYAnchor.constraint(equalTo: effectView.centerYAnchor).isActive = true
+        selectProxyLabel.lineBreakMode = .byTruncatingHead
 
         // space
-        selectProxyLabel.leftAnchor.constraint(greaterThanOrEqualTo: groupNameLabel.rightAnchor, constant: 30).isActive = true
-        
+        selectProxyLabel.leftAnchor.constraint(greaterThanOrEqualTo: groupNameLabel.rightAnchor, constant: 20).isActive = true
+
         // max
         effectView.widthAnchor.constraint(lessThanOrEqualToConstant: 300).isActive = true
         // font & color
