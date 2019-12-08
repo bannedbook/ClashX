@@ -80,6 +80,7 @@ extension AutoUpgardeManager {
     enum Channel: Int, CaseIterable {
         case stable
         case prelease
+        case appcenter
     }
 }
 
@@ -90,6 +91,8 @@ extension AutoUpgardeManager.Channel {
             return NSLocalizedString("Stable", comment: "")
         case .prelease:
             return NSLocalizedString("Prelease", comment: "")
+        case .appcenter:
+            return "Appcenter"
         }
     }
 
@@ -99,6 +102,8 @@ extension AutoUpgardeManager.Channel {
             return "https://yichengchen.github.io/clashX/appcast.xml"
         case .prelease:
             return "https://yichengchen.github.io/clashX/appcast_pre.xml"
+        case .appcenter:
+            return "https://api.appcenter.ms/v0.1/public/sparkle/apps/dce6e9a3-b6e3-4fd2-9f2d-35c767a99663"
         }
     }
 }
