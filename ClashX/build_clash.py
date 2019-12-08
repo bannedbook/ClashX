@@ -41,7 +41,7 @@ def run():
     print("current clash version:", version)
     build_clash(version)
     print("build static library complete!")
-    if os.environ.get("CI", False):
+    if os.environ.get("CI", False) or os.environ.get("GITHUB_ACTIONS", False):
         print("writing info.plist")
         write_to_info(version)
     print("done")
