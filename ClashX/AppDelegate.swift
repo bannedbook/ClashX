@@ -210,6 +210,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             .rx
             .notification(kSystemNetworkStatusDidChange)
             .observeOn(MainScheduler.instance)
+            .delay(.milliseconds(200), scheduler: MainScheduler.instance)
             .bind { _ in
                 guard NetworkChangeNotifier.getPrimaryInterface() != nil else { return }
                 let (http, https, socks) = NetworkChangeNotifier.currentSystemProxySetting()
