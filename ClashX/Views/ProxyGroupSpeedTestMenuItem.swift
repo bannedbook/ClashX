@@ -10,8 +10,8 @@ import Carbon
 import Cocoa
 
 class ProxyGroupSpeedTestMenuItem: NSMenuItem {
-    var proxyGroup: ClashProxy
-    var testType: TestType
+    let proxyGroup: ClashProxy
+    let testType: TestType
 
     init(group: ClashProxy) {
         proxyGroup = group

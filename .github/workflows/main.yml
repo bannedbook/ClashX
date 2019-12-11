@@ -67,7 +67,7 @@ jobs:
         fastlane run notarize package:"./ClashX.dmg" bundle_id:"com.west2online.ClashX"
 
     - name: upload to appcenter 
-      if: contains(github.event.head_commit.message, '[appcenter]')
+      if: startsWith(github.ref, 'refs/tags/') || contains(github.event.head_commit.message, '[appcenter]')
       env:
         APPCENTER_DISTRIBUTE_UPLOAD_BUILD_ONLY: true
         APPCENTER_DISTRIBUTE_DESTINATIONS: Public

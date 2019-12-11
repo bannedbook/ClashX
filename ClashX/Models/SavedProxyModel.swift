@@ -13,15 +13,15 @@ struct SavedProxyModel: Codable {
     let selected: ClashProxyName
     let config: String
 
-    var key:String {
+    var key: String {
         return "\(group)_\(config)"
     }
+
     static let key = "SavedProxyModels"
 
     static func loadsFromUserDefault() -> [SavedProxyModel] {
         if let data = UserDefaults.standard.object(forKey: key) as? Data,
             let models = try? JSONDecoder().decode([SavedProxyModel].self, from: data) {
-            
             var set = Set<String>()
             return models.filter({ model in
                 let pass = !set.contains(model.key)

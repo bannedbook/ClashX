@@ -22,7 +22,7 @@ class AppVersionUtil: NSObject {
     static var currentBuild: String {
         return Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as? String ?? ""
     }
-    
+
     static var isBeta: Bool {
         return Bundle.main.object(forInfoDictionaryKey: "BETA") as? Bool ?? false
     }

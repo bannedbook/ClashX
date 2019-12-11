@@ -70,6 +70,7 @@
 		F9A7C06C2306E874007163C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F9A7C06B2306E874007163C7 /* main.m */; };
 		F9E754D0239CC21F00CEE7CC /* WebPortalManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9E754CF239CC21F00CEE7CC /* WebPortalManager.swift */; };
 		F9E754D2239CC28D00CEE7CC /* NSAlert+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9E754D1239CC28D00CEE7CC /* NSAlert+Extension.swift */; };
+		F9E8F34623A12B89002DE5E8 /* String+Encode.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9E8F34523A12B89002DE5E8 /* String+Encode.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -187,6 +188,7 @@
 		F9A7C06B2306E874007163C7 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		F9E754CF239CC21F00CEE7CC /* WebPortalManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebPortalManager.swift; sourceTree = "<group>"; };
 		F9E754D1239CC28D00CEE7CC /* NSAlert+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSAlert+Extension.swift"; sourceTree = "<group>"; };
+		F9E8F34523A12B89002DE5E8 /* String+Encode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Encode.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -229,6 +231,7 @@
 				F9203A25236342820020D57D /* AppDelegate+..swift */,
 				F92D0B29236C759100575E15 /* NSTextField+Vibrancy.swift */,
 				F9E754D1239CC28D00CEE7CC /* NSAlert+Extension.swift */,
+				F9E8F34523A12B89002DE5E8 /* String+Encode.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -659,6 +662,7 @@
 				499A485E22ED9B7C00F6C675 /* NSTableView+Reload.swift in Sources */,
 				49862FA0218418C600A1D5EC /* ClashRule.swift in Sources */,
 				49C9EF64223E78F5005D8B6A /* ClashProxy.swift in Sources */,
+				F9E8F34623A12B89002DE5E8 /* String+Encode.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

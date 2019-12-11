@@ -198,9 +198,7 @@ class ApiRequest {
     }
 
     static func getProxyDelay(proxyName: String, callback: @escaping ((Int) -> Void)) {
-        let proxyNameEncoded = proxyName.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-
-        req("/proxies/\(proxyNameEncoded)/delay",
+        req("/proxies/\(proxyName.encoded)/delay",
             method: .get,
             parameters: ["timeout": 5000, "url": "http://www.gstatic.com/generate_204"])
             .responseJSON { res in
@@ -219,6 +217,17 @@ class ApiRequest {
             guard let data = try? res.result.get() else { return }
             let rule = ClashRuleResponse.fromData(data)
             completeHandler(rule.rules ?? [])
+        }
+    }
+
+    static func healthCheck(proxy: ClashProxyName) {
+        Logger.log("HeathCheck for \(proxy) started")
+        req("/providers/proxies/\(proxy.encoded)/healthcheck").response { res in
+            if res.response?.statusCode == 204 {
+                Logger.log("HeathCheck for \(proxy) finished")
+            } else {
+                Logger.log("HeathCheck for \(proxy) failed")
+            }
         }
     }
 }
