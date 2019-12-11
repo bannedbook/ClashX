@@ -578,10 +578,11 @@ extension AppDelegate {
         let copy = [SavedProxyModel](ConfigManager.selectedProxyRecords)
         for item in copy {
             guard item.config == ConfigManager.selectConfigName else { continue }
+            Logger.log("Auto selecting \(item.group) \(item.selected)", level: .debug)
             ApiRequest.updateProxyGroup(group: item.group, selectProxy: item.selected) { success in
                 if !success {
                     ConfigManager.selectedProxyRecords.removeAll { model -> Bool in
-                        return model == item
+                        return model.key == item.key
                     }
                 }
             }

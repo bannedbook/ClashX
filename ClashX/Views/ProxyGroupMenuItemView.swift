@@ -46,7 +46,7 @@ class ProxyGroupMenuItemView: MenuItemBaseView {
         selectProxyLabel.leftAnchor.constraint(greaterThanOrEqualTo: groupNameLabel.rightAnchor, constant: 20).isActive = true
 
         // max
-        effectView.widthAnchor.constraint(lessThanOrEqualToConstant: 300).isActive = true
+        effectView.widthAnchor.constraint(lessThanOrEqualToConstant: 330).isActive = true
         // font & color
         groupNameLabel.font = type(of: self).labelFont
         selectProxyLabel.font = type(of: self).labelFont
