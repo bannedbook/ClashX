@@ -36,6 +36,11 @@ class RemoteConfigViewController: NSViewController {
                 self.showAdd(defaultUrl: url, name: name)
             }.disposed(by: disposeBag)
     }
+    
+    override func viewWillAppear() {
+        super.viewWillAppear()
+        NSApp.activate(ignoringOtherApps: true)
+    }
 
     override func viewWillDisappear() {
         super.viewWillDisappear()
