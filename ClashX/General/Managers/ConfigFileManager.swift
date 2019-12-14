@@ -1,11 +1,12 @@
 //
-import AppKit
 //  ConfigFileFactory.swift
 //  ClashX
 //
 //  Created by CYC on 2018/8/5.
 //  Copyright © 2018年 yichengchen. All rights reserved.
 //
+
+import AppKit
 import Foundation
 import SwiftyJSON
 
@@ -28,7 +29,7 @@ class ConfigFileManager {
                 return
             }
             for event in events {
-                if event.flags.contains(.ItemModified) {
+                if event.flags.contains(.ItemModified) || event.flags.contains(.ItemRenamed) {
                     NSUserNotificationCenter.default
                         .postConfigFileChangeDetectionNotice()
                     NotificationCenter.default
