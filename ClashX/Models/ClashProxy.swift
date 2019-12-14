@@ -67,11 +67,12 @@ class ClashProxySpeedHistory: Codable {
 }
 
 class ClashProxy: Codable {
-    var name: ClashProxyName = ""
+    let name: ClashProxyName
     let type: ClashProxyType
     let all: [ClashProxyName]?
     let history: [ClashProxySpeedHistory]
     let now: ClashProxyName?
+    var providerProxy = false
     weak var enclosingResp: ClashProxyResp? = nil
 
     lazy var speedtestAble: [ClashProxyName] = {
@@ -79,14 +80,16 @@ class ClashProxy: Codable {
         var proxys = [ClashProxyName]()
         for proxy in allProxys {
             if let p = resp.proxiesMap[proxy], !ClashProxyType.isProxyGroup(p) {
-                proxys.append(proxy)
+                if !p.providerProxy {
+                    proxys.append(proxy)
+                }
             }
         }
         return proxys
     }()
 
     private enum CodingKeys: String, CodingKey {
-        case type, all, history, now
+        case type, all, history, now, name
     }
 
     lazy var maxProxyName: String = {
@@ -105,7 +108,7 @@ class ClashProxy: Codable {
 
 class ClashProxyResp {
     let proxies: [ClashProxy]
-    let proxiesMap: [ClashProxyName: ClashProxy]
+    var proxiesMap: [ClashProxyName: ClashProxy]
 
     init(_ data: Any?) {
         guard
@@ -122,18 +125,14 @@ class ClashProxyResp {
         var proxiesMap = [ClashProxyName: ClashProxy]()
 
         let decoder = JSONDecoder()
-        let dateFormatter = DateFormatter()
-        dateFormatter.locale = Locale(identifier: NSCalendar.Identifier.ISO8601.rawValue)
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SZ"
-        decoder.dateDecodingStrategy = .formatted(dateFormatter)
-        for (key, value) in proxies {
+        decoder.dateDecodingStrategy = .formatted(DateFormatter.js)
+        for value in proxies.values {
             guard let data = try? JSONSerialization.data(withJSONObject: value, options: .prettyPrinted) else {
                 continue
             }
             guard let proxy = try? decoder.decode(ClashProxy.self, from: data) else {
                 continue
             }
-            proxy.name = key
             proxiesModel.append(proxy)
             proxiesMap[proxy.name] = proxy
         }
@@ -142,6 +141,15 @@ class ClashProxyResp {
 
         for proxy in self.proxies {
             proxy.enclosingResp = self
+        }
+    }
+
+    func updateProvider(_ providerResp: ClashProviderResp) {
+        for provider in providerResp.providers.values {
+            for proxy in provider.proxies {
+                proxy.providerProxy = true
+                proxiesMap[proxy.name] = proxy
+            }
         }
     }
 

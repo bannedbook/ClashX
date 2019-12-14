@@ -17,26 +17,31 @@ class MenuItemFactory {
             return
         }
 
-        ApiRequest.requestProxyGroupList() {
-            proxyInfo in
-            var menuItems = [NSMenuItem]()
+        ApiRequest.requestProxyProviderList() {
+            proxyprovider in
 
-            for proxy in proxyInfo.proxyGroups {
-                var menu: NSMenuItem?
-                switch proxy.type {
-                case .select: menu = self.generateSelectorMenuItem(proxyGroup: proxy, proxyInfo: proxyInfo)
-                case .urltest, .fallback: menu = generateUrlTestFallBackMenuItem(proxyGroup: proxy, proxyInfo: proxyInfo)
-                case .loadBalance:
-                    menu = generateLoadBalanceMenuItem(proxyGroup: proxy, proxyInfo: proxyInfo)
-                default: continue
-                }
+            ApiRequest.requestProxyGroupList() {
+                proxyInfo in
+                proxyInfo.updateProvider(proxyprovider)
 
-                if let menu = menu {
-                    menuItems.append(menu)
-                    menu.isEnabled = true
+                var menuItems = [NSMenuItem]()
+                for proxy in proxyInfo.proxyGroups {
+                    var menu: NSMenuItem?
+                    switch proxy.type {
+                    case .select: menu = self.generateSelectorMenuItem(proxyGroup: proxy, proxyInfo: proxyInfo)
+                    case .urltest, .fallback: menu = generateUrlTestFallBackMenuItem(proxyGroup: proxy, proxyInfo: proxyInfo)
+                    case .loadBalance:
+                        menu = generateLoadBalanceMenuItem(proxyGroup: proxy, proxyInfo: proxyInfo)
+                    default: continue
+                    }
+
+                    if let menu = menu {
+                        menuItems.append(menu)
+                        menu.isEnabled = true
+                    }
                 }
+                completionHandler(menuItems.reversed())
             }
-            completionHandler(menuItems.reversed())
         }
     }
 
@@ -149,6 +154,21 @@ class MenuItemFactory {
         addSpeedTestMenuItem(submenu, proxyGroup: proxyGroup)
         menu.submenu = submenu
 
+        return menu
+    }
+
+    static func generateProviderMenuItems(_ provider: ClashProvider) -> NSMenuItem? {
+        let menu = NSMenuItem(title: provider.name, action: nil, keyEquivalent: "")
+        let submenu = NSMenu(title: provider.name)
+
+        for proxy in provider.proxies {
+            let proxyMenuItem = NSMenuItem(title: proxy.name, action: #selector(empty), keyEquivalent: "")
+            proxyMenuItem.target = MenuItemFactory.self
+            proxyMenuItem.submenu = generateHistoryMenu(proxy)
+            submenu.addItem(proxyMenuItem)
+        }
+
+        menu.submenu = submenu
         return menu
     }
 

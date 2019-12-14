@@ -546,10 +546,16 @@ extension AppDelegate {
 
 extension AppDelegate {
     func registCrashLogger() {
+        #if DEBUG
+            return
+        #endif
         Fabric.with([Crashlytics.self])
     }
 
     func failLaunchProtect() {
+        #if DEBUG
+            return
+        #endif
         let x = UserDefaults.standard
         var launch_fail_times: Int = 0
         if let xx = x.object(forKey: "launch_fail_times") as? Int { launch_fail_times = xx }
