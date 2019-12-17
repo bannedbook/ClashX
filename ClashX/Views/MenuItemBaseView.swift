@@ -16,9 +16,6 @@ class MenuItemBaseView: NSView {
     private let handleClick: Bool
     private let autolayout: Bool
 
-    deinit {
-        freeEventHandler()
-    }
 
     // MARK: Public
 
@@ -82,32 +79,6 @@ class MenuItemBaseView: NSView {
         effectView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
     }
 
-    private func updateCarbon() {
-        if window != nil {
-            freeEventHandler()
-            if let dispatcher = GetEventDispatcherTarget() {
-                let eventHandlerCallback: EventHandlerUPP = { eventHandlerCallRef, eventRef, userData in
-                    guard let userData = userData else { return 0 }
-                    let itemView: MenuItemBaseView = bridge(ptr: userData)
-                    itemView.didClickView()
-                    return 0
-                }
-
-                let eventSpecs = [EventTypeSpec(eventClass: OSType(kEventClassMouse), eventKind: UInt32(kEventMouseUp))]
-
-                InstallEventHandler(dispatcher, eventHandlerCallback, 1, eventSpecs, bridge(obj: self), &eventHandler)
-            }
-        } else {
-            freeEventHandler()
-        }
-    }
-
-    private func freeEventHandler() {
-        if let handler = eventHandler {
-            RemoveEventHandler(handler)
-            eventHandler = nil
-        }
-    }
 
     // MARK: Override
 
@@ -119,9 +90,6 @@ class MenuItemBaseView: NSView {
 
     override func viewDidMoveToWindow() {
         super.viewDidMoveToWindow()
-        if handleClick {
-            updateCarbon()
-        }
     }
 
     override func viewDidMoveToSuperview() {
@@ -132,6 +100,10 @@ class MenuItemBaseView: NSView {
                 view.autoresizingMask = [.width]
             }
         }
+    }
+    
+    override func mouseUp(with event: NSEvent) {
+        didClickView()
     }
 
     override func updateTrackingAreas() {
