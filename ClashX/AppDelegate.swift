@@ -50,7 +50,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     var disposeBag = DisposeBag()
     var statusItemView: StatusItemView!
     var isSpeedTesting = false
-    var isMenuOptionEnter = false
 
     func applicationDidFinishLaunching(_ notification: Notification) {
         signal(SIGPIPE, SIG_IGN)
@@ -418,14 +417,15 @@ extension AppDelegate {
         }
     }
 
-    @IBAction func actionCopyExportCommand(_ sender: Any) {
+    @IBAction func actionCopyExportCommand(_ sender: NSMenuItem) {
         let pasteboard = NSPasteboard.general
         pasteboard.clearContents()
         let port = ConfigManager.shared.currentConfig?.port ?? 0
         let socksport = ConfigManager.shared.currentConfig?.socketPort ?? 0
         let localhost = "127.0.0.1"
-
-        let ip = isMenuOptionEnter ? NetworkChangeNotifier.getPrimaryIPAddress() ?? localhost : localhost
+        let isLocalhostCopy = sender == copyExportCommandMenuItem
+        let ip = isLocalhostCopy ? localhost :
+            NetworkChangeNotifier.getPrimaryIPAddress() ?? localhost
         pasteboard.setString("export https_proxy=http://\(ip):\(port) http_proxy=http://\(ip):\(port) all_proxy=socks5://\(ip):\(socksport)", forType: .string)
     }
 
@@ -619,11 +619,6 @@ extension AppDelegate {
             self?.syncConfig()
         }
     }
-
-    func updateCopyProxyItem() {
-        isMenuOptionEnter = NSEvent.modifierFlags == [.option]
-        copyExportCommandMenuItem.title = isMenuOptionEnter ? NSLocalizedString("Copy Shell Export Command with External IP", comment: "") : NSLocalizedString("Copy Shell Export Command", comment: "")
-    }
 }
 
 // MARK: NSMenuDelegate
@@ -634,7 +629,6 @@ extension AppDelegate: NSMenuDelegate {
     func menuNeedsUpdate(_ menu: NSMenu) {
         syncConfig()
         updateConfigFiles()
-        updateCopyProxyItem()
     }
 }
 
