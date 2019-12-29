@@ -47,7 +47,7 @@ class ClashWebViewContoller: NSViewController {
             self?.bridge?.callHandler("onConfigChange")
         }.disposed(by: disposeBag)
 
-        NotificationCenter.default.rx.notification(kLogLevelDidChange).bind {
+        NotificationCenter.default.rx.notification(kReloadDashboard).bind {
             [weak self] _ in
             self?.webview.reload()
         }.disposed(by: disposeBag)

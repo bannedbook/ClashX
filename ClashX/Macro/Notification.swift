@@ -10,4 +10,4 @@ import Foundation
 let kConfigFileChange = Notification.Name("kConfigFileChange")
 let kSystemNetworkStatusDidChange = Notification.Name("kSystemNetworkStatusDidChange")
 let kSpeedTestFinishForProxy = Notification.Name("kSpeedTestFinishForProxy")
-let kLogLevelDidChange = Notification.Name("kLogLevelDidChange")
+let kReloadDashboard = Notification.Name("kReloadDashboard")

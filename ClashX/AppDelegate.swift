@@ -259,7 +259,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         for item in logLevelMenuItem.submenu?.items ?? [] {
             item.state = item.title.lowercased() == ConfigManager.selectLoggingApiLevel.rawValue ? .on : .off
         }
-        NotificationCenter.default.post(name: kLogLevelDidChange, object: nil)
+        NotificationCenter.default.post(name: kReloadDashboard, object: nil)
     }
 
     func startProxy() {
@@ -338,6 +338,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                     ConfigManager.selectConfigName = newConfigName
                 }
                 self.selectProxyGroupWithMemory()
+                NotificationCenter.default.post(name: kReloadDashboard, object: nil)
             }
         }
     }
