@@ -122,8 +122,6 @@ class MenuItemFactory {
         guard proxyGroup.speedtestAble.count > 0 else { return }
         menus.addItem(NSMenuItem.separator())
         let speedTestItem = ProxyGroupSpeedTestMenuItem(group: proxyGroup)
-        speedTestItem.target = MenuItemFactory.self
-        speedTestItem.action = #selector(actionSpeedTest)
         menus.addItem(speedTestItem)
     }
 
@@ -154,21 +152,6 @@ class MenuItemFactory {
         addSpeedTestMenuItem(submenu, proxyGroup: proxyGroup)
         menu.submenu = submenu
 
-        return menu
-    }
-
-    static func generateProviderMenuItems(_ provider: ClashProvider) -> NSMenuItem? {
-        let menu = NSMenuItem(title: provider.name, action: nil, keyEquivalent: "")
-        let submenu = NSMenu(title: provider.name)
-
-        for proxy in provider.proxies {
-            let proxyMenuItem = NSMenuItem(title: proxy.name, action: #selector(empty), keyEquivalent: "")
-            proxyMenuItem.target = MenuItemFactory.self
-            proxyMenuItem.submenu = generateHistoryMenu(proxy)
-            submenu.addItem(proxyMenuItem)
-        }
-
-        menu.submenu = submenu
         return menu
     }
 
@@ -215,11 +198,6 @@ extension MenuItemFactory {
                 ConnectionManager.closeAllConnection()
             }
         }
-    }
-
-    @objc static func actionSpeedTest(sender: ProxyGroupSpeedTestMenuItem) {
-        guard sender.testType == .reTest else { return }
-        ApiRequest.healthCheck(proxy: sender.proxyGroup.name)
     }
 
     @objc static func empty() {}

@@ -25,6 +25,8 @@ class ProxyGroupSpeedTestMenuItem: NSMenuItem {
         }
 
         super.init(title: NSLocalizedString("Benchmark", comment: ""), action: nil, keyEquivalent: "")
+        target = self
+        action = #selector(healthCheck)
 
         switch testType {
         case .benchmark:
@@ -38,6 +40,12 @@ class ProxyGroupSpeedTestMenuItem: NSMenuItem {
 
     required init(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+    @objc func healthCheck() {
+        guard testType == .reTest else { return }
+        ApiRequest.healthCheck(proxy: proxyGroup.name)
+        menu?.cancelTracking()
     }
 }
 
@@ -71,10 +79,19 @@ fileprivate class ProxyGroupSpeedTestMenuItemView: MenuItemBaseView {
         guard let group = (enclosingMenuItem as? ProxyGroupSpeedTestMenuItem)?.proxyGroup
         else { return }
         let testGroup = DispatchGroup()
-        label.stringValue = NSLocalizedString("Testing", comment: "")
-        enclosingMenuItem?.isEnabled = false
-        setNeedsDisplay(bounds)
-        for proxyName in group.speedtestAble {
+
+        var proxies = [ClashProxyName]()
+        var providers = Set<ClashProviderName>()
+        for testable in group.speedtestAble {
+            switch testable {
+            case let .provider(_, provider):
+                providers.insert(provider)
+            case let .proxy(name):
+                proxies.append(name)
+            }
+        }
+
+        for proxyName in proxies {
             testGroup.enter()
             ApiRequest.getProxyDelay(proxyName: proxyName) { delay in
                 let delayStr = delay == 0 ? "fail" : "\(delay) ms"
@@ -85,12 +102,23 @@ fileprivate class ProxyGroupSpeedTestMenuItemView: MenuItemBaseView {
             }
         }
 
-        testGroup.notify(queue: .main) {
-            [weak self] in
-            guard let self = self, let menu = self.enclosingMenuItem else { return }
-            self.label.stringValue = menu.title
-            menu.isEnabled = true
-            self.setNeedsDisplay()
+        if providers.count > 0 {
+            for provider in providers {
+                ApiRequest.healthCheck(proxy: provider)
+            }
+            enclosingMenuItem?.menu?.cancelTracking()
+
+        } else {
+            label.stringValue = NSLocalizedString("Testing", comment: "")
+            enclosingMenuItem?.isEnabled = false
+            setNeedsDisplay()
+            testGroup.notify(queue: .main) {
+                [weak self] in
+                guard let self = self, let menu = self.enclosingMenuItem else { return }
+                self.label.stringValue = menu.title
+                menu.isEnabled = true
+                self.setNeedsDisplay()
+            }
         }
     }
 

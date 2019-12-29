@@ -43,7 +43,7 @@ class ClashProvider: Codable {
         case Unknown
     }
 
-    let name: String
+    let name: ClashProviderName
     let proxies: [ClashProxy]
     let type: ProviderType
     let vehicleType: ProviderVehicleType

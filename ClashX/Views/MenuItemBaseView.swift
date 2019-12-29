@@ -16,7 +16,6 @@ class MenuItemBaseView: NSView {
     private let handleClick: Bool
     private let autolayout: Bool
 
-
     // MARK: Public
 
     var isHighlighted: Bool {
@@ -79,7 +78,6 @@ class MenuItemBaseView: NSView {
         effectView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
     }
 
-
     // MARK: Override
 
     override func draw(_ dirtyRect: NSRect) {
@@ -101,7 +99,7 @@ class MenuItemBaseView: NSView {
             }
         }
     }
-    
+
     override func mouseUp(with event: NSEvent) {
         didClickView()
     }

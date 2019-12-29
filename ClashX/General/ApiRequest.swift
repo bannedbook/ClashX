@@ -227,7 +227,7 @@ class ApiRequest {
         }
     }
 
-    static func healthCheck(proxy: ClashProxyName) {
+    static func healthCheck(proxy: ClashProviderName) {
         Logger.log("HeathCheck for \(proxy) started")
         req("/providers/proxies/\(proxy.encoded)/healthcheck").response { res in
             if res.response?.statusCode == 204 {

@@ -40,6 +40,7 @@ enum ClashProxyType: String, Codable {
 }
 
 typealias ClashProxyName = String
+typealias ClashProviderName = String
 
 class ClashProxySpeedHistory: Codable {
     let time: Date
@@ -72,16 +73,23 @@ class ClashProxy: Codable {
     let all: [ClashProxyName]?
     let history: [ClashProxySpeedHistory]
     let now: ClashProxyName?
-    var providerProxy = false
     weak var enclosingResp: ClashProxyResp? = nil
+    weak var enclosingProvider: ClashProvider? = nil
 
-    lazy var speedtestAble: [ClashProxyName] = {
-        guard let resp = enclosingResp, let allProxys = all else { return all ?? [] }
-        var proxys = [ClashProxyName]()
+    enum SpeedtestAbleItem {
+        case proxy(name: ClashProxyName)
+        case provider(name: ClashProxyName, provider: ClashProviderName)
+    }
+
+    lazy var speedtestAble: [SpeedtestAbleItem] = {
+        guard let resp = enclosingResp, let allProxys = all else { return [] }
+        var proxys = [SpeedtestAbleItem]()
         for proxy in allProxys {
             if let p = resp.proxiesMap[proxy], !ClashProxyType.isProxyGroup(p) {
-                if !p.providerProxy {
-                    proxys.append(proxy)
+                if let provider = p.enclosingProvider {
+                    proxys.append(.provider(name: p.name, provider: provider.name))
+                } else {
+                    proxys.append(.proxy(name: p.name))
                 }
             }
         }
@@ -109,6 +117,8 @@ class ClashProxy: Codable {
 class ClashProxyResp {
     let proxies: [ClashProxy]
     var proxiesMap: [ClashProxyName: ClashProxy]
+
+    private var enclosingProviderResp: ClashProviderResp?
 
     init(_ data: Any?) {
         guard
@@ -145,9 +155,10 @@ class ClashProxyResp {
     }
 
     func updateProvider(_ providerResp: ClashProviderResp) {
+        enclosingProviderResp = providerResp
         for provider in providerResp.providers.values {
             for proxy in provider.proxies {
-                proxy.providerProxy = true
+                proxy.enclosingProvider = provider
                 proxiesMap[proxy.name] = proxy
             }
         }
