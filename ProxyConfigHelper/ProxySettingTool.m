@@ -51,16 +51,26 @@
                 [self disableProxySetting:ref interface:key];
                 return;
             }
-            BOOL isClashSetting =
+            
+            int savedHttpPort = ((NSNumber *)(proxySetting[(__bridge NSString *)kCFNetworkProxiesHTTPPort])).intValue;
+            int savedHttpsPort = ((NSNumber *)(proxySetting[(__bridge NSString *)kCFNetworkProxiesHTTPSPort])).intValue;
+            int savedSocksPort = ((NSNumber *)(proxySetting[(__bridge NSString *)kCFNetworkProxiesSOCKSPort])).intValue;
+            
+            
+            BOOL shouldIgnoreAndReset =
             [proxySetting[(__bridge NSString *)kCFNetworkProxiesHTTPProxy] isEqualToString:@"127.0.0.1"] &&
             [proxySetting[(__bridge NSString *)kCFNetworkProxiesSOCKSProxy] isEqualToString:@"127.0.0.1"] &&
             ((NSNumber *)(proxySetting[(__bridge NSString *)kCFNetworkProxiesHTTPEnable])).boolValue &&
             ((NSNumber *)(proxySetting[(__bridge NSString *)kCFNetworkProxiesHTTPSEnable])).boolValue&&
-            ((NSNumber *)(proxySetting[(__bridge NSString *)kCFNetworkProxiesHTTPPort])).intValue == port&&
-            ((NSNumber *)(proxySetting[(__bridge NSString *)kCFNetworkProxiesHTTPSPort])).intValue == port&&
-            ((NSNumber *)(proxySetting[(__bridge NSString *)kCFNetworkProxiesSOCKSPort])).intValue == socksPort;
-
-            if (isClashSetting) {
+            savedHttpPort == port&&
+            savedHttpsPort == port&&
+            savedSocksPort== socksPort;
+            
+            if (savedHttpPort <= 0 || savedHttpsPort <= 0 || savedSocksPort <=0) {
+                shouldIgnoreAndReset = YES;
+            }
+            
+            if (shouldIgnoreAndReset) {
                 [self disableProxySetting:ref interface:key];
                 return;
             }
@@ -123,13 +133,13 @@
         }
     }
     NSArray *ignoreList = @[
-                            @"192.168.0.0/16",
-                            @"10.0.0.0/8",
-                            @"172.16.0.0/12",
-                            @"127.0.0.1",
-                            @"localhost",
-                            @"*.local",
-                            ];
+        @"192.168.0.0/16",
+        @"10.0.0.0/8",
+        @"172.16.0.0/12",
+        @"127.0.0.1",
+        @"localhost",
+        @"*.local",
+    ];
     return ignoreList;
 }
 
@@ -171,13 +181,13 @@
 }
 
 - (void)enableProxySettings:(SCPreferencesRef)prefs
-                 interface:(NSString *)interfaceKey
-                      port:(int) port
-                 socksPort:(int) socksPort {
+                  interface:(NSString *)interfaceKey
+                       port:(int) port
+                  socksPort:(int) socksPort {
     
     NSDictionary *proxySettings = [self getProxySetting:YES port:port socksPort:socksPort];
     [self setProxyConfig:prefs interface:interfaceKey proxySetting:proxySettings];
-
+    
 }
 
 - (void)disableProxySetting:(SCPreferencesRef)prefs
@@ -187,8 +197,8 @@
 }
 
 - (void)setProxyConfig:(SCPreferencesRef)prefs
-                 interface:(NSString *)interfaceKey
-              proxySetting:(NSDictionary *)proxySettings {
+             interface:(NSString *)interfaceKey
+          proxySetting:(NSDictionary *)proxySettings {
     NSString *path = [self proxySettingPathWithInterface:interfaceKey];
     SCPreferencesPathSetValue(prefs,
                               (__bridge CFStringRef)path,
