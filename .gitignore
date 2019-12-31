@@ -8,3 +8,4 @@ ClashX.app
 **/xcuserdata/
 .idea
 *.pyc
+ClashX/clash/
