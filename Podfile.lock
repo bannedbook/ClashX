@@ -19,7 +19,7 @@ PODS:
   - WebViewJavascriptBridge (6.0.3)
 
 DEPENDENCIES:
-  - Alamofire (~> 5.0.0-rc.2)
+  - Alamofire (~> 5.0.0-rc.3)
   - CocoaLumberjack/Swift
   - Crashlytics
   - Fabric
@@ -27,7 +27,7 @@ DEPENDENCIES:
   - RxCocoa
   - RxSwift
   - Sparkle
-  - Starscream (from `https://github.com/daltoniam/Starscream.git`, branch `master`)
+  - Starscream
   - SwiftyJSON
   - WebViewJavascriptBridge
 
@@ -42,18 +42,9 @@ SPEC REPOS:
     - RxRelay
     - RxSwift
     - Sparkle
+    - Starscream
     - SwiftyJSON
     - WebViewJavascriptBridge
-
-EXTERNAL SOURCES:
-  Starscream:
-    :branch: master
-    :git: https://github.com/daltoniam/Starscream.git
-
-CHECKOUT OPTIONS:
-  Starscream:
-    :commit: e6b65c6d9077ea48b4a7bdda8994a1d3c6969c8d
-    :git: https://github.com/daltoniam/Starscream.git
 
 SPEC CHECKSUMS:
   Alamofire: ca8c0de6906873be89d6deec5c8de279e00bf872
@@ -69,6 +60,6 @@ SPEC CHECKSUMS:
   SwiftyJSON: 36413e04c44ee145039d332b4f4e2d3e8d6c4db7
   WebViewJavascriptBridge: 7f5bc4d3581e672e8f32bd0f812d54bc69bb8e29
 
-PODFILE CHECKSUM: 4cce6751291417c5665afcb7dc39fa3e81d17cd5
+PODFILE CHECKSUM: 58e897ab79ac4963f42f8caf18954671925a79ee
 
-COCOAPODS: 1.7.5
+COCOAPODS: 1.8.4
