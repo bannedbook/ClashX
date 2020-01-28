@@ -42,9 +42,10 @@ class AboutViewController: NSViewController {
 
     override func viewWillAppear() {
         super.viewWillAppear()
-        NSApp.activate(ignoringOtherApps: true)
         view.window?.styleMask.remove(.resizable)
         view.window?.makeKeyAndOrderFront(self)
+        view.window?.level = .floating
+        NSApp.activate(ignoringOtherApps: true)
     }
 }
 

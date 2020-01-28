@@ -39,6 +39,7 @@ class RemoteConfigViewController: NSViewController {
 
     override func viewWillAppear() {
         super.viewWillAppear()
+        view.window?.level = .floating
         NSApp.activate(ignoringOtherApps: true)
     }
 
