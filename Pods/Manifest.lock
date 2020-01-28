@@ -14,7 +14,7 @@ PODS:
     - RxSwift (~> 5)
   - RxSwift (5.0.1)
   - Sparkle (1.22.0)
-  - Starscream (3.1.1)
+  - Starscream (4.0.0)
   - SwiftyJSON (5.0.0)
   - WebViewJavascriptBridge (6.0.3)
 
@@ -56,10 +56,10 @@ SPEC CHECKSUMS:
   RxRelay: 89d54507f4fd4d969e6ec1d4bd7f3673640b4640
   RxSwift: e2dc62b366a3adf6a0be44ba9f405efd4c94e0c4
   Sparkle: 593ac2e677c07bcb6c3b22d621240e7cbedaab57
-  Starscream: 4bb2f9942274833f7b4d296a55504dcfc7edb7b0
+  Starscream: 04b26f02727e10a002e6b5d21b188ba0d049910b
   SwiftyJSON: 36413e04c44ee145039d332b4f4e2d3e8d6c4db7
   WebViewJavascriptBridge: 7f5bc4d3581e672e8f32bd0f812d54bc69bb8e29
 
 PODFILE CHECKSUM: 58e897ab79ac4963f42f8caf18954671925a79ee
 
-COCOAPODS: 1.8.4
+COCOAPODS: 1.7.5
