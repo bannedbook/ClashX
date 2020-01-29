@@ -266,18 +266,17 @@ extension ApiRequest {
     }
 
     private func requestTrafficInfo() {
-        trafficWebSocket?.disconnect(forceTimeout: 0, closeCode: 0)
+        trafficWebSocket?.forceDisconnect()
         trafficWebSocketRetryCount += 1
         if trafficWebSocketRetryCount > 5 {
             NSUserNotificationCenter.default.postStreamApiConnectFail(api: "Traffic")
             return
         }
 
-        let socket = WebSocket(url: URL(string: ConfigManager.apiUrl.appending("/traffic"))!)
-
-        for header in ApiRequest.authHeader() {
-            socket.request.setValue(header.value, forHTTPHeaderField: header.name)
-        }
+        guard let url = URL(string: ConfigManager.apiUrl.appending("/traffic")) else { return }
+        var request = URLRequest(url: url)
+        request.headers = ApiRequest.authHeader()
+        let socket = WebSocket(request: request)
         socket.delegate = self
         socket.connect()
         trafficWebSocket = socket
@@ -292,11 +291,11 @@ extension ApiRequest {
         }
 
         let uriString = "/logs?level=".appending(ConfigManager.selectLoggingApiLevel.rawValue)
-        let socket = WebSocket(url: URL(string: ConfigManager.apiUrl.appending(uriString))!)
+        guard let url = URL(string: ConfigManager.apiUrl.appending(uriString)) else { return }
+        var request = URLRequest(url: url)
+        request.headers = ApiRequest.authHeader()
+        let socket = WebSocket(request: request)
 
-        for header in ApiRequest.authHeader() {
-            socket.request.setValue(header.value, forHTTPHeaderField: header.name)
-        }
         socket.delegate = self
         socket.connect()
         loggingWebSocket = socket
@@ -304,24 +303,37 @@ extension ApiRequest {
 }
 
 extension ApiRequest: WebSocketDelegate {
-    func websocketDidConnect(socket: WebSocketClient) {
-        guard let webSocket = socket as? WebSocket else { return }
-        if webSocket == trafficWebSocket {
+    func didReceive(event: WebSocketEvent, client: WebSocket) {
+        switch event {
+        case .connected:
+            websocketDidConnect(socket: client)
+        case let .text(text):
+            websocketDidReceiveMessage(socket: client, text: text)
+        case let .disconnected(err, code):
+            websocketDidDisconnect(socket: client, error: err, code: code)
+        case let .error(error):
+            if let error = error {
+                websocketDidDisconnect(socket: client,
+                                       error: error.localizedDescription,
+                                       code: UInt16((error as NSError).code))
+            }
+        default:
+            Logger.log("\(client) \(event)", level: .debug)
+        }
+    }
+
+    func websocketDidConnect(socket: WebSocket?) {
+        if socket == trafficWebSocket {
             Logger.log("trafficWebSocket did Connect", level: .debug)
         } else {
             Logger.log("loggingWebSocket did Connect", level: .debug)
         }
     }
 
-    func websocketDidDisconnect(socket: WebSocketClient, error: Error?) {
-        guard let err = error else {
-            return
-        }
-
-        Logger.log(err.localizedDescription, level: .error)
-        DispatchQueue.global().asyncAfter(deadline: .now() + 1) {
-            guard let webSocket = socket as? WebSocket else { return }
-            if webSocket == self.trafficWebSocket {
+    func websocketDidDisconnect(socket: WebSocket, error: String, code: UInt16) {
+        Logger.log("websocketDidDisconnect: \(error) \(code)", level: .error)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            if socket == self.trafficWebSocket {
                 Logger.log("trafficWebSocket did disconnect", level: .debug)
                 self.requestTrafficInfo()
             } else {
@@ -331,15 +343,18 @@ extension ApiRequest: WebSocketDelegate {
         }
     }
 
-    func websocketDidReceiveMessage(socket: WebSocketClient, text: String) {
-        guard let webSocket = socket as? WebSocket else { return }
+    func websocketDidReceiveMessage(socket: WebSocket, text: String) {
         let json = JSON(parseJSON: text)
-        if webSocket == trafficWebSocket {
+        if socket == trafficWebSocket {
             delegate?.didUpdateTraffic(up: json["up"].intValue, down: json["down"].intValue)
         } else {
             delegate?.didGetLog(log: json["payload"].stringValue, level: json["type"].string ?? "info")
         }
     }
+}
 
-    func websocketDidReceiveData(socket: WebSocketClient, data: Data) {}
+extension WebSocket: Equatable {
+    public static func == (lhs: WebSocket, rhs: WebSocket) -> Bool {
+        lhs.request == rhs.request
+    }
 }
