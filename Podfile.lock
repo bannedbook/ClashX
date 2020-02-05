@@ -32,7 +32,7 @@ DEPENDENCIES:
   - WebViewJavascriptBridge
 
 SPEC REPOS:
-  https://cdn.cocoapods.org/:
+  trunk:
     - Alamofire
     - CocoaLumberjack
     - Crashlytics
@@ -62,4 +62,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 58e897ab79ac4963f42f8caf18954671925a79ee
 
-COCOAPODS: 1.7.5
+COCOAPODS: 1.8.4
