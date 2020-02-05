@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="15400" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="15400"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="15705"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -269,7 +269,7 @@
                         </menuItem>
                         <menuItem title="Dashboard" enabled="NO" keyEquivalent="d" id="XG6-2M-PNi">
                             <connections>
-                                <segue destination="ZNp-tx-6bv" kind="show" id="ZMG-K0-DhZ"/>
+                                <action selector="actionDashboard:" target="Voe-Tx-rLC" id="i6y-pW-cD3"/>
                             </connections>
                         </menuItem>
                         <menuItem isSeparatorItem="YES" id="UpD-DI-Smv"/>
@@ -644,7 +644,7 @@
                                             <tableColumns>
                                                 <tableColumn identifier="url" editable="NO" width="176" minWidth="40" maxWidth="1000" id="C79-J5-30z">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Url">
-                                                        <font key="font" metaFont="controlContent" size="11"/>
+                                                        <font key="font" metaFont="label" size="11"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                                     </tableHeaderCell>
@@ -684,7 +684,7 @@
                                                 </tableColumn>
                                                 <tableColumn identifier="configName" width="86" minWidth="40" maxWidth="1000" id="lRE-Xa-euB">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Config Name">
-                                                        <font key="font" metaFont="controlContent" size="11"/>
+                                                        <font key="font" metaFont="label" size="11"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                                     </tableHeaderCell>
@@ -724,7 +724,7 @@
                                                 </tableColumn>
                                                 <tableColumn identifier="updateTime" width="95" minWidth="40" maxWidth="1000" id="xoc-hs-9qa">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Update Time">
-                                                        <font key="font" metaFont="controlContent" size="11"/>
+                                                        <font key="font" metaFont="label" size="11"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                                     </tableHeaderCell>
@@ -855,33 +855,6 @@
                 <userDefaultsController id="r6q-tD-5zt"/>
             </objects>
             <point key="canvasLocation" x="586" y="759"/>
-        </scene>
-        <!--Clash Web View Contoller-->
-        <scene sceneID="hPF-qG-B6J">
-            <objects>
-                <viewController showSeguePresentationStyle="single" id="ZNp-tx-6bv" customClass="ClashWebViewContoller" customModule="ClashX" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" id="2Hi-rP-ejJ">
-                        <rect key="frame" x="0.0" y="0.0" width="920" height="580"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                        <subviews>
-                            <visualEffectView autoresizesSubviews="NO" appearanceType="vibrantLight" blendingMode="behindWindow" material="light" state="followsWindowActiveState" translatesAutoresizingMaskIntoConstraints="NO" id="AjH-Gz-iJd">
-                                <rect key="frame" x="0.0" y="0.0" width="920" height="580"/>
-                            </visualEffectView>
-                        </subviews>
-                        <constraints>
-                            <constraint firstItem="AjH-Gz-iJd" firstAttribute="leading" secondItem="2Hi-rP-ejJ" secondAttribute="leading" id="GTJ-nR-JVc"/>
-                            <constraint firstAttribute="trailing" secondItem="AjH-Gz-iJd" secondAttribute="trailing" id="P2d-gI-Wak"/>
-                            <constraint firstItem="AjH-Gz-iJd" firstAttribute="top" secondItem="2Hi-rP-ejJ" secondAttribute="top" id="gvR-vd-iBK"/>
-                            <constraint firstAttribute="bottom" secondItem="AjH-Gz-iJd" secondAttribute="bottom" id="hFJ-mj-rKr"/>
-                        </constraints>
-                    </view>
-                    <connections>
-                        <outlet property="effectView" destination="AjH-Gz-iJd" id="P99-CL-v8l"/>
-                    </connections>
-                </viewController>
-                <customObject id="dTN-vP-Bji" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1487" y="-1"/>
         </scene>
     </scenes>
     <resources>

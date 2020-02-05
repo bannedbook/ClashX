@@ -51,6 +51,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     var statusItemView: StatusItemView!
     var isSpeedTesting = false
 
+    lazy var dashboardWindowController: NSWindowController = ClashWindowController.create()
+
     func applicationDidFinishLaunching(_ notification: Notification) {
         signal(SIGPIPE, SIG_IGN)
         checkOnlyOneClashX()
@@ -200,8 +202,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
     func setupNetworkNotifier() {
-        DispatchQueue.global().asyncAfter(deadline: .now() + 0.5) {
-            NetworkChangeNotifier.start()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            Thread {
+                NetworkChangeNotifier.start()
+            }.start()
         }
 
         NotificationCenter
@@ -363,6 +367,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 // MARK: Main actions
 
 extension AppDelegate {
+    @IBAction func actionDashboard(_ sender: NSMenuItem) {
+        dashboardWindowController.showWindow(sender)
+    }
+
     @IBAction func actionAllowFromLan(_ sender: NSMenuItem) {
         ApiRequest.updateAllowLan(allow: !ConfigManager.allowConnectFromLan) {
             [weak self] in
@@ -626,8 +634,6 @@ extension AppDelegate {
 // MARK: NSMenuDelegate
 
 extension AppDelegate: NSMenuDelegate {
-    func menuWillOpen(_ menu: NSMenu) {}
-
     func menuNeedsUpdate(_ menu: NSMenu) {
         syncConfig()
         updateConfigFiles()

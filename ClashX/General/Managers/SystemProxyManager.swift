@@ -205,7 +205,7 @@ class SystemProxyManager: NSObject {
 
     private func helper(failture: (() -> Void)? = nil) -> ProxyConfigRemoteProcessProtocol? {
         if _helper == nil {
-            guard let newHelper = self.helperConnection()?.remoteObjectProxyWithErrorHandler({ error in
+            guard let newHelper = helperConnection()?.remoteObjectProxyWithErrorHandler({ error in
                 Logger.log("Helper connection was closed with error: \(error)")
                 failture?()
             }) as? ProxyConfigRemoteProcessProtocol else { return nil }

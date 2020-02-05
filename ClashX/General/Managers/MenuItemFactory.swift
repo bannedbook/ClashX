@@ -17,10 +17,10 @@ class MenuItemFactory {
             return
         }
 
-        ApiRequest.requestProxyProviderList() {
+        ApiRequest.requestProxyProviderList {
             proxyprovider in
 
-            ApiRequest.requestProxyGroupList() {
+            ApiRequest.requestProxyGroupList {
                 proxyInfo in
                 proxyInfo.updateProvider(proxyprovider)
 
