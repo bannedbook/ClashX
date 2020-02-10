@@ -20,7 +20,6 @@ jobs:
         security import "./.github/certs/dist.p12" -k build.keychain -T /usr/bin/codesign -P ""
         bash .github/enableKeyChain.sh
         gem install bundler:1.16.2
-        gem install gym
         bundle install
 
     - name: setup Go
@@ -31,8 +30,8 @@ jobs:
     - name: update beta build version
       if: contains(github.event.head_commit.message, '[beta]') && !startsWith(github.ref, 'refs/tags/')
       run: |
-        fastlane beta
-        fastlane run set_info_plist_value path:ClashX/Info.plist key:BETA value:YES
+        bundle exec fastlane beta
+        bundle exec fastlane run set_info_plist_value path:ClashX/Info.plist key:BETA value:YES
 
     - name: build
       run: |
@@ -40,7 +39,7 @@ jobs:
         cd ClashX
         python3 build_clash.py
         cd ..
-        fastlane gym -s ClashX
+        bundle exec fastlane gym -s ClashX
         echo "Checking SMJobBless Vailded"
         python SMJobBlessUtil.py check ClashX.app
         echo "Check done"
@@ -64,7 +63,7 @@ jobs:
         FASTLANE_PASSWORD: ${{ secrets.FASTLANE_PASSWORD }}
         FASTLANE_USER: ${{ secrets.FASTLANE_USER }}
       run: |
-        fastlane run notarize package:"./ClashX.dmg" bundle_id:"com.west2online.ClashX"
+        bundle exec fastlane run notarize package:"./ClashX.dmg" bundle_id:"com.west2online.ClashX"
 
     - name: upload to appcenter 
       if: startsWith(github.ref, 'refs/tags/') || contains(github.event.head_commit.message, '[appcenter]')
@@ -80,7 +79,7 @@ jobs:
         buildVersion=`defaults read \`pwd\`/ClashX.app/Contents/Info.plist CFBundleVersion`
         branch=${GITHUB_REF##*/}
         version=$appversion.$branch
-        fastlane run appcenter_upload version:${version} build_number:${buildVersion}
+        bundle exec fastlane run appcenter_upload version:${version} build_number:${buildVersion}
 
     - name: upload build to github
       uses: softprops/action-gh-release@v1
@@ -100,5 +99,5 @@ jobs:
 
     - name: upload crashlytics symbols
       if: startsWith(github.ref, 'refs/tags/')  || contains(github.event.head_commit.message, '[appcenter]')
-      run: fastlane run upload_symbols_to_crashlytics
+      run: bundle exec fastlane run upload_symbols_to_crashlytics
 
