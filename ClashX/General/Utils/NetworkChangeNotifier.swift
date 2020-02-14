@@ -11,6 +11,11 @@ import SystemConfiguration
 
 class NetworkChangeNotifier {
     static func start() {
+        NSWorkspace.shared.notificationCenter.addObserver(
+            self, selector: #selector(onWakeNote(note:)),
+            name: NSWorkspace.didWakeNotification, object: nil
+        )
+
         let changed: SCDynamicStoreCallBack = { dynamicStore, _, _ in
             NotificationCenter.default.post(name: kSystemNetworkStatusDidChange, object: nil)
         }
@@ -23,6 +28,12 @@ class NetworkChangeNotifier {
             let loop = SCDynamicStoreCreateRunLoopSource(kCFAllocatorDefault, dynamicStore, 0)
             CFRunLoopAddSource(CFRunLoopGetCurrent(), loop, .defaultMode)
             CFRunLoopRun()
+        }
+    }
+
+    @objc static func onWakeNote(note: NSNotification) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            NotificationCenter.default.post(name: kSystemNetworkStatusDidChange, object: nil)
         }
     }
 
