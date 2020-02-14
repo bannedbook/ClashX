@@ -20,7 +20,7 @@ target 'ClashX' do
   pod 'RxCocoa'
   pod 'CocoaLumberjack/Swift'
   pod 'WebViewJavascriptBridge'
-  pod 'Starscream'
+  pod 'Starscream','3.1.1'
   pod 'Fabric'
   pod 'Crashlytics'
   pod 'Sparkle'
