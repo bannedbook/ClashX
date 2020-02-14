@@ -12,11 +12,13 @@ import RxSwift
 import WebKit
 import WebViewJavascriptBridge
 
-class ClashWindowController: NSWindowController {
-    static func create() -> ClashWindowController {
+class ClashWebViewWindowController: NSWindowController {
+    var onWindowClose: (() -> Void)?
+
+    static func create() -> ClashWebViewWindowController {
         let win = NSWindow()
         win.center()
-        let wc = ClashWindowController(window: win)
+        let wc = ClashWebViewWindowController(window: win)
         wc.contentViewController = ClashWebViewContoller()
         return wc
     }
@@ -25,6 +27,14 @@ class ClashWindowController: NSWindowController {
         super.showWindow(sender)
         NSApp.activate(ignoringOtherApps: true)
         window?.makeKeyAndOrderFront(self)
+        window?.delegate = self
+    }
+}
+
+extension ClashWebViewWindowController: NSWindowDelegate {
+    func windowWillClose(_ notification: Notification) {
+        NSApp.setActivationPolicy(.accessory)
+        onWindowClose?()
     }
 }
 

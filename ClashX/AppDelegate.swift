@@ -51,7 +51,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     var statusItemView: StatusItemView!
     var isSpeedTesting = false
 
-    lazy var dashboardWindowController: NSWindowController = ClashWindowController.create()
+    var dashboardWindowController: ClashWebViewWindowController?
 
     func applicationDidFinishLaunching(_ notification: Notification) {
         signal(SIGPIPE, SIG_IGN)
@@ -368,7 +368,14 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
 extension AppDelegate {
     @IBAction func actionDashboard(_ sender: NSMenuItem) {
-        dashboardWindowController.showWindow(sender)
+        if dashboardWindowController == nil {
+            dashboardWindowController = ClashWebViewWindowController.create()
+            dashboardWindowController?.onWindowClose = {
+                [weak self] in
+                self?.dashboardWindowController = nil
+            }
+        }
+        dashboardWindowController?.showWindow(sender)
     }
 
     @IBAction func actionAllowFromLan(_ sender: NSMenuItem) {
