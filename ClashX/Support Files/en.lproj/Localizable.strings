@@ -75,6 +75,9 @@
 "Proxy Mode" = "Proxy Mode";
 
 /* No comment provided by engineer. */
+"Proxy settings are changed by another process. ClashX is no longer the default system proxy." = "Proxy settings are changed by another process. ClashX is no longer the default system proxy.";
+
+/* No comment provided by engineer. */
 "Quit" = "Quit";
 
 /* No comment provided by engineer. */
@@ -109,6 +112,9 @@
 
 /* No comment provided by engineer. */
 "Success!" = "Success!";
+
+/* No comment provided by engineer. */
+"System Proxy Changed" = "System Proxy Changed";
 
 /* No comment provided by engineer. */
 "Tap to reload config" = "Tap to reload config";

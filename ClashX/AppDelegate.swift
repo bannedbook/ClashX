@@ -227,6 +227,17 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             self, selector: #selector(resetProxySettingOnWakeupFromSleep),
             name: NSWorkspace.didWakeNotification, object: nil
         )
+
+        ConfigManager.shared
+            .isProxySetByOtherVariable
+            .asObservable()
+            .filter { _ in ConfigManager.shared.proxyPortAutoSet }
+            .distinctUntilChanged()
+            .filter { $0 }.bind { _ in
+                let rawProxy = NetworkChangeNotifier.getRawProxySetting()
+                Logger.log("proxy changed to no clashX setting: \(rawProxy)", level: .warning)
+                NSUserNotificationCenter.default.postProxyChangeByOtherAppNotice()
+            }.disposed(by: disposeBag)
     }
 
     func updateProxyList() {

@@ -75,6 +75,9 @@
 "Proxy Mode" = "出站模式";
 
 /* No comment provided by engineer. */
+"Proxy settings are changed by another process. ClashX is no longer the default system proxy." = "系统代理设置已被另一个进程修改，ClashX不再是系统默认代理";
+
+/* No comment provided by engineer. */
 "Quit" = "退出";
 
 /* No comment provided by engineer. */
@@ -109,6 +112,9 @@
 
 /* No comment provided by engineer. */
 "Success!" = "成功！";
+
+/* No comment provided by engineer. */
+"System Proxy Changed" = "系统代理设置已修改";
 
 /* No comment provided by engineer. */
 "Tap to reload config" = "点击重载配置文件";

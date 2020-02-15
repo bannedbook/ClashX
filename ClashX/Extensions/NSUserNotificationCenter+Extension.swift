@@ -52,6 +52,11 @@ extension NSUserNotificationCenter {
         post(title: NSLocalizedString("Benchmark", comment: ""),
              info: NSLocalizedString("Benchmark Finished!", comment: ""))
     }
+
+    func postProxyChangeByOtherAppNotice() {
+        post(title: NSLocalizedString("System Proxy Changed", comment: ""),
+             info: NSLocalizedString("Proxy settings are changed by another process. ClashX is no longer the default system proxy.", comment: ""))
+    }
 }
 
 class UserNotificationCenterDelegate: NSObject, NSUserNotificationCenterDelegate {
