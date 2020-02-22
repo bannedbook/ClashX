@@ -11,10 +11,15 @@ import RxCocoa
 import SwiftyJSON
 
 class MenuItemFactory {
-    static func menuItems(completionHandler: @escaping (([NSMenuItem]) -> Void)) {
+    private static var cachedProxyMenuItem: [NSMenuItem]?
+
+    static func refreshMenuItems(completionHandler: (([NSMenuItem]) -> Void)? = nil) {
         if ConfigManager.shared.currentConfig?.mode == .direct {
-            completionHandler([])
+            completionHandler?([])
             return
+        }
+        if let cached = cachedProxyMenuItem {
+            completionHandler?(cached)
         }
 
         ApiRequest.requestProxyProviderList {
@@ -40,7 +45,9 @@ class MenuItemFactory {
                         menu.isEnabled = true
                     }
                 }
-                completionHandler(menuItems.reversed())
+                let items = Array(menuItems.reversed())
+                cachedProxyMenuItem = items
+                completionHandler?(items)
             }
         }
     }
@@ -186,6 +193,8 @@ extension MenuItemFactory {
                 ConfigManager.selectedProxyRecords.append(newModel)
                 // terminal Connections for this group
                 ConnectionManager.closeConnection(for: proxyGroup)
+                // refresh menu items
+                MenuItemFactory.refreshMenuItems()
             }
         }
     }

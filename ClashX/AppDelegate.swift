@@ -157,7 +157,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
                 self.proxyModeMenuItem.title = "\(NSLocalizedString("Proxy Mode", comment: "")) (\(config.mode.name))"
 
-                self.updateProxyList()
+                MenuItemFactory.refreshMenuItems()
 
                 if old?.port != config.port && ConfigManager.shared.proxyPortAutoSet {
                     SystemProxyManager.shared.enableProxy(port: config.port, socksPort: config.socketPort)
@@ -179,9 +179,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             .isRunningVariable
             .asObservable()
             .distinctUntilChanged()
-            .bind { [weak self] _ in
-                guard let self = self else { return }
-                self.updateProxyList()
+            .bind { _ in
+                MenuItemFactory.refreshMenuItems()
             }.disposed(by: disposeBag)
 
         LaunchAtLogin.shared
@@ -242,7 +241,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     func updateProxyList() {
         if ConfigManager.shared.isRunning {
-            MenuItemFactory.menuItems { [weak self] items in
+            MenuItemFactory.refreshMenuItems { [weak self] items in
                 self?.updateProxyList(withMenus: items)
             }
         } else {
@@ -675,8 +674,9 @@ extension AppDelegate {
 
 extension AppDelegate: NSMenuDelegate {
     func menuNeedsUpdate(_ menu: NSMenu) {
-        syncConfig()
+        updateProxyList()
         updateConfigFiles()
+        syncConfig()
     }
 }
 
