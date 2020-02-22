@@ -75,6 +75,10 @@ class SystemProxyManager: NSObject {
     }
 
     func enableProxy(port: Int, socksPort: Int) {
+        guard port > 0 && socksPort > 0 else {
+            Logger.log("enableProxy fail: \(port) \(socksPort)", level: .error)
+            return
+        }
         Logger.log("enableProxy", level: .debug)
         helper()?.enableProxy(withPort: Int32(port), socksPort: Int32(socksPort), authData: authData(), error: { error in
             if let error = error {

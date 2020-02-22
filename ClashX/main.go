@@ -6,7 +6,6 @@ import (
 	"github.com/Dreamacro/clash/constant"
 	"github.com/Dreamacro/clash/hub/executor"
 	"github.com/Dreamacro/clash/hub/route"
-	T "github.com/Dreamacro/clash/tunnel"
 	"github.com/phayes/freeport"
 	"net"
 	"path/filepath"
@@ -131,20 +130,6 @@ func clashUpdateConfig(path *C.char) *C.char {
 	}
 	executor.ApplyConfig(cfg, false)
 	return C.CString("success")
-}
-
-//export clashGetProxies
-func clashGetProxies() *C.char {
-	proxies := T.Instance().Proxies()
-	r := map[string]interface{}{
-		"proxies": proxies,
-	}
-
-	jsonString, err := json.Marshal(r)
-	if err != nil {
-		return C.CString(err.Error())
-	}
-	return C.CString(string(jsonString))
 }
 
 //export clashGetConfigs

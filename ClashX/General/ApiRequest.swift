@@ -150,20 +150,13 @@ class ApiRequest {
     }
 
     static func requestProxyGroupList(completeHandler: ((ClashProxyResp) -> Void)? = nil) {
-        if !ConfigManager.builtInApiMode {
-            req("/proxies").responseJSON {
-                res in
-                let proxies = ClashProxyResp(try? res.result.get())
-                ApiRequest.shared.proxyRespCache = proxies
-                completeHandler?(proxies)
-            }
-            return
+        req("/proxies").responseJSON {
+            res in
+            let proxies = ClashProxyResp(try? res.result.get())
+            ApiRequest.shared.proxyRespCache = proxies
+            completeHandler?(proxies)
         }
-
-        let json = JSON(parseJSON: clashGetProxies()?.toString() ?? "")
-        let proxies = ClashProxyResp(json.object)
-        completeHandler?(proxies)
-        ApiRequest.shared.proxyRespCache = proxies
+        return
     }
 
     static func requestProxyProviderList(completeHandler: ((ClashProviderResp) -> Void)? = nil) {
