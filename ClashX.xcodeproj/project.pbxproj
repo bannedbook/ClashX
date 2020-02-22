@@ -54,6 +54,7 @@
 		49D176A72355FE680093DD7B /* NetworkChangeNotifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49D176A62355FE680093DD7B /* NetworkChangeNotifier.swift */; };
 		49D176A9235614340093DD7B /* ProxyGroupSpeedTestMenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49D176A8235614340093DD7B /* ProxyGroupSpeedTestMenuItem.swift */; };
 		49D176AB23575BB20093DD7B /* ProxyGroupMenuItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49D176AA23575BB20093DD7B /* ProxyGroupMenuItemView.swift */; };
+		F910AA24240134AF00116E95 /* ProxyGroupMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = F910AA23240134AF00116E95 /* ProxyGroupMenu.swift */; };
 		F915A4622366ADEF004840BE /* ClashConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = F915A4612366ADEF004840BE /* ClashConnection.swift */; };
 		F9203A26236342820020D57D /* AppDelegate+..swift in Sources */ = {isa = PBXBuildFile; fileRef = F9203A25236342820020D57D /* AppDelegate+..swift */; };
 		F92D0B24236BC12000575E15 /* SavedProxyModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F92D0B23236BC12000575E15 /* SavedProxyModel.swift */; };
@@ -168,6 +169,7 @@
 		49D176AA23575BB20093DD7B /* ProxyGroupMenuItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProxyGroupMenuItemView.swift; sourceTree = "<group>"; };
 		5217C006C5A22A1CEA24BFC1 /* Pods-ClashX.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ClashX.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ClashX/Pods-ClashX.debug.xcconfig"; sourceTree = "<group>"; };
 		A1485BCE642059532D01B8BA /* Pods-ClashX.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ClashX.release.xcconfig"; path = "Pods/Target Support Files/Pods-ClashX/Pods-ClashX.release.xcconfig"; sourceTree = "<group>"; };
+		F910AA23240134AF00116E95 /* ProxyGroupMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProxyGroupMenu.swift; sourceTree = "<group>"; };
 		F915A4612366ADEF004840BE /* ClashConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClashConnection.swift; sourceTree = "<group>"; };
 		F9203A25236342820020D57D /* AppDelegate+..swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppDelegate+..swift"; sourceTree = "<group>"; };
 		F92D0B23236BC12000575E15 /* SavedProxyModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedProxyModel.swift; sourceTree = "<group>"; };
@@ -301,6 +303,7 @@
 				499A485922ED781100F6C675 /* RemoteConfigAddView.xib */,
 				495340B220DE68C300B0D3FF /* StatusItemView.swift */,
 				495340AF20DE5F7200B0D3FF /* StatusItemView.xib */,
+				F910AA23240134AF00116E95 /* ProxyGroupMenu.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -668,6 +671,7 @@
 				499A486522EEA3FD00F6C675 /* Array+Safe.swift in Sources */,
 				F92D0B24236BC12000575E15 /* SavedProxyModel.swift in Sources */,
 				F92D0B2A236C759100575E15 /* NSTextField+Vibrancy.swift in Sources */,
+				F910AA24240134AF00116E95 /* ProxyGroupMenu.swift in Sources */,
 				4952C3BF2115C7CA004A4FA8 /* MenuItemFactory.swift in Sources */,
 				F977FAAC2366790500C17F1F /* AutoUpgardeManager.swift in Sources */,
 				499A485822ED715200F6C675 /* RemoteConfigModel.swift in Sources */,

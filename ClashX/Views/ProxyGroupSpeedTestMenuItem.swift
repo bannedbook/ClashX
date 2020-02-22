@@ -49,6 +49,12 @@ class ProxyGroupSpeedTestMenuItem: NSMenuItem {
     }
 }
 
+extension ProxyGroupSpeedTestMenuItem: ProxyGroupMenuHighlightDelegate {
+    func highlight(item: NSMenuItem?) {
+        (view as? ProxyGroupSpeedTestMenuItemView)?.isHighlighted = item == self
+    }
+}
+
 fileprivate class ProxyGroupSpeedTestMenuItemView: MenuItemBaseView {
     private let label: NSTextField
 
@@ -57,7 +63,7 @@ fileprivate class ProxyGroupSpeedTestMenuItemView: MenuItemBaseView {
         label.font = type(of: self).labelFont
         label.sizeToFit()
         let rect = NSRect(x: 0, y: 0, width: label.bounds.width + 40, height: 20)
-        super.init(frame: rect, handleClick: true, autolayout: false)
+        super.init(frame: rect, autolayout: false)
         addSubview(label)
         label.frame = NSRect(x: 20, y: 0, width: label.bounds.width, height: 20)
         label.textColor = NSColor.labelColor
@@ -65,6 +71,10 @@ fileprivate class ProxyGroupSpeedTestMenuItemView: MenuItemBaseView {
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+    override var cells: [NSCell?] {
+        return [label.cell]
     }
 
     override var labels: [NSTextField] {
@@ -120,12 +130,6 @@ fileprivate class ProxyGroupSpeedTestMenuItemView: MenuItemBaseView {
                 self.setNeedsDisplay()
             }
         }
-    }
-
-    override func draw(_ dirtyRect: NSRect) {
-        super.draw(dirtyRect)
-        label.textColor = (enclosingMenuItem?.isEnabled ?? true) ? NSColor.labelColor : NSColor.placeholderTextColor
-        updateBackground(label)
     }
 }
 

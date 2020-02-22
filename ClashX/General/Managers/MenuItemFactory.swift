@@ -88,8 +88,7 @@ class MenuItemFactory {
         if !ConfigManager.shared.disableShowCurrentProxyInMenu {
             menu.view = ProxyGroupMenuItemView(group: proxyGroup.name, targetProxy: selectedName)
         }
-        let submenu = NSMenu(title: proxyGroup.name)
-        var hasSelected = false
+        let submenu = ProxyGroupMenu(title: proxyGroup.name)
 
         for proxy in proxyGroup.all ?? [] {
             guard let proxyModel = proxyMap[proxy] else { continue }
@@ -98,16 +97,10 @@ class MenuItemFactory {
                 continue
             }
             let proxyItem = ProxyMenuItem(proxy: proxyModel, action: #selector(MenuItemFactory.actionSelectProxy(sender:)),
-                                          maxProxyNameLength: proxyGroup.maxProxyNameLength)
+                                          selected: proxy == selectedName)
             proxyItem.target = MenuItemFactory.self
-            proxyItem.isSelected = proxy == selectedName
-
-            if proxyItem.isSelected { hasSelected = true }
+            submenu.add(delegate: proxyItem)
             submenu.addItem(proxyItem)
-        }
-
-        if !hasSelected && submenu.items.count > 0 {
-            actionSelectProxy(sender: submenu.items[0] as! ProxyMenuItem)
         }
         addSpeedTestMenuItem(submenu, proxyGroup: proxyGroup)
         menu.submenu = submenu
@@ -145,17 +138,18 @@ class MenuItemFactory {
         return menu
     }
 
-    private static func addSpeedTestMenuItem(_ menus: NSMenu, proxyGroup: ClashProxy) {
+    private static func addSpeedTestMenuItem(_ menu: NSMenu, proxyGroup: ClashProxy) {
         guard proxyGroup.speedtestAble.count > 0 else { return }
         let speedTestItem = ProxyGroupSpeedTestMenuItem(group: proxyGroup)
         let separator = NSMenuItem.separator()
         if showSpeedTestItemAtTop {
-            menus.insertItem(separator, at: 0)
-            menus.insertItem(speedTestItem, at: 0)
+            menu.insertItem(separator, at: 0)
+            menu.insertItem(speedTestItem, at: 0)
         } else {
-            menus.addItem(separator)
-            menus.addItem(speedTestItem)
+            menu.addItem(separator)
+            menu.addItem(speedTestItem)
         }
+        (menu as? ProxyGroupMenu)?.add(delegate: speedTestItem)
     }
 
     private static func generateHistoryMenu(_ proxy: ClashProxy) -> NSMenu? {
@@ -171,15 +165,15 @@ class MenuItemFactory {
         let proxyMap = proxyInfo.proxiesMap
 
         let menu = NSMenuItem(title: proxyGroup.name, action: nil, keyEquivalent: "")
-        let submenu = NSMenu(title: proxyGroup.name)
+        let submenu = ProxyGroupMenu(title: proxyGroup.name)
 
         for proxy in proxyGroup.all ?? [] {
             guard let proxyModel = proxyMap[proxy] else { continue }
             let proxyItem = ProxyMenuItem(proxy: proxyModel,
                                           action: #selector(empty),
-                                          maxProxyNameLength: proxyGroup.maxProxyNameLength)
-            proxyItem.isSelected = false
+                                          selected: false)
             proxyItem.target = MenuItemFactory.self
+            submenu.add(delegate: proxyItem)
             submenu.addItem(proxyItem)
         }
         addSpeedTestMenuItem(submenu, proxyGroup: proxyGroup)

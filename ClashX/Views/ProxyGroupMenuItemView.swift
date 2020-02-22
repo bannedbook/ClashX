@@ -13,21 +13,29 @@ class ProxyGroupMenuItemView: MenuItemBaseView {
     let selectProxyLabel: NSTextField
     let arrowLabel = NSTextField(labelWithString: "▶")
 
-    override var labels: [NSTextField] {
-        return [groupNameLabel, selectProxyLabel, arrowLabel]
+    override var cells: [NSCell?] {
+        return [groupNameLabel.cell, selectProxyLabel.cell, arrowLabel.cell]
+    }
+
+    override var isHighlighted: Bool {
+        set {}
+        get {
+            return enclosingMenuItem?.isHighlighted ?? false
+        }
     }
 
     init(group: ClashProxyName, targetProxy: ClashProxyName) {
         groupNameLabel = VibrancyTextField(labelWithString: group)
         selectProxyLabel = VibrancyTextField(labelWithString: targetProxy)
-        super.init(handleClick: false, autolayout: true)
+        super.init(autolayout: true)
 
         // arrow
         effectView.addSubview(arrowLabel)
         arrowLabel.translatesAutoresizingMaskIntoConstraints = false
         arrowLabel.rightAnchor.constraint(equalTo: effectView.rightAnchor, constant: -10).isActive = true
         arrowLabel.centerYAnchor.constraint(equalTo: effectView.centerYAnchor).isActive = true
-
+        arrowLabel.setContentHuggingPriority(.required, for: .horizontal)
+        arrowLabel.setContentCompressionResistancePriority(.required, for: .horizontal)
         // group
         groupNameLabel.translatesAutoresizingMaskIntoConstraints = false
         effectView.addSubview(groupNameLabel)
