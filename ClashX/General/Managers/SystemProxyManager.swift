@@ -112,6 +112,24 @@ class SystemProxyManager: NSObject {
         })
     }
 
+    // MARK: - Expriment Menu Items
+
+    func addDisableRestoreProxyMenuItem(_ menu: inout NSMenu) {
+        let item = NSMenuItem(title: NSLocalizedString("Disable Restore Proxy Setting", comment: ""), action: #selector(optionMenuItemTap(sender:)), keyEquivalent: "")
+        item.target = self
+        menu.addItem(item)
+        updateMenuItemStatus(item)
+    }
+
+    func updateMenuItemStatus(_ item: NSMenuItem) {
+        item.state = disableRestoreProxy ? .on : .off
+    }
+
+    @objc func optionMenuItemTap(sender: NSMenuItem) {
+        disableRestoreProxy = !disableRestoreProxy
+        updateMenuItemStatus(sender)
+    }
+
     // MARK: - Private
 
     private func initAuthorizationRef() {

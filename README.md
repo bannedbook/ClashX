@@ -50,12 +50,6 @@ Checkout [Clash](https://github.com/Dreamacro/clash) or [SS-Rule-Snippet for Cla
 
   Place your icon file in the `~/.config/clash/menuImage.png`  then restart ClashX
 
-### Disable auto restore proxy setting.
-
-  ```
-  defaults write com.west2online.ClashX kDisableRestoreProxy -bool true
-  ```
-
 ### Change default system ignore list.
 
 - Download sample plist in the [Here](proxyIgnoreList.plist) and place in the

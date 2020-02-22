@@ -42,6 +42,9 @@
 "Direct" = "直连";
 
 /* No comment provided by engineer. */
+"Disable Restore Proxy Setting" = "关闭自动还原之前代理";
+
+/* No comment provided by engineer. */
 "Download fail" = "下载失败";
 
 /* No comment provided by engineer. */

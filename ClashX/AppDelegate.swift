@@ -216,7 +216,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 guard NetworkChangeNotifier.getPrimaryInterface() != nil else { return }
                 let proxySetted = NetworkChangeNotifier.isCurrentSystemSetToClash()
                 ConfigManager.shared.isProxySetByOtherVariable.accept(!proxySetted)
-                if !proxySetted {
+                if !proxySetted && ConfigManager.shared.proxyPortAutoSet {
                     let proxiesSetting = NetworkChangeNotifier.getRawProxySetting()
                     Logger.log("Proxy changed by other process!, current:\(proxiesSetting)", level: .warning)
                 }
@@ -366,6 +366,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         AutoUpgardeManager.shared.setup()
         AutoUpgardeManager.shared.addChanelMenuItem(&experimentalMenu)
         ClashResourceManager.addUpdateMMDBMenuItem(&experimentalMenu)
+        SystemProxyManager.shared.addDisableRestoreProxyMenuItem(&experimentalMenu)
         if WebPortalManager.hasWebProtal {
             WebPortalManager.shared.addWebProtalMenuItem(&statusMenu)
         }
