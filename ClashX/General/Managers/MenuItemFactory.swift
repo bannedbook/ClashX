@@ -12,6 +12,13 @@ import SwiftyJSON
 
 class MenuItemFactory {
     private static var cachedProxyMenuItem: [NSMenuItem]?
+    private static var showSpeedTestItemAtTop: Bool = UserDefaults.standard.bool(forKey: "kShowSpeedTestItemAtTop") {
+        didSet {
+            UserDefaults.standard.set(showSpeedTestItemAtTop, forKey: "kShowSpeedTestItemAtTop")
+        }
+    }
+
+    // MARK: - Public
 
     static func refreshMenuItems(completionHandler: (([NSMenuItem]) -> Void)? = nil) {
         if ConfigManager.shared.currentConfig?.mode == .direct {
@@ -52,8 +59,21 @@ class MenuItemFactory {
         }
     }
 
-    static func generateSelectorMenuItem(proxyGroup: ClashProxy,
-                                         proxyInfo: ClashProxyResp) -> NSMenuItem? {
+    static func generateSwitchConfigMenuItems() -> [NSMenuItem] {
+        var items = [NSMenuItem]()
+        for config in ConfigManager.getConfigFilesList() {
+            let item = NSMenuItem(title: config, action: #selector(MenuItemFactory.actionSelectConfig(sender:)), keyEquivalent: "")
+            item.target = MenuItemFactory.self
+            item.state = ConfigManager.selectConfigName == config ? .on : .off
+            items.append(item)
+        }
+        return items
+    }
+
+    // MARK: - Private
+
+    private static func generateSelectorMenuItem(proxyGroup: ClashProxy,
+                                                 proxyInfo: ClashProxyResp) -> NSMenuItem? {
         let proxyMap = proxyInfo.proxiesMap
 
         let isGlobalMode = ConfigManager.shared.currentConfig?.mode == .global
@@ -97,7 +117,7 @@ class MenuItemFactory {
         return menu
     }
 
-    static func generateUrlTestFallBackMenuItem(proxyGroup: ClashProxy, proxyInfo: ClashProxyResp) -> NSMenuItem? {
+    private static func generateUrlTestFallBackMenuItem(proxyGroup: ClashProxy, proxyInfo: ClashProxyResp) -> NSMenuItem? {
         let proxyMap = proxyInfo.proxiesMap
         let selectedName = proxyGroup.now ?? ""
         let menu = NSMenuItem(title: proxyGroup.name, action: nil, keyEquivalent: "")
@@ -125,14 +145,20 @@ class MenuItemFactory {
         return menu
     }
 
-    static func addSpeedTestMenuItem(_ menus: NSMenu, proxyGroup: ClashProxy) {
+    private static func addSpeedTestMenuItem(_ menus: NSMenu, proxyGroup: ClashProxy) {
         guard proxyGroup.speedtestAble.count > 0 else { return }
-        menus.addItem(NSMenuItem.separator())
         let speedTestItem = ProxyGroupSpeedTestMenuItem(group: proxyGroup)
-        menus.addItem(speedTestItem)
+        let separator = NSMenuItem.separator()
+        if showSpeedTestItemAtTop {
+            menus.insertItem(separator, at: 0)
+            menus.insertItem(speedTestItem, at: 0)
+        } else {
+            menus.addItem(separator)
+            menus.addItem(speedTestItem)
+        }
     }
 
-    static func generateHistoryMenu(_ proxy: ClashProxy) -> NSMenu? {
+    private static func generateHistoryMenu(_ proxy: ClashProxy) -> NSMenu? {
         let historyMenu = NSMenu(title: "")
         for his in proxy.history {
             historyMenu.addItem(
@@ -141,7 +167,7 @@ class MenuItemFactory {
         return historyMenu.items.count > 0 ? historyMenu : nil
     }
 
-    static func generateLoadBalanceMenuItem(proxyGroup: ClashProxy, proxyInfo: ClashProxyResp) -> NSMenuItem? {
+    private static func generateLoadBalanceMenuItem(proxyGroup: ClashProxy, proxyInfo: ClashProxyResp) -> NSMenuItem? {
         let proxyMap = proxyInfo.proxiesMap
 
         let menu = NSMenuItem(title: proxyGroup.name, action: nil, keyEquivalent: "")
@@ -161,18 +187,30 @@ class MenuItemFactory {
 
         return menu
     }
+}
 
-    static func generateSwitchConfigMenuItems() -> [NSMenuItem] {
-        var items = [NSMenuItem]()
-        for config in ConfigManager.getConfigFilesList() {
-            let item = NSMenuItem(title: config, action: #selector(MenuItemFactory.actionSelectConfig(sender:)), keyEquivalent: "")
-            item.target = MenuItemFactory.self
-            item.state = ConfigManager.selectConfigName == config ? .on : .off
-            items.append(item)
-        }
-        return items
+// MARK: - Experimental
+
+extension MenuItemFactory {
+    static func addExperimentalMenuItem(_ menu: inout NSMenu) {
+        let item = NSMenuItem(title: NSLocalizedString("Show speedTest at top", comment: ""), action: #selector(optionMenuItemTap(sender:)), keyEquivalent: "")
+        item.target = self
+        menu.addItem(item)
+        updateMenuItemStatus(item)
+    }
+
+    static func updateMenuItemStatus(_ item: NSMenuItem) {
+        item.state = showSpeedTestItemAtTop ? .on : .off
+    }
+
+    @objc static func optionMenuItemTap(sender: NSMenuItem) {
+        showSpeedTestItemAtTop = !showSpeedTestItemAtTop
+        updateMenuItemStatus(sender)
+        refreshMenuItems()
     }
 }
+
+// MARK: - Action
 
 extension MenuItemFactory {
     @objc static func actionSelectProxy(sender: ProxyMenuItem) {
