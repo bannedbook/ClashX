@@ -86,6 +86,14 @@ class MenuItemBaseView: NSView {
         labels.forEach { updateBackground($0) }
     }
 
+    override func viewWillMove(toWindow newWindow: NSWindow?) {
+        super.viewWillMove(toWindow: newWindow)
+        if let newWindow = newWindow,!newWindow.isKeyWindow {
+            newWindow.becomeKey()
+        }
+        updateTrackingAreas()
+    }
+    
     override func viewDidMoveToWindow() {
         super.viewDidMoveToWindow()
     }
@@ -101,7 +109,9 @@ class MenuItemBaseView: NSView {
     }
 
     override func mouseUp(with event: NSEvent) {
-        didClickView()
+        DispatchQueue.main.async {
+            self.didClickView()
+        }
     }
 
     override func updateTrackingAreas() {
