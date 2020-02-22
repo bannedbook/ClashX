@@ -25,12 +25,8 @@ class ProxyMenuItem: NSMenuItem {
     init(proxy: ClashProxy, action selector: Selector?, maxProxyNameLength: CGFloat) {
         self.maxProxyNameLength = maxProxyNameLength
         proxyName = proxy.name
-        super.init(title: proxy.name, action: selector, keyEquivalent: "")
-
-        if let his = proxy.history.last {
-            attributedTitle = getAttributedTitle(name: proxyName, delay: his.delayDisplay)
-        }
-
+        super.init(title: proxyName, action: selector, keyEquivalent: "")
+        attributedTitle = getAttributedTitle(name: proxyName, delay: proxy.history.last?.delayDisplay)
         NotificationCenter.default.addObserver(self, selector: #selector(updateDelayNotification(note:)), name: kSpeedTestFinishForProxy, object: nil)
     }
 
@@ -38,21 +34,34 @@ class ProxyMenuItem: NSMenuItem {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func getAttributedTitle(name: String, delay: String) -> NSAttributedString {
+    func getAttributedTitle(name: String, delay: String?) -> NSAttributedString {
         let paragraph = NSMutableParagraphStyle()
         paragraph.tabStops = [
             NSTextTab(textAlignment: .right, location: maxProxyNameLength + 90, options: [:]),
         ]
-
-        let str = "\(name.replacingOccurrences(of: "\t", with: " "))\t\(delay)"
+        let proxyName = name.replacingOccurrences(of: "\t", with: " ")
+        let str:String
+        if let delay = delay {
+            str = "\(proxyName)\t\(delay)"
+        } else {
+            str = proxyName.appending(" ")
+        }
 
         let attributed = NSMutableAttributedString(
             string: str,
-            attributes: [NSAttributedString.Key.paragraphStyle: paragraph]
+            attributes: [
+                NSAttributedString.Key.paragraphStyle: paragraph,
+                NSAttributedString.Key.font: NSFont.menuBarFont(ofSize: 14)
+            ]
         )
-
-        let delayAttr = [NSAttributedString.Key.font: NSFont.menuFont(ofSize: 12)]
-        attributed.addAttributes(delayAttr, range: NSRange(name.utf16.count + 1..<str.utf16.count))
+        
+        let hackAttr = [NSAttributedString.Key.font: NSFont.menuBarFont(ofSize: 15),]
+        attributed.addAttributes(hackAttr, range: NSRange(name.utf16.count..<name.utf16.count + 1))
+        
+        if delay != nil {
+            let delayAttr = [NSAttributedString.Key.font: NSFont.menuBarFont(ofSize: 12),]
+            attributed.addAttributes(delayAttr, range: NSRange(name.utf16.count + 1..<str.utf16.count))
+        }
         return attributed
     }
 
