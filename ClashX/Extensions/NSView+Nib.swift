@@ -10,7 +10,7 @@ import Cocoa
 
 protocol NibLoadable {
     static var nibName: String? { get }
-    static func createFromNib(in bundle: Bundle) -> Self?
+    static func createFromNib(in bundle: Bundle) -> Self
 }
 
 extension NibLoadable where Self: NSView {
@@ -18,12 +18,12 @@ extension NibLoadable where Self: NSView {
         return String(describing: Self.self)
     }
 
-    static func createFromNib(in bundle: Bundle = Bundle.main) -> Self? {
-        guard let nibName = nibName else { return nil }
+    static func createFromNib(in bundle: Bundle = Bundle.main) -> Self {
+        guard let nibName = nibName else { fatalError() }
         var topLevelArray: NSArray?
         bundle.loadNibNamed(NSNib.Name(nibName), owner: self, topLevelObjects: &topLevelArray)
-        guard let results = topLevelArray else { return nil }
+        guard let results = topLevelArray else { fatalError() }
         let views = [Any](results).filter { $0 is Self }
-        return views.last as? Self
+        return views.last as! Self
     }
 }

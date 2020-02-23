@@ -25,6 +25,7 @@ class RemoteConfigViewController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         updateButtonStatus()
+        tableView.doubleAction = #selector(tableViewDidDoubleClick(tableView:))
 
         NotificationCenter.default
             .rx.notification(Notification.Name("didGetUrl")).bind {
@@ -81,14 +82,17 @@ extension RemoteConfigViewController {
         updateButton.isEnabled = !config.updating
     }
 
-    func showAdd(defaultUrl: String? = nil, name: String? = nil) {
+    func showAdd(defaultUrl: String? = nil,
+                 defaultName: String? = nil,
+                 name: String? = nil,
+                 allowAlt: Bool = false) {
         let alertView = NSAlert()
         alertView.addButton(withTitle: NSLocalizedString("OK", comment: ""))
         alertView.addButton(withTitle: NSLocalizedString("Cancel", comment: ""))
         alertView.messageText = NSLocalizedString("Add a remote config", comment: "")
-        let remoteConfigInputView = RemoteConfigAddView.createFromNib()!
+        let remoteConfigInputView = RemoteConfigAddView.createFromNib()
         if let defaultUrl = defaultUrl {
-            remoteConfigInputView.setUrl(string: defaultUrl, name: name)
+            remoteConfigInputView.setUrl(string: defaultUrl, name: name, defaultName: defaultUrl)
         }
         alertView.accessoryView = remoteConfigInputView
         let response = alertView.runModal()
@@ -103,22 +107,24 @@ extension RemoteConfigViewController {
         }
 
         let configName = remoteConfigInputView.getConfigName()
-        let isDup = RemoteConfigManager.shared.configs.contains { $0.name == configName }
+        let configUrl = remoteConfigInputView.getUrlString()
 
-        guard !isDup else {
-            let alert = NSAlert()
-            alert.messageText = NSLocalizedString("The remote config name is duplicated", comment: "")
-            alert.alertStyle = .warning
-            alert.runModal()
-            return
+        if let existed = RemoteConfigManager.shared.configs.first(where: { $0.name == configName }) {
+            guard allowAlt else {
+                NSAlert.alert(with: NSLocalizedString("The remote config name is duplicated", comment: ""))
+                return
+            }
+            existed.url = configUrl
+            requestUpdate(config: existed)
+        } else {
+            let remoteConfig = RemoteConfigModel(url: configUrl,
+                                                 name: configName,
+                                                 updateTime: nil)
+            RemoteConfigManager.shared.configs.append(remoteConfig)
+            requestUpdate(config: remoteConfig)
         }
 
-        let remoteConfig = RemoteConfigModel(url: remoteConfigInputView.getUrlString(),
-                                             name: remoteConfigInputView.getConfigName(),
-                                             updateTime: nil)
-        RemoteConfigManager.shared.configs.append(remoteConfig)
-        latestAddedConfigName = remoteConfig.name
-        requestUpdate(config: remoteConfig)
+        latestAddedConfigName = configName
         tableView.reloadData()
         updateButtonStatus()
     }
@@ -153,6 +159,12 @@ extension RemoteConfigViewController {
 extension RemoteConfigViewController: NSTableViewDelegate {
     func tableViewSelectionDidChange(_ notification: Notification) {
         updateButtonStatus()
+    }
+
+    @objc func tableViewDidDoubleClick(tableView: NSTableView) {
+        let row = tableView.clickedRow
+        guard let config = RemoteConfigManager.shared.configs[safe: row] else { return }
+        showAdd(defaultUrl: config.url, defaultName: nil, name: config.name, allowAlt: true)
     }
 }
 
@@ -208,11 +220,18 @@ class RemoteConfigAddView: NSView, NibLoadable {
         return urlTextField.stringValue.isUrlVaild() && getConfigName().count > 0
     }
 
-    func setUrl(string: String, name: String?) {
+    func setUrl(string: String, name: String? = nil, defaultName: String?) {
         urlTextField.stringValue = string
+
         if let name = name, name.count > 0 {
-            configNameTextField.placeholderString = name
-        } else {
+            configNameTextField.stringValue = name
+        }
+
+        if let defaultName = defaultName, defaultName.count > 0 {
+            configNameTextField.placeholderString = defaultName
+        }
+
+        if name == nil && defaultName == nil {
             updateConfigName()
         }
     }

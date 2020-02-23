@@ -2,7 +2,7 @@
 //  RemoteConfigManager.swift
 //  ClashX
 //
-//  Created by CYC on 2018/11/6.
+//  Created by yicheng on 2018/11/6.
 //  Copyright © 2018 west2online. All rights reserved.
 //
 
@@ -57,7 +57,7 @@ class RemoteConfigManager {
         refreshActivity = NSBackgroundActivityScheduler(identifier: "com.ClashX.configupdate")
         refreshActivity?.repeats = true
         refreshActivity?.interval = 60 * 60 * 3 // Three hour
-        refreshActivity?.tolerance = 90
+        refreshActivity?.tolerance = 60 * 60
 
         refreshActivity?.schedule { [weak self] completionHandler in
             self?.autoUpdateCheck()
@@ -88,8 +88,8 @@ class RemoteConfigManager {
 
         for config in configs {
             if config.updating { continue }
-            // 12hour check
-            let timeLimitNoMantians = Date().timeIntervalSince(config.updateTime ?? Date(timeIntervalSince1970: 0)) < 60 * 60 * 12
+            // 48 hour check
+            let timeLimitNoMantians = Date().timeIntervalSince(config.updateTime ?? Date(timeIntervalSince1970: 0)) < 60 * 60 * 48
 
             if timeLimitNoMantians && !ignoreTimeLimit {
                 Logger.log("[Auto Upgrade] Bypassing \(config.name) due to time check")
