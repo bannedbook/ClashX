@@ -13,18 +13,20 @@ class AboutViewController: NSViewController {
     @IBOutlet var buildTimeLabel: NSTextField!
     @IBOutlet var coreVersionLabel: NSTextField!
 
-    lazy var compileDate: Date = {
-        let bundleName = Bundle.main.infoDictionary!["CFBundleName"] as? String ?? "Info.plist"
-        if let infoPath = Bundle.main.path(forResource: bundleName, ofType: nil),
-            let infoAttr = try? FileManager.default.attributesOfItem(atPath: infoPath),
-            let infoDate = infoAttr[FileAttributeKey.creationDate] as? Date {
-            return infoDate
-        }
-        return Date()
-    }()
-
     lazy var clashCoreVersion: String = {
         return Bundle.main.infoDictionary?["coreVersion"] as? String ?? "unknown"
+    }()
+
+    lazy var commit: String = {
+        return Bundle.main.infoDictionary?["gitCommit"] as? String ?? "unknown"
+    }()
+
+    lazy var branch: String = {
+        return Bundle.main.infoDictionary?["gitBranch"] as? String ?? "unknown"
+    }()
+
+    lazy var buildTime: String = {
+        return Bundle.main.infoDictionary?["buildTime"] as? String ?? "unknown"
     }()
 
     override func viewDidLoad() {
@@ -37,7 +39,7 @@ class AboutViewController: NSViewController {
 
         versionLabel.stringValue = "Version: \(version) (\(build))\(isBeta)"
         coreVersionLabel.stringValue = clashCoreVersion
-        buildTimeLabel.stringValue = compileDate.description
+        buildTimeLabel.stringValue = "\(commit)-\(branch) \(buildTime)"
     }
 
     override func viewWillAppear() {
