@@ -15,13 +15,13 @@ class ProxyItemView: MenuItemBaseView {
 
     init(name: ClashProxyName, selected: Bool, delay: String?) {
         nameLabel = VibrancyTextField(labelWithString: name)
-        delayLabel = VibrancyTextField(labelWithString: delay ?? "       ")
+        delayLabel = VibrancyTextField(labelWithString: delay ?? "")
         if selected {
             imageView = NSImageView(image: NSImage(named: NSImage.menuOnStateTemplateName)!)
         } else {
             imageView = nil
         }
-        super.init(autolayout: true)
+        super.init(autolayout: false)
         effectView.addSubview(nameLabel)
         effectView.addSubview(delayLabel)
         if let imageView = imageView {
@@ -32,22 +32,38 @@ class ProxyItemView: MenuItemBaseView {
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
         delayLabel.translatesAutoresizingMaskIntoConstraints = false
 
-        delayLabel.centerYAnchor.constraint(equalTo: effectView.centerYAnchor).isActive = true
-        nameLabel.centerYAnchor.constraint(equalTo: effectView.centerYAnchor).isActive = true
-        imageView?.centerYAnchor.constraint(equalTo: effectView.centerYAnchor).isActive = true
-
-        delayLabel.rightAnchor.constraint(equalTo: effectView.rightAnchor, constant: -15).isActive = true
-        nameLabel.leftAnchor.constraint(equalTo: effectView.leftAnchor, constant: 25).isActive = true
-        imageView?.leftAnchor.constraint(equalTo: effectView.leftAnchor, constant: 8).isActive = true
-
-        delayLabel.leftAnchor.constraint(greaterThanOrEqualTo: nameLabel.rightAnchor, constant: 30).isActive = true
-
         nameLabel.font = type(of: self).labelFont
-        delayLabel.font = NSFont.menuBarFont(ofSize: 12)
+        delayLabel.font = NSFont.menuBarFont(ofSize: 11)
+        nameLabel.alignment = .left
+        delayLabel.alignment = .right
+
+//        delayLabel.wantsLayer = true
+//        delayLabel.layer?.backgroundColor = NSColor.red.cgColor
+    }
+
+    override func layout() {
+        super.layout()
+        nameLabel.sizeToFit()
+        delayLabel.sizeToFit()
+        imageView?.frame = CGRect(x: 5, y: bounds.height / 2 - 6, width: 12, height: 12)
+        nameLabel.frame = CGRect(x: 18,
+                                 y: (bounds.height - nameLabel.bounds.height) / 2,
+                                 width: nameLabel.bounds.width,
+                                 height: nameLabel.bounds.height)
+        delayLabel.frame = CGRect(x: bounds.width - delayLabel.bounds.width - 8,
+                                  y: (bounds.height - delayLabel.bounds.height) / 2,
+                                  width: delayLabel.bounds.width,
+                                  height: delayLabel.bounds.height)
     }
 
     func update(delay: String?) {
-        delayLabel.stringValue = delay ?? "       "
+        delayLabel.stringValue = delay ?? ""
+        needsLayout = true
+    }
+
+    override var intrinsicContentSize: NSSize {
+        return NSSize(width: 20 + 50 + nameLabel.bounds.width + 25,
+                      height: 20)
     }
 
     required init?(coder: NSCoder) {

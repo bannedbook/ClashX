@@ -63,13 +63,22 @@ class MenuItemBaseView: NSView {
         // background
         addSubview(effectView)
         effectView.translatesAutoresizingMaskIntoConstraints = false
-        effectView.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
-        effectView.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
-        effectView.topAnchor.constraint(equalTo: topAnchor).isActive = true
-        effectView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
+        if autolayout {
+            effectView.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
+            effectView.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
+            effectView.topAnchor.constraint(equalTo: topAnchor).isActive = true
+            effectView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
+        }
     }
 
     // MARK: Override
+
+    override func layout() {
+        super.layout()
+        if !autolayout {
+            effectView.frame = bounds
+        }
+    }
 
     override func draw(_ dirtyRect: NSRect) {
         super.draw(dirtyRect)

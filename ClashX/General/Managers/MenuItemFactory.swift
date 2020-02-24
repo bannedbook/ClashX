@@ -90,14 +90,17 @@ class MenuItemFactory {
         }
         let submenu = ProxyGroupMenu(title: proxyGroup.name)
 
+        let isSpeedtestAble = proxyGroup.speedtestAble.count > 0
         for proxy in proxyGroup.all ?? [] {
             guard let proxyModel = proxyMap[proxy] else { continue }
 
             if isGlobalMode && proxyModel.type == .select {
                 continue
             }
-            let proxyItem = ProxyMenuItem(proxy: proxyModel, action: #selector(MenuItemFactory.actionSelectProxy(sender:)),
-                                          selected: proxy == selectedName)
+            let proxyItem = ProxyMenuItem(proxy: proxyModel,
+                                          action: #selector(MenuItemFactory.actionSelectProxy(sender:)),
+                                          selected: proxy == selectedName,
+                                          speedtestAble: isSpeedtestAble)
             proxyItem.target = MenuItemFactory.self
             submenu.add(delegate: proxyItem)
             submenu.addItem(proxyItem)
@@ -167,11 +170,13 @@ class MenuItemFactory {
         let menu = NSMenuItem(title: proxyGroup.name, action: nil, keyEquivalent: "")
         let submenu = ProxyGroupMenu(title: proxyGroup.name)
 
+        let isSpeedTestAble = proxyGroup.speedtestAble.count > 0
         for proxy in proxyGroup.all ?? [] {
             guard let proxyModel = proxyMap[proxy] else { continue }
             let proxyItem = ProxyMenuItem(proxy: proxyModel,
                                           action: #selector(empty),
-                                          selected: false)
+                                          selected: false,
+                                          speedtestAble: isSpeedTestAble)
             proxyItem.target = MenuItemFactory.self
             submenu.add(delegate: proxyItem)
             submenu.addItem(proxyItem)

@@ -17,10 +17,18 @@ class ProxyMenuItem: NSMenuItem {
 
     init(proxy: ClashProxy,
          action selector: Selector?,
-         selected: Bool) {
+         selected: Bool,
+         speedtestAble: Bool) {
         proxyName = proxy.name
         super.init(title: proxyName, action: selector, keyEquivalent: "")
-        view = ProxyItemView(name: proxyName, selected: selected, delay: proxy.history.last?.delayDisplay)
+        if speedtestAble {
+            view = ProxyItemView(name: proxyName,
+                                 selected: selected,
+                                 delay: proxy.history.last?.delayDisplay)
+        } else {
+            state = selected ? .on : .off
+        }
+
         NotificationCenter.default.addObserver(self, selector: #selector(updateDelayNotification(note:)), name: kSpeedTestFinishForProxy, object: nil)
     }
 
