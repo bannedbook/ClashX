@@ -13,6 +13,8 @@ class ProxyItemView: MenuItemBaseView {
     let delayLabel: NSTextField
     let imageView: NSImageView?
 
+    static let fixedPlaceHolderWidth: CGFloat = 20 + 50 + 25
+
     init(name: ClashProxyName, selected: Bool, delay: String?) {
         nameLabel = VibrancyTextField(labelWithString: name)
         delayLabel = VibrancyTextField(labelWithString: delay ?? "")
@@ -59,11 +61,6 @@ class ProxyItemView: MenuItemBaseView {
     func update(delay: String?) {
         delayLabel.stringValue = delay ?? ""
         needsLayout = true
-    }
-
-    override var intrinsicContentSize: NSSize {
-        return NSSize(width: 20 + 50 + nameLabel.bounds.width + 25,
-                      height: 20)
     }
 
     required init?(coder: NSCoder) {

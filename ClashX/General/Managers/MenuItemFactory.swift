@@ -91,6 +91,7 @@ class MenuItemFactory {
         let submenu = ProxyGroupMenu(title: proxyGroup.name)
 
         let isSpeedtestAble = proxyGroup.speedtestAble.count > 0
+
         for proxy in proxyGroup.all ?? [] {
             guard let proxyModel = proxyMap[proxy] else { continue }
 
@@ -105,6 +106,11 @@ class MenuItemFactory {
             submenu.add(delegate: proxyItem)
             submenu.addItem(proxyItem)
         }
+
+        if isSpeedtestAble {
+            submenu.minimumWidth = proxyGroup.maxProxyNameLength + ProxyItemView.fixedPlaceHolderWidth
+        }
+
         addSpeedTestMenuItem(submenu, proxyGroup: proxyGroup)
         menu.submenu = submenu
         if !ConfigManager.shared.disableShowCurrentProxyInMenu {
@@ -180,6 +186,9 @@ class MenuItemFactory {
             proxyItem.target = MenuItemFactory.self
             submenu.add(delegate: proxyItem)
             submenu.addItem(proxyItem)
+        }
+        if isSpeedTestAble {
+            submenu.minimumWidth = proxyGroup.maxProxyNameLength + ProxyItemView.fixedPlaceHolderWidth
         }
         addSpeedTestMenuItem(submenu, proxyGroup: proxyGroup)
         menu.submenu = submenu
