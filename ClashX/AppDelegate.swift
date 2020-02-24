@@ -64,11 +64,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         statusItemView = StatusItemView.create(statusItem: statusItem)
         statusItemView.frame = CGRect(x: 0, y: 0, width: statusItemLengthWithSpeed, height: 22)
         statusMenu.delegate = self
-        setupExperimentalMenuItem()
 
         // crash recorder
         failLaunchProtect()
         registCrashLogger()
+
+        setupExperimentalMenuItem()
 
         // install proxy helper
         _ = ClashResourceManager.check()
@@ -599,32 +600,35 @@ extension AppDelegate {
     func registCrashLogger() {
         #if DEBUG
             return
+        #else
+            Fabric.with([Crashlytics.self])
         #endif
-        Fabric.with([Crashlytics.self])
     }
 
     func failLaunchProtect() {
         #if DEBUG
             return
-        #endif
-        let x = UserDefaults.standard
-        var launch_fail_times: Int = 0
-        if let xx = x.object(forKey: "launch_fail_times") as? Int { launch_fail_times = xx }
-        launch_fail_times += 1
-        x.set(launch_fail_times, forKey: "launch_fail_times")
-        if launch_fail_times > 3 {
-            // 发生连续崩溃
-            ConfigFileManager.backupAndRemoveConfigFile()
-            try? FileManager.default.removeItem(atPath: kConfigFolderPath + "Country.mmdb")
-            if let domain = Bundle.main.bundleIdentifier {
-                UserDefaults.standard.removePersistentDomain(forName: domain)
-                UserDefaults.standard.synchronize()
+        #else
+            UserDefaults.standard.register(defaults: ["NSApplicationCrashOnExceptions": true])
+            let x = UserDefaults.standard
+            var launch_fail_times: Int = 0
+            if let xx = x.object(forKey: "launch_fail_times") as? Int { launch_fail_times = xx }
+            launch_fail_times += 1
+            x.set(launch_fail_times, forKey: "launch_fail_times")
+            if launch_fail_times > 3 {
+                // 发生连续崩溃
+                ConfigFileManager.backupAndRemoveConfigFile()
+                try? FileManager.default.removeItem(atPath: kConfigFolderPath + "Country.mmdb")
+                if let domain = Bundle.main.bundleIdentifier {
+                    UserDefaults.standard.removePersistentDomain(forName: domain)
+                    UserDefaults.standard.synchronize()
+                }
+                NSUserNotificationCenter.default.post(title: "Fail on launch protect", info: "You origin Config has been renamed")
             }
-            NSUserNotificationCenter.default.post(title: "Fail on launch protect", info: "You origin Config has been renamed")
-        }
-        DispatchQueue.global().asyncAfter(deadline: DispatchTime.now() + Double(Int64(5 * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC), execute: {
-            x.set(0, forKey: "launch_fail_times")
-        })
+            DispatchQueue.global().asyncAfter(deadline: DispatchTime.now() + Double(Int64(5 * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC), execute: {
+                x.set(0, forKey: "launch_fail_times")
+            })
+        #endif
     }
 }
 
