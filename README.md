@@ -39,11 +39,11 @@ You can download from [release](https://github.com/yichengchen/clashX/releases) 
 
 The default configuration directory is `$HOME/.config/clash`
 
-The default name of the configuration file is `config.ymal`. You can use your custom config name and switch config in menu `Config` section.
+The default name of the configuration file is `config.yaml`. You can use your custom config name and switch config in menu `Config` section.
 
-To Change the ports of ClashX, you need to modify the `config.ymal` file. The `General` section settings in your custom config file would be ignored.
+To Change the ports of ClashX, you need to modify the `config.yaml` file. The `General` section settings in your custom config file would be ignored.
 
-Checkout [Clash](https://github.com/Dreamacro/clash) or [SS-Rule-Snippet for Clash](https://github.com/Hackl0us/SS-Rule-Snippet/blob/master/LAZY_RULES/clash.yml) for more detail.
+Checkout [Clash](https://github.com/Dreamacro/clash) or [SS-Rule-Snippet for Clash](https://github.com/Hackl0us/SS-Rule-Snippet/blob/master/LAZY_RULES/clash.yaml) for more detail.
 
 ## Advance Config
 ### Change your status menu icon
