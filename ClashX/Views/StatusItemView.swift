@@ -98,6 +98,9 @@ class StatusItemView: NSView {
     }
 
     func updateStatusItemView() {
+        if #available(macOS 10.14, *) {} else {
+            layout()
+        }
         statusItem?.updateImage(withView: self)
     }
 }
