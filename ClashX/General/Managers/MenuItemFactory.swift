@@ -18,6 +18,12 @@ class MenuItemFactory {
         }
     }
 
+    static var useViewToRenderProxy: Bool = UserDefaults.standard.object(forKey: "useViewToRenderProxy") as? Bool ?? false {
+        didSet {
+            UserDefaults.standard.set(useViewToRenderProxy, forKey: "useViewToRenderProxy")
+        }
+    }
+
     // MARK: - Public
 
     static func refreshMenuItems(completionHandler: (([NSMenuItem]) -> Void)? = nil) {
@@ -101,13 +107,14 @@ class MenuItemFactory {
             let proxyItem = ProxyMenuItem(proxy: proxyModel,
                                           action: #selector(MenuItemFactory.actionSelectProxy(sender:)),
                                           selected: proxy == selectedName,
-                                          speedtestAble: isSpeedtestAble)
+                                          speedtestAble: isSpeedtestAble,
+                                          maxProxyNameLength: proxyGroup.maxProxyNameLength)
             proxyItem.target = MenuItemFactory.self
             submenu.add(delegate: proxyItem)
             submenu.addItem(proxyItem)
         }
 
-        if isSpeedtestAble {
+        if isSpeedtestAble && useViewToRenderProxy {
             submenu.minimumWidth = proxyGroup.maxProxyNameLength + ProxyItemView.fixedPlaceHolderWidth
         }
 
@@ -182,12 +189,13 @@ class MenuItemFactory {
             let proxyItem = ProxyMenuItem(proxy: proxyModel,
                                           action: #selector(empty),
                                           selected: false,
-                                          speedtestAble: isSpeedTestAble)
+                                          speedtestAble: isSpeedTestAble,
+                                          maxProxyNameLength: proxyGroup.maxProxyNameLength)
             proxyItem.target = MenuItemFactory.self
             submenu.add(delegate: proxyItem)
             submenu.addItem(proxyItem)
         }
-        if isSpeedTestAble {
+        if isSpeedTestAble && useViewToRenderProxy {
             submenu.minimumWidth = proxyGroup.maxProxyNameLength + ProxyItemView.fixedPlaceHolderWidth
         }
         addSpeedTestMenuItem(submenu, proxyGroup: proxyGroup)
@@ -201,19 +209,34 @@ class MenuItemFactory {
 
 extension MenuItemFactory {
     static func addExperimentalMenuItem(_ menu: inout NSMenu) {
-        let item = NSMenuItem(title: NSLocalizedString("Show speedTest at top", comment: ""), action: #selector(optionMenuItemTap(sender:)), keyEquivalent: "")
-        item.target = self
-        menu.addItem(item)
-        updateMenuItemStatus(item)
+        let speedtestItem = NSMenuItem(title: NSLocalizedString("Show speedTest at top", comment: ""), action: #selector(optionSpeedtestMenuItemTap(sender:)), keyEquivalent: "")
+        speedtestItem.target = self
+        menu.addItem(speedtestItem)
+        updateSpeedtestMenuItemStatus(speedtestItem)
+
+        let useViewRender = NSMenuItem(title: NSLocalizedString("Enhance proxy list render", comment: ""), action: #selector(optionUseViewRenderMenuItemTap(sender:)), keyEquivalent: "")
+        useViewRender.target = self
+        menu.addItem(useViewRender)
+        updateUseViewRenderMenuItem(useViewRender)
     }
 
-    static func updateMenuItemStatus(_ item: NSMenuItem) {
+    static func updateSpeedtestMenuItemStatus(_ item: NSMenuItem) {
         item.state = showSpeedTestItemAtTop ? .on : .off
     }
 
-    @objc static func optionMenuItemTap(sender: NSMenuItem) {
+    static func updateUseViewRenderMenuItem(_ item: NSMenuItem) {
+        item.state = useViewToRenderProxy ? .on : .off
+    }
+
+    @objc static func optionSpeedtestMenuItemTap(sender: NSMenuItem) {
         showSpeedTestItemAtTop = !showSpeedTestItemAtTop
-        updateMenuItemStatus(sender)
+        updateSpeedtestMenuItemStatus(sender)
+        refreshMenuItems()
+    }
+
+    @objc static func optionUseViewRenderMenuItemTap(sender: NSMenuItem) {
+        useViewToRenderProxy = !useViewToRenderProxy
+        updateUseViewRenderMenuItem(sender)
         refreshMenuItems()
     }
 }
