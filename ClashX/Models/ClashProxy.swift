@@ -81,6 +81,11 @@ class ClashProxy: Codable {
         case provider(name: ClashProxyName, provider: ClashProviderName)
     }
 
+    private static var nameLengthCachedMap = [ClashProxyName: CGFloat]()
+    static func cleanCache() {
+        nameLengthCachedMap.removeAll()
+    }
+
     lazy var speedtestAble: [SpeedtestAbleItem] = {
         guard let resp = enclosingResp, let allProxys = all else { return [] }
         var proxys = [SpeedtestAbleItem]()
@@ -103,13 +108,19 @@ class ClashProxy: Codable {
     lazy var maxProxyNameLength: CGFloat = {
         let rect = CGSize(width: CGFloat.greatestFiniteMagnitude, height: 20)
 
-        let lengths = all?.compactMap({ string -> CGFloat in
+        let lengths = all?.compactMap({ name -> CGFloat in
+            if let length = ClashProxy.nameLengthCachedMap[name] {
+                return length
+            }
+
             let rects = CGSize(width: CGFloat.greatestFiniteMagnitude, height: 20)
             let attr = [NSAttributedString.Key.font: NSFont.menuBarFont(ofSize: 14)]
-            return (string as NSString)
+            let length = (name as NSString)
                 .boundingRect(with: rect,
                               options: .usesLineFragmentOrigin,
                               attributes: attr).width
+            ClashProxy.nameLengthCachedMap[name] = length
+            return length
         })
         return lengths?.max() ?? 0
     }()

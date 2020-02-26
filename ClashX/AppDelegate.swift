@@ -330,6 +330,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
         let config = configName ?? ConfigManager.selectConfigName
 
+        ClashProxy.cleanCache()
+
         ApiRequest.requestConfigUpdate(configName: config) {
             [weak self] err in
             guard let self = self else { return }
