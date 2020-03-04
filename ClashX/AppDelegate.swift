@@ -82,8 +82,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         removeUnExistProxyGroups()
 
         // start proxy
-        setupData()
         updateConfig(showNotification: false)
+        setupData()
         updateLoggingLevel()
 
         // start watch config file change
