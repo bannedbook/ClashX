@@ -82,8 +82,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         removeUnExistProxyGroups()
 
         // start proxy
-        updateConfig(showNotification: false)
         setupData()
+        updateConfig(showNotification: false)
         updateLoggingLevel()
 
         // start watch config file change
@@ -180,6 +180,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             .isRunningVariable
             .asObservable()
             .distinctUntilChanged()
+            .filter { $0 }
             .bind { _ in
                 MenuItemFactory.refreshMenuItems()
             }.disposed(by: disposeBag)
