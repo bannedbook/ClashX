@@ -34,7 +34,7 @@ class RemoteConfigViewController: NSViewController {
                 guard let url = note.userInfo?["url"] as? String else { return }
 
                 let name = note.userInfo?["name"] as? String
-                self.showAdd(defaultUrl: url, name: name)
+                self.showAdd(defaultUrl: url, name: name, allowAlt: true)
             }.disposed(by: disposeBag)
     }
 
@@ -92,7 +92,7 @@ extension RemoteConfigViewController {
         alertView.messageText = NSLocalizedString("Add a remote config", comment: "")
         let remoteConfigInputView = RemoteConfigAddView.createFromNib()
         if let defaultUrl = defaultUrl {
-            remoteConfigInputView.setUrl(string: defaultUrl, name: name, defaultName: defaultUrl)
+            remoteConfigInputView.setUrl(string: defaultUrl, name: name, defaultName: defaultName)
         }
         alertView.accessoryView = remoteConfigInputView
         let response = alertView.runModal()
