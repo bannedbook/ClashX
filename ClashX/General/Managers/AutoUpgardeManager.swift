@@ -72,6 +72,10 @@ extension AutoUpgardeManager: SUUpdaterDelegate {
     func feedURLString(for updater: SUUpdater) -> String? {
         return current.urlString
     }
+
+    func updaterWillRelaunchApplication(_ updater: SUUpdater) {
+        SystemProxyManager.shared.disableProxy(port: 0, socksPort: 0, forceDisable: true)
+    }
 }
 
 // MARK: - Channel Enum
