@@ -1,5 +1,7 @@
 #!/bin/bash
 set -eu
+echo "Pod install"
+pod install
 echo "delete old files"
 rm -f ./ClashX/Resources/Country.mmdb
 rm -rf ./ClashX/Resources/dashboard
@@ -11,3 +13,4 @@ echo "install dashboard"
 cd ClashX/Resources
 git clone -b gh-pages https://github.com/Dreamacro/clash-dashboard.git dashboard
 cd ..
+python3 build_clash.py

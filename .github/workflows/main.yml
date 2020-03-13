@@ -37,7 +37,6 @@ jobs:
       run: |
         bash install_dependency.sh
         cd ClashX
-        python3 build_clash.py
         python3 add_build_info.py
         cd ..
         bundle exec fastlane gym -s ClashX
