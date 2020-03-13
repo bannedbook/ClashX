@@ -9,8 +9,6 @@ class ClashResourceManager {
     static func check() -> Bool {
         checkConfigDir()
         checkMMDB()
-        upgardeYmlExtensionName()
-        checkAndRemoveOldErrorConfig()
         return true
     }
 
@@ -44,39 +42,6 @@ class ClashResourceManager {
         }
     }
 
-    static func checkAndRemoveOldErrorConfig() {
-        if FileManager.default.fileExists(atPath: kDefaultConfigFilePath) {
-            do {
-                let defaultConfigData = try Data(contentsOf: URL(fileURLWithPath: kDefaultConfigFilePath))
-                var checkSum: UInt8 = 0
-                for byte in defaultConfigData {
-                    checkSum &+= byte
-                }
-
-                if checkSum == 101 {
-                    // old error config
-                    Logger.log("removing old config.yaml")
-                    try FileManager.default.removeItem(atPath: kDefaultConfigFilePath)
-                }
-            } catch let err {
-                Logger.log("removing old config.yaml fail: \(err.localizedDescription)")
-            }
-        }
-    }
-
-    static func upgardeYmlExtensionName() {
-        do {
-            let fileURLs = try FileManager.default.contentsOfDirectory(at: URL(fileURLWithPath: kConfigFolderPath, isDirectory: true), includingPropertiesForKeys: nil, options: [.skipsSubdirectoryDescendants])
-
-            for upgradeUrl in fileURLs.filter({ $0.pathExtension == "yml" }) {
-                let dest = upgradeUrl.deletingPathExtension().appendingPathExtension("yaml")
-                try FileManager.default.moveItem(at: upgradeUrl, to: dest)
-            }
-
-        } catch let err {
-            Logger.log(err.localizedDescription)
-        }
-    }
 
     static func showCreateConfigDirFailAlert() {
         let alert = NSAlert()
