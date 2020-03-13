@@ -21,9 +21,8 @@ target 'ClashX' do
   pod 'CocoaLumberjack/Swift'
   pod 'WebViewJavascriptBridge'
   pod 'Starscream','3.1.1'
-  pod 'Fabric'
+  pod 'AppCenter/Analytics'
   pod 'Crashlytics'
   pod 'Sparkle'
-  
 end
 

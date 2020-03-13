@@ -12,6 +12,8 @@ import LetsMove
 import RxCocoa
 import RxSwift
 
+import AppCenter
+import AppCenterAnalytics
 import Crashlytics
 import Fabric
 
@@ -605,6 +607,12 @@ extension AppDelegate {
             return
         #else
             Fabric.with([Crashlytics.self])
+            DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+                MSAppCenter.start("dce6e9a3-b6e3-4fd2-9f2d-35c767a99663", withServices: [
+                    MSAnalytics.self,
+                ])
+            }
+
         #endif
     }
 

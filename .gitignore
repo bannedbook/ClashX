@@ -10,3 +10,4 @@ ClashX.app
 .idea
 *.pyc
 ClashX/clash/
+.DS_Store

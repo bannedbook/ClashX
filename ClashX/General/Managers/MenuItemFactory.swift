@@ -12,7 +12,7 @@ import SwiftyJSON
 
 class MenuItemFactory {
     private static var cachedProxyMenuItem: [NSMenuItem]?
-    private static var showSpeedTestItemAtTop: Bool = UserDefaults.standard.object(forKey: "kShowSpeedTestItemAtTop") as? Bool ?? true {
+    private static var showSpeedTestItemAtTop: Bool = UserDefaults.standard.object(forKey: "kShowSpeedTestItemAtTop") as? Bool ?? AppDelegate.isAboveMacOS14 {
         didSet {
             UserDefaults.standard.set(showSpeedTestItemAtTop, forKey: "kShowSpeedTestItemAtTop")
         }
@@ -35,33 +35,51 @@ class MenuItemFactory {
             completionHandler?(cached)
         }
 
+        let group = DispatchGroup()
+        group.enter()
+        group.enter()
+
+        var provider: ClashProviderResp?
+        var proxyInfo: ClashProxyResp?
+
+        group.notify(queue: .main) {
+            guard let proxyInfo = proxyInfo, let proxyprovider = provider else {
+                assertionFailure()
+                return
+            }
+            proxyInfo.updateProvider(proxyprovider)
+
+            var menuItems = [NSMenuItem]()
+            for proxy in proxyInfo.proxyGroups {
+                var menu: NSMenuItem?
+                switch proxy.type {
+                case .select: menu = self.generateSelectorMenuItem(proxyGroup: proxy, proxyInfo: proxyInfo)
+                case .urltest, .fallback: menu = generateUrlTestFallBackMenuItem(proxyGroup: proxy, proxyInfo: proxyInfo)
+                case .loadBalance:
+                    menu = generateLoadBalanceMenuItem(proxyGroup: proxy, proxyInfo: proxyInfo)
+                default: continue
+                }
+
+                if let menu = menu {
+                    menuItems.append(menu)
+                    menu.isEnabled = true
+                }
+            }
+            let items = Array(menuItems.reversed())
+            cachedProxyMenuItem = items
+            completionHandler?(items)
+        }
+
         ApiRequest.requestProxyProviderList {
             proxyprovider in
+            provider = proxyprovider
+            group.leave()
+        }
 
-            ApiRequest.requestProxyGroupList {
-                proxyInfo in
-                proxyInfo.updateProvider(proxyprovider)
-
-                var menuItems = [NSMenuItem]()
-                for proxy in proxyInfo.proxyGroups {
-                    var menu: NSMenuItem?
-                    switch proxy.type {
-                    case .select: menu = self.generateSelectorMenuItem(proxyGroup: proxy, proxyInfo: proxyInfo)
-                    case .urltest, .fallback: menu = generateUrlTestFallBackMenuItem(proxyGroup: proxy, proxyInfo: proxyInfo)
-                    case .loadBalance:
-                        menu = generateLoadBalanceMenuItem(proxyGroup: proxy, proxyInfo: proxyInfo)
-                    default: continue
-                    }
-
-                    if let menu = menu {
-                        menuItems.append(menu)
-                        menu.isEnabled = true
-                    }
-                }
-                let items = Array(menuItems.reversed())
-                cachedProxyMenuItem = items
-                completionHandler?(items)
-            }
+        ApiRequest.requestProxyGroupList {
+            proxy in
+            proxyInfo = proxy
+            group.leave()
         }
     }
 

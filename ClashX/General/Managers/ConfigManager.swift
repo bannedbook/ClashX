@@ -17,16 +17,6 @@ class ConfigManager {
     var apiPort = "8080"
     var apiSecret: String = ""
 
-    init() {
-        let defaultValue: Bool
-        if #available(macOS 10.14, *) {
-            defaultValue = false
-        } else {
-            defaultValue = true
-        }
-        disableShowCurrentProxyInMenu = UserDefaults.standard.object(forKey: "kSDisableShowCurrentProxyInMenu") as? Bool ?? defaultValue
-    }
-
     var currentConfig: ClashConfig? {
         get {
             return currentConfigVariable.value
@@ -141,7 +131,7 @@ class ConfigManager {
         }
     }
 
-    var disableShowCurrentProxyInMenu: Bool {
+    var disableShowCurrentProxyInMenu: Bool = UserDefaults.standard.object(forKey: "kSDisableShowCurrentProxyInMenu") as? Bool ?? !AppDelegate.isAboveMacOS14 {
         didSet {
             UserDefaults.standard.set(disableShowCurrentProxyInMenu, forKey: "kSDisableShowCurrentProxyInMenu")
         }

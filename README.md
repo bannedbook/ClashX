@@ -23,15 +23,13 @@ A rule based proxy For Mac base on [Clash](https://github.com/Dreamacro/clash).
 You can download from [release](https://github.com/yichengchen/clashX/releases) page
 
 ## Build
+- Make sure have python3 and golang installed in your computer.
+
 - Download deps
   ```
   bash install_dependency.sh
   ```
-- Build clash core. 
-  ```
-  cd ClashX
-  python3 build_clash.py
-  ```
+
 - Build and run.
 
 ## Config

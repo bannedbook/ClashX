@@ -102,7 +102,7 @@ class ClashWebViewContoller: NSViewController {
         view.window?.styleMask.insert(.resizable)
         view.window?.styleMask.insert(.miniaturizable)
         view.window?.center()
-        
+
         view.window?.minSize = minSize
 
         if NSApp.activationPolicy() == .accessory {
@@ -114,12 +114,11 @@ class ClashWebViewContoller: NSViewController {
         view.addSubview(effectView)
         view.addSubview(webview)
     }
-    
+
     override func viewDidLayout() {
         super.viewDidLayout()
         effectView.frame = view.bounds
         webview.frame = view.bounds
-
     }
 
     func loadWebRecourses() {
