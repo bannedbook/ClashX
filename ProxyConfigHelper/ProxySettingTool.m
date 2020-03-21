@@ -139,6 +139,7 @@
         @"127.0.0.1",
         @"localhost",
         @"*.local",
+        @"timestamp.apple.com"
     ];
     return ignoreList;
 }
@@ -212,7 +213,9 @@
         NSString *hardware = [dict valueForKeyPath:@"Interface.Hardware"];
         if ([hardware isEqualToString:@"AirPort"]
             || [hardware isEqualToString:@"Wi-Fi"]
-            || [hardware isEqualToString:@"Ethernet"]) {
+            || [hardware isEqualToString:@"Ethernet"]
+            || hardware == nil// VPN
+            ) {
             callback(key,dict);
         }
     }
