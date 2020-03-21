@@ -2,6 +2,5 @@
 #
 # Ensure this file is checked in to source control!
 
-gem 'fastlane-plugin-notarize'
 gem 'fastlane-plugin-appcenter'
 gem 'fastlane-plugin-versioning'

@@ -1,3 +1,12 @@
+lane :build do
+build_app(
+  workspace: "ClashX.xcworkspace",
+  scheme: "ClashX",
+  export_method: "developer-id",
+  skip_package_pkg: "true"
+)
+end
+
 lane :beta do
 current_version = get_version_number(
   target: "ClashX"

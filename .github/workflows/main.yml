@@ -39,7 +39,7 @@ jobs:
         cd ClashX
         python3 add_build_info.py
         cd ..
-        bundle exec fastlane gym -s ClashX
+        bundle exec fastlane build
         echo "Checking SMJobBless Vailded"
         python SMJobBlessUtil.py check ClashX.app
         echo "Check done"
