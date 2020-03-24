@@ -57,6 +57,8 @@ class MenuItemFactory {
                 case .urltest, .fallback: menu = generateUrlTestFallBackMenuItem(proxyGroup: proxy, proxyInfo: proxyInfo)
                 case .loadBalance:
                     menu = generateLoadBalanceMenuItem(proxyGroup: proxy, proxyInfo: proxyInfo)
+                case .relay:
+                    menu = generateListOnlyMenuItem(proxyGroup: proxy, proxyInfo: proxyInfo)
                 default: continue
                 }
 
@@ -219,6 +221,26 @@ class MenuItemFactory {
         addSpeedTestMenuItem(submenu, proxyGroup: proxyGroup)
         menu.submenu = submenu
 
+        return menu
+    }
+
+    private static func generateListOnlyMenuItem(proxyGroup: ClashProxy, proxyInfo: ClashProxyResp) -> NSMenuItem? {
+        let menu = NSMenuItem(title: proxyGroup.name, action: nil, keyEquivalent: "")
+        let submenu = ProxyGroupMenu(title: proxyGroup.name)
+        let proxyMap = proxyInfo.proxiesMap
+
+        for proxy in proxyGroup.all ?? [] {
+            guard let proxyModel = proxyMap[proxy] else { continue }
+            let proxyItem = ProxyMenuItem(proxy: proxyModel,
+                                          action: #selector(empty),
+                                          selected: false,
+                                          speedtestAble: false,
+                                          maxProxyNameLength: proxyGroup.maxProxyNameLength)
+            proxyItem.target = MenuItemFactory.self
+            submenu.add(delegate: proxyItem)
+            submenu.addItem(proxyItem)
+        }
+        menu.submenu = submenu
         return menu
     }
 }
