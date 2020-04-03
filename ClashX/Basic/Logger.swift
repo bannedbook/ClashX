@@ -13,9 +13,7 @@ class Logger {
     var fileLogger: DDFileLogger = DDFileLogger()
 
     private init() {
-        if let tty = DDTTYLogger.sharedInstance {
-            DDLog.add(tty) // TTY = Xcode console
-        }
+        DDLog.add(DDOSLogger.sharedInstance)
         fileLogger.rollingFrequency = TimeInterval(60 * 60 * 24) // 24 hours
         fileLogger.logFileManager.maximumNumberOfLogFiles = 3
         DDLog.add(fileLogger)
@@ -37,9 +35,7 @@ class Logger {
     }
 
     static func log(_ msg: String, level: ClashLogLevel = .info) {
-        DispatchQueue.global().async {
-            shared.logToFile(msg: "[\(level.rawValue)] \(msg)", level: level)
-        }
+        shared.logToFile(msg: "[\(level.rawValue)] \(msg)", level: level)
     }
 
     func logFilePath() -> String {
