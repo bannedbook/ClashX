@@ -11,3 +11,6 @@ ClashX.app
 *.pyc
 ClashX/clash/
 .DS_Store
+.vscode
+ClashX/goClash/goClash.h
+ClashX/goClash/goClash.a

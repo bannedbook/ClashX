@@ -11,7 +11,6 @@
 		4913C82321157D0200F6B87C /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4913C82221157D0200F6B87C /* Notification.swift */; };
 		492C4869210EE6B9004554A0 /* ApiRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 492C4868210EE6B9004554A0 /* ApiRequest.swift */; };
 		492C4871210EF62E004554A0 /* ClashConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 492C4870210EF62E004554A0 /* ClashConfig.swift */; };
-		492D7321216CEC4000146BC1 /* ClashX.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 492D731F216CEC4000146BC1 /* ClashX.a */; };
 		493AEAE3221AE3420016FE98 /* AppVersionUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493AEAE2221AE3420016FE98 /* AppVersionUtil.swift */; };
 		493AEAE5221AE7230016FE98 /* ProxyMenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493AEAE4221AE7230016FE98 /* ProxyMenuItem.swift */; };
 		4949D154213242F600EF85E6 /* Paths.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4949D153213242F600EF85E6 /* Paths.swift */; };
@@ -71,6 +70,7 @@
 		F977FAAC2366790500C17F1F /* AutoUpgardeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F977FAAB2366790500C17F1F /* AutoUpgardeManager.swift */; };
 		F977FAAE23669D6400C17F1F /* ConnectionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F977FAAD23669D6400C17F1F /* ConnectionManager.swift */; };
 		F9A7C06C2306E874007163C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F9A7C06B2306E874007163C7 /* main.m */; };
+		F9C180A3243C6590005EE8C4 /* goClash.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F9C180A1243C6590005EE8C4 /* goClash.a */; };
 		F9E754D0239CC21F00CEE7CC /* WebPortalManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9E754CF239CC21F00CEE7CC /* WebPortalManager.swift */; };
 		F9E754D2239CC28D00CEE7CC /* NSAlert+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9E754D1239CC28D00CEE7CC /* NSAlert+Extension.swift */; };
 		F9E8F34623A12B89002DE5E8 /* String+Encode.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9E8F34523A12B89002DE5E8 /* String+Encode.swift */; };
@@ -115,8 +115,6 @@
 		4913C82221157D0200F6B87C /* Notification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notification.swift; sourceTree = "<group>"; };
 		492C4868210EE6B9004554A0 /* ApiRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiRequest.swift; sourceTree = "<group>"; };
 		492C4870210EF62E004554A0 /* ClashConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClashConfig.swift; sourceTree = "<group>"; };
-		492D731F216CEC4000146BC1 /* ClashX.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = ClashX.a; path = ClashX/ClashX.a; sourceTree = SOURCE_ROOT; };
-		492D7320216CEC4000146BC1 /* ClashX.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ClashX.h; path = ClashX/ClashX.h; sourceTree = SOURCE_ROOT; };
 		493AEAE2221AE3420016FE98 /* AppVersionUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppVersionUtil.swift; sourceTree = "<group>"; };
 		493AEAE4221AE7230016FE98 /* ProxyMenuItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProxyMenuItem.swift; sourceTree = "<group>"; };
 		4949D153213242F600EF85E6 /* Paths.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Paths.swift; sourceTree = "<group>"; };
@@ -191,6 +189,8 @@
 		F977FAAD23669D6400C17F1F /* ConnectionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionManager.swift; sourceTree = "<group>"; };
 		F9A7C0692306E874007163C7 /* com.west2online.ClashX.ProxyConfigHelper */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = com.west2online.ClashX.ProxyConfigHelper; sourceTree = BUILT_PRODUCTS_DIR; };
 		F9A7C06B2306E874007163C7 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		F9C180A1243C6590005EE8C4 /* goClash.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = goClash.a; path = ClashX/goClash/goClash.a; sourceTree = SOURCE_ROOT; };
+		F9C180A2243C6590005EE8C4 /* goClash.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = goClash.h; path = ClashX/goClash/goClash.h; sourceTree = SOURCE_ROOT; };
 		F9E754CF239CC21F00CEE7CC /* WebPortalManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebPortalManager.swift; sourceTree = "<group>"; };
 		F9E754D1239CC28D00CEE7CC /* NSAlert+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSAlert+Extension.swift"; sourceTree = "<group>"; };
 		F9E8F34523A12B89002DE5E8 /* String+Encode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Encode.swift"; sourceTree = "<group>"; };
@@ -201,8 +201,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				492D7321216CEC4000146BC1 /* ClashX.a in Frameworks */,
 				0D318CDAC9464E01DAD1F92B /* Pods_ClashX.framework in Frameworks */,
+				F9C180A3243C6590005EE8C4 /* goClash.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -407,8 +407,8 @@
 		49CF3B3A20CD783A001EBF94 /* Support Files */ = {
 			isa = PBXGroup;
 			children = (
-				492D731F216CEC4000146BC1 /* ClashX.a */,
-				492D7320216CEC4000146BC1 /* ClashX.h */,
+				F9C180A1243C6590005EE8C4 /* goClash.a */,
+				F9C180A2243C6590005EE8C4 /* goClash.h */,
 				4981C88D216BAE4A008CC14A /* Localizable.strings */,
 			);
 			path = "Support Files";
@@ -879,6 +879,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/ClashX",
+					"$(PROJECT_DIR)/ClashX/goClash",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				MARKETING_VERSION = 1.19.0;
@@ -919,6 +920,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/ClashX",
+					"$(PROJECT_DIR)/ClashX/goClash",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				MARKETING_VERSION = 1.19.0;
