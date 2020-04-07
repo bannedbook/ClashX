@@ -138,7 +138,7 @@ class RemoteConfigManager {
         }
     }
 
-    static func getRemoteConfigData(config: RemoteConfigModel, complete: @escaping ((String?) -> Void)) {
+    static func getRemoteConfigData(config: RemoteConfigModel, complete: @escaping ((String?, String?) -> Void)) {
         guard var urlRequest = try? URLRequest(url: config.url, method: .get) else {
             assertionFailure()
             Logger.log("[getRemoteConfigData] url incorrect,\(config.name) \(config.url)")
@@ -147,12 +147,12 @@ class RemoteConfigManager {
         urlRequest.cachePolicy = .reloadIgnoringCacheData
 
         AF.request(urlRequest).responseString(encoding: .utf8) { res in
-            complete(try? res.result.get())
+            complete(try? res.result.get(), res.response?.suggestedFilename)
         }
     }
 
     static func updateConfig(config: RemoteConfigModel, complete: ((String?) -> Void)? = nil) {
-        getRemoteConfigData(config: config) { configString in
+        getRemoteConfigData(config: config) { configString, suggestedFilename in
             guard let newConfig = configString else {
                 complete?(NSLocalizedString("Download fail", comment: ""))
                 return
@@ -163,6 +163,12 @@ class RemoteConfigManager {
                 complete?(NSLocalizedString("Remote Config Format Error", comment: "") + ": " + error)
                 return
             }
+
+            if let suggestName = suggestedFilename, config.isPlaceHolderName {
+                let name = URL(fileURLWithPath: suggestName).deletingPathExtension().lastPathComponent
+                config.name = name
+            }
+
             let savePath = kConfigFolderPath.appending(config.name).appending(".yaml")
 
             if config.name == ConfigManager.selectConfigName {
