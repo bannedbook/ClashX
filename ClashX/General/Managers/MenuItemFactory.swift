@@ -113,7 +113,7 @@ class MenuItemFactory {
 
         for proxy in proxyGroup.all ?? [] {
             guard let proxyModel = proxyMap[proxy] else { continue }
-            
+
             let proxyItem = ProxyMenuItem(proxy: proxyModel,
                                           action: #selector(MenuItemFactory.actionSelectProxy(sender:)),
                                           selected: proxy == selectedName,

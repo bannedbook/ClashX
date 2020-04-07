@@ -55,22 +55,32 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     var dashboardWindowController: ClashWebViewWindowController?
 
-    func applicationDidFinishLaunching(_ notification: Notification) {
+    func applicationWillFinishLaunching(_ notification: Notification) {
         signal(SIGPIPE, SIG_IGN)
         checkOnlyOneClashX()
+        // crash recorder
+        failLaunchProtect()
+        registCrashLogger()
+    }
 
+    func applicationDidFinishLaunching(_ notification: Notification) {
         // setup menu item first
         statusItem = NSStatusBar.system.statusItem(withLength: statusItemLengthWithSpeed)
-        statusItem.menu = statusMenu
 
         statusItemView = StatusItemView.create(statusItem: statusItem)
         statusItemView.frame = CGRect(x: 0, y: 0, width: statusItemLengthWithSpeed, height: 22)
         statusMenu.delegate = self
+        setupStatusMenuItemData()
 
-        // crash recorder
-        failLaunchProtect()
-        registCrashLogger()
+        DispatchQueue.main.async {
+            self.postFinishLaunching()
+        }
+    }
 
+    func postFinishLaunching() {
+        defer {
+            statusItem.menu = statusMenu
+        }
         setupExperimentalMenuItem()
 
         // install proxy helper
@@ -110,9 +120,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         UserDefaults.standard.set(0, forKey: "launch_fail_times")
     }
 
-    func setupData() {
-        remoteConfigAutoupdateMenuItem.state = RemoteConfigManager.autoUpdateEnable ? .on : .off
-
+    func setupStatusMenuItemData() {
         ConfigManager.shared
             .showNetSpeedIndicatorObservable
             .bind { [weak self] show in
@@ -122,9 +130,22 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 self.statusItem.length = statusItemLength
                 self.statusItemView.frame.size.width = statusItemLength
                 self.statusItemView.showSpeedContainer(show: show ?? true)
-                self.statusItemView.updateStatusItemView()
             }.disposed(by: disposeBag)
 
+        statusItemView.updateViewStatus(enableProxy: ConfigManager.shared.proxyPortAutoSet)
+
+        LaunchAtLogin.shared
+            .isEnableVirable
+            .asObservable()
+            .subscribe(onNext: { [weak self] enable in
+                guard let self = self else { return }
+                self.autoStartMenuItem.state = enable ? .on : .off
+            }).disposed(by: disposeBag)
+
+        remoteConfigAutoupdateMenuItem.state = RemoteConfigManager.autoUpdateEnable ? .on : .off
+    }
+
+    func setupData() {
         Observable
             .merge([ConfigManager.shared.proxyPortAutoSetObservable,
                     ConfigManager.shared.isProxySetByOtherVariable.asObservable()])
@@ -186,18 +207,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             .bind { _ in
                 MenuItemFactory.refreshMenuItems()
             }.disposed(by: disposeBag)
-
-        LaunchAtLogin.shared
-            .isEnableVirable
-            .asObservable()
-            .subscribe(onNext: { [weak self] enable in
-                guard let self = self else { return }
-                self.autoStartMenuItem.state = enable ? .on : .off
-            }).disposed(by: disposeBag)
     }
 
     func checkOnlyOneClashX() {
-        if NSRunningApplication.runningApplications(withBundleIdentifier: Bundle.main.bundleIdentifier ?? "").count > 1 {
+        let runningCount = NSRunningApplication.runningApplications(withBundleIdentifier: Bundle.main.bundleIdentifier ?? "").count
+        if runningCount > 1 {
+            Logger.log("running count => \(runningCount), exit")
             assertionFailure()
             NSApp.terminate(nil)
         }
