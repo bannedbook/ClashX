@@ -168,6 +168,7 @@ class RemoteConfigManager {
                 let name = URL(fileURLWithPath: suggestName).deletingPathExtension().lastPathComponent
                 config.name = name
             }
+            config.isPlaceHolderName = false
 
             let savePath = kConfigFolderPath.appending(config.name).appending(".yaml")
 

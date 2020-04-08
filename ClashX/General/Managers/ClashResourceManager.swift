@@ -30,7 +30,9 @@ class ClashResourceManager {
 
         // Remove old mmdb file after version update.
         if fileManage.fileExists(atPath: destMMDBPath) {
-            if AppVersionUtil.hasVersionChanged || AppVersionUtil.isFirstLaunch {
+            let vaild = verifyGEOIPDataBase().toBool()
+            let versionChange = AppVersionUtil.hasVersionChanged || AppVersionUtil.isFirstLaunch
+            if !vaild || versionChange {
                 try? fileManage.removeItem(atPath: destMMDBPath)
             }
         }
@@ -74,6 +76,7 @@ extension ClashResourceManager {
                 info = NSLocalizedString("Fail:", comment: "") + err.localizedDescription
             }
             NSUserNotificationCenter.default.post(title: title, info: info)
+            checkMMDB()
         }
     }
 }

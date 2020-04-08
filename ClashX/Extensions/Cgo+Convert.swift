@@ -28,3 +28,9 @@ extension Bool {
         return self == true ? 1 : 0
     }
 }
+
+extension GoUint8 {
+    func toBool() -> Bool {
+        return self == 1
+    }
+}
