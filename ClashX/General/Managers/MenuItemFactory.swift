@@ -102,6 +102,11 @@ class MenuItemFactory {
                                                  proxyInfo: ClashProxyResp) -> NSMenuItem? {
         let proxyMap = proxyInfo.proxiesMap
 
+        let isGlobalMode = ConfigManager.shared.currentConfig?.mode == .global
+        if !isGlobalMode {
+            if proxyGroup.name == "GLOBAL" { return nil }
+        }
+
         let menu = NSMenuItem(title: proxyGroup.name, action: nil, keyEquivalent: "")
         let selectedName = proxyGroup.now ?? ""
         if !ConfigManager.shared.disableShowCurrentProxyInMenu {
@@ -113,7 +118,6 @@ class MenuItemFactory {
 
         for proxy in proxyGroup.all ?? [] {
             guard let proxyModel = proxyMap[proxy] else { continue }
-
             let proxyItem = ProxyMenuItem(proxy: proxyModel,
                                           action: #selector(MenuItemFactory.actionSelectProxy(sender:)),
                                           selected: proxy == selectedName,
