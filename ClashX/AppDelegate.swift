@@ -146,6 +146,14 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
     func setupData() {
+        
+        ConfigManager.shared
+            .showNetSpeedIndicatorObservable.skip(1)
+            .bind {
+                _ in
+                ApiRequest.shared.resetTrafficStreamApi()
+        }.disposed(by: disposeBag)
+        
         Observable
             .merge([ConfigManager.shared.proxyPortAutoSetObservable,
                     ConfigManager.shared.isProxySetByOtherVariable.asObservable()])

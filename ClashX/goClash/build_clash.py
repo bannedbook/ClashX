@@ -23,7 +23,7 @@ go build -ldflags '-X "github.com/Dreamacro/clash/constant.Version={version}" \
 
 
 def write_to_info(version):
-    path = "info.plist"
+    path = "../info.plist"
 
     with open(path, 'rb') as f:
         contents = plistlib.load(f)

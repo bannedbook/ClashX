@@ -261,10 +261,18 @@ extension ApiRequest {
 
 extension ApiRequest {
     func resetStreamApis() {
-        trafficWebSocketRetryCount = 0
+        resetLogStreamApi()
+        resetTrafficStreamApi()
+    }
+    
+    func resetLogStreamApi() {
         loggingWebSocketRetryCount = 0
-        requestTrafficInfo()
         requestLog()
+    }
+    
+    func resetTrafficStreamApi() {
+        trafficWebSocketRetryCount = 0
+        requestTrafficInfo()
     }
 
     private func requestTrafficInfo() {
