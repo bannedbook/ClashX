@@ -14,3 +14,13 @@ let kDefaultConfigFilePath = "\(kConfigFolderPath)config.yaml"
 var kCurrentConfigPath: String {
     return "\(kConfigFolderPath)\(ConfigManager.selectConfigName).yaml"
 }
+
+struct Paths {
+    static func configPath(for name: String) -> String {
+        return "\(kConfigFolderPath)\(configFileName(for: name))"
+    }
+
+    static func configFileName(for name: String) -> String {
+        return "\(name).yaml"
+    }
+}

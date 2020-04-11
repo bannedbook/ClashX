@@ -170,7 +170,7 @@ class RemoteConfigManager {
             }
             config.isPlaceHolderName = false
 
-            let savePath = kConfigFolderPath.appending(config.name).appending(".yaml")
+            let savePath = Paths.configPath(for: config.name)
 
             if config.name == ConfigManager.selectConfigName {
                 ConfigFileManager.shared.pauseForNextChange()

@@ -94,7 +94,7 @@ class ApiRequest {
     }
 
     static func requestConfigUpdate(configName: String, callback: @escaping ((ErrorString?) -> Void)) {
-        let filePath = "\(kConfigFolderPath)\(configName).yaml"
+        let filePath = Paths.configPath(for: configName)
         let placeHolderErrorDesp = "Error occoured, Please try to fix it by restarting ClashX. "
 
         // DEV MODE: Use API
@@ -264,12 +264,12 @@ extension ApiRequest {
         resetLogStreamApi()
         resetTrafficStreamApi()
     }
-    
+
     func resetLogStreamApi() {
         loggingWebSocketRetryCount = 0
         requestLog()
     }
-    
+
     func resetTrafficStreamApi() {
         trafficWebSocketRetryCount = 0
         requestTrafficInfo()

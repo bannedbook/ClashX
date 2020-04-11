@@ -20,7 +20,7 @@ class ConfigFileManager {
     }
 
     func watchConfigFile(configName: String) {
-        let path = "\(kConfigFolderPath)\(configName).yaml"
+        let path = Paths.configPath(for: configName)
         witness = Witness(paths: [path], flags: .FileEvents, latency: 0.3) {
             [weak self] events in
             guard let self = self else { return }
@@ -38,16 +38,6 @@ class ConfigFileManager {
                 }
             }
         }
-    }
-
-    @discardableResult
-    static func backupAndRemoveConfigFile() -> Bool {
-        let path = kDefaultConfigFilePath
-        if FileManager.default.fileExists(atPath: path) {
-            let newPath = "\(kConfigFolderPath)config_\(Date().timeIntervalSince1970).yaml"
-            try? FileManager.default.moveItem(atPath: path, toPath: newPath)
-        }
-        return true
     }
 
     static func copySampleConfigIfNeed() {
