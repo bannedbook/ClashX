@@ -1,8 +1,8 @@
 PODS:
-  - Alamofire (5.0.5)
-  - AppCenter/Analytics (3.1.0):
+  - Alamofire (5.1.0)
+  - AppCenter/Analytics (3.1.1):
     - AppCenter/Core
-  - AppCenter/Core (3.1.0)
+  - AppCenter/Core (3.1.1)
   - CocoaLumberjack/Core (3.6.1)
   - CocoaLumberjack/Swift (3.6.1):
     - CocoaLumberjack/Core
@@ -10,12 +10,12 @@ PODS:
     - Fabric (~> 1.10.2)
   - Fabric (1.10.2)
   - LetsMove (1.24)
-  - RxCocoa (5.1.0):
+  - RxCocoa (5.1.1):
     - RxRelay (~> 5)
     - RxSwift (~> 5)
-  - RxRelay (5.1.0):
+  - RxRelay (5.1.1):
     - RxSwift (~> 5)
-  - RxSwift (5.1.0)
+  - RxSwift (5.1.1)
   - Sparkle (1.23.0)
   - Starscream (3.1.1)
   - SwiftyJSON (5.0.0)
@@ -51,15 +51,15 @@ SPEC REPOS:
     - WebViewJavascriptBridge
 
 SPEC CHECKSUMS:
-  Alamofire: df2f8f826963b08b9a870791ad48e07a10090b2e
-  AppCenter: a1c30c47b7882a04a615ffa5ab26c007326436d8
+  Alamofire: 9d5c5f602928e512395b30950c5984eca840093c
+  AppCenter: 513d32888854d67d8cfbd3a8db16aeb5fb2e2a75
   CocoaLumberjack: b17ae15142558d08bbacf69775fa10c4abbebcc9
   Crashlytics: 540b7e5f5da5a042647227a5e3ac51d85eed06df
   Fabric: 706c8b8098fff96c33c0db69cbf81f9c551d0d74
   LetsMove: fefe56bc7bc7fb7d37049e28a14f297961229fc5
-  RxCocoa: 13d2a4d7546a34b8ececae8c281e4ea1dbb94f2b
-  RxRelay: a168bd6caf712d00c676ac344e9295afc93b418e
-  RxSwift: ad5874f24bb0dbffd1e9bb8443604e3578796c7a
+  RxCocoa: 32065309a38d29b5b0db858819b5bf9ef038b601
+  RxRelay: d77f7d771495f43c556cbc43eebd1bb54d01e8e9
+  RxSwift: 81470a2074fa8780320ea5fe4102807cb7118178
   Sparkle: 55b1a87ba69d56913375a281546b7c82dec95bb0
   Starscream: 4bb2f9942274833f7b4d296a55504dcfc7edb7b0
   SwiftyJSON: 36413e04c44ee145039d332b4f4e2d3e8d6c4db7
@@ -67,4 +67,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 597459bd8bdb06b260fcdc9161d9216842d0b8b0
 
-COCOAPODS: 1.8.4
+COCOAPODS: 1.9.1

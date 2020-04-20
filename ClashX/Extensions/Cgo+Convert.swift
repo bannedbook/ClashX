@@ -19,7 +19,13 @@ extension String {
 
 extension UnsafeMutablePointer where Pointee == Int8 {
     func toString() -> String {
-        return String(cString: self)
+        let string = String(cString: self)
+        deallocate()
+        return string
+    }
+
+    func toData() -> Data {
+        return toString().data(using: .utf8) ?? Data()
     }
 }
 
