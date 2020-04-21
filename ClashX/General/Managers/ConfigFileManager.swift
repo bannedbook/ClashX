@@ -39,7 +39,7 @@ class ConfigFileManager {
             }
         }
     }
-    
+
     @discardableResult
     static func backupAndRemoveConfigFile() -> Bool {
         let path = kDefaultConfigFilePath
@@ -49,7 +49,6 @@ class ConfigFileManager {
         }
         return true
     }
-
 
     static func copySampleConfigIfNeed() {
         if !FileManager.default.fileExists(atPath: kDefaultConfigFilePath) {
