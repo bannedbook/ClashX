@@ -221,7 +221,6 @@
         if ([hardware isEqualToString:@"AirPort"]
             || [hardware isEqualToString:@"Wi-Fi"]
             || [hardware isEqualToString:@"Ethernet"]
-            || hardware == nil// VPN
             ) {
             callback(key,dict);
         }

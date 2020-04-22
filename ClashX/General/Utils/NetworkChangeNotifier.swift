@@ -102,7 +102,7 @@ class NetworkChangeNotifier {
         return dict?[kSCDynamicStorePropNetPrimaryInterface as String]
     }
 
-    static func getPrimaryIPAddress() -> String? {
+    static func getPrimaryIPAddress(allowIPV6: Bool = false) -> String? {
         guard let primary = getPrimaryInterface() else {
             return nil
         }
@@ -141,6 +141,6 @@ class NetworkChangeNotifier {
                 }
             }
         }
-        return ipv6
+        return allowIPV6 ? ipv6 : nil
     }
 }
