@@ -23,7 +23,7 @@ extension PrivilegedHelperManager {
         fi
         launchctl remove \(PrivilegedHelperManager.machServiceName) || true
         
-        rm -f /Library/PrivilegedHelperTools/com.west2online.ClashX.ProxyConfigHelper
+        rm -f /Library/PrivilegedHelperTools/\(PrivilegedHelperManager.machServiceName)
         cp \(appPath)/Contents/Library/LaunchServices/\(PrivilegedHelperManager.machServiceName) /Library/PrivilegedHelperTools/\(PrivilegedHelperManager.machServiceName)
 
         echo '
