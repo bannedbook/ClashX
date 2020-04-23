@@ -175,8 +175,11 @@
         proxySettings[(__bridge NSString *)kCFNetworkProxiesSOCKSPort] = nil;
     }
     
-    
-    proxySettings[(__bridge NSString *)kCFNetworkProxiesExceptionsList] = [self getIgnoreList];
+    if (enable) {
+        proxySettings[(__bridge NSString *)kCFNetworkProxiesExceptionsList] = [self getIgnoreList];
+    } else {
+        proxySettings[(__bridge NSString *)kCFNetworkProxiesExceptionsList] = @[];
+    }
     
     return proxySettings;
 }
