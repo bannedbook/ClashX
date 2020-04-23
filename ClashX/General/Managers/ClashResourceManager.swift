@@ -4,7 +4,6 @@ import AppKit
 import Foundation
 
 class ClashResourceManager {
-    static let kProxyConfigFolder = (NSHomeDirectory() as NSString).appendingPathComponent("/.config/clash")
 
     static func check() -> Bool {
         checkConfigDir()
@@ -15,18 +14,19 @@ class ClashResourceManager {
     static func checkConfigDir() {
         var isDir: ObjCBool = true
 
-        if !FileManager.default.fileExists(atPath: kProxyConfigFolder, isDirectory: &isDir) {
+        if !FileManager.default.fileExists(atPath: kConfigFolderPath, isDirectory: &isDir) {
             do {
-                try FileManager.default.createDirectory(atPath: kProxyConfigFolder, withIntermediateDirectories: true, attributes: nil)
-            } catch {
-                showCreateConfigDirFailAlert()
+                try FileManager.default.createDirectory(atPath: kConfigFolderPath, withIntermediateDirectories: true, attributes: nil)
+            } catch let err {
+                Logger.log("\(err.localizedDescription) \(kConfigFolderPath)")
+                showCreateConfigDirFailAlert(err: err.localizedDescription)
             }
         }
     }
 
     static func checkMMDB() {
         let fileManage = FileManager.default
-        let destMMDBPath = "\(kProxyConfigFolder)/Country.mmdb"
+        let destMMDBPath = "\(kConfigFolderPath)/Country.mmdb"
 
         // Remove old mmdb file after version update.
         if fileManage.fileExists(atPath: destMMDBPath) {
@@ -44,9 +44,9 @@ class ClashResourceManager {
         }
     }
 
-    static func showCreateConfigDirFailAlert() {
+    static func showCreateConfigDirFailAlert(err: String) {
         let alert = NSAlert()
-        alert.messageText = NSLocalizedString("ClashX fail to create ~/.config/clash folder. Please check privileges or manually create folder and restart ClashX.", comment: "")
+        alert.messageText = NSLocalizedString("ClashX fail to create ~/.config/clash folder. Please check privileges or manually create folder and restart ClashX." + err, comment: "")
         alert.alertStyle = .warning
         alert.addButton(withTitle: NSLocalizedString("Quit", comment: ""))
         alert.runModal()
@@ -64,7 +64,7 @@ extension ClashResourceManager {
     @objc private static func updateGeoIP() {
         let url = "https://static.clash.to/GeoIP2/GeoIP2-Country.mmdb"
         AF.download(url) { (_, _) -> (destinationURL: URL, options: DownloadRequest.Options) in
-            let path = ClashResourceManager.kProxyConfigFolder.appending("/Country.mmdb")
+            let path = kConfigFolderPath.appending("/Country.mmdb")
             return (URL(fileURLWithPath: path), .removePreviousFile)
         }.response { res in
             let title = NSLocalizedString("Update GEOIP Database", comment: "")
