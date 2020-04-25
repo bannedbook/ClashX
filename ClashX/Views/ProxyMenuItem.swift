@@ -112,7 +112,7 @@ extension ProxyMenuItem {
         attributed.addAttributes(hackAttr, range: NSRange(name.utf16.count..<name.utf16.count + 1))
 
         if delay != nil {
-            let delayAttr = [NSAttributedString.Key.font: NSFont.menuBarFont(ofSize: 12)]
+            let delayAttr = [NSAttributedString.Key.font: NSFont.monospacedDigitSystemFont(ofSize: 12, weight: .regular)]
             attributed.addAttributes(delayAttr, range: NSRange(name.utf16.count + 1..<str.utf16.count))
         }
         return attributed
