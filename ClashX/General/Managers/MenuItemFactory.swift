@@ -12,6 +12,8 @@ import SwiftyJSON
 
 class MenuItemFactory {
     private static var cachedProxyMenuItem: [NSMenuItem]?
+    private static var cachedProxyData: ClashProxyResp?
+
     private static var showSpeedTestItemAtTop: Bool = UserDefaults.standard.object(forKey: "kShowSpeedTestItemAtTop") as? Bool ?? AppDelegate.isAboveMacOS14 {
         didSet {
             UserDefaults.standard.set(showSpeedTestItemAtTop, forKey: "kShowSpeedTestItemAtTop")
@@ -26,15 +28,67 @@ class MenuItemFactory {
 
     // MARK: - Public
 
-    static func refreshMenuItems(completionHandler: (([NSMenuItem]) -> Void)? = nil) {
-        if ConfigManager.shared.currentConfig?.mode == .direct {
-            completionHandler?([])
-            return
-        }
-        if let cached = cachedProxyMenuItem {
-            completionHandler?(cached)
-        }
+    static func refreshExistingMenuItems() {
+        let previousInfo = cachedProxyData
+        getMergedProxyData {
+            info in
+            if info?.proxiesMap.keys != previousInfo?.proxiesMap.keys {
+                // force update menu
+                refreshMenuItems(mergedData: info)
+                return
+            }
 
+            for proxy in info?.proxies ?? [] {
+                NotificationCenter.default.post(name: .proxyUpdate(for: proxy.name), object: proxy, userInfo: nil)
+            }
+        }
+    }
+
+    static func recreateProxyMenuItems() {
+        getMergedProxyData {
+            proxyInfo in
+            refreshMenuItems(mergedData: proxyInfo)
+        }
+    }
+
+    static func refreshMenuItems(mergedData proxyInfo: ClashProxyResp?) {
+        guard let proxyInfo = proxyInfo else { return }
+        var menuItems = [NSMenuItem]()
+        for proxy in proxyInfo.proxyGroups {
+            var menu: NSMenuItem?
+            switch proxy.type {
+            case .select: menu = generateSelectorMenuItem(proxyGroup: proxy, proxyInfo: proxyInfo)
+            case .urltest, .fallback: menu = generateUrlTestFallBackMenuItem(proxyGroup: proxy, proxyInfo: proxyInfo)
+            case .loadBalance:
+                menu = generateLoadBalanceMenuItem(proxyGroup: proxy, proxyInfo: proxyInfo)
+            case .relay:
+                menu = generateListOnlyMenuItem(proxyGroup: proxy, proxyInfo: proxyInfo)
+            default: continue
+            }
+
+            if let menu = menu {
+                menuItems.append(menu)
+                menu.isEnabled = true
+            }
+        }
+        let items = Array(menuItems.reversed())
+        updateProxyList(withMenus: items)
+    }
+
+    static func generateSwitchConfigMenuItems() -> [NSMenuItem] {
+        var items = [NSMenuItem]()
+        for config in ConfigManager.getConfigFilesList() {
+            let item = NSMenuItem(title: config, action: #selector(MenuItemFactory.actionSelectConfig(sender:)), keyEquivalent: "")
+            item.target = MenuItemFactory.self
+            item.state = ConfigManager.selectConfigName == config ? .on : .off
+            items.append(item)
+        }
+        return items
+    }
+
+    // MARK: - Private
+
+    private static func getMergedProxyData(complete: ((ClashProxyResp?) -> Void)? = nil) {
         let group = DispatchGroup()
         group.enter()
         group.enter()
@@ -45,31 +99,12 @@ class MenuItemFactory {
         group.notify(queue: .main) {
             guard let proxyInfo = proxyInfo, let proxyprovider = provider else {
                 assertionFailure()
+                complete?(nil)
                 return
             }
             proxyInfo.updateProvider(proxyprovider)
-
-            var menuItems = [NSMenuItem]()
-            for proxy in proxyInfo.proxyGroups {
-                var menu: NSMenuItem?
-                switch proxy.type {
-                case .select: menu = self.generateSelectorMenuItem(proxyGroup: proxy, proxyInfo: proxyInfo)
-                case .urltest, .fallback: menu = generateUrlTestFallBackMenuItem(proxyGroup: proxy, proxyInfo: proxyInfo)
-                case .loadBalance:
-                    menu = generateLoadBalanceMenuItem(proxyGroup: proxy, proxyInfo: proxyInfo)
-                case .relay:
-                    menu = generateListOnlyMenuItem(proxyGroup: proxy, proxyInfo: proxyInfo)
-                default: continue
-                }
-
-                if let menu = menu {
-                    menuItems.append(menu)
-                    menu.isEnabled = true
-                }
-            }
-            let items = Array(menuItems.reversed())
-            cachedProxyMenuItem = items
-            completionHandler?(items)
+            cachedProxyData = proxyInfo
+            complete?(proxyInfo)
         }
 
         ApiRequest.requestProxyProviderList {
@@ -85,18 +120,22 @@ class MenuItemFactory {
         }
     }
 
-    static func generateSwitchConfigMenuItems() -> [NSMenuItem] {
-        var items = [NSMenuItem]()
-        for config in ConfigManager.getConfigFilesList() {
-            let item = NSMenuItem(title: config, action: #selector(MenuItemFactory.actionSelectConfig(sender:)), keyEquivalent: "")
-            item.target = MenuItemFactory.self
-            item.state = ConfigManager.selectConfigName == config ? .on : .off
-            items.append(item)
+    // MARK: Updaters
+
+    static func updateProxyList(withMenus menus: [NSMenuItem]) {
+        let app = AppDelegate.shared
+        let startIndex = app.statusMenu.items.firstIndex(of: app.separatorLineTop)! + 1
+        let endIndex = app.statusMenu.items.firstIndex(of: app.sepatatorLineEndProxySelect)!
+        app.sepatatorLineEndProxySelect.isHidden = menus.count == 0
+        for _ in 0..<endIndex - startIndex {
+            app.statusMenu.removeItem(at: startIndex)
         }
-        return items
+        for each in menus {
+            app.statusMenu.insertItem(each, at: startIndex)
+        }
     }
 
-    // MARK: - Private
+    // MARK: Generators
 
     private static func generateSelectorMenuItem(proxyGroup: ClashProxy,
                                                  proxyInfo: ClashProxyResp) -> NSMenuItem? {
@@ -157,9 +196,7 @@ class MenuItemFactory {
                 proxyMenuItem.state = .on
             }
 
-            if let historyMenu = generateHistoryMenu(proxy) {
-                proxyMenuItem.submenu = historyMenu
-            }
+            proxyMenuItem.submenu = ProxyDelayHistoryMenu(proxy: proxy)
 
             submenu.addItem(proxyMenuItem)
         }
@@ -180,15 +217,6 @@ class MenuItemFactory {
             menu.addItem(speedTestItem)
         }
         (menu as? ProxyGroupMenu)?.add(delegate: speedTestItem)
-    }
-
-    private static func generateHistoryMenu(_ proxy: ClashProxy) -> NSMenu? {
-        let historyMenu = NSMenu(title: "")
-        for his in proxy.history.reversed() {
-            historyMenu.addItem(
-                NSMenuItem(title: "\(his.dateDisplay) \(his.delayDisplay)", action: nil, keyEquivalent: ""))
-        }
-        return historyMenu.items.count > 0 ? historyMenu : nil
     }
 
     private static func generateLoadBalanceMenuItem(proxyGroup: ClashProxy, proxyInfo: ClashProxyResp) -> NSMenuItem? {
@@ -265,13 +293,15 @@ extension MenuItemFactory {
     @objc static func optionSpeedtestMenuItemTap(sender: NSMenuItem) {
         showSpeedTestItemAtTop = !showSpeedTestItemAtTop
         updateSpeedtestMenuItemStatus(sender)
-        refreshMenuItems()
+        refreshExistingMenuItems()
+        recreateProxyMenuItems()
     }
 
     @objc static func optionUseViewRenderMenuItemTap(sender: NSMenuItem) {
         useViewToRenderProxy = !useViewToRenderProxy
         updateUseViewRenderMenuItem(sender)
-        refreshMenuItems()
+        refreshExistingMenuItems()
+        recreateProxyMenuItems()
     }
 }
 
@@ -297,7 +327,7 @@ extension MenuItemFactory {
                 // terminal Connections for this group
                 ConnectionManager.closeConnection(for: proxyGroup)
                 // refresh menu items
-                MenuItemFactory.refreshMenuItems()
+                MenuItemFactory.refreshExistingMenuItems()
             }
         }
     }

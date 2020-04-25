@@ -17,13 +17,6 @@ class ProxyGroupMenuItemView: MenuItemBaseView {
         return [groupNameLabel.cell, selectProxyLabel.cell, arrowLabel.cell]
     }
 
-    override var isHighlighted: Bool {
-        set {}
-        get {
-            return enclosingMenuItem?.isHighlighted ?? false
-        }
-    }
-
     init(group: ClashProxyName, targetProxy: ClashProxyName) {
         groupNameLabel = VibrancyTextField(labelWithString: group)
         selectProxyLabel = VibrancyTextField(labelWithString: targetProxy)
@@ -61,9 +54,27 @@ class ProxyGroupMenuItemView: MenuItemBaseView {
         groupNameLabel.textColor = NSColor.labelColor
         selectProxyLabel.textColor = NSColor.secondaryLabelColor
         arrowLabel.textColor = NSColor.labelColor
+
+        // noti
+        NotificationCenter.default.addObserver(self, selector: #selector(proxyInfoDidUpdate(note:)), name: .proxyUpdate(for: group), object: nil)
     }
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+
+    @objc private func proxyInfoDidUpdate(note: NSNotification) {
+        guard let info = note.object as? ClashProxy else { assertionFailure(); return }
+        selectProxyLabel.stringValue = info.now ?? ""
+    }
+}
+
+extension ProxyGroupMenuItemView: ProxyGroupMenuHighlightDelegate {
+    func highlight(item: NSMenuItem?) {
+        isHighlighted = item == enclosingMenuItem
     }
 }

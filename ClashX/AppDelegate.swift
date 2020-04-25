@@ -189,8 +189,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
                 self.proxyModeMenuItem.title = "\(NSLocalizedString("Proxy Mode", comment: "")) (\(config.mode.name))"
 
-                MenuItemFactory.refreshMenuItems()
-
                 if old?.port != config.port && ConfigManager.shared.proxyPortAutoSet {
                     SystemProxyManager.shared.enableProxy(port: config.port, socksPort: config.socketPort)
                 }
@@ -204,16 +202,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                     self.showClashPortErrorAlert()
                 }
 
-            }.disposed(by: disposeBag)
-
-        ConfigManager
-            .shared
-            .isRunningVariable
-            .asObservable()
-            .distinctUntilChanged()
-            .filter { $0 }
-            .bind { _ in
-                MenuItemFactory.refreshMenuItems()
             }.disposed(by: disposeBag)
     }
 
@@ -275,16 +263,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 Logger.log("proxy changed to no clashX setting: \(rawProxy)", level: .warning)
                 NSUserNotificationCenter.default.postProxyChangeByOtherAppNotice()
             }.disposed(by: disposeBag)
-    }
-
-    func updateProxyList() {
-        if ConfigManager.shared.isRunning {
-            MenuItemFactory.refreshMenuItems { [weak self] items in
-                self?.updateProxyList(withMenus: items)
-            }
-        } else {
-            updateProxyList(withMenus: [])
-        }
     }
 
     func updateProxyList(withMenus menus: [NSMenuItem]) {
@@ -396,6 +374,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                     ConfigManager.selectConfigName = newConfigName
                 }
                 self.selectProxyGroupWithMemory()
+                MenuItemFactory.recreateProxyMenuItems()
                 NotificationCenter.default.post(name: .reloadDashboard, object: nil)
             }
         }
@@ -737,9 +716,21 @@ extension AppDelegate {
 
 extension AppDelegate: NSMenuDelegate {
     func menuNeedsUpdate(_ menu: NSMenu) {
-        updateProxyList()
+        MenuItemFactory.refreshExistingMenuItems()
         updateConfigFiles()
         syncConfig()
+    }
+
+    func menu(_ menu: NSMenu, willHighlight item: NSMenuItem?) {
+        menu.items.forEach {
+            ($0.view as? ProxyGroupMenuHighlightDelegate)?.highlight(item: item)
+        }
+    }
+
+    func menuDidClose(_ menu: NSMenu) {
+        menu.items.forEach {
+            ($0.view as? ProxyGroupMenuHighlightDelegate)?.highlight(item: nil)
+        }
     }
 }
 

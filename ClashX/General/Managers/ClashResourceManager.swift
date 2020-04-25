@@ -4,7 +4,6 @@ import AppKit
 import Foundation
 
 class ClashResourceManager {
-
     static func check() -> Bool {
         checkConfigDir()
         checkMMDB()

@@ -24,5 +24,6 @@ target 'ClashX' do
   pod 'AppCenter/Analytics'
   pod 'Crashlytics'
   pod 'Sparkle'
+  pod "FlexibleDiff"
 end
 

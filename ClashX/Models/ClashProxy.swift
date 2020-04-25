@@ -76,6 +76,8 @@ class ClashProxySpeedHistory: Codable {
     lazy var dateDisplay: String = {
         return hisDateFormaterInstance.shared.formater.string(from: time)
     }()
+
+    lazy var displayString: String = "\(dateDisplay) \(delayDisplay)"
 }
 
 class ClashProxy: Codable {

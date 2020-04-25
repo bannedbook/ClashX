@@ -40,6 +40,7 @@ class ProxyMenuItem: NSMenuItem {
         }
 
         NotificationCenter.default.addObserver(self, selector: #selector(updateDelayNotification(note:)), name: .speedTestFinishForProxy, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(proxyInfoUpdate(note:)), name: .proxyUpdate(for: proxy.name), object: nil)
     }
 
     required init(coder decoder: NSCoder) {
@@ -58,11 +59,23 @@ class ProxyMenuItem: NSMenuItem {
             return
         }
         if let delay = note.userInfo?["delay"] as? String {
-            if enableShowUsingView {
-                (view as? ProxyItemView)?.update(delay: delay)
-            } else {
-                attributedTitle = getAttributedTitle(name: proxyName, delay: delay)
-            }
+            updateDelay(delay)
+        }
+    }
+
+    @objc private func proxyInfoUpdate(note: Notification) {
+        guard let info = note.object as? ClashProxy else {
+            assertionFailure()
+            return
+        }
+        updateDelay(info.history.last?.delayDisplay)
+    }
+
+    private func updateDelay(_ delay: String?) {
+        if enableShowUsingView {
+            (view as? ProxyItemView)?.update(delay: delay)
+        } else {
+            attributedTitle = getAttributedTitle(name: proxyName, delay: delay)
         }
     }
 }

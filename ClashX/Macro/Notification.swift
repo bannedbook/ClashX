@@ -13,4 +13,8 @@ extension Notification.Name {
     static let reloadDashboard = Notification.Name("kReloadDashboard")
     static let systemNetworkStatusIPUpdate = Notification.Name("systemNetworkStatusIPUpdate")
     static let systemNetworkStatusDidChange = Notification.Name("kSystemNetworkStatusDidChange")
+
+    static func proxyUpdate(for name: ClashProxyName) -> Notification.Name {
+        return Notification.Name("kProxyUpdate_\(name)")
+    }
 }
