@@ -25,6 +25,11 @@ fastlane build
 fastlane beta
 ```
 
+### addKeyChain
+```
+fastlane addKeyChain
+```
+
 
 ----
 

@@ -20,7 +20,7 @@ class MenuItemFactory {
         }
     }
 
-    static var useViewToRenderProxy: Bool = UserDefaults.standard.object(forKey: "useViewToRenderProxy") as? Bool ?? false {
+    static var useViewToRenderProxy: Bool = UserDefaults.standard.object(forKey: "useViewToRenderProxy") as? Bool ?? AppDelegate.isAboveMacOS152 {
         didSet {
             UserDefaults.standard.set(useViewToRenderProxy, forKey: "useViewToRenderProxy")
         }

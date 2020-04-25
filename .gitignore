@@ -14,3 +14,4 @@ ClashX/clash/
 .vscode
 ClashX/goClash/goClash.h
 ClashX/goClash/goClash.a
+fastlane/report.xml
