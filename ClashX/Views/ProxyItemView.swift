@@ -11,30 +11,22 @@ import Cocoa
 class ProxyItemView: MenuItemBaseView {
     let nameLabel: NSTextField
     let delayLabel: NSTextField
-    let imageView: NSImageView?
+    var imageView: NSImageView?
 
     static let fixedPlaceHolderWidth: CGFloat = 20 + 50 + 25
 
     init(proxy: ClashProxy, selected: Bool) {
         nameLabel = VibrancyTextField(labelWithString: proxy.name)
-        delayLabel = VibrancyTextField(labelWithString: "")
+        delayLabel = VibrancyTextField(labelWithString: "").setup(allowsVibrancy: false)
         let cell = PaddedNSTextFieldCell()
         cell.widthPadding = 2
         cell.heightPadding = 1
         delayLabel.cell = cell
-        if selected {
-            imageView = NSImageView(image: NSImage(named: NSImage.menuOnStateTemplateName)!)
-        } else {
-            imageView = nil
-        }
         super.init(autolayout: false)
+        update(selected: selected)
         effectView.addSubview(nameLabel)
         effectView.addSubview(delayLabel)
-        if let imageView = imageView {
-            effectView.addSubview(imageView)
-        }
 
-        imageView?.translatesAutoresizingMaskIntoConstraints = false
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
         delayLabel.translatesAutoresizingMaskIntoConstraints = false
 
@@ -83,6 +75,19 @@ class ProxyItemView: MenuItemBaseView {
         }
     }
 
+    func update(selected: Bool) {
+        if selected {
+            if imageView == nil {
+                imageView = NSImageView(image: NSImage(named: NSImage.menuOnStateTemplateName)!)
+                imageView?.translatesAutoresizingMaskIntoConstraints = false
+                effectView.addSubview(imageView!)
+            }
+        } else {
+            imageView?.removeFromSuperview()
+            imageView = nil
+        }
+    }
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -97,7 +102,7 @@ class ProxyItemView: MenuItemBaseView {
 }
 
 fileprivate extension CGColor {
-    static let good = CGColor(red: 30.0/255, green: 181.0 / 255, blue: 30.0/255, alpha: 1)
+    static let good = CGColor(red: 30.0 / 255, green: 181.0 / 255, blue: 30.0 / 255, alpha: 1)
     static let meduim = CGColor(red: 1, green: 135.0 / 255, blue: 0, alpha: 1)
     static let fail = CGColor(red: 218.0 / 255, green: 0.0, blue: 3.0 / 255, alpha: 1)
 }

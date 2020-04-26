@@ -11,7 +11,6 @@ import RxCocoa
 import SwiftyJSON
 
 class MenuItemFactory {
-    private static var cachedProxyMenuItem: [NSMenuItem]?
     private static var cachedProxyData: ClashProxyResp?
 
     private static var showSpeedTestItemAtTop: Bool = UserDefaults.standard.object(forKey: "kShowSpeedTestItemAtTop") as? Bool ?? AppDelegate.isAboveMacOS14 {
@@ -158,8 +157,8 @@ class MenuItemFactory {
         for proxy in proxyGroup.all ?? [] {
             guard let proxyModel = proxyMap[proxy] else { continue }
             let proxyItem = ProxyMenuItem(proxy: proxyModel,
+                                          group: proxyGroup,
                                           action: #selector(MenuItemFactory.actionSelectProxy(sender:)),
-                                          selected: proxy == selectedName,
                                           speedtestAble: isSpeedtestAble,
                                           maxProxyNameLength: proxyGroup.maxProxyNameLength)
             proxyItem.target = MenuItemFactory.self
@@ -229,8 +228,8 @@ class MenuItemFactory {
         for proxy in proxyGroup.all ?? [] {
             guard let proxyModel = proxyMap[proxy] else { continue }
             let proxyItem = ProxyMenuItem(proxy: proxyModel,
+                                          group: proxyGroup,
                                           action: #selector(empty),
-                                          selected: false,
                                           speedtestAble: isSpeedTestAble,
                                           maxProxyNameLength: proxyGroup.maxProxyNameLength)
             proxyItem.target = MenuItemFactory.self
@@ -254,8 +253,8 @@ class MenuItemFactory {
         for proxy in proxyGroup.all ?? [] {
             guard let proxyModel = proxyMap[proxy] else { continue }
             let proxyItem = ProxyMenuItem(proxy: proxyModel,
+                                          group: proxyGroup,
                                           action: #selector(empty),
-                                          selected: false,
                                           speedtestAble: false,
                                           maxProxyNameLength: proxyGroup.maxProxyNameLength)
             proxyItem.target = MenuItemFactory.self

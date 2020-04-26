@@ -9,7 +9,7 @@
 import Cocoa
 
 class VibrancyTextField: NSTextField {
-    private var _allowsVibrancy = false
+    private var _allowsVibrancy = true
     override var allowsVibrancy: Bool {
         return _allowsVibrancy
     }

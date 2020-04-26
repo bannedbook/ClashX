@@ -21,11 +21,12 @@ class ProxyMenuItem: NSMenuItem {
     }
 
     init(proxy: ClashProxy,
+         group: ClashProxy,
          action selector: Selector?,
-         selected: Bool,
          speedtestAble: Bool,
          maxProxyNameLength: CGFloat) {
         proxyName = proxy.name
+        let selected = group.now == proxy.name
         self.maxProxyNameLength = maxProxyNameLength
         super.init(title: proxyName, action: selector, keyEquivalent: "")
         if speedtestAble && enableShowUsingView {
@@ -39,6 +40,7 @@ class ProxyMenuItem: NSMenuItem {
 
         NotificationCenter.default.addObserver(self, selector: #selector(updateDelayNotification(note:)), name: .speedTestFinishForProxy, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(proxyInfoUpdate(note:)), name: .proxyUpdate(for: proxy.name), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(proxyGroupInfoUpdate(note:)), name: .proxyUpdate(for: group.name), object: nil)
     }
 
     required init(coder decoder: NSCoder) {
@@ -67,6 +69,13 @@ class ProxyMenuItem: NSMenuItem {
             return
         }
         updateDelay(info.history.last?.delayDisplay, rawValue: info.history.last?.delay)
+    }
+
+    @objc private func proxyGroupInfoUpdate(note: Notification) {
+        guard let group = note.object as? ClashProxy else { return }
+        let selected = group.now == proxyName
+        state = selected ? .on : .off
+        (view as? ProxyItemView)?.update(selected: selected)
     }
 
     private func updateDelay(_ delay: String?, rawValue: Int?) {
