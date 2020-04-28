@@ -44,6 +44,7 @@
 		499A486522EEA3FD00F6C675 /* Array+Safe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499A486422EEA3FC00F6C675 /* Array+Safe.swift */; };
 		49ABB749236B0F9E00535CD7 /* UnsafePointer+bridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49ABB748236B0F9E00535CD7 /* UnsafePointer+bridge.swift */; };
 		49B1086A216A356D0064FFCE /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49B10869216A356D0064FFCE /* String+Extension.swift */; };
+		49B445162457CDF000B27E3E /* ClashStatusTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49B445152457CDF000B27E3E /* ClashStatusTool.swift */; };
 		49B4575D244F4A2A00463C39 /* PrivilegedHelperManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49B4575C244F4A2A00463C39 /* PrivilegedHelperManager.swift */; };
 		49B4575F244FD4D100463C39 /* PrivilegedHelperManager+Legacy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49B4575E244FD4D100463C39 /* PrivilegedHelperManager+Legacy.swift */; };
 		49BC061C212931F4005A0FE7 /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49BC061B212931F4005A0FE7 /* AboutViewController.swift */; };
@@ -155,6 +156,7 @@
 		499A486422EEA3FC00F6C675 /* Array+Safe.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Array+Safe.swift"; sourceTree = "<group>"; };
 		49ABB748236B0F9E00535CD7 /* UnsafePointer+bridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UnsafePointer+bridge.swift"; sourceTree = "<group>"; };
 		49B10869216A356D0064FFCE /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
+		49B445152457CDF000B27E3E /* ClashStatusTool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClashStatusTool.swift; sourceTree = "<group>"; };
 		49B4575C244F4A2A00463C39 /* PrivilegedHelperManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivilegedHelperManager.swift; sourceTree = "<group>"; };
 		49B4575E244FD4D100463C39 /* PrivilegedHelperManager+Legacy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PrivilegedHelperManager+Legacy.swift"; sourceTree = "<group>"; };
 		49BC061B212931F4005A0FE7 /* AboutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
@@ -254,6 +256,7 @@
 				4960A6DA2136529200B940C9 /* JSBridgeHandler.swift */,
 				493AEAE2221AE3420016FE98 /* AppVersionUtil.swift */,
 				49D176A62355FE680093DD7B /* NetworkChangeNotifier.swift */,
+				49B445152457CDF000B27E3E /* ClashStatusTool.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -704,6 +707,7 @@
 				49862FA0218418C600A1D5EC /* ClashRule.swift in Sources */,
 				49C9EF64223E78F5005D8B6A /* ClashProxy.swift in Sources */,
 				F9E8F34623A12B89002DE5E8 /* String+Encode.swift in Sources */,
+				49B445162457CDF000B27E3E /* ClashStatusTool.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
