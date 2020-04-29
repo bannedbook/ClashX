@@ -467,6 +467,7 @@ extension AppDelegate {
         ApiRequest.updateOutBoundMode(mode: mode) { success in
             ConfigManager.shared.currentConfig = config
             ConfigManager.selectOutBoundMode = mode
+            MenuItemFactory.recreateProxyMenuItems()
         }
     }
 
