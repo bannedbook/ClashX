@@ -144,7 +144,10 @@ class ClashProxy: Codable {
 }
 
 class ClashProxyResp {
+    // proxies without provider
     let proxies: [ClashProxy]
+
+    // proxiesmap with provider included
     var proxiesMap: [ClashProxyName: ClashProxy]
 
     private var enclosingProviderResp: ClashProviderResp?

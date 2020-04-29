@@ -31,8 +31,8 @@ class MenuItemFactory {
                 return
             }
 
-            for proxy in info?.proxies ?? [] {
-                NotificationCenter.default.post(name: .proxyUpdate(for: proxy.name), object: proxy, userInfo: nil)
+            for (name, proxy) in info?.proxiesMap ?? [:] {
+                NotificationCenter.default.post(name: .proxyUpdate(for: name), object: proxy, userInfo: nil)
             }
         }
     }
@@ -264,7 +264,6 @@ extension MenuItemFactory {
     @objc static func optionUseViewRenderMenuItemTap(sender: NSMenuItem) {
         useViewToRenderProxy = !useViewToRenderProxy
         updateUseViewRenderMenuItem(sender)
-        refreshExistingMenuItems()
         recreateProxyMenuItems()
     }
 }
