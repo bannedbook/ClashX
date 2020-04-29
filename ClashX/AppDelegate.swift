@@ -520,19 +520,27 @@ extension AppDelegate {
         NSUserNotificationCenter.default.postSpeedTestBeginNotice()
 
         isSpeedTesting = true
-        ApiRequest.getAllProxyList { [weak self] proxies in
-            let testGroup = DispatchGroup()
 
-            for proxyName in proxies {
-                testGroup.enter()
-                ApiRequest.getProxyDelay(proxyName: proxyName) { delay in
-                    testGroup.leave()
+        ApiRequest.getMergedProxyData { [weak self] resp in
+            let group = DispatchGroup()
+
+            for (name, _) in resp?.enclosingProviderResp?.providers ?? [:] {
+                group.enter()
+                ApiRequest.healthCheck(proxy: name) {
+                    group.leave()
                 }
             }
-            testGroup.notify(queue: DispatchQueue.main, execute: {
+
+            for p in resp?.proxiesMap["GLOBAL"]?.all ?? [] {
+                group.enter()
+                ApiRequest.getProxyDelay(proxyName: p) { _ in
+                    group.leave()
+                }
+            }
+            group.notify(queue: DispatchQueue.main) {
                 NSUserNotificationCenter.default.postSpeedTestFinishNotice()
                 self?.isSpeedTesting = false
-            })
+            }
         }
     }
 

@@ -22,10 +22,9 @@ class MenuItemFactory {
     // MARK: - Public
 
     static func refreshExistingMenuItems() {
-        let previousInfo = cachedProxyData
-        getMergedProxyData {
+        ApiRequest.getMergedProxyData {
             info in
-            if info?.proxiesMap.keys != previousInfo?.proxiesMap.keys {
+            if info?.proxiesMap.keys != cachedProxyData?.proxiesMap.keys {
                 // force update menu
                 refreshMenuItems(mergedData: info)
                 return
@@ -38,8 +37,9 @@ class MenuItemFactory {
     }
 
     static func recreateProxyMenuItems() {
-        getMergedProxyData {
+        ApiRequest.getMergedProxyData {
             proxyInfo in
+            cachedProxyData = proxyInfo
             refreshMenuItems(mergedData: proxyInfo)
         }
     }
@@ -80,38 +80,6 @@ class MenuItemFactory {
     }
 
     // MARK: - Private
-
-    private static func getMergedProxyData(complete: ((ClashProxyResp?) -> Void)? = nil) {
-        let group = DispatchGroup()
-        group.enter()
-        group.enter()
-
-        var provider: ClashProviderResp?
-        var proxyInfo: ClashProxyResp?
-
-        group.notify(queue: .main) {
-            guard let proxyInfo = proxyInfo, let proxyprovider = provider else {
-                assertionFailure()
-                complete?(nil)
-                return
-            }
-            proxyInfo.updateProvider(proxyprovider)
-            cachedProxyData = proxyInfo
-            complete?(proxyInfo)
-        }
-
-        ApiRequest.requestProxyProviderList {
-            proxyprovider in
-            provider = proxyprovider
-            group.leave()
-        }
-
-        ApiRequest.requestProxyGroupList {
-            proxy in
-            proxyInfo = proxy
-            group.leave()
-        }
-    }
 
     // MARK: Updaters
 

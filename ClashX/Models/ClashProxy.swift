@@ -150,7 +150,7 @@ class ClashProxyResp {
     // proxiesmap with provider included
     var proxiesMap: [ClashProxyName: ClashProxy]
 
-    private var enclosingProviderResp: ClashProviderResp?
+    var enclosingProviderResp: ClashProviderResp?
 
     init(_ data: Any?) {
         guard

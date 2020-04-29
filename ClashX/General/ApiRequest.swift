@@ -195,10 +195,39 @@ class ApiRequest {
     static func getAllProxyList(callback: @escaping (([ClashProxyName]) -> Void)) {
         requestProxyGroupList {
             proxyInfo in
-            let lists: [ClashProxyName] = proxyInfo.proxies
-                .filter { $0.name == "GLOBAL" }
-                .first?.all ?? []
+            let lists: [ClashProxyName] = proxyInfo.proxiesMap["GLOBAL"]?.all ?? []
             callback(lists)
+        }
+    }
+
+    static func getMergedProxyData(complete: ((ClashProxyResp?) -> Void)? = nil) {
+        let group = DispatchGroup()
+        group.enter()
+        group.enter()
+
+        var provider: ClashProviderResp?
+        var proxyInfo: ClashProxyResp?
+
+        group.notify(queue: .main) {
+            guard let proxyInfo = proxyInfo, let proxyprovider = provider else {
+                assertionFailure()
+                complete?(nil)
+                return
+            }
+            proxyInfo.updateProvider(proxyprovider)
+            complete?(proxyInfo)
+        }
+
+        ApiRequest.requestProxyProviderList {
+            proxyprovider in
+            provider = proxyprovider
+            group.leave()
+        }
+
+        ApiRequest.requestProxyGroupList {
+            proxy in
+            proxyInfo = proxy
+            group.leave()
         }
     }
 
@@ -225,7 +254,7 @@ class ApiRequest {
         }
     }
 
-    static func healthCheck(proxy: ClashProviderName) {
+    static func healthCheck(proxy: ClashProviderName, completeHandler: (() -> Void)? = nil) {
         Logger.log("HeathCheck for \(proxy) started")
         req("/providers/proxies/\(proxy.encoded)/healthcheck").response { res in
             if res.response?.statusCode == 204 {
@@ -233,6 +262,7 @@ class ApiRequest {
             } else {
                 Logger.log("HeathCheck for \(proxy) failed")
             }
+            completeHandler?()
         }
     }
 }
