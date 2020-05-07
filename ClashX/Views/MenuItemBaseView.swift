@@ -35,7 +35,7 @@ class MenuItemBaseView: NSView {
         return []
     }
 
-    static let labelFont = NSFont.menuBarFont(ofSize: 0)
+    static let labelFont: NSFont = NSFont.monospacedDigitSystemFont(ofSize: 14, weight: .regular)
 
     init(frame frameRect: NSRect = NSRect(x: 0, y: 0, width: 0, height: 20), autolayout: Bool) {
         self.autolayout = autolayout
