@@ -59,7 +59,6 @@ class NetworkChangeNotifier {
     }
 
     @objc static func onWakeNote(note: NSNotification) {
-        
         NotificationCenter.default.post(name: .systemNetworkStatusIPUpdate, object: nil)
 
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
@@ -98,7 +97,7 @@ class NetworkChangeNotifier {
         let dict = SCDynamicStoreCopyValue(store, key) as? [String: String]
         return dict?[kSCDynamicStorePropNetPrimaryInterface as String]
     }
-    
+
     static func getCurrentDns() -> [String] {
         let store = SCDynamicStoreCreate(nil, "ClashX" as CFString, nil, nil)
         if store == nil {
@@ -106,7 +105,7 @@ class NetworkChangeNotifier {
         }
 
         let key = SCDynamicStoreKeyCreateNetworkGlobalEntity(nil, kSCDynamicStoreDomainState, kSCEntNetDNS)
-        let dnsArr = SCDynamicStoreCopyValue(store, key) as? [String:[String]]
+        let dnsArr = SCDynamicStoreCopyValue(store, key) as? [String: [String]]
         return dnsArr?[kSCPropNetDNSServerAddresses as String] ?? []
     }
 
