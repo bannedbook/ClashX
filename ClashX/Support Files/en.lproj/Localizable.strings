@@ -153,4 +153,7 @@
 "URL is not valid" = "URL is not valid";
 
 /* No comment provided by engineer. */
+"Use iCloud" = "Use iCloud";
+
+/* No comment provided by engineer. */
 "Use reload config to try reconnect." = "Use reload config to try reconnect.";

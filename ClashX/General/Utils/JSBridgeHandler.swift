@@ -16,29 +16,6 @@ class JsBridgeUtil {
 
         bridge.setWebViewDelegate(delegate)
 
-        // 文件存储
-        bridge.registerHandler("readConfigString") { anydata, responseCallback in
-            let configData = NSData(contentsOfFile: kCurrentConfigPath) ?? NSData()
-            let configStr = String(data: configData as Data, encoding: .utf8) ?? ""
-            responseCallback?(configStr)
-        }
-
-        bridge.registerHandler("writeConfigWithString") { anydata, responseCallback in
-            guard let str = anydata as? String else {
-                responseCallback?(false)
-                return
-            }
-            do {
-                if FileManager.default.fileExists(atPath: kCurrentConfigPath) {
-                    try FileManager.default.removeItem(at: URL(fileURLWithPath: kCurrentConfigPath))
-                }
-                try str.write(to: URL(fileURLWithPath: kCurrentConfigPath), atomically: true, encoding: .utf8)
-
-            } catch {
-                responseCallback?(false)
-            }
-        }
-
         bridge.registerHandler("isSystemProxySet") { anydata, responseCallback in
             responseCallback?(ConfigManager.shared.proxyPortAutoSet)
         }
@@ -56,20 +33,6 @@ class JsBridgeUtil {
             } else {
                 responseCallback?(false)
             }
-        }
-
-        bridge.registerHandler("setPasteboard") { anydata, responseCallback in
-            if let str = anydata as? String {
-                NSPasteboard.general.setString(str, forType: .string)
-                responseCallback?(true)
-            } else {
-                responseCallback?(false)
-            }
-        }
-
-        bridge.registerHandler("getPasteboard") { anydata, responseCallback in
-            let str = NSPasteboard.general.string(forType: NSPasteboard.PasteboardType.string)
-            responseCallback?(str ?? "")
         }
 
         bridge.registerHandler("getStartAtLogin") { _, responseCallback in

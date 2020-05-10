@@ -48,7 +48,11 @@ class ConfigManager {
         }
         set {
             UserDefaults.standard.set(newValue, forKey: "selectConfigName")
-            ConfigFileManager.shared.watchConfigFile(configName: newValue)
+            if iCloudManager.shared.isICloudEnable() {
+                iCloudManager.shared.watchConfigFile(name: newValue)
+            } else {
+                ConfigFileManager.shared.watchConfigFile(configName: newValue)
+            }
         }
     }
 

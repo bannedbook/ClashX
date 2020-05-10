@@ -20,7 +20,7 @@ class ClashStatusTool {
             alert.addButton(withTitle: "Edit Config")
             let ret = alert.runModal()
             if ret == .alertSecondButtonReturn {
-                NSWorkspace.shared.openFile(Paths.configPath(for: "config"))
+                NSWorkspace.shared.openFile(Paths.localConfigPath(for: "config"))
             }
             NSApp.terminate(nil)
         }

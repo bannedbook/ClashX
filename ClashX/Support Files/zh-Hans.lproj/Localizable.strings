@@ -153,4 +153,7 @@
 "URL is not valid" = "链接不合法";
 
 /* No comment provided by engineer. */
+"Use iCloud" = "使用iCloud";
+
+/* No comment provided by engineer. */
 "Use reload config to try reconnect." = "使用重载配置文件按钮尝试重新连接";
