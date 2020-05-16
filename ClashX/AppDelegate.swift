@@ -100,7 +100,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         setupData()
         runAfterConfigReload = { [weak self] in
             self?.selectOutBoundModeWithMenory()
-            self?.selectAllowLanWithMenory()
+            if !ConfigManager.builtInApiMode {
+                self?.selectAllowLanWithMenory()
+            }
         }
         updateConfig(showNotification: false)
         updateLoggingLevel()
@@ -353,7 +355,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
 
         Logger.log("Trying start proxy")
-        let string = run(ConfigManager.builtInApiMode.goObject())?.toString() ?? ""
+        let string = run(ConfigManager.builtInApiMode.goObject(), ConfigManager.allowConnectFromLan.goObject())?.toString() ?? ""
         let jsonData = string.data(using: .utf8) ?? Data()
         if let res = try? JSONDecoder().decode(StartProxyResp.self, from: jsonData) {
             let port = res.externalController.components(separatedBy: ":").last ?? "9090"
