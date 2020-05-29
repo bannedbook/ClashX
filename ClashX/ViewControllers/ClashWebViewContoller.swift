@@ -35,6 +35,11 @@ extension ClashWebViewWindowController: NSWindowDelegate {
     func windowWillClose(_ notification: Notification) {
         NSApp.setActivationPolicy(.accessory)
         onWindowClose?()
+        if let contentVC = contentViewController as? ClashWebViewContoller, let win = window {
+            if !win.styleMask.contains(.fullScreen) {
+                contentVC.lastSize = win.frame.size
+            }
+        }
     }
 }
 
@@ -43,6 +48,19 @@ class ClashWebViewContoller: NSViewController {
     var bridge: WebViewJavascriptBridge?
     let disposeBag = DisposeBag()
     let minSize = NSSize(width: 920, height: 580)
+    var lastSize: CGSize? {
+        set {
+            if let size = newValue {
+                UserDefaults.standard.set(NSStringFromSize(size), forKey: "ClashWebViewContoller.lastSize")
+            }
+        }
+        get {
+            if let str = UserDefaults.standard.value(forKey: "ClashWebViewContoller.lastSize") as? String {
+                return NSSizeFromString(str) as CGSize
+            }
+            return nil
+        }
+    }
 
     let effectView = NSVisualEffectView()
 
@@ -101,10 +119,12 @@ class ClashWebViewContoller: NSViewController {
         view.window?.styleMask.insert(.closable)
         view.window?.styleMask.insert(.resizable)
         view.window?.styleMask.insert(.miniaturizable)
-        view.window?.center()
 
         view.window?.minSize = minSize
-
+        if let lastSize = lastSize, lastSize != .zero {
+            view.window?.setContentSize(lastSize)
+        }
+        view.window?.center()
         if NSApp.activationPolicy() == .accessory {
             NSApp.setActivationPolicy(.regular)
         }
