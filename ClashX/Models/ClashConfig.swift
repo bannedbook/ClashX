@@ -8,9 +8,9 @@
 import Foundation
 
 enum ClashProxyMode: String, Codable {
-    case rule = "Rule"
-    case global = "Global"
-    case direct = "Direct"
+    case rule
+    case global
+    case direct
 }
 
 extension ClashProxyMode {
@@ -45,8 +45,12 @@ class ClashConfig: Codable {
 
     static func fromData(_ data: Data) -> ClashConfig? {
         let decoder = JSONDecoder()
-        let model = try? decoder.decode(ClashConfig.self, from: data)
-        return model
+        do {
+            return try decoder.decode(ClashConfig.self, from: data)
+        } catch let err {
+            Logger.log((err as NSError).description, level: .error)
+            return nil
+        }
     }
 
     func copy() -> ClashConfig? {

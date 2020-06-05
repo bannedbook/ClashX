@@ -1,8 +1,8 @@
 PODS:
-  - Alamofire (5.1.0)
-  - AppCenter/Analytics (3.1.1):
+  - Alamofire (5.2.1)
+  - AppCenter/Analytics (3.2.0):
     - AppCenter/Core
-  - AppCenter/Core (3.1.1)
+  - AppCenter/Core (3.2.0)
   - CocoaLumberjack/Core (3.6.1)
   - CocoaLumberjack/Swift (3.6.1):
     - CocoaLumberjack/Core
@@ -37,7 +37,7 @@ DEPENDENCIES:
   - WebViewJavascriptBridge
 
 SPEC REPOS:
-  trunk:
+  https://cdn.cocoapods.org/:
     - Alamofire
     - AppCenter
     - CocoaLumberjack
@@ -54,8 +54,8 @@ SPEC REPOS:
     - WebViewJavascriptBridge
 
 SPEC CHECKSUMS:
-  Alamofire: 9d5c5f602928e512395b30950c5984eca840093c
-  AppCenter: 513d32888854d67d8cfbd3a8db16aeb5fb2e2a75
+  Alamofire: e911732990610fe89af59ac0077f923d72dc3dfd
+  AppCenter: ca66175050d538b157959382dd43f1ab96cdab84
   CocoaLumberjack: b17ae15142558d08bbacf69775fa10c4abbebcc9
   Crashlytics: 540b7e5f5da5a042647227a5e3ac51d85eed06df
   Fabric: 706c8b8098fff96c33c0db69cbf81f9c551d0d74
@@ -71,4 +71,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: d3f4f5683423e593e4fca7cc5adb1846dfe66b1a
 
-COCOAPODS: 1.9.1
+COCOAPODS: 1.9.2

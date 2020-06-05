@@ -6,7 +6,7 @@ jobs:
   build:
     runs-on: macOS-latest
     steps:
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@v2
     - name: import certs
       run: |
         openssl aes-256-cbc -k  "${{ secrets.ENCRYPTION_SECRET }}" -in ".github/certs/dist.p12.enc" -d -a -out ".github/certs/dist.p12"
@@ -14,7 +14,7 @@ jobs:
         bundle install
 
     - name: setup Go
-      uses: actions/setup-go@v1
+      uses: actions/setup-go@v2
       with:
         go-version: 1.14.x
 

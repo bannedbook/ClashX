@@ -50,8 +50,8 @@
 /* Class = "NSMenuItem"; title = "SILENT"; ObjectID = "dVr-Xp-C0C"; */
 "dVr-Xp-C0C.title" = "SILENT";
 
-/* Class = "NSMenuItem"; title = "Open config Folder"; ObjectID = "DwE-WX-ETZ"; */
-"DwE-WX-ETZ.title" = "打开配置文件夹";
+/* Class = "NSMenuItem"; title = "Open local config Folder"; ObjectID = "DwE-WX-ETZ"; */
+"DwE-WX-ETZ.title" = "打开本地配置文件夹";
 
 /* Class = "NSMenuItem"; title = "Manage"; ObjectID = "Dwg-Qb-2AU"; */
 "Dwg-Qb-2AU.title" = "管理";
