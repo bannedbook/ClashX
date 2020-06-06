@@ -744,12 +744,22 @@ extension AppDelegate {
     }
 
     func removeUnExistProxyGroups() {
-        let list = ConfigManager.getConfigFilesList()
-        let unexists = ConfigManager.selectedProxyRecords.filter {
-            !list.contains($0.config)
+        let action: (([String]) -> Void) = { list in
+            let unexists = ConfigManager.selectedProxyRecords.filter {
+                !list.contains($0.config)
+            }
+            ConfigManager.selectedProxyRecords.removeAll {
+                unexists.contains($0)
+            }
         }
-        ConfigManager.selectedProxyRecords.removeAll {
-            unexists.contains($0)
+
+        if iCloudManager.shared.isICloudEnable() {
+            iCloudManager.shared.getConfigFilesList { list in
+                action(list)
+            }
+        } else {
+            let list = ConfigManager.getConfigFilesList()
+            action(list)
         }
     }
 
