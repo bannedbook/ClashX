@@ -30,6 +30,19 @@ func isAddrValid(addr string) bool {
 	return false
 }
 
+func checkPortAvailable(port int) bool {
+	if port < 1 || port > 65534 {
+		return false
+	}
+	addr := ":"
+	l, err := net.Listen("tcp", addr+strconv.Itoa(port))
+	if err != nil {
+		return false
+	}
+	_ = l.Close()
+	return true
+}
+
 //export initClashCore
 func initClashCore() {
 	configFile := filepath.Join(constant.Path.HomeDir(), constant.Path.Config())
@@ -52,6 +65,19 @@ func parseDefaultConfigThenStart(checkPort, allowLan bool) (*config.Config, erro
 		}
 		cfg.General.AllowLan = allowLan
 	}
+
+	if !checkPortAvailable(cfg.General.Port) {
+		if port, err := freeport.GetFreePort(); err == nil {
+			cfg.General.Port = port
+		}
+	}
+
+	if !checkPortAvailable(cfg.General.SocksPort) {
+		if port, err := freeport.GetFreePort(); err == nil {
+			cfg.General.SocksPort = port
+		}
+	}
+
 	go route.Start(cfg.General.ExternalController, cfg.General.Secret)
 
 	executor.ApplyConfig(cfg, true)
