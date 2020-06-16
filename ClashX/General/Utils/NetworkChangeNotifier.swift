@@ -80,8 +80,8 @@ class NetworkChangeNotifier {
 
     static func isCurrentSystemSetToClash() -> Bool {
         let (http, https, socks) = NetworkChangeNotifier.currentSystemProxySetting()
-        let currentPort = ConfigManager.shared.currentConfig?.port ?? 0
-        let currentSocks = ConfigManager.shared.currentConfig?.socketPort ?? 0
+        let currentPort = ConfigManager.shared.currentConfig?.usedHttpPort ?? 0
+        let currentSocks = ConfigManager.shared.currentConfig?.usedSocksPort ?? 0
 
         let proxySetted = http == currentPort && https == currentPort && socks == currentSocks
         return proxySetted

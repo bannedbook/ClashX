@@ -46,8 +46,8 @@ class SystemProxyManager: NSObject {
     }
 
     func enableProxy() {
-        let port = ConfigManager.shared.currentConfig?.port ?? 0
-        let socketPort = ConfigManager.shared.currentConfig?.socketPort ?? 0
+        let port = ConfigManager.shared.currentConfig?.usedHttpPort ?? 0
+        let socketPort = ConfigManager.shared.currentConfig?.usedSocksPort ?? 0
         SystemProxyManager.shared.enableProxy(port: port, socksPort: socketPort)
     }
 
@@ -64,10 +64,10 @@ class SystemProxyManager: NSObject {
         })
     }
 
-    func disableProxy() {
-        let port = ConfigManager.shared.currentConfig?.port ?? 0
-        let socketPort = ConfigManager.shared.currentConfig?.socketPort ?? 0
-        SystemProxyManager.shared.disableProxy(port: port, socksPort: socketPort)
+    func disableProxy(complete: (() -> Void)? = nil) {
+        let port = ConfigManager.shared.currentConfig?.usedHttpPort ?? 0
+        let socketPort = ConfigManager.shared.currentConfig?.usedSocksPort ?? 0
+        SystemProxyManager.shared.disableProxy(port: port, socksPort: socketPort, complete: complete)
     }
 
     func disableProxy(port: Int, socksPort: Int, forceDisable: Bool = false, complete: (() -> Void)? = nil) {

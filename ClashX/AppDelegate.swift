@@ -128,9 +128,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             Logger.log("ClashX quit need clean proxy setting")
             shouldWait = true
             group.enter()
-            let port = ConfigManager.shared.currentConfig?.port ?? 0
-            let socketPort = ConfigManager.shared.currentConfig?.socketPort ?? 0
-            SystemProxyManager.shared.disableProxy(port: port, socksPort: socketPort) {
+            SystemProxyManager.shared.disableProxy {
                 group.leave()
             }
         }
@@ -232,15 +230,15 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
                 self.proxyModeMenuItem.title = "\(NSLocalizedString("Proxy Mode", comment: "")) (\(config.mode.name))"
 
-                if old?.port != config.port || old?.socketPort != config.socketPort {
-                    Logger.log("port config updated,new: \(config.port),\(config.socketPort)")
+                if old?.usedHttpPort != config.usedHttpPort || old?.usedSocksPort != config.usedSocksPort {
+                    Logger.log("port config updated,new: \(config.usedHttpPort),\(config.usedSocksPort)")
                     if ConfigManager.shared.proxyPortAutoSet {
-                        SystemProxyManager.shared.enableProxy(port: config.port, socksPort: config.socketPort)
+                        SystemProxyManager.shared.enableProxy(port: config.usedHttpPort, socksPort: config.usedSocksPort)
                     }
                 }
 
-                self.httpPortMenuItem.title = "Http Port: \(config.port)"
-                self.socksPortMenuItem.title = "Socks Port: \(config.socketPort)"
+                self.httpPortMenuItem.title = "Http Port: \(config.usedHttpPort)"
+                self.socksPortMenuItem.title = "Socks Port: \(config.usedSocksPort)"
                 self.apiPortMenuItem.title = "Api Port: \(ConfigManager.shared.apiPort)"
                 self.ipMenuItem.title = "IP: \(NetworkChangeNotifier.getPrimaryIPAddress() ?? "")"
 
@@ -535,24 +533,22 @@ extension AppDelegate {
         } else {
             ConfigManager.shared.proxyPortAutoSet = !ConfigManager.shared.proxyPortAutoSet
         }
-        let port = ConfigManager.shared.currentConfig?.port ?? 0
-        let socketPort = ConfigManager.shared.currentConfig?.socketPort ?? 0
 
         if ConfigManager.shared.proxyPortAutoSet {
             if canSaveProxy {
                 SystemProxyManager.shared.saveProxy()
             }
-            SystemProxyManager.shared.enableProxy(port: port, socksPort: socketPort)
+            SystemProxyManager.shared.enableProxy()
         } else {
-            SystemProxyManager.shared.disableProxy(port: port, socksPort: socketPort)
+            SystemProxyManager.shared.disableProxy()
         }
     }
 
     @IBAction func actionCopyExportCommand(_ sender: NSMenuItem) {
         let pasteboard = NSPasteboard.general
         pasteboard.clearContents()
-        let port = ConfigManager.shared.currentConfig?.port ?? 0
-        let socksport = ConfigManager.shared.currentConfig?.socketPort ?? 0
+        let port = ConfigManager.shared.currentConfig?.usedHttpPort ?? 0
+        let socksport = ConfigManager.shared.currentConfig?.usedSocksPort ?? 0
         let localhost = "127.0.0.1"
         let isLocalhostCopy = sender == copyExportCommandMenuItem
         let ip = isLocalhostCopy ? localhost :
