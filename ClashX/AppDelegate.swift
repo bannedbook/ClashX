@@ -48,7 +48,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     @IBOutlet var showProxyGroupCurrentMenuItem: NSMenuItem!
     @IBOutlet var copyExportCommandMenuItem: NSMenuItem!
     @IBOutlet var experimentalMenu: NSMenu!
-
+    @IBOutlet weak var externalControlSeparator: NSMenuItem!
+    
     var disposeBag = DisposeBag()
     var statusItemView: StatusItemView!
     var isSpeedTesting = false
@@ -437,6 +438,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         AutoUpgardeManager.shared.setup()
         AutoUpgardeManager.shared.addChanelMenuItem(&experimentalMenu)
         updateExperimentalFeatureStatus()
+        RemoteControlManager.setupMenuItem(separator: externalControlSeparator)
     }
 
     func updateExperimentalFeatureStatus() {

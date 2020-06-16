@@ -16,6 +16,8 @@ class ConfigManager {
     private let disposeBag = DisposeBag()
     var apiPort = "8080"
     var apiSecret: String = ""
+    var overrideApiURL:URL?
+    var overrideSecret:String?
 
     var currentConfig: ClashConfig? {
         get {
@@ -97,10 +99,21 @@ class ConfigManager {
     }
 
     static var apiUrl: String {
+        if let override = shared.overrideApiURL {
+            return override.absoluteString
+        }
         return "http://127.0.0.1:\(shared.apiPort)"
     }
 
     static var webSocketUrl: String {
+        if let override = shared.overrideApiURL, var comp = URLComponents(url: override, resolvingAgainstBaseURL: true) {
+            if comp.scheme == "https" {
+                comp.scheme = "wss"
+            } else {
+                comp.scheme = "ws"
+            }
+            return comp.url?.absoluteString ?? ""
+        }
         return "ws://127.0.0.1:\(shared.apiPort)"
     }
 

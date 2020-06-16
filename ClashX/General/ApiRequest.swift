@@ -37,7 +37,7 @@ class ApiRequest {
     }
 
     private static func authHeader() -> HTTPHeaders {
-        let secret = ConfigManager.shared.apiSecret
+        let secret = ConfigManager.shared.overrideSecret ?? ConfigManager.shared.apiSecret
         return (secret.count > 0) ? ["Authorization": "Bearer \(secret)"] : [:]
     }
 
