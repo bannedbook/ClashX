@@ -52,6 +52,7 @@ class RemoteControlManager {
     static func setupMenuItem(separator:NSMenuItem) {
         menuSeparator = separator
         updateMenuItems()
+        updateDropDownMenuItems()
     }
     
     static func updateMenuItems() {
@@ -79,8 +80,8 @@ class RemoteControlManager {
     
     @objc static func didSelectMenuItem(sender: ExternalControlMenuItem) {
         selectConfig = sender.model
-        updateMenuItems()
         updateRemoteControl()
+        updateMenuItems()
     }
     
     static func updateRemoteControl() {
@@ -91,13 +92,24 @@ class RemoteControlManager {
             selectConfig = nil
             ConfigManager.shared.overrideApiURL = nil
             ConfigManager.shared.overrideSecret = nil
-            updateMenuItems()
         }
         ClashProxy.cleanCache()
         AppDelegate.shared.resetStreamApi()
         AppDelegate.shared.syncConfig()
+        MenuItemFactory.recreateProxyMenuItems()
+        updateDropDownMenuItems()
     }
     
+    static func updateDropDownMenuItems() {
+        let d = AppDelegate.shared
+        let enable = selectConfig == nil
+        d.statusMenu.autoenablesItems = enable
+        [d.copyExportCommandMenuItem,d.copyExportCommandExternalMenuItem,d.proxySettingMenuItem].forEach {
+            $0?.isEnabled = enable
+        }
+        TunManager.shared.refreshMenuItemStatus()
+    }
+
 }
 
 class ExternalControlMenuItem:NSMenuItem {

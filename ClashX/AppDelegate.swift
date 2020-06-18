@@ -47,6 +47,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     @IBOutlet var buildApiModeMenuitem: NSMenuItem!
     @IBOutlet var showProxyGroupCurrentMenuItem: NSMenuItem!
     @IBOutlet var copyExportCommandMenuItem: NSMenuItem!
+    @IBOutlet var copyExportCommandExternalMenuItem: NSMenuItem!
     @IBOutlet var experimentalMenu: NSMenu!
     @IBOutlet weak var externalControlSeparator: NSMenuItem!
     

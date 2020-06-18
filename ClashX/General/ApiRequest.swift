@@ -70,9 +70,16 @@ class ApiRequest {
     private var loggingWebSocketRetryCount = 0
 
     private var alamoFireManager: Session
+    
+    static func useDirectApi() -> Bool {
+        if ConfigManager.shared.overrideApiURL != nil {
+            return true
+        }
+        return ConfigManager.builtInApiMode
+    }
 
     static func requestConfig(completeHandler: @escaping ((ClashConfig) -> Void)) {
-        if !ConfigManager.builtInApiMode {
+        if !useDirectApi() {
             req("/configs").responseDecodable(of: ClashConfig.self) {
                 resp in
                 switch resp.result {
@@ -115,7 +122,7 @@ class ApiRequest {
         let placeHolderErrorDesp = "Error occoured, Please try to fix it by restarting ClashX. "
 
         // DEV MODE: Use API
-        if !ConfigManager.builtInApiMode {
+        if !useDirectApi() {
             req("/configs", method: .put, parameters: ["Path": configPath], encoding: JSONEncoding.default).responseJSON { res in
                 if res.response?.statusCode == 204 {
                     ConfigManager.shared.isRunning = true

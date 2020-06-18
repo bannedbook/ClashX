@@ -79,10 +79,17 @@ class JsBridgeUtil {
         }
 
         bridge.registerHandler("apiInfo") { _, callback in
+            var host = "127.0.0.1"
+            var port = ConfigManager.shared.apiPort
+            if let override = ConfigManager.shared.overrideApiURL,
+                let overridedHost = override.host {
+                host = overridedHost
+                port = "\(override.port ?? 80)"
+            }
             let data = [
-                "host": "127.0.0.1",
-                "port": ConfigManager.shared.apiPort,
-                "secret": ConfigManager.shared.apiSecret,
+                "host": host,
+                "port": port,
+                "secret": ConfigManager.shared.overrideSecret ?? ConfigManager.shared.apiSecret,
             ]
             callback?(data)
         }
