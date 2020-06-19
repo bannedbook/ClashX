@@ -57,13 +57,14 @@ func parseDefaultConfigThenStart(checkPort, allowLan bool) (*config.Config, erro
 	if cfg.General.MixedPort == 0 {
 		if cfg.General.Port > 0 {
 			cfg.General.MixedPort = cfg.General.Port
+			cfg.General.Port = 0
 		} else if cfg.General.SocksPort > 0 {
 			cfg.General.MixedPort = cfg.General.SocksPort
+			cfg.General.SocksPort = 0
 		} else {
 			cfg.General.MixedPort = 7890
 		}
-		cfg.General.SocksPort = 0
-		cfg.General.Port = 0
+
 	}
 
 	if checkPort {
