@@ -66,11 +66,13 @@ class ApiRequest {
     private var trafficWebSocket: WebSocket?
     private var loggingWebSocket: WebSocket?
 
-    private var trafficWebSocketRetryCount = 0
-    private var loggingWebSocketRetryCount = 0
+    private var trafficWebSocketRetryDelay: TimeInterval = 1
+    private var loggingWebSocketRetryDelay: TimeInterval = 1
+    private var trafficWebSocketRetryTimer: Timer?
+    private var loggingWebSocketRetryTimer: Timer?
 
     private var alamoFireManager: Session
-    
+
     static func useDirectApi() -> Bool {
         if ConfigManager.shared.overrideApiURL != nil {
             return true
@@ -327,22 +329,23 @@ extension ApiRequest {
     }
 
     func resetLogStreamApi() {
-        loggingWebSocketRetryCount = 0
+        loggingWebSocketRetryTimer?.invalidate()
+        loggingWebSocketRetryTimer = nil
+        loggingWebSocketRetryDelay = 1
         requestLog()
     }
 
     func resetTrafficStreamApi() {
-        trafficWebSocketRetryCount = 0
+        trafficWebSocketRetryTimer?.invalidate()
+        trafficWebSocketRetryTimer = nil
+        trafficWebSocketRetryDelay = 1
         requestTrafficInfo()
     }
 
     private func requestTrafficInfo() {
+        trafficWebSocketRetryTimer?.invalidate()
+        trafficWebSocketRetryTimer = nil
         trafficWebSocket?.disconnect(forceTimeout: 0, closeCode: 0)
-        trafficWebSocketRetryCount += 1
-        if trafficWebSocketRetryCount > 5 {
-            NSUserNotificationCenter.default.postStreamApiConnectFail(api: "Traffic")
-            return
-        }
 
         let socket = WebSocket(url: URL(string: ConfigManager.apiUrl.appending("/traffic"))!)
 
@@ -355,12 +358,9 @@ extension ApiRequest {
     }
 
     private func requestLog() {
+        loggingWebSocketRetryTimer?.invalidate()
+        loggingWebSocketRetryTimer = nil
         loggingWebSocket?.disconnect()
-        loggingWebSocketRetryCount += 1
-        if loggingWebSocketRetryCount > 5 {
-            NSUserNotificationCenter.default.postStreamApiConnectFail(api: "Log")
-            return
-        }
 
         let uriString = "/logs?level=".appending(ConfigManager.selectLoggingApiLevel.rawValue)
         let socket = WebSocket(url: URL(string: ConfigManager.apiUrl.appending(uriString))!)
@@ -378,8 +378,10 @@ extension ApiRequest: WebSocketDelegate {
     func websocketDidConnect(socket: WebSocketClient) {
         guard let webSocket = socket as? WebSocket else { return }
         if webSocket == trafficWebSocket {
+            trafficWebSocketRetryDelay = 1
             Logger.log("trafficWebSocket did Connect", level: .debug)
         } else {
+            loggingWebSocketRetryDelay = 1
             Logger.log("loggingWebSocket did Connect", level: .debug)
         }
     }
@@ -390,15 +392,28 @@ extension ApiRequest: WebSocketDelegate {
         }
 
         Logger.log(err.localizedDescription, level: .error)
-        DispatchQueue.global().asyncAfter(deadline: .now() + 1) {
-            guard let webSocket = socket as? WebSocket else { return }
-            if webSocket == self.trafficWebSocket {
-                Logger.log("trafficWebSocket did disconnect", level: .debug)
-                self.requestTrafficInfo()
-            } else {
-                Logger.log("loggingWebSocket did disconnect", level: .debug)
-                self.requestLog()
-            }
+
+        guard let webSocket = socket as? WebSocket else { return }
+
+        if webSocket == trafficWebSocket {
+            Logger.log("trafficWebSocket did disconnect", level: .debug)
+            trafficWebSocketRetryTimer?.invalidate()
+            trafficWebSocketRetryTimer =
+                Timer.scheduledTimer(withTimeInterval: trafficWebSocketRetryDelay, repeats: false, block: {
+                    [weak self] _ in
+                    if self?.trafficWebSocket?.isConnected == true { return }
+                    self?.requestTrafficInfo()
+                })
+            trafficWebSocketRetryDelay *= 2
+        } else {
+            Logger.log("loggingWebSocket did disconnect", level: .debug)
+            loggingWebSocketRetryTimer =
+                Timer.scheduledTimer(withTimeInterval: loggingWebSocketRetryDelay, repeats: false, block: {
+                    [weak self] _ in
+                    if self?.loggingWebSocket?.isConnected == true { return }
+                    self?.requestLog()
+            })
+            loggingWebSocketRetryDelay *= 2
         }
     }
 

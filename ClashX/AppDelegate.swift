@@ -469,6 +469,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 }
             }
         }
+
+        if RemoteControlManager.selectConfig != nil {
+            resetStreamApi()
+        }
     }
 }
 

@@ -12,12 +12,12 @@ class ExternalControlViewController: NSViewController {
     @IBOutlet var tableView: NSTableView!
     @IBOutlet var addButton: NSButton!
     @IBOutlet var deleteButton: NSButton!
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         updateButtonStatus()
     }
-    
+
     func updateButtonStatus() {
         let selectIdx = tableView.selectedRow
         if selectIdx == -1 {
@@ -25,7 +25,7 @@ class ExternalControlViewController: NSViewController {
             return
         }
     }
-    
+
     @IBAction func actionAdd(_ sender: Any) {
         let alertView = NSAlert()
         alertView.addButton(withTitle: NSLocalizedString("OK", comment: ""))
@@ -46,19 +46,18 @@ class ExternalControlViewController: NSViewController {
         RemoteControlManager.configs.append(model)
         tableView.reloadData()
     }
-    
+
     @IBAction func actionDelete(_ sender: Any) {
         RemoteControlManager.configs.safeRemove(at: tableView.selectedRow)
         tableView.reloadData()
     }
-    
 }
 
-extension ExternalControlViewController: NSTableViewDataSource,NSTableViewDelegate {
+extension ExternalControlViewController: NSTableViewDataSource, NSTableViewDelegate {
     func numberOfRows(in tableView: NSTableView) -> Int {
         return RemoteControlManager.configs.count
     }
-    
+
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
         guard let config = RemoteControlManager.configs[safe: row] else { return nil }
 
@@ -86,27 +85,25 @@ extension ExternalControlViewController: NSTableViewDataSource,NSTableViewDelega
     }
 }
 
-
-
 class ExternalControlAddView: NSView {
     let urlTextField = NSTextField()
     let secretField = NSTextField()
     let nameField = NSTextField()
-    
-    let urlLabel = NSTextField(labelWithString:"Api URL:")
-    let nameLabel = NSTextField(labelWithString:"Name:")
-    let secretLabel = NSTextField(labelWithString:"Secret:")
-    
+
+    let urlLabel = NSTextField(labelWithString: "Api URL:")
+    let nameLabel = NSTextField(labelWithString: "Name:")
+    let secretLabel = NSTextField(labelWithString: "Secret:")
+
     override init(frame frameRect: NSRect) {
         super.init(frame: frameRect)
         frame = NSRect(x: 0, y: 0, width: 300, height: 85)
         setupView()
     }
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     func setupView() {
         addSubview(urlTextField)
         addSubview(secretField)
@@ -139,14 +136,11 @@ class ExternalControlAddView: NSView {
             nameField.leadingAnchor.constraint(equalTo: urlTextField.leadingAnchor),
             nameLabel.centerYAnchor.constraint(equalTo: nameField.centerYAnchor),
             nameLabel.leadingAnchor.constraint(greaterThanOrEqualTo: leadingAnchor),
-            nameField.leadingAnchor.constraint(equalTo: nameLabel.trailingAnchor,constant: 5)
+            nameField.leadingAnchor.constraint(equalTo: nameLabel.trailingAnchor, constant: 5),
         ])
-        
     }
-    
-    
+
     func isVaild() -> Bool {
         return urlTextField.stringValue.isUrlVaild() && nameLabel.stringValue.count > 0
     }
-    
 }

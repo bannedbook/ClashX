@@ -114,15 +114,15 @@ fileprivate class ProxyGroupSpeedTestMenuItemView: MenuItemBaseView {
         label.stringValue = NSLocalizedString("Testing", comment: "")
         enclosingMenuItem?.isEnabled = false
         setNeedsDisplay()
-        
+
         for provider in providers {
             testGroup.enter()
-            
+
             ApiRequest.healthCheck(proxy: provider) {
                 testGroup.leave()
             }
         }
-        
+
         testGroup.notify(queue: .main) {
             [weak self] in
             guard let self = self, let menu = self.enclosingMenuItem else { return }

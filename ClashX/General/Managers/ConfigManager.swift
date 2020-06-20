@@ -16,8 +16,8 @@ class ConfigManager {
     private let disposeBag = DisposeBag()
     var apiPort = "8080"
     var apiSecret: String = ""
-    var overrideApiURL:URL?
-    var overrideSecret:String?
+    var overrideApiURL: URL?
+    var overrideSecret: String?
 
     var currentConfig: ClashConfig? {
         get {
