@@ -168,7 +168,7 @@
 "5hn-k8-CWe.headerCell.title" = "Api Secret";
 
 /* Class = "NSTextFieldCell"; title = "External Controls"; ObjectID = "9gE-NX-2wJ"; */
-"9gE-NX-2wJ.title" = "远程控制";
+"9gE-NX-2wJ.title" = "远程控制器";
 
 /* Class = "NSButtonCell"; title = "Delete"; ObjectID = "B2w-4r-5Kh"; */
 "B2w-4r-5Kh.title" = "删除";
@@ -177,7 +177,7 @@
 "ZcF-10-jsl.title" = "添加";
 
 /* Class = "NSViewController"; title = "External Manager"; ObjectID = "s6y-wL-pnr"; */
-"s6y-wL-pnr.title" = "远程控制";
+"s6y-wL-pnr.title" = "远程控制器";
 
 /* Class = "NSTableColumn"; headerCell.title = "Api Url"; ObjectID = "yO6-uZ-IRv"; */
 "yO6-uZ-IRv.headerCell.title" = "Api Url";

@@ -931,6 +931,9 @@
                                                             </connections>
                                                         </tableCellView>
                                                     </prototypeCellViews>
+                                                    <attributedString key="userComments">
+                                                        <fragment content="#bc-ignore!"/>
+                                                    </attributedString>
                                                 </tableColumn>
                                                 <tableColumn identifier="url" editable="NO" width="188" minWidth="40" maxWidth="1000" id="yO6-uZ-IRv">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Api Url">
