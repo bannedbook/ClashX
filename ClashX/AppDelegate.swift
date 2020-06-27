@@ -244,7 +244,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 self.apiPortMenuItem.title = "Api Port: \(ConfigManager.shared.apiPort)"
                 self.ipMenuItem.title = "IP: \(NetworkChangeNotifier.getPrimaryIPAddress() ?? "")"
 
-                ClashStatusTool.checkPortConfig(cfg: config)
+                if RemoteControlManager.selectConfig == nil {
+                    ClashStatusTool.checkPortConfig(cfg: config)
+                }
 
             }.disposed(by: disposeBag)
     }
@@ -306,6 +308,17 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 let rawProxy = NetworkChangeNotifier.getRawProxySetting()
                 Logger.log("proxy changed to no clashX setting: \(rawProxy)", level: .warning)
                 NSUserNotificationCenter.default.postProxyChangeByOtherAppNotice()
+            }.disposed(by: disposeBag)
+
+        NotificationCenter
+            .default
+            .rx
+            .notification(.systemNetworkStatusIPUpdate).map({ _ in
+                NetworkChangeNotifier.getPrimaryIPAddress(allowIPV6: false)
+            }).bind { [weak self] _ in
+                if RemoteControlManager.selectConfig != nil {
+                    self?.resetStreamApi()
+                }
             }.disposed(by: disposeBag)
     }
 
@@ -457,6 +470,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             SystemProxyManager.shared.disableProxy()
             SystemProxyManager.shared.enableProxy()
         }
+
+        if RemoteControlManager.selectConfig != nil {
+            resetStreamApi()
+        }
     }
 
     @objc func healthHeckOnNetworkChange() {
@@ -468,10 +485,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                     ApiRequest.healthCheck(proxy: group.name)
                 }
             }
-        }
-
-        if RemoteControlManager.selectConfig != nil {
-            resetStreamApi()
         }
     }
 }

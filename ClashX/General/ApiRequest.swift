@@ -75,7 +75,7 @@ class ApiRequest {
 
     static func useDirectApi() -> Bool {
         if ConfigManager.shared.overrideApiURL != nil {
-            return true
+            return false
         }
         return ConfigManager.builtInApiMode
     }
@@ -412,7 +412,7 @@ extension ApiRequest: WebSocketDelegate {
                     [weak self] _ in
                     if self?.loggingWebSocket?.isConnected == true { return }
                     self?.requestLog()
-            })
+                })
             loggingWebSocketRetryDelay *= 2
         }
     }
