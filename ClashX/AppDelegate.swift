@@ -49,8 +49,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     @IBOutlet var copyExportCommandMenuItem: NSMenuItem!
     @IBOutlet var copyExportCommandExternalMenuItem: NSMenuItem!
     @IBOutlet var experimentalMenu: NSMenu!
-    @IBOutlet weak var externalControlSeparator: NSMenuItem!
-    
+    @IBOutlet var externalControlSeparator: NSMenuItem!
+
     var disposeBag = DisposeBag()
     var statusItemView: StatusItemView!
     var isSpeedTesting = false
@@ -75,6 +75,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         statusItemView.frame = CGRect(x: 0, y: 0, width: statusItemLengthWithSpeed, height: 22)
         statusMenu.delegate = self
         setupStatusMenuItemData()
+        AppVersionUtil.showUpgradeAlert()
         DispatchQueue.main.async {
             self.postFinishLaunching()
         }

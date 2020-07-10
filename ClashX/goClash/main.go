@@ -65,6 +65,14 @@ func parseDefaultConfigThenStart(checkPort, allowLan bool) (*config.Config, erro
 			cfg.General.MixedPort = 7890
 		}
 
+		if cfg.General.SocksPort == cfg.General.MixedPort {
+			cfg.General.SocksPort = 0
+		}
+
+		if cfg.General.Port == cfg.General.MixedPort {
+			cfg.General.Port = 0
+		}
+
 	}
 
 	if checkPort {
@@ -108,7 +116,7 @@ func verifyClashConfig(content *C.char) *C.char {
 
 //export run
 func run(checkConfig, allowLan bool) *C.char {
-	cfg, err := parseDefaultConfigThenStart(checkConfig,allowLan)
+	cfg, err := parseDefaultConfigThenStart(checkConfig, allowLan)
 	if err != nil {
 		return C.CString(err.Error())
 	}
