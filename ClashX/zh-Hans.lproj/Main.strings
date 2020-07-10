@@ -161,9 +161,6 @@
 /* Class = "NSMenuItem"; title = "Copy shell command (External IP)"; ObjectID = "7wl-vK-5JO"; */
 "7wl-vK-5JO.title" = "复制终端代理命令(外部IP)";
 
-/* Class = "NSMenuItem"; title = "Script"; ObjectID = "kxw-w8-53V"; */
-"kxw-w8-53V.title" = "脚本模式";
-
 /* Class = "NSTableColumn"; headerCell.title = "Api Secret"; ObjectID = "5hn-k8-CWe"; */
 "5hn-k8-CWe.headerCell.title" = "Api Secret";
 

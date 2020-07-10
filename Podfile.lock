@@ -37,7 +37,7 @@ DEPENDENCIES:
   - WebViewJavascriptBridge
 
 SPEC REPOS:
-  https://cdn.cocoapods.org/:
+  trunk:
     - Alamofire
     - AppCenter
     - CocoaLumberjack
@@ -71,4 +71,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: d3f4f5683423e593e4fca7cc5adb1846dfe66b1a
 
-COCOAPODS: 1.9.2
+COCOAPODS: 1.9.3

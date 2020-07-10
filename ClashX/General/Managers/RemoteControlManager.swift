@@ -105,7 +105,6 @@ class RemoteControlManager {
         [d.copyExportCommandMenuItem, d.copyExportCommandExternalMenuItem, d.proxySettingMenuItem].forEach {
             $0?.isEnabled = enable
         }
-        TunManager.shared.refreshMenuItemStatus()
     }
 }
 
