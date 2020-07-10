@@ -82,7 +82,7 @@ jobs:
       with:
         files: ClashX.dmg
         # draft: true
-        # prerelease: true
+        prerelease: true
 
     - name: update gitpage
       if: startsWith(github.ref, 'refs/tags/')

@@ -165,4 +165,4 @@
 "Details" = "查看详情";
 
 /* No comment provided by engineer. */
-"This version of ClashX contains a break change due to clash core 1.0 released. Check if your config is not working properly." = "由于Clash Core发布1.0版本，使用此版本的ClashX可能需要更新配置内容,前往 https://github.com/Dreamacro/clash/wiki/breaking-changes-in-1.0.0 查看详情";
+"This version of ClashX contains a break change due to clash core 1.0 released. Check if your config is not working properly." = "由于Clash Core发布1.0版本，使用此版本的 ClashX 可能需要更新配置内容\n前往 https://github.com/Dreamacro/clash/wiki/breaking-changes-in-1.0.0 查看详情";
