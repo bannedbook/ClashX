@@ -136,7 +136,7 @@
         NSString *configPath = [homePath stringByAppendingString:@"/.config/clash/proxyIgnoreList.plist"];
         if ([NSFileManager.defaultManager fileExistsAtPath:configPath]) {
             NSArray *arr = [[NSArray alloc] initWithContentsOfFile:configPath];
-            if (arr != nil && arr.count > 0 && [arr containsObject:@"127.0.0.1"]) {
+            if (arr != nil && arr.count > 0) {
                 return arr;
             }
         }
