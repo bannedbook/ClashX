@@ -23,8 +23,10 @@ extension PrivilegedHelperManager {
         fi
         launchctl remove \(PrivilegedHelperManager.machServiceName) || true
         
+        mkdir -p /Library/PrivilegedHelperTools/
         rm -f /Library/PrivilegedHelperTools/\(PrivilegedHelperManager.machServiceName)
-        cp \(appPath)/Contents/Library/LaunchServices/\(PrivilegedHelperManager.machServiceName) /Library/PrivilegedHelperTools/\(PrivilegedHelperManager.machServiceName)
+        
+        cp "\(appPath)/Contents/Library/LaunchServices/\(PrivilegedHelperManager.machServiceName)" "/Library/PrivilegedHelperTools/\(PrivilegedHelperManager.machServiceName)"
 
         echo '
         <?xml version="1.0" encoding="UTF-8"?>
