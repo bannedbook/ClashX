@@ -17,7 +17,7 @@ class MenuItemBaseView: NSView {
 
     var isHighlighted: Bool = false {
         didSet {
-            if #available(macOS 11, *) {
+            if #available(macOS 11, *), isHighlighted != oldValue {
                 setNeedsDisplay()
             }
         }

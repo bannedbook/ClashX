@@ -42,6 +42,9 @@
 "Config loading Fail!" = "Config loading Fail!";
 
 /* No comment provided by engineer. */
+"Details" = "Details";
+
+/* No comment provided by engineer. */
 "Direct" = "Direct";
 
 /* No comment provided by engineer. */
@@ -144,6 +147,9 @@
 "The remote config name is duplicated" = "The remote config name is duplicated";
 
 /* No comment provided by engineer. */
+"This version of ClashX contains a break change due to clash core 1.0 released. Check if your config is not working properly." = "This version of ClashX contains a break change due to clash core 1.0 released. Check if your config is not working properly.";
+
+/* No comment provided by engineer. */
 "Update GEOIP Database" = "Update GEOIP Database";
 
 /* No comment provided by engineer. */
@@ -160,9 +166,3 @@
 
 /* No comment provided by engineer. */
 "Use reload config to try reconnect." = "Use reload config to try reconnect.";
-
-/* No comment provided by engineer. */
-"Details" = "Details";
-
-/* No comment provided by engineer. */
-"This version of ClashX contains a break change due to clash core 1.0 released. Check if your config is not working properly." = "This version of ClashX contains a break change due to clash core 1.0 released. Check if your config is not working properly.";

@@ -9,14 +9,14 @@
 	<key>CFBundleDocumentTypes</key>
 	<array>
 		<dict>
-			<key>CFBundleTypeRole</key>
-			<string>Viewer</string>
 			<key>CFBundleTypeExtensions</key>
 			<array>
 				<string>yaml</string>
 			</array>
 			<key>CFBundleTypeName</key>
 			<string>YAML</string>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
 			<key>LSHandlerRank</key>
 			<string>None</string>
 		</dict>
@@ -111,12 +111,12 @@
 	</dict>
 	<key>SMAuthorizedClients</key>
 	<array>
-		<string>identifier &quot;com.west2online.ClashX&quot; and anchor apple generic and certificate leaf[subject.CN] = &quot;Mac Developer: chen yicheng (96U846XGYH)&quot; and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+		<string>identifier "com.west2online.ClashX" and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: chen yicheng (96U846XGYH)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
 	</array>
 	<key>SMPrivilegedExecutables</key>
 	<dict>
 		<key>com.west2online.ClashX.ProxyConfigHelper</key>
-		<string>anchor apple generic and identifier &quot;com.west2online.ClashX.ProxyConfigHelper&quot; and (certificate leaf[field.1.2.840.113635.100.6.1.9] /* exists */ or certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = MEWHFZ92DY)</string>
+		<string>anchor apple generic and identifier "com.west2online.ClashX.ProxyConfigHelper" and (certificate leaf[field.1.2.840.113635.100.6.1.9] /* exists */ or certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = MEWHFZ92DY)</string>
 	</dict>
 	<key>SUFeedURL</key>
 	<string>https://yichengchen.github.io/clashX/appcast.xml</string>
