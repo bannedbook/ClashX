@@ -3,7 +3,10 @@ package main
 import (
 	"C"
 	"encoding/json"
+	"fmt"
+	"io/ioutil"
 	"net"
+	"os"
 	"path/filepath"
 	"strconv"
 	"strings"
@@ -49,52 +52,76 @@ func initClashCore() {
 	constant.SetConfig(configFile)
 }
 
-func parseDefaultConfigThenStart(checkPort, allowLan bool) (*config.Config, error) {
-	cfg, err := executor.Parse()
+func readConfig(path string) ([]byte, error) {
+	if _, err := os.Stat(path); os.IsNotExist(err) {
+		return nil, err
+	}
+	data, err := ioutil.ReadFile(path)
 	if err != nil {
 		return nil, err
 	}
-	if cfg.General.MixedPort == 0 {
-		if cfg.General.Port > 0 {
-			cfg.General.MixedPort = cfg.General.Port
-			cfg.General.Port = 0
-		} else if cfg.General.SocksPort > 0 {
-			cfg.General.MixedPort = cfg.General.SocksPort
-			cfg.General.SocksPort = 0
+	if len(data) == 0 {
+		return nil, fmt.Errorf("Configuration file %s is empty", path)
+	}
+	return data, err
+}
+
+
+func parseDefaultConfigThenStart(checkPort, allowLan bool) (*config.Config, error) {
+	buf, err := readConfig(constant.Path.Config())
+	if err != nil {
+		return nil, err
+	}
+
+	rawCfg, err := config.UnmarshalRawConfig(buf)
+	if err != nil {
+		return nil, err
+	}
+
+	if rawCfg.MixedPort == 0 {
+		if rawCfg.Port > 0 {
+			rawCfg.MixedPort = rawCfg.Port
+			rawCfg.Port = 0
+		} else if rawCfg.SocksPort > 0 {
+			rawCfg.MixedPort = rawCfg.SocksPort
+			rawCfg.SocksPort = 0
 		} else {
-			cfg.General.MixedPort = 7890
+			rawCfg.MixedPort = 7890
 		}
 
-		if cfg.General.SocksPort == cfg.General.MixedPort {
-			cfg.General.SocksPort = 0
+		if rawCfg.SocksPort == rawCfg.MixedPort {
+			rawCfg.SocksPort = 0
 		}
 
-		if cfg.General.Port == cfg.General.MixedPort {
-			cfg.General.Port = 0
+		if rawCfg.Port == rawCfg.MixedPort {
+			rawCfg.Port = 0
 		}
 
 	}
 
 	if checkPort {
-		if !isAddrValid(cfg.General.ExternalController) {
+		if !isAddrValid(rawCfg.ExternalController) {
 			port, err := freeport.GetFreePort()
 			if err != nil {
 				return nil, err
 			}
-			cfg.General.ExternalController = "127.0.0.1:" + strconv.Itoa(port)
-			cfg.General.Secret = ""
+			rawCfg.ExternalController = "127.0.0.1:" + strconv.Itoa(port)
+			rawCfg.Secret = ""
 		}
-		cfg.General.AllowLan = allowLan
+		rawCfg.AllowLan = allowLan
 
-		if !checkPortAvailable(cfg.General.MixedPort) {
+		if !checkPortAvailable(rawCfg.MixedPort) {
 			if port, err := freeport.GetFreePort(); err == nil {
-				cfg.General.MixedPort = port
+				rawCfg.MixedPort = port
 			}
 		}
 	}
 
+	cfg, err := config.ParseRawConfig(rawCfg)
+	if err != nil {
+		return nil, err
+	}
 	go route.Start(cfg.General.ExternalController, cfg.General.Secret)
-
 	executor.ApplyConfig(cfg, true)
 	return cfg, nil
 }
