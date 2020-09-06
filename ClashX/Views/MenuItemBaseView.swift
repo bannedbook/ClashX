@@ -15,7 +15,13 @@ class MenuItemBaseView: NSView {
 
     // MARK: Public
 
-    var isHighlighted: Bool = false
+    var isHighlighted: Bool = false {
+        didSet {
+            if #available(macOS 11, *) {
+                setNeedsDisplay()
+            }
+        }
+    }
 
     let effectView: NSVisualEffectView = {
         let effectView = NSVisualEffectView()
