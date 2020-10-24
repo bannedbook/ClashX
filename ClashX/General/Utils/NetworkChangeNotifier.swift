@@ -78,13 +78,40 @@ class NetworkChangeNotifier {
         return (httpProxy, httpsProxy, socksProxy)
     }
 
-    static func isCurrentSystemSetToClash() -> Bool {
+    static func isCurrentSystemSetToClash(looser:Bool = false) -> Bool {
         let (http, https, socks) = NetworkChangeNotifier.currentSystemProxySetting()
         let currentPort = ConfigManager.shared.currentConfig?.usedHttpPort ?? 0
         let currentSocks = ConfigManager.shared.currentConfig?.usedSocksPort ?? 0
 
-        let proxySetted = http == currentPort && https == currentPort && socks == currentSocks
-        return proxySetted
+        if looser {
+            return http == currentPort || https == currentPort || socks == currentSocks
+        } else {
+            return http == currentPort && https == currentPort && socks == currentSocks
+        }
+    }
+    
+    static func hasInterfaceProxySetToClash() -> Bool {
+        let currentPort = ConfigManager.shared.currentConfig?.usedHttpPort
+        let currentSocks = ConfigManager.shared.currentConfig?.usedSocksPort
+        if let prefRef = SCPreferencesCreate(nil, "ClashX" as CFString, nil),
+           let sets = SCPreferencesGetValue(prefRef, kSCPrefNetworkServices){
+            for key in sets.allKeys {
+                let dict = sets.object(forKey: key) as? NSDictionary
+                let proxySettings = dict?["Proxies"] as? [String:Any]
+                if currentPort != nil {
+                    if proxySettings?[kCFNetworkProxiesHTTPPort as String] as? Int == currentPort ||
+                        proxySettings?[kCFNetworkProxiesHTTPSPort as String] as? Int == currentPort {
+                        return true
+                    }
+                }
+                if currentSocks != nil {
+                    if  proxySettings?[kCFNetworkProxiesSOCKSPort as String] as? Int == currentSocks {
+                        return true
+                    }
+                }
+            }
+        }
+        return false
     }
 
     static func getPrimaryInterface() -> String? {

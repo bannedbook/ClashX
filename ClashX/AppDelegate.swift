@@ -127,7 +127,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         let group = DispatchGroup()
         var shouldWait = false
 
-        if ConfigManager.shared.proxyPortAutoSet && !ConfigManager.shared.isProxySetByOtherVariable.value {
+        if ConfigManager.shared.proxyPortAutoSet && !ConfigManager.shared.isProxySetByOtherVariable.value || NetworkChangeNotifier.isCurrentSystemSetToClash(looser: true) ||
+            NetworkChangeNotifier.hasInterfaceProxySetToClash() {
             Logger.log("ClashX quit need clean proxy setting")
             shouldWait = true
             group.enter()
@@ -151,10 +152,15 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             switch res {
             case .success:
                 Logger.log("ClashX quit after clean up finish")
+                DispatchQueue.main.asyncAfter(deadline: .now()+0.2) {
+                    NSApp.reply(toApplicationShouldTerminate: true)
+                }
             case .timedOut:
                 Logger.log("ClashX quit after clean up timeout")
+                DispatchQueue.main.async {
+                    NSApp.reply(toApplicationShouldTerminate: true)
+                }
             }
-            NSApp.reply(toApplicationShouldTerminate: true)
         }
 
         Logger.log("ClashX quit wait for clean up")
@@ -163,6 +169,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     func applicationWillTerminate(_ aNotification: Notification) {
         UserDefaults.standard.set(0, forKey: "launch_fail_times")
+        Logger.log("ClashX will terminate")
+        if NetworkChangeNotifier.isCurrentSystemSetToClash(looser: true) ||
+            NetworkChangeNotifier.hasInterfaceProxySetToClash() {
+            Logger.log("Need Reset Proxy Setting again",level: .error)
+            SystemProxyManager.shared.disableProxy()
+        }
     }
 
     func setupStatusMenuItemData() {
@@ -276,7 +288,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 ConfigManager.shared.isProxySetByOtherVariable.accept(!proxySetted)
                 if !proxySetted && ConfigManager.shared.proxyPortAutoSet {
                     let proxiesSetting = NetworkChangeNotifier.getRawProxySetting()
-                    Logger.log("Proxy changed by other process!, current:\(proxiesSetting)", level: .warning)
+                    Logger.log("Proxy changed by other process!, current:\(proxiesSetting), is Interface Set: \(NetworkChangeNotifier.hasInterfaceProxySetToClash())", level: .warning)
                 }
             }.disposed(by: disposeBag)
 
