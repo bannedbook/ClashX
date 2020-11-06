@@ -132,8 +132,8 @@ class NetworkChangeNotifier {
         }
 
         let key = SCDynamicStoreKeyCreateNetworkGlobalEntity(nil, kSCDynamicStoreDomainState, kSCEntNetDNS)
-        let dnsArr = SCDynamicStoreCopyValue(store, key) as? [String: [String]]
-        return dnsArr?[kSCPropNetDNSServerAddresses as String] ?? []
+        let dnsArr = SCDynamicStoreCopyValue(store, key) as? [String: Any]
+        return (dnsArr?[kSCPropNetDNSServerAddresses as String] as? [String]) ?? []
     }
 
     static func getPrimaryIPAddress(allowIPV6: Bool = false) -> String? {

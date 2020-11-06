@@ -13,7 +13,9 @@ class Logger {
     var fileLogger: DDFileLogger = DDFileLogger()
 
     private init() {
-        DDLog.add(DDOSLogger.sharedInstance)
+        #if DEBUG
+            DDLog.add(DDOSLogger.sharedInstance)
+        #endif
         fileLogger.rollingFrequency = TimeInterval(60 * 60 * 24) // 24 hours
         fileLogger.logFileManager.maximumNumberOfLogFiles = 3
         DDLog.add(fileLogger)
