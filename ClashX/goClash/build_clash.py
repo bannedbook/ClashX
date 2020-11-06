@@ -7,14 +7,14 @@ def get_version():
     with open('./go.mod') as file:
         for line in file.readlines():
             if "clash" in line and "ClashX" not in line:
-                return line.split(" ")[-1].strip()
+                return line.split("-")[-1].strip()[:6]
     return "unknown"
 
 
 def build_clash(version):
     build_time = datetime.datetime.now().strftime("%Y-%m-%d-%H%M")
     command = f"""CGO_CFLAGS=-mmacosx-version-min=10.12 \
-CGO_LDFLAGS=-mmacosx-version-min=10.10 \
+CGO_LDFLAGS=-mmacosx-version-min=10.12 \
 GOBUILD=CGO_ENABLED=0 \
 go build -ldflags '-X "github.com/Dreamacro/clash/constant.Version={version}" \
 -X "github.com/Dreamacro/clash/constant.BuildTime={build_time}"' \

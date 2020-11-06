@@ -77,6 +77,7 @@
 		F977FAAE23669D6400C17F1F /* ConnectionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F977FAAD23669D6400C17F1F /* ConnectionManager.swift */; };
 		F9A7C06C2306E874007163C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F9A7C06B2306E874007163C7 /* main.m */; };
 		F9C180A3243C6590005EE8C4 /* goClash.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F9C180A1243C6590005EE8C4 /* goClash.a */; };
+		F9E70A152555222F0009AED3 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F9E70A142555222F0009AED3 /* GoogleService-Info.plist */; };
 		F9E754D0239CC21F00CEE7CC /* WebPortalManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9E754CF239CC21F00CEE7CC /* WebPortalManager.swift */; };
 		F9E754D2239CC28D00CEE7CC /* NSAlert+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9E754D1239CC28D00CEE7CC /* NSAlert+Extension.swift */; };
 		F9E8F34623A12B89002DE5E8 /* String+Encode.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9E8F34523A12B89002DE5E8 /* String+Encode.swift */; };
@@ -203,6 +204,7 @@
 		F9A7C06B2306E874007163C7 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		F9C180A1243C6590005EE8C4 /* goClash.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = goClash.a; path = ClashX/goClash/goClash.a; sourceTree = SOURCE_ROOT; };
 		F9C180A2243C6590005EE8C4 /* goClash.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = goClash.h; path = ClashX/goClash/goClash.h; sourceTree = SOURCE_ROOT; };
+		F9E70A142555222F0009AED3 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		F9E754CF239CC21F00CEE7CC /* WebPortalManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebPortalManager.swift; sourceTree = "<group>"; };
 		F9E754D1239CC28D00CEE7CC /* NSAlert+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSAlert+Extension.swift"; sourceTree = "<group>"; };
 		F9E8F34523A12B89002DE5E8 /* String+Encode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Encode.swift"; sourceTree = "<group>"; };
@@ -349,6 +351,7 @@
 		49761DA521C9490400AE13EF /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				F9E70A142555222F0009AED3 /* GoogleService-Info.plist */,
 				4989F98320D02D200001E564 /* Country.mmdb */,
 				49761DA621C9497000AE13EF /* dashboard */,
 				4989F98D20D0AE990001E564 /* sampleConfig.yaml */,
@@ -486,7 +489,6 @@
 				49CF3B1B20CD7463001EBF94 /* Resources */,
 				A741C26F5755233F0D7CEC6F /* [CP] Embed Pods Frameworks */,
 				663E4677213FCDC4006F11BB /* Copy Files */,
-				4929F1E621BC170D0059D8B4 /* Run Script - Fabric */,
 				494ED8F023EB0B36008D5D2F /* Run Script - Sparkle */,
 			);
 			buildRules = (
@@ -570,6 +572,7 @@
 			files = (
 				49761DA721C9497000AE13EF /* dashboard in Resources */,
 				49CF3B2520CD7465001EBF94 /* Assets.xcassets in Resources */,
+				F9E70A152555222F0009AED3 /* GoogleService-Info.plist in Resources */,
 				4981C88B216BAE4A008CC14A /* Localizable.strings in Resources */,
 				495340B020DE5F7200B0D3FF /* StatusItemView.xib in Resources */,
 				49CF3B2820CD7465001EBF94 /* Main.storyboard in Resources */,
@@ -599,21 +602,6 @@
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
-		};
-		4929F1E621BC170D0059D8B4 /* Run Script - Fabric */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"$(BUILT_PRODUCTS_DIR)/$(INFOPLIST_PATH)",
-			);
-			name = "Run Script - Fabric";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "BUNDLE_ID=${PRODUCT_BUNDLE_IDENTIFIER}\nNORMAL_ID=\"com.west2online.ClashX\"\nif [ ${BUNDLE_ID} == ${NORMAL_ID} ] ; then\necho ${CONFIGURATION}\nif [ ${CONFIGURATION} = \"Release\" ];\nthen\n\n\"${PODS_ROOT}/Fabric/run\" e5990c61f53f0e5713e37f78458291760d631147 cf9c0c3d1632310f1e08fc6e07aedd6076855b99d2a08f9ff586c2894ae1602e\nfi\nelse\necho \"BundleID:${BUNDLE_ID} is not com.west2online.ClashX\"\nfi\n\n";
 		};
 		494ED8F023EB0B36008D5D2F /* Run Script - Sparkle */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -886,7 +874,7 @@
 				CODE_SIGN_IDENTITY = "Developer ID Application";
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 1.30.2;
+				CURRENT_PROJECT_VERSION = 1.31.1;
 				DEVELOPMENT_TEAM = MEWHFZ92DY;
 				ENABLE_HARDENED_RUNTIME = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -908,7 +896,7 @@
 					"$(PROJECT_DIR)/ClashX/goClash",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
-				MARKETING_VERSION = 1.30.2;
+				MARKETING_VERSION = 1.31.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.west2online.ClashX;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -929,7 +917,7 @@
 				CODE_SIGN_IDENTITY = "Developer ID Application";
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 1.30.2;
+				CURRENT_PROJECT_VERSION = 1.31.1;
 				DEVELOPMENT_TEAM = MEWHFZ92DY;
 				ENABLE_HARDENED_RUNTIME = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -951,7 +939,7 @@
 					"$(PROJECT_DIR)/ClashX/goClash",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
-				MARKETING_VERSION = 1.30.2;
+				MARKETING_VERSION = 1.31.1;
 				OTHER_CODE_SIGN_FLAGS = "--timestamp";
 				PRODUCT_BUNDLE_IDENTIFIER = com.west2online.ClashX;
 				PRODUCT_NAME = "$(TARGET_NAME)";

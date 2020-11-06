@@ -22,7 +22,7 @@ target 'ClashX' do
   pod 'WebViewJavascriptBridge'
   pod 'Starscream','3.1.1'
   pod 'AppCenter/Analytics'
-  pod 'Crashlytics'
+  pod 'Firebase/Crashlytics'
   pod 'Sparkle'
   pod "FlexibleDiff"
 end

@@ -14,8 +14,8 @@ import RxSwift
 
 import AppCenter
 import AppCenterAnalytics
-import Crashlytics
-import Fabric
+import Firebase
+
 
 private let statusItemLengthWithSpeed: CGFloat = 70
 
@@ -705,7 +705,7 @@ extension AppDelegate {
         #if DEBUG
             return
         #else
-            Fabric.with([Crashlytics.self])
+            FirebaseApp.configure()
             DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
                 MSAppCenter.start("dce6e9a3-b6e3-4fd2-9f2d-35c767a99663", withServices: [
                     MSAnalytics.self,
