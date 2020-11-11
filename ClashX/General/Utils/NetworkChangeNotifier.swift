@@ -96,7 +96,7 @@ class NetworkChangeNotifier {
         if let prefRef = SCPreferencesCreate(nil, "ClashX" as CFString, nil),
            let sets = SCPreferencesGetValue(prefRef, kSCPrefNetworkServices){
             for key in sets.allKeys {
-                let dict = sets.object(forKey: key) as? NSDictionary
+                let dict = sets[key] as? NSDictionary
                 let proxySettings = dict?["Proxies"] as? [String:Any]
                 if currentPort != nil {
                     if proxySettings?[kCFNetworkProxiesHTTPPort as String] as? Int == currentPort ||
