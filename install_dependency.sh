@@ -11,8 +11,8 @@ rm -f ./ClashX/Resources/Country.mmdb
 rm -rf ./ClashX/Resources/dashboard
 rm -f GeoLite2-Country.*
 echo "install mmdb"
-wget https://static.clash.to/GeoIP2/GeoIP2-Country.mmdb
-mv GeoIP2-Country.mmdb ./ClashX/Resources/Country.mmdb
+wget https://github.com/Dreamacro/maxmind-geoip/releases/latest/download/Country.mmdb
+mv Country.mmdb ./ClashX/Resources/Country.mmdb
 echo "install dashboard"
 cd ClashX/Resources
 git clone -b gh-pages https://github.com/Dreamacro/clash-dashboard.git dashboard
