@@ -45,13 +45,14 @@ class MenuItemFactory {
     }
 
     static func refreshMenuItems(mergedData proxyInfo: ClashProxyResp?) {
+        let leftPadding = AppDelegate.shared.hasMenuSelected()
         guard let proxyInfo = proxyInfo else { return }
         var menuItems = [NSMenuItem]()
         for proxy in proxyInfo.proxyGroups {
             var menu: NSMenuItem?
             switch proxy.type {
-            case .select: menu = generateSelectorMenuItem(proxyGroup: proxy, proxyInfo: proxyInfo)
-            case .urltest, .fallback: menu = generateUrlTestFallBackMenuItem(proxyGroup: proxy, proxyInfo: proxyInfo)
+            case .select: menu = generateSelectorMenuItem(proxyGroup: proxy, proxyInfo: proxyInfo, leftPadding: leftPadding)
+            case .urltest, .fallback: menu = generateUrlTestFallBackMenuItem(proxyGroup: proxy, proxyInfo: proxyInfo, leftPadding: leftPadding)
             case .loadBalance:
                 menu = generateLoadBalanceMenuItem(proxyGroup: proxy, proxyInfo: proxyInfo)
             case .relay:
@@ -106,7 +107,9 @@ class MenuItemFactory {
     // MARK: Generators
 
     private static func generateSelectorMenuItem(proxyGroup: ClashProxy,
-                                                 proxyInfo: ClashProxyResp) -> NSMenuItem? {
+                                                 proxyInfo: ClashProxyResp,
+                                                 leftPadding: Bool) -> NSMenuItem?
+    {
         let proxyMap = proxyInfo.proxiesMap
 
         let isGlobalMode = ConfigManager.shared.currentConfig?.mode == .global
@@ -117,7 +120,7 @@ class MenuItemFactory {
         let menu = NSMenuItem(title: proxyGroup.name, action: nil, keyEquivalent: "")
         let selectedName = proxyGroup.now ?? ""
         if !ConfigManager.shared.disableShowCurrentProxyInMenu {
-            menu.view = ProxyGroupMenuItemView(group: proxyGroup.name, targetProxy: selectedName)
+            menu.view = ProxyGroupMenuItemView(group: proxyGroup.name, targetProxy: selectedName, hasLeftPadding: leftPadding)
         }
         let submenu = ProxyGroupMenu(title: proxyGroup.name)
 
@@ -137,18 +140,18 @@ class MenuItemFactory {
 
         addSpeedTestMenuItem(submenu, proxyGroup: proxyGroup)
         menu.submenu = submenu
-        if !ConfigManager.shared.disableShowCurrentProxyInMenu {
-            menu.view = ProxyGroupMenuItemView(group: proxyGroup.name, targetProxy: selectedName)
-        }
         return menu
     }
 
-    private static func generateUrlTestFallBackMenuItem(proxyGroup: ClashProxy, proxyInfo: ClashProxyResp) -> NSMenuItem? {
+    private static func generateUrlTestFallBackMenuItem(proxyGroup: ClashProxy,
+                                                        proxyInfo: ClashProxyResp,
+                                                        leftPadding: Bool) -> NSMenuItem?
+    {
         let proxyMap = proxyInfo.proxiesMap
         let selectedName = proxyGroup.now ?? ""
         let menu = NSMenuItem(title: proxyGroup.name, action: nil, keyEquivalent: "")
         if !ConfigManager.shared.disableShowCurrentProxyInMenu {
-            menu.view = ProxyGroupMenuItemView(group: proxyGroup.name, targetProxy: selectedName)
+            menu.view = ProxyGroupMenuItemView(group: proxyGroup.name, targetProxy: selectedName, hasLeftPadding: leftPadding)
         }
         let submenu = NSMenu(title: proxyGroup.name)
 

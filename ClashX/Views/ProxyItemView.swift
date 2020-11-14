@@ -20,7 +20,11 @@ class ProxyItemView: MenuItemBaseView {
         delayLabel = VibrancyTextField(labelWithString: "").setup(allowsVibrancy: false)
         let cell = PaddedNSTextFieldCell()
         cell.widthPadding = 2
-        cell.heightPadding = 1
+        if #available(macOS 11, *) {
+            cell.heightPadding = 2
+        } else {
+            cell.heightPadding = 1
+        }
         delayLabel.cell = cell
         super.init(autolayout: false)
         effectView.addSubview(nameLabel)
@@ -30,7 +34,11 @@ class ProxyItemView: MenuItemBaseView {
         delayLabel.translatesAutoresizingMaskIntoConstraints = false
 
         nameLabel.font = type(of: self).labelFont
-        delayLabel.font = NSFont.monospacedDigitSystemFont(ofSize: 10, weight: .medium)
+        if #available(macOS 11, *) {
+            delayLabel.font = NSFont.monospacedDigitSystemFont(ofSize: 9, weight: .medium)
+        } else {
+            delayLabel.font = NSFont.monospacedDigitSystemFont(ofSize: 10, weight: .medium)
+        }
         nameLabel.alignment = .left
         delayLabel.alignment = .right
 
@@ -45,13 +53,13 @@ class ProxyItemView: MenuItemBaseView {
         super.layout()
         nameLabel.sizeToFit()
         delayLabel.sizeToFit()
-        imageView?.frame = CGRect(x: 5, y: bounds.height / 2 - 6, width: 12, height: 12)
+        imageView?.frame = CGRect(x: 5, y: effectView.bounds.height / 2 - 6, width: 12, height: 12)
         nameLabel.frame = CGRect(x: 18,
-                                 y: (bounds.height - nameLabel.bounds.height) / 2,
+                                 y: (effectView.bounds.height - nameLabel.bounds.height) / 2,
                                  width: nameLabel.bounds.width,
                                  height: nameLabel.bounds.height)
-        delayLabel.frame = CGRect(x: bounds.width - delayLabel.bounds.width - 8,
-                                  y: (bounds.height - delayLabel.bounds.height) / 2,
+        delayLabel.frame = CGRect(x: effectView.bounds.width - delayLabel.bounds.width - 8,
+                                  y: (effectView.bounds.height - delayLabel.bounds.height) / 2,
                                   width: delayLabel.bounds.width,
                                   height: delayLabel.bounds.height)
     }
@@ -77,7 +85,13 @@ class ProxyItemView: MenuItemBaseView {
     func update(selected: Bool) {
         if selected {
             if imageView == nil {
-                imageView = NSImageView(image: NSImage(named: NSImage.menuOnStateTemplateName)!)
+                let image: NSImage
+                if #available(OSX 11.0, *) {
+                    image = NSImage(named: NSImage.menuOnStateTemplateName)!.withSymbolConfiguration(NSImage.SymbolConfiguration(pointSize: 13, weight: .bold, scale: .small))!
+                } else {
+                    image = NSImage(named: NSImage.menuOnStateTemplateName)!
+                }
+                imageView = NSImageView(image: image)
                 imageView?.translatesAutoresizingMaskIntoConstraints = false
                 effectView.addSubview(imageView!)
             }
