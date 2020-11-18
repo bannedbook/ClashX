@@ -15,8 +15,7 @@ def build_clash(version):
     build_time = datetime.datetime.now().strftime("%Y-%m-%d-%H%M")
     command = f"""CGO_CFLAGS=-mmacosx-version-min=10.12 \
 CGO_LDFLAGS=-mmacosx-version-min=10.12 \
-GOBUILD=CGO_ENABLED=0 \
-go build -ldflags '-X "github.com/Dreamacro/clash/constant.Version={version}" \
+go build -trimpath -ldflags '-X "github.com/Dreamacro/clash/constant.Version={version}" \
 -X "github.com/Dreamacro/clash/constant.BuildTime={build_time}"' \
 -buildmode=c-archive -o goClash.a """
     subprocess.check_output(command, shell=True)
