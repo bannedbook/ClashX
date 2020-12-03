@@ -1,10 +1,15 @@
 #!/bin/bash
-set -eu
+set -e
 echo "Build Clash core"
-cd ClashX/goClash
-python3 build_clash.py
+
+if [ "$1" = "skip-build-go" ]; then
+    echo "skip build go"
+else
+    cd ClashX/goClash
+    python3 build_clash.py
+    cd ../..
+fi
 echo "Pod install"
-cd ../..
 pod install
 echo "delete old files"
 rm -f ./ClashX/Resources/Country.mmdb

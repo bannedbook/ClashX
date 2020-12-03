@@ -30,6 +30,16 @@ fastlane beta
 fastlane addKeyChain
 ```
 
+### setARM
+```
+fastlane setARM
+```
+
+### setUniversal
+```
+fastlane setUniversal
+```
+
 
 ----
 
