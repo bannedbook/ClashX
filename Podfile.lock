@@ -6,27 +6,27 @@ PODS:
   - CocoaLumberjack/Core (3.7.0)
   - CocoaLumberjack/Swift (3.7.0):
     - CocoaLumberjack/Core
-  - Firebase/CoreOnly (7.1.0):
-    - FirebaseCore (= 7.1.0)
-  - Firebase/Crashlytics (7.1.0):
+  - Firebase/CoreOnly (7.2.0):
+    - FirebaseCore (= 7.2.0)
+  - Firebase/Crashlytics (7.2.0):
     - Firebase/CoreOnly
-    - FirebaseCrashlytics (~> 7.1.0)
-  - FirebaseCore (7.1.0):
+    - FirebaseCrashlytics (~> 7.2.0)
+  - FirebaseCore (7.2.0):
     - FirebaseCoreDiagnostics (~> 7.0)
     - GoogleUtilities/Environment (~> 7.0)
     - GoogleUtilities/Logger (~> 7.0)
-  - FirebaseCoreDiagnostics (7.1.0):
+  - FirebaseCoreDiagnostics (7.2.0):
     - GoogleDataTransport (~> 8.0)
     - GoogleUtilities/Environment (~> 7.0)
     - GoogleUtilities/Logger (~> 7.0)
     - nanopb (~> 2.30906.0)
-  - FirebaseCrashlytics (7.1.0):
+  - FirebaseCrashlytics (7.2.0):
     - FirebaseCore (~> 7.0)
     - FirebaseInstallations (~> 7.0)
     - GoogleDataTransport (~> 8.0)
     - nanopb (~> 2.30906.0)
     - PromisesObjC (~> 1.2)
-  - FirebaseInstallations (7.1.0):
+  - FirebaseInstallations (7.2.0):
     - FirebaseCore (~> 7.0)
     - GoogleUtilities/Environment (~> 7.0)
     - GoogleUtilities/UserDefaults (~> 7.0)
@@ -34,11 +34,11 @@ PODS:
   - FlexibleDiff (0.0.8)
   - GoogleDataTransport (8.0.1):
     - nanopb (~> 2.30906.0)
-  - GoogleUtilities/Environment (7.1.0):
+  - GoogleUtilities/Environment (7.1.1):
     - PromisesObjC (~> 1.2)
-  - GoogleUtilities/Logger (7.1.0):
+  - GoogleUtilities/Logger (7.1.1):
     - GoogleUtilities/Environment
-  - GoogleUtilities/UserDefaults (7.1.0):
+  - GoogleUtilities/UserDefaults (7.1.1):
     - GoogleUtilities/Logger
   - LetsMove (1.25)
   - nanopb (2.30906.0):
@@ -53,7 +53,7 @@ PODS:
   - RxRelay (5.1.1):
     - RxSwift (~> 5)
   - RxSwift (5.1.1)
-  - Sparkle (1.23.0)
+  - Sparkle (1.24.0)
   - Starscream (3.1.1)
   - SwiftyJSON (5.0.0)
   - WebViewJavascriptBridge (6.0.3)
@@ -73,7 +73,7 @@ DEPENDENCIES:
   - WebViewJavascriptBridge
 
 SPEC REPOS:
-  https://cdn.cocoapods.org/:
+  trunk:
     - Alamofire
     - AppCenter
     - CocoaLumberjack
@@ -100,25 +100,25 @@ SPEC CHECKSUMS:
   Alamofire: 3b6a534a3df22db367e4dedeeca73d1ddfcf0e2f
   AppCenter: 51351e0121e40ba75e28ecb7de5c2e69d480df5e
   CocoaLumberjack: e8955b9d337ac307103b0a34fd141c32f27e53c5
-  Firebase: 78e8dd2e39d653de6270432ad84fe8b59f7bf4e8
-  FirebaseCore: 20046127eef0fcb8fa25df7fc12f7b97d4e48611
-  FirebaseCoreDiagnostics: 872cdb9b749b23346dddd5c1014d1babd2257de3
-  FirebaseCrashlytics: c722e4ca283272eb90eb5bc245fdc6588e2f22c2
-  FirebaseInstallations: 3de38553e86171b5f81d83cdeef63473d37bfdb0
+  Firebase: 456eeacc158d8c58586b7871619a81bb9f27d4ae
+  FirebaseCore: c959e8a598f83125c01c1700d9161b236ab3833c
+  FirebaseCoreDiagnostics: 2d508e12e77e9691ca67d1669b91ee80f0985b29
+  FirebaseCrashlytics: 8afbf6e9c3731adee0e721870c9e7b40b0e8fd44
+  FirebaseInstallations: 9ab3a9a6522e687f59ff9bcfd92949ac85073f3c
   FlexibleDiff: 4f487778bd152088a9528a0a9be06eba7952bb00
   GoogleDataTransport: e4085e6762f36a6141738f46b0153473ce57fb18
-  GoogleUtilities: f734da554aade8cc7928a31c2f3311897933a1bd
+  GoogleUtilities: 3dc4ff0d5e4840e2fa8eef0889620e8c33d4218c
   LetsMove: 7b9fe44737707d984fbd3f47af46609a9a07b461
   nanopb: 1bf24dd71191072e120b83dd02d08f3da0d65e53
   PromisesObjC: 8c196f5a328c2cba3e74624585467a557dcb482f
   RxCocoa: 32065309a38d29b5b0db858819b5bf9ef038b601
   RxRelay: d77f7d771495f43c556cbc43eebd1bb54d01e8e9
   RxSwift: 81470a2074fa8780320ea5fe4102807cb7118178
-  Sparkle: 55b1a87ba69d56913375a281546b7c82dec95bb0
+  Sparkle: 270cd27377bf04e9c128af06e3a22d0f572d6ee3
   Starscream: 4bb2f9942274833f7b4d296a55504dcfc7edb7b0
   SwiftyJSON: 36413e04c44ee145039d332b4f4e2d3e8d6c4db7
   WebViewJavascriptBridge: 7f5bc4d3581e672e8f32bd0f812d54bc69bb8e29
 
 PODFILE CHECKSUM: 55231dc4c252f6cb913256ff99a4df3a110a7ead
 
-COCOAPODS: 1.7.5
+COCOAPODS: 1.10.0
