@@ -155,9 +155,15 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 DispatchQueue.main.asyncAfter(deadline: .now()+0.2) {
                     NSApp.reply(toApplicationShouldTerminate: true)
                 }
+                DispatchQueue.global().asyncAfter(deadline: .now()+1) {
+                    NSApp.reply(toApplicationShouldTerminate: true)
+                }
             case .timedOut:
                 Logger.log("ClashX quit after clean up timeout")
                 DispatchQueue.main.async {
+                    NSApp.reply(toApplicationShouldTerminate: true)
+                }
+                DispatchQueue.global().asyncAfter(deadline: .now()+1) {
                     NSApp.reply(toApplicationShouldTerminate: true)
                 }
             }

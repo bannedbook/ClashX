@@ -40,14 +40,19 @@ func checkPortAvailable(port int) bool {
 	addr := ":"
 	l, err := net.Listen("tcp", addr+strconv.Itoa(port))
 	if err != nil {
-		return false
-	}
-	addr = "127.0.0.1:"
-	l, err = net.Listen("tcp", addr+strconv.Itoa(port))
-	if err != nil {
+		log.Warnln("check port fail 0.0.0.0:%d", port)
 		return false
 	}
 	_ = l.Close()
+
+	addr = "127.0.0.1:"
+	l, err = net.Listen("tcp", addr+strconv.Itoa(port))
+	if err != nil {
+		log.Warnln("check port fail 127.0.0.1:%d", port)
+		return false
+	}
+	_ = l.Close()
+	log.Infoln("check port %d success", port)
 	return true
 }
 
