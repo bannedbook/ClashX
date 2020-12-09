@@ -61,7 +61,7 @@ extension ClashResourceManager {
     }
 
     @objc private static func updateGeoIP() {
-        let url = " https://github.com/Dreamacro/maxmind-geoip/releases/latest/download/Country.mmdb"
+        let url = "https://github.com/Dreamacro/maxmind-geoip/releases/latest/download/Country.mmdb"
         AF.download(url) { (_, _) -> (destinationURL: URL, options: DownloadRequest.Options) in
             let path = kConfigFolderPath.appending("/Country.mmdb")
             return (URL(fileURLWithPath: path), .removePreviousFile)
