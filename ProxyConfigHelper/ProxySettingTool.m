@@ -9,10 +9,7 @@
 #import "ProxySettingTool.h"
 #import <SystemConfiguration/SystemConfiguration.h>
 #import <AppKit/AppKit.h>
-
-#include <unistd.h>
-#include <sys/types.h>
-#include <pwd.h>
+#import "CommonUtils.h"
 
 @interface ProxySettingTool()
 @property (nonatomic, assign) AuthorizationRef authRef;
@@ -108,25 +105,16 @@
 
 
 + (NSString *)getUserHomePath {
-    SCDynamicStoreRef store = SCDynamicStoreCreate(NULL, CFSTR("com.west2online.ClashX.ProxyConfigHelper"), NULL, NULL);
-    CFStringRef CopyCurrentConsoleUsername(SCDynamicStoreRef store);
-    CFStringRef result;
-    uid_t uid;
-    result = SCDynamicStoreCopyConsoleUser(store, &uid, NULL);
-    if ((result != NULL) && CFEqual(result, CFSTR("loginwindow"))) {
-        CFRelease(result);
-        result = NULL;
-        CFRelease(store);
+    NSString *userName = [CommonUtils runCommand:@"/usr/bin/stat" args:@[@"-f",@"%Su",@"/dev/console"]];
+    userName = [userName stringByTrimmingCharactersInSet:[NSCharacterSet newlineCharacterSet]];
+    if (!userName) {
         return nil;
     }
-    if (result != NULL) {
-        CFRelease(result);
-        result = NULL;
+    NSString *path = [NSString stringWithFormat:@"/Users/%@", userName];
+    if([NSFileManager.defaultManager fileExistsAtPath:path]) {
+        return path;
     }
-    CFRelease(store);
-    char *dir = getpwuid(uid)->pw_dir;
-    NSString *path = [NSString stringWithUTF8String:dir];
-    return path;
+    return nil;
 }
 
 
@@ -252,41 +240,6 @@
     | kAuthorizationFlagPreAuthorize;
     return authFlags;
 }
-
-/*
-- (NSString *)setupAuth:(NSData *)authData {
-    if (authData.length == 0 || authData.length != kAuthorizationExternalFormLength) {
-        return @"PrivilegedTaskRunnerHelper: Authorization data is malformed";
-    }
-    AuthorizationRef authRef;
-    
-    OSStatus status = AuthorizationCreateFromExternalForm([authData bytes],&authRef);
-    if (status != errAuthorizationSuccess) {
-        return @"AuthorizationCreateFromExternalForm fail";
-    }
-    
-    NSString *authName = @"com.west2online.ClashX.ProxyConfigHelper.config";
-    AuthorizationItem authItem = {authName.UTF8String, 0, NULL, 0};
-    AuthorizationRights authRight = {1, &authItem};
-    
-    AuthorizationFlags authFlags = [self authFlags];
-    
-    status = AuthorizationCopyRights(authRef, &authRight, nil, authFlags, nil);
-    if (status != errAuthorizationSuccess) {
-        AuthorizationFree(authRef, authFlags);
-        return @"AuthorizationCopyRights fail";
-    }
-    
-    OSStatus authErr = AuthorizationCreate(nil, kAuthorizationEmptyEnvironment, authFlags, &authRef);
-    
-    if (authErr != noErr) {
-        AuthorizationFree(authRef, authFlags);
-        return @"AuthorizationCreate fail";
-    }
-    self.authRef = authRef;
-    return nil;
-}
- */
 
 - (void)localAuth {
     OSStatus myStatus;

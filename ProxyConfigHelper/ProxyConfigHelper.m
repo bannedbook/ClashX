@@ -91,15 +91,19 @@ ProxyConfigRemoteProcessProtocol
 - (void)enableProxyWithPort:(int)port
                   socksPort:(int)socksPort
                       error:(stringReplyBlock)reply {
-    ProxySettingTool *tool = [ProxySettingTool new];
-    [tool enableProxyWithport:port socksPort:socksPort];
-    reply(nil);
+    dispatch_async(dispatch_get_main_queue(), ^{
+        ProxySettingTool *tool = [ProxySettingTool new];
+        [tool enableProxyWithport:port socksPort:socksPort];
+        reply(nil);
+    });
 }
 
 - (void)disableProxy:(stringReplyBlock)reply {
-    ProxySettingTool *tool = [ProxySettingTool new];
-    [tool disableProxy];
-    reply(nil);
+    dispatch_async(dispatch_get_main_queue(), ^{
+        ProxySettingTool *tool = [ProxySettingTool new];
+        [tool disableProxy];
+        reply(nil);
+    });
 }
 
 
@@ -107,14 +111,18 @@ ProxyConfigRemoteProcessProtocol
                           socksPort:(int)socksPort
                                info:(NSDictionary *)dict
                               error:(stringReplyBlock)reply {
-    ProxySettingTool *tool = [ProxySettingTool new];
-    [tool restoreProxySettint:dict currentPort:port currentSocksPort:socksPort];
-    reply(nil);
+    dispatch_async(dispatch_get_main_queue(), ^{
+        ProxySettingTool *tool = [ProxySettingTool new];
+        [tool restoreProxySettint:dict currentPort:port currentSocksPort:socksPort];
+        reply(nil);
+    });
 }
 
 - (void)getCurrentProxySetting:(dictReplyBlock)reply {
-    NSDictionary *info = [ProxySettingTool currentProxySettings];
-    reply(info);
+    dispatch_async(dispatch_get_main_queue(), ^{
+        NSDictionary *info = [ProxySettingTool currentProxySettings];
+        reply(info);
+    });
 }
 
 
