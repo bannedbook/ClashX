@@ -268,6 +268,29 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 }
 
             }.disposed(by: disposeBag)
+        
+        if !PrivilegedHelperManager.shared.isHelperCheckFinished.value &&
+            ConfigManager.shared.proxyPortAutoSet {
+            PrivilegedHelperManager.shared.isHelperCheckFinished
+                .filter({$0})
+                .take(1)
+                .takeWhile{_ in ConfigManager.shared.proxyPortAutoSet}
+                .observeOn(MainScheduler.instance)
+                .subscribe { _ in
+                    SystemProxyManager.shared.enableProxy()
+                }.disposed(by: disposeBag)
+        }
+        
+        if !PrivilegedHelperManager.shared.isHelperCheckFinished.value {
+            proxySettingMenuItem.target = nil
+            PrivilegedHelperManager.shared.isHelperCheckFinished
+                .filter({$0})
+                .take(1)
+                .subscribe { [weak self] _ in
+                    guard let self = self else { return }
+                    self.proxySettingMenuItem.target = self
+                }.disposed(by: disposeBag)
+        }
     }
 
     func checkOnlyOneClashX() {

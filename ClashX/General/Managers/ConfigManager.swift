@@ -66,7 +66,7 @@ class ConfigManager {
         }
     }
 
-    var isRunningVariable = BehaviorRelay<Bool>(value: false)
+    let isRunningVariable = BehaviorRelay<Bool>(value: false)
 
     var proxyPortAutoSet: Bool {
         get {

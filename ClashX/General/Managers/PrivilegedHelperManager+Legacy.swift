@@ -58,6 +58,7 @@ extension PrivilegedHelperManager {
     func legacyInstallHelper() {
         defer {
             resetConnection()
+            Thread.sleep(forTimeInterval: 1)
         }
         let script = getInstallScript()
         let tmpPath = FileManager.default.temporaryDirectory.appendingPathComponent(NSUUID().uuidString).appendingPathExtension("sh")
@@ -74,5 +75,6 @@ extension PrivilegedHelperManager {
         } catch let err {
             Logger.log("legacyInstallHelper create script fail: \(err)")
         }
+        try? FileManager.default.removeItem(at: tmpPath)
     }
 }
