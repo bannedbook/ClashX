@@ -32,7 +32,8 @@ class ClashResourceManager {
         if fileManage.fileExists(atPath: destMMDBPath) {
             let vaild = verifyGEOIPDataBase().toBool()
             let versionChange = AppVersionUtil.hasVersionChanged || AppVersionUtil.isFirstLaunch
-            if !vaild || versionChange {
+            let customMMDBSet = !Settings.mmdbDownloadUrl.isEmpty
+            if !vaild || (versionChange && customMMDBSet) {
                 try? fileManage.removeItem(atPath: destMMDBPath)
             }
         }
@@ -67,21 +68,47 @@ extension ClashResourceManager {
     }
 
     @objc private static func updateGeoIP() {
-        let url = "https://github.com/Dreamacro/maxmind-geoip/releases/latest/download/Country.mmdb"
-        AF.download(url) { (_, _) -> (destinationURL: URL, options: DownloadRequest.Options) in
+        guard let url = showCustomAlert() else { return }
+        AF.download(url, to:  { (_, _) in
             let path = kConfigFolderPath.appending("/Country.mmdb")
             return (URL(fileURLWithPath: path), .removePreviousFile)
-        }.response { res in
-            let title = NSLocalizedString("Update GEOIP Database", comment: "")
-            let info: String
+        }).response { res in
+            var info: String
             switch res.result {
             case .success:
                 info = NSLocalizedString("Success!", comment: "")
+                Logger.log("update success")
             case let .failure(err):
                 info = NSLocalizedString("Fail:", comment: "") + err.localizedDescription
+                Logger.log("update fail \(err)")
             }
-            NSUserNotificationCenter.default.post(title: title, info: info)
-            checkMMDB()
+            if !verifyGEOIPDataBase().toBool() {
+                info = "Database verify fail"
+                checkMMDB()
+            }
+            let alert = NSAlert()
+            alert.messageText = NSLocalizedString("Update GEOIP Database", comment: "")
+            alert.informativeText = info
+            alert.runModal()
         }
+    }
+    
+    private static func showCustomAlert() -> String? {
+        let alert = NSAlert()
+        alert.messageText = NSLocalizedString("Custom your GEOIP MMDB download address.", comment: "")
+        let inputView = NSTextField(frame: NSRect(x: 0, y: 0, width: 250, height: 24))
+        inputView.placeholderString =  "https://github.com/Dreamacro/maxmind-geoip/releases/latest/download/Country.mmdb"
+        inputView.stringValue = Settings.mmdbDownloadUrl
+        alert.accessoryView = inputView
+        alert.addButton(withTitle: NSLocalizedString("OK", comment: ""))
+        alert.addButton(withTitle: NSLocalizedString("Cancel", comment: ""))
+        if alert.runModal() == .alertFirstButtonReturn {
+            if inputView.stringValue.isEmpty {
+                return inputView.placeholderString
+            }
+            Settings.mmdbDownloadUrl = inputView.stringValue
+            return inputView.stringValue
+        }
+        return nil
     }
 }

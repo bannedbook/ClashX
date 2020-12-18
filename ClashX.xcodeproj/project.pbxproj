@@ -13,6 +13,8 @@
 		491E6300258AEE3300313AEF /* AppIcon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 491E62FF258AEE3300313AEF /* AppIcon.icns */; };
 		4929F610258CD22E00A435F6 /* menu_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4929F60F258CD22E00A435F6 /* menu_icon@2x.png */; };
 		4929F677258CD89B00A435F6 /* Country.mmdb.gz in Resources */ = {isa = PBXBuildFile; fileRef = 4929F676258CD89B00A435F6 /* Country.mmdb.gz */; };
+		4929F67F258CE04700A435F6 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4929F67E258CE04700A435F6 /* Settings.swift */; };
+		4929F684258CE07500A435F6 /* UserDefaultWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4929F683258CE07500A435F6 /* UserDefaultWrapper.swift */; };
 		492C4869210EE6B9004554A0 /* ApiRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 492C4868210EE6B9004554A0 /* ApiRequest.swift */; };
 		492C4871210EF62E004554A0 /* ClashConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 492C4870210EF62E004554A0 /* ClashConfig.swift */; };
 		493A9F282453E60400D35296 /* ProxyDelayHistoryMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493A9F272453E60400D35296 /* ProxyDelayHistoryMenu.swift */; };
@@ -127,6 +129,8 @@
 		491E62FF258AEE3300313AEF /* AppIcon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = AppIcon.icns; sourceTree = "<group>"; };
 		4929F60F258CD22E00A435F6 /* menu_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "menu_icon@2x.png"; sourceTree = "<group>"; };
 		4929F676258CD89B00A435F6 /* Country.mmdb.gz */ = {isa = PBXFileReference; lastKnownFileType = archive.gzip; path = Country.mmdb.gz; sourceTree = "<group>"; };
+		4929F67E258CE04700A435F6 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
+		4929F683258CE07500A435F6 /* UserDefaultWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefaultWrapper.swift; sourceTree = "<group>"; };
 		492C4868210EE6B9004554A0 /* ApiRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiRequest.swift; sourceTree = "<group>"; };
 		492C4870210EF62E004554A0 /* ClashConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClashConfig.swift; sourceTree = "<group>"; };
 		493A9F272453E60400D35296 /* ProxyDelayHistoryMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProxyDelayHistoryMenu.swift; sourceTree = "<group>"; };
@@ -288,6 +292,7 @@
 				49B4575E244FD4D100463C39 /* PrivilegedHelperManager+Legacy.swift */,
 				49BB31E6246853EA008A4CB0 /* iCloudManager.swift */,
 				499ADAFC2498CC5900C488FE /* RemoteControlManager.swift */,
+				4929F67E258CE04700A435F6 /* Settings.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -336,6 +341,7 @@
 		49722FDD211ED2A900650A41 /* Vendor */ = {
 			isa = PBXGroup;
 			children = (
+				4929F683258CE07500A435F6 /* UserDefaultWrapper.swift */,
 				F976275D23634F18000EDEFE /* LoginServiceKit */,
 				49722FE9211F338B00650A41 /* Witness */,
 			);
@@ -667,6 +673,7 @@
 				495340B320DE68C300B0D3FF /* StatusItemView.swift in Sources */,
 				F935B2FC23085515009E4D33 /* SystemProxyManager.swift in Sources */,
 				495A44D320D267D000888A0A /* LaunchAtLogin.swift in Sources */,
+				4929F67F258CE04700A435F6 /* Settings.swift in Sources */,
 				493AEAE3221AE3420016FE98 /* AppVersionUtil.swift in Sources */,
 				49CF3B2120CD7463001EBF94 /* AppDelegate.swift in Sources */,
 				496BDEE021196F1E00C5207F /* Logger.swift in Sources */,
@@ -711,6 +718,7 @@
 				F939724C23A4B33500FE5A3F /* ClashProvider.swift in Sources */,
 				49862FA0218418C600A1D5EC /* ClashRule.swift in Sources */,
 				49C9EF64223E78F5005D8B6A /* ClashProxy.swift in Sources */,
+				4929F684258CE07500A435F6 /* UserDefaultWrapper.swift in Sources */,
 				F9E8F34623A12B89002DE5E8 /* String+Encode.swift in Sources */,
 				49B445162457CDF000B27E3E /* ClashStatusTool.swift in Sources */,
 			);
