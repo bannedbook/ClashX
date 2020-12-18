@@ -2,9 +2,6 @@ name: ClashX
 
 on: [push]
 
-env:
-  DEVELOPER_DIR: /Applications/Xcode_12.2.app
-
 jobs:
   build:
     runs-on: macOS-latest
@@ -13,7 +10,7 @@ jobs:
     - name: import certs
       run: |
         echo `/usr/bin/xcodebuild -version`
-        openssl aes-256-cbc -k  "${{ secrets.ENCRYPTION_SECRET }}" -in ".github/certs/dist.p12.enc" -d -a -out ".github/certs/dist.p12"
+        openssl aes-256-cbc -k  "${{ secrets.ENCRYPTION_SECRET }}" -in ".github/certs/dist.p12.enc" -d -a -out ".github/certs/dist.p12" -md md5
         gem install bundler:1.16.2
         bundle install
 

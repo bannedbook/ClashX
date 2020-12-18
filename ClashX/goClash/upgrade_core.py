@@ -1,7 +1,7 @@
 import subprocess
 import os
 import re
-from build_clash import get_version
+from build_clash import get_full_version
 from build_clash import build_clash
 
 
@@ -19,10 +19,10 @@ def install():
 
 if __name__ == '__main__':
     print("start")
-    current = get_version()
+    current = get_full_version()
     print("current version:", current)
     upgrade_version(current)
     install()
-    new_version = get_version()
+    new_version = get_full_version()
     print("new version:", new_version, ",start building")
     build_clash(new_version)
