@@ -40,6 +40,7 @@ PODS:
     - GoogleUtilities/Environment
   - GoogleUtilities/UserDefaults (7.1.1):
     - GoogleUtilities/Logger
+  - GzipSwift (5.1.1)
   - LetsMove (1.25)
   - nanopb (2.30906.0):
     - nanopb/decode (= 2.30906.0)
@@ -64,6 +65,7 @@ DEPENDENCIES:
   - CocoaLumberjack/Swift
   - Firebase/Crashlytics
   - FlexibleDiff
+  - GzipSwift
   - LetsMove
   - RxCocoa
   - RxSwift
@@ -85,6 +87,7 @@ SPEC REPOS:
     - FlexibleDiff
     - GoogleDataTransport
     - GoogleUtilities
+    - GzipSwift
     - LetsMove
     - nanopb
     - PromisesObjC
@@ -108,6 +111,7 @@ SPEC CHECKSUMS:
   FlexibleDiff: 4f487778bd152088a9528a0a9be06eba7952bb00
   GoogleDataTransport: e4085e6762f36a6141738f46b0153473ce57fb18
   GoogleUtilities: 3dc4ff0d5e4840e2fa8eef0889620e8c33d4218c
+  GzipSwift: 893f3e48e597a1a4f62fafcb6514220fcf8287fa
   LetsMove: 7b9fe44737707d984fbd3f47af46609a9a07b461
   nanopb: 1bf24dd71191072e120b83dd02d08f3da0d65e53
   PromisesObjC: 8c196f5a328c2cba3e74624585467a557dcb482f
@@ -119,6 +123,6 @@ SPEC CHECKSUMS:
   SwiftyJSON: 36413e04c44ee145039d332b4f4e2d3e8d6c4db7
   WebViewJavascriptBridge: 7f5bc4d3581e672e8f32bd0f812d54bc69bb8e29
 
-PODFILE CHECKSUM: 097e65533bd84d0c1170c874d90bacda05104fdf
+PODFILE CHECKSUM: d6ece76d1a4da4d5fd758acd8da66fbab5336d69
 
 COCOAPODS: 1.10.0

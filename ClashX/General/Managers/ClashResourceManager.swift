@@ -2,6 +2,7 @@
 import Alamofire
 import AppKit
 import Foundation
+import Gzip
 
 class ClashResourceManager {
     static func check() -> Bool {
@@ -37,8 +38,13 @@ class ClashResourceManager {
         }
 
         if !fileManage.fileExists(atPath: destMMDBPath) {
-            if let mmdbPath = Bundle.main.path(forResource: "Country", ofType: "mmdb") {
-                try? fileManage.copyItem(at: URL(fileURLWithPath: mmdbPath), to: URL(fileURLWithPath: destMMDBPath))
+            if let mmdbUrl = Bundle.main.url(forResource: "Country.mmdb", withExtension: "gz") {
+                do {
+                    let data = try Data(contentsOf: mmdbUrl).gunzipped()
+                    try data.write(to: URL(fileURLWithPath: destMMDBPath))
+                } catch let err {
+                    Logger.log("add mmdb fail:\(err)", level: .error)
+                }
             }
         }
     }

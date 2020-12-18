@@ -30,5 +30,6 @@ target 'ClashX' do
   pod 'Firebase/Crashlytics'
   pod 'Sparkle'
   pod "FlexibleDiff"
+  pod 'GzipSwift'
 end
 

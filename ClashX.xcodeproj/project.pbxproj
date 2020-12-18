@@ -12,6 +12,7 @@
 		491E6203258A424D00313AEF /* CommonUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 491E61FD258A424500313AEF /* CommonUtils.m */; };
 		491E6300258AEE3300313AEF /* AppIcon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 491E62FF258AEE3300313AEF /* AppIcon.icns */; };
 		4929F610258CD22E00A435F6 /* menu_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4929F60F258CD22E00A435F6 /* menu_icon@2x.png */; };
+		4929F677258CD89B00A435F6 /* Country.mmdb.gz in Resources */ = {isa = PBXBuildFile; fileRef = 4929F676258CD89B00A435F6 /* Country.mmdb.gz */; };
 		492C4869210EE6B9004554A0 /* ApiRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 492C4868210EE6B9004554A0 /* ApiRequest.swift */; };
 		492C4871210EF62E004554A0 /* ClashConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 492C4870210EF62E004554A0 /* ClashConfig.swift */; };
 		493A9F282453E60400D35296 /* ProxyDelayHistoryMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493A9F272453E60400D35296 /* ProxyDelayHistoryMenu.swift */; };
@@ -35,7 +36,6 @@
 		4981C88B216BAE4A008CC14A /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4981C88D216BAE4A008CC14A /* Localizable.strings */; };
 		4982F51F2344A216008804B0 /* Cgo+Convert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4982F51E2344A216008804B0 /* Cgo+Convert.swift */; };
 		49862FA0218418C600A1D5EC /* ClashRule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49862F9F218418C600A1D5EC /* ClashRule.swift */; };
-		4989F98420D02D200001E564 /* Country.mmdb in Resources */ = {isa = PBXBuildFile; fileRef = 4989F98320D02D200001E564 /* Country.mmdb */; };
 		4989F98E20D0AE990001E564 /* sampleConfig.yaml in Resources */ = {isa = PBXBuildFile; fileRef = 4989F98D20D0AE990001E564 /* sampleConfig.yaml */; };
 		499976C821359F0400E7BF83 /* ClashWebViewContoller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499976C721359F0400E7BF83 /* ClashWebViewContoller.swift */; };
 		499A485522ED707300F6C675 /* RemoteConfigViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499A485322ED707300F6C675 /* RemoteConfigViewController.swift */; };
@@ -126,6 +126,7 @@
 		491E61FD258A424500313AEF /* CommonUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommonUtils.m; sourceTree = "<group>"; };
 		491E62FF258AEE3300313AEF /* AppIcon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = AppIcon.icns; sourceTree = "<group>"; };
 		4929F60F258CD22E00A435F6 /* menu_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "menu_icon@2x.png"; sourceTree = "<group>"; };
+		4929F676258CD89B00A435F6 /* Country.mmdb.gz */ = {isa = PBXFileReference; lastKnownFileType = archive.gzip; path = Country.mmdb.gz; sourceTree = "<group>"; };
 		492C4868210EE6B9004554A0 /* ApiRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiRequest.swift; sourceTree = "<group>"; };
 		492C4870210EF62E004554A0 /* ClashConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClashConfig.swift; sourceTree = "<group>"; };
 		493A9F272453E60400D35296 /* ProxyDelayHistoryMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProxyDelayHistoryMenu.swift; sourceTree = "<group>"; };
@@ -153,7 +154,6 @@
 		4982F51E2344A216008804B0 /* Cgo+Convert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Cgo+Convert.swift"; sourceTree = "<group>"; };
 		49862F9F218418C600A1D5EC /* ClashRule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClashRule.swift; sourceTree = "<group>"; };
 		498960722340F21C00AFB7EC /* com.west2online.ClashX.ProxyConfigHelper.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = com.west2online.ClashX.ProxyConfigHelper.entitlements; sourceTree = "<group>"; };
-		4989F98320D02D200001E564 /* Country.mmdb */ = {isa = PBXFileReference; lastKnownFileType = file; path = Country.mmdb; sourceTree = "<group>"; };
 		4989F98D20D0AE990001E564 /* sampleConfig.yaml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.yaml; path = sampleConfig.yaml; sourceTree = "<group>"; };
 		499976C721359F0400E7BF83 /* ClashWebViewContoller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClashWebViewContoller.swift; sourceTree = "<group>"; };
 		499A485322ED707300F6C675 /* RemoteConfigViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteConfigViewController.swift; sourceTree = "<group>"; };
@@ -356,10 +356,10 @@
 		49761DA521C9490400AE13EF /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				4929F676258CD89B00A435F6 /* Country.mmdb.gz */,
 				4929F60F258CD22E00A435F6 /* menu_icon@2x.png */,
 				491E62FF258AEE3300313AEF /* AppIcon.icns */,
 				F9E70A142555222F0009AED3 /* GoogleService-Info.plist */,
-				4989F98320D02D200001E564 /* Country.mmdb */,
 				49761DA621C9497000AE13EF /* dashboard */,
 				4989F98D20D0AE990001E564 /* sampleConfig.yaml */,
 			);
@@ -580,12 +580,12 @@
 			files = (
 				49761DA721C9497000AE13EF /* dashboard in Resources */,
 				F9E70A152555222F0009AED3 /* GoogleService-Info.plist in Resources */,
+				4929F677258CD89B00A435F6 /* Country.mmdb.gz in Resources */,
 				4981C88B216BAE4A008CC14A /* Localizable.strings in Resources */,
 				495340B020DE5F7200B0D3FF /* StatusItemView.xib in Resources */,
 				491E6300258AEE3300313AEF /* AppIcon.icns in Resources */,
 				49CF3B2820CD7465001EBF94 /* Main.storyboard in Resources */,
 				499A485A22ED781100F6C675 /* RemoteConfigAddView.xib in Resources */,
-				4989F98420D02D200001E564 /* Country.mmdb in Resources */,
 				4929F610258CD22E00A435F6 /* menu_icon@2x.png in Resources */,
 				4989F98E20D0AE990001E564 /* sampleConfig.yaml in Resources */,
 			);
