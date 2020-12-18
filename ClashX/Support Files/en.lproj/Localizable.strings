@@ -1,4 +1,3 @@
-
 /* No comment provided by engineer. */
 "Add a remote config" = "Add a remote config";
 
@@ -40,6 +39,9 @@
 
 /* No comment provided by engineer. */
 "Config loading Fail!" = "Config loading Fail!";
+
+/* No comment provided by engineer. */
+"Custom your GEOIP MMDB download address." = "Custom your GEOIP MMDB download address.";
 
 /* No comment provided by engineer. */
 "Details" = "Details";

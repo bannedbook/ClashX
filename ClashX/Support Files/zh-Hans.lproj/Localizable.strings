@@ -1,4 +1,3 @@
-
 /* No comment provided by engineer. */
 "Add a remote config" = "添加托管配置文件";
 
@@ -40,6 +39,9 @@
 
 /* No comment provided by engineer. */
 "Config loading Fail!" = "配置文件加载失败";
+
+/* No comment provided by engineer. */
+"Custom your GEOIP MMDB download address." = "自定义下载地址";
 
 /* No comment provided by engineer. */
 "Details" = "查看详情";
