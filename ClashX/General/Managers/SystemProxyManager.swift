@@ -59,7 +59,7 @@ class SystemProxyManager: NSObject {
         Logger.log("enableProxy", level: .debug)
         helper?.enableProxy(withPort: Int32(port),
                             socksPort: Int32(socksPort),
-                            pac:nil,
+                            pac: nil,
                             filterInterface: Settings.filterInterface,
                             error: { error in
             if let error = error {
