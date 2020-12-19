@@ -9,4 +9,10 @@
 enum Settings {
     @UserDefault("mmdbDownloadUrl", defaultValue: "")
     static var mmdbDownloadUrl:String
+    
+    @UserDefault("filterInterface", defaultValue: true)
+    static var filterInterface:Bool
+
+    @UserDefault("usePacMode", defaultValue: false)
+    static var usePacMode:Bool
 }

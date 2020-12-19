@@ -89,19 +89,21 @@ ProxyConfigRemoteProcessProtocol
 }
 
 - (void)enableProxyWithPort:(int)port
-                  socksPort:(int)socksPort
-                      error:(stringReplyBlock)reply {
+          socksPort:(int)socksPort
+            pac:(NSString *)pac
+            filterInterface:(BOOL)filterInterface
+            error:(stringReplyBlock)reply {
     dispatch_async(dispatch_get_main_queue(), ^{
         ProxySettingTool *tool = [ProxySettingTool new];
-        [tool enableProxyWithport:port socksPort:socksPort];
+        [tool enableProxyWithport:port socksPort:socksPort pacUrl:pac filterInterface:filterInterface];
         reply(nil);
     });
 }
 
-- (void)disableProxy:(stringReplyBlock)reply {
+- (void)disableProxyWithFilterInterface:(BOOL)filterInterface reply:(stringReplyBlock)reply {
     dispatch_async(dispatch_get_main_queue(), ^{
         ProxySettingTool *tool = [ProxySettingTool new];
-        [tool disableProxy];
+        [tool disableProxyWithfilterInterface:filterInterface];
         reply(nil);
     });
 }
@@ -110,10 +112,11 @@ ProxyConfigRemoteProcessProtocol
 - (void)restoreProxyWithCurrentPort:(int)port
                           socksPort:(int)socksPort
                                info:(NSDictionary *)dict
+                    filterInterface:(BOOL)filterInterface
                               error:(stringReplyBlock)reply {
     dispatch_async(dispatch_get_main_queue(), ^{
         ProxySettingTool *tool = [ProxySettingTool new];
-        [tool restoreProxySettint:dict currentPort:port currentSocksPort:socksPort];
+        [tool restoreProxySettint:dict currentPort:port currentSocksPort:socksPort filterInterface:filterInterface];
         reply(nil);
     });
 }
