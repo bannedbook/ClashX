@@ -101,7 +101,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         initClashCore()
         setupData()
         runAfterConfigReload = { [weak self] in
-            self?.selectOutBoundModeWithMenory()
             if !ConfigManager.builtInApiMode {
                 self?.selectAllowLanWithMenory()
             }
@@ -467,6 +466,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                     ConfigManager.selectConfigName = newConfigName
                 }
                 self.selectProxyGroupWithMemory()
+                self.selectOutBoundModeWithMenory()
                 MenuItemFactory.recreateProxyMenuItems()
                 NotificationCenter.default.post(name: .reloadDashboard, object: nil)
             }
