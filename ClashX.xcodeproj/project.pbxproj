@@ -10,7 +10,6 @@
 		0AE14FEF25A35685007EF89B /* BSBacktraceLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AE14FEC25A35685007EF89B /* BSBacktraceLogger.m */; };
 		0AE14FF025A35685007EF89B /* AnrDetectUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AE14FED25A35685007EF89B /* AnrDetectUtil.swift */; };
 		0AE14FF125A35685007EF89B /* AnrDetectThread.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AE14FEE25A35685007EF89B /* AnrDetectThread.swift */; };
-		0D318CDAC9464E01DAD1F92B /* Pods_ClashX.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0358BF8F0CBD7FF9A7EA4E30 /* Pods_ClashX.framework */; };
 		4913C82321157D0200F6B87C /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4913C82221157D0200F6B87C /* Notification.swift */; };
 		491E6203258A424D00313AEF /* CommonUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 491E61FD258A424500313AEF /* CommonUtils.m */; };
 		491E6300258AEE3300313AEF /* AppIcon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 491E62FF258AEE3300313AEF /* AppIcon.icns */; };
@@ -941,7 +940,7 @@
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 1.31.2;
+				CURRENT_PROJECT_VERSION = 1.31.3;
 				DEVELOPMENT_TEAM = MEWHFZ92DY;
 				ENABLE_HARDENED_RUNTIME = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -963,7 +962,7 @@
 					"$(PROJECT_DIR)/ClashX/goClash",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
-				MARKETING_VERSION = 1.31.2;
+				MARKETING_VERSION = 1.31.3;
 				PRODUCT_BUNDLE_IDENTIFIER = com.west2online.ClashX;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -985,7 +984,7 @@
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = YES;
-				CURRENT_PROJECT_VERSION = 1.31.2;
+				CURRENT_PROJECT_VERSION = 1.31.3;
 				DEPLOYMENT_POSTPROCESSING = YES;
 				DEVELOPMENT_TEAM = MEWHFZ92DY;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -1008,7 +1007,7 @@
 					"$(PROJECT_DIR)/ClashX/goClash",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
-				MARKETING_VERSION = 1.31.2;
+				MARKETING_VERSION = 1.31.3;
 				OTHER_CODE_SIGN_FLAGS = "--timestamp";
 				PRODUCT_BUNDLE_IDENTIFIER = com.west2online.ClashX;
 				PRODUCT_NAME = "$(TARGET_NAME)";
