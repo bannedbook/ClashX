@@ -201,13 +201,24 @@ extension ClashWebViewContoller: WKUIDelegate, WKNavigationDelegate {
 class CustomWKWebView: WKWebView {
     var dragableAreaHeight: CGFloat = 30
     let alwaysDragableLeftAreaWidth: CGFloat = 150
+    
+    private func isInDargArea(with event:NSEvent?) -> Bool {
+        guard let event = event else { return false }
+        let x = event.locationInWindow.x
+        let y = (window?.frame.size.height ?? 0) - event.locationInWindow.y
+        return x < alwaysDragableLeftAreaWidth || y < dragableAreaHeight
+    }
+    
+    override func acceptsFirstMouse(for event: NSEvent?) -> Bool {
+        if isInDargArea(with: event) {
+            return true
+        }
+        return super.acceptsFirstMouse(for: event)
+    }
 
     override func mouseDown(with event: NSEvent) {
         super.mouseDown(with: event)
-        let x = event.locationInWindow.x
-        let y = (window?.frame.size.height ?? 0) - event.locationInWindow.y
-
-        if x < alwaysDragableLeftAreaWidth || y < dragableAreaHeight {
+        if isInDargArea(with: event) {
             window?.performDrag(with: event)
         }
     }
