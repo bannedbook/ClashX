@@ -109,6 +109,8 @@ func parseDefaultConfigThenStart(checkPort, allowLan bool) (*config.Config, erro
 
 	}
 
+	rawCfg.ExternalUI = ""
+	rawCfg.Profile.StoreSelected = false
 	if checkPort {
 		if !isAddrValid(rawCfg.ExternalController) {
 			port, err := freeport.GetFreePort()
