@@ -133,7 +133,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             Logger.log("ClashX quit need clean proxy setting")
             shouldWait = true
             group.enter()
-            SystemProxyManager.shared.disableProxy {
+
+            SystemProxyManager.shared.disableProxy(forceDisable: ConfigManager.shared.isProxySetByOtherVariable.value) {
                 group.leave()
             }
         }
