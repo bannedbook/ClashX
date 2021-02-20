@@ -10,6 +10,6 @@ import Cocoa
 
 extension String {
     var encoded: String {
-        return addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
+        return addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) ?? ""
     }
 }

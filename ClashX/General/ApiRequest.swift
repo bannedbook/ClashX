@@ -211,8 +211,7 @@ class ApiRequest {
     }
 
     static func updateProxyGroup(group: String, selectProxy: String, callback: @escaping ((Bool) -> Void)) {
-        let groupEncoded = group.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        req("/proxies/\(groupEncoded)",
+        req("/proxies/\(group.encoded)",
             method: .put,
             parameters: ["name": selectProxy],
             encoding: JSONEncoding.default)
