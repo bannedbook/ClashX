@@ -2,13 +2,10 @@
 set -e
 echo "Build Clash core"
 
-if [ "$1" = "skip-build-go" ]; then
-    echo "skip build go"
-else
-    cd ClashX/goClash
-    python3 build_clash.py
-    cd ../..
-fi
+cd ClashX/goClash
+python3 build_clash_universal.py
+cd ../..
+
 echo "Pod install"
 pod install
 echo "delete old files"
