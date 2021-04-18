@@ -1,3 +1,4 @@
+
 /* No comment provided by engineer. */
 "Add a remote config" = "Add a remote config";
 
@@ -75,6 +76,9 @@
 
 /* No comment provided by engineer. */
 "Legacy Install" = "Legacy Install";
+
+/* No comment provided by engineer. */
+"Load Balance" = "Load Balance";
 
 /* No comment provided by engineer. */
 "Need to Restart the ClashX to Take effect, Please start clashX manually" = "Need to Restart the ClashX to Take effect, Please start clashX manually";

@@ -31,7 +31,7 @@ class ProxyGroupMenuItemView: MenuItemBaseView {
         return [groupNameLabel.cell, selectProxyLabel.cell, arrowLabel.cell]
     }
 
-    init(group: ClashProxyName, targetProxy: ClashProxyName, hasLeftPadding: Bool) {
+    init(group: ClashProxyName, targetProxy: ClashProxyName, hasLeftPadding: Bool, observeUpdate:Bool = true) {
         groupNameLabel = VibrancyTextField(labelWithString: group)
         selectProxyLabel = VibrancyTextField(labelWithString: targetProxy)
         super.init(autolayout: true)
@@ -74,8 +74,9 @@ class ProxyGroupMenuItemView: MenuItemBaseView {
         groupNameLabel.textColor = NSColor.labelColor
         selectProxyLabel.textColor = NSColor.secondaryLabelColor
         // noti
-        NotificationCenter.default.addObserver(self, selector: #selector(proxyInfoDidUpdate(note:)), name: .proxyUpdate(for: group), object: nil)
-
+        if observeUpdate {
+            NotificationCenter.default.addObserver(self, selector: #selector(proxyInfoDidUpdate(note:)), name: .proxyUpdate(for: group), object: nil)
+        }
         if #available(macOS 11, *) {
             updateLeftMenuPadding(show: hasLeftPadding)
             NotificationCenter.default.addObserver(self, selector: #selector(showLeftPaddingUpdate(note:)), name: .proxyMeneViewShowLeftPadding, object: nil)

@@ -54,7 +54,7 @@ class MenuItemFactory {
             case .select: menu = generateSelectorMenuItem(proxyGroup: proxy, proxyInfo: proxyInfo, leftPadding: leftPadding)
             case .urltest, .fallback: menu = generateUrlTestFallBackMenuItem(proxyGroup: proxy, proxyInfo: proxyInfo, leftPadding: leftPadding)
             case .loadBalance:
-                menu = generateLoadBalanceMenuItem(proxyGroup: proxy, proxyInfo: proxyInfo)
+                menu = generateLoadBalanceMenuItem(proxyGroup: proxy, proxyInfo: proxyInfo, leftPadding: leftPadding)
             case .relay:
                 menu = generateListOnlyMenuItem(proxyGroup: proxy, proxyInfo: proxyInfo)
             default: continue
@@ -181,10 +181,13 @@ class MenuItemFactory {
         (menu as? ProxyGroupMenu)?.add(delegate: speedTestItem)
     }
 
-    private static func generateLoadBalanceMenuItem(proxyGroup: ClashProxy, proxyInfo: ClashProxyResp) -> NSMenuItem? {
+    private static func generateLoadBalanceMenuItem(proxyGroup: ClashProxy, proxyInfo: ClashProxyResp, leftPadding: Bool) -> NSMenuItem? {
         let proxyMap = proxyInfo.proxiesMap
 
         let menu = NSMenuItem(title: proxyGroup.name, action: nil, keyEquivalent: "")
+        if !ConfigManager.shared.disableShowCurrentProxyInMenu {
+            menu.view = ProxyGroupMenuItemView(group: proxyGroup.name, targetProxy: NSLocalizedString("Load Balance", comment: ""), hasLeftPadding: leftPadding, observeUpdate: false)
+        }
         let submenu = ProxyGroupMenu(title: proxyGroup.name)
 
         for proxy in proxyGroup.all ?? [] {

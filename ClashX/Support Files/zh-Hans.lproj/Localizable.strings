@@ -1,3 +1,4 @@
+
 /* No comment provided by engineer. */
 "Add a remote config" = "添加托管配置文件";
 
@@ -75,6 +76,9 @@
 
 /* No comment provided by engineer. */
 "Legacy Install" = "传统安装";
+
+/* No comment provided by engineer. */
+"Load Balance" = "负载均衡";
 
 /* No comment provided by engineer. */
 "Need to Restart the ClashX to Take effect, Please start clashX manually" = "需要重启ClashX生效，请手动启动ClashX";
