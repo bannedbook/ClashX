@@ -12,7 +12,6 @@
 		0AE14FF125A35685007EF89B /* AnrDetectThread.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AE14FEE25A35685007EF89B /* AnrDetectThread.swift */; };
 		4913C82321157D0200F6B87C /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4913C82221157D0200F6B87C /* Notification.swift */; };
 		491E6203258A424D00313AEF /* CommonUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 491E61FD258A424500313AEF /* CommonUtils.m */; };
-		491E6300258AEE3300313AEF /* AppIcon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 491E62FF258AEE3300313AEF /* AppIcon.icns */; };
 		4929F610258CD22E00A435F6 /* menu_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4929F60F258CD22E00A435F6 /* menu_icon@2x.png */; };
 		4929F677258CD89B00A435F6 /* Country.mmdb.gz in Resources */ = {isa = PBXBuildFile; fileRef = 4929F676258CD89B00A435F6 /* Country.mmdb.gz */; };
 		4929F67F258CE04700A435F6 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4929F67E258CE04700A435F6 /* Settings.swift */; };
@@ -88,6 +87,7 @@
 		F9E754D0239CC21F00CEE7CC /* WebPortalManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9E754CF239CC21F00CEE7CC /* WebPortalManager.swift */; };
 		F9E754D2239CC28D00CEE7CC /* NSAlert+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9E754D1239CC28D00CEE7CC /* NSAlert+Extension.swift */; };
 		F9E8F34623A12B89002DE5E8 /* String+Encode.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9E8F34523A12B89002DE5E8 /* String+Encode.swift */; };
+		F9FAB31E262BE04800DE02A6 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F9FAB31D262BE04800DE02A6 /* Images.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -132,7 +132,6 @@
 		4913C82221157D0200F6B87C /* Notification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notification.swift; sourceTree = "<group>"; };
 		491E61FC258A424500313AEF /* CommonUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommonUtils.h; sourceTree = "<group>"; };
 		491E61FD258A424500313AEF /* CommonUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommonUtils.m; sourceTree = "<group>"; };
-		491E62FF258AEE3300313AEF /* AppIcon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = AppIcon.icns; sourceTree = "<group>"; };
 		4929F60F258CD22E00A435F6 /* menu_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "menu_icon@2x.png"; sourceTree = "<group>"; };
 		4929F676258CD89B00A435F6 /* Country.mmdb.gz */ = {isa = PBXFileReference; lastKnownFileType = archive.gzip; path = Country.mmdb.gz; sourceTree = "<group>"; };
 		4929F67E258CE04700A435F6 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
@@ -224,6 +223,7 @@
 		F9E754CF239CC21F00CEE7CC /* WebPortalManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebPortalManager.swift; sourceTree = "<group>"; };
 		F9E754D1239CC28D00CEE7CC /* NSAlert+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSAlert+Extension.swift"; sourceTree = "<group>"; };
 		F9E8F34523A12B89002DE5E8 /* String+Encode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Encode.swift"; sourceTree = "<group>"; };
+		F9FAB31D262BE04800DE02A6 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -391,7 +391,6 @@
 			children = (
 				4929F676258CD89B00A435F6 /* Country.mmdb.gz */,
 				4929F60F258CD22E00A435F6 /* menu_icon@2x.png */,
-				491E62FF258AEE3300313AEF /* AppIcon.icns */,
 				F9E70A142555222F0009AED3 /* GoogleService-Info.plist */,
 				49761DA621C9497000AE13EF /* dashboard */,
 				4989F98D20D0AE990001E564 /* sampleConfig.yaml */,
@@ -460,6 +459,7 @@
 				49CF3B2920CD7465001EBF94 /* Info.plist */,
 				49CF3B2A20CD7465001EBF94 /* ClashX.entitlements */,
 				49CF3B3520CD75DF001EBF94 /* ClashX-Bridging-Header.h */,
+				F9FAB31D262BE04800DE02A6 /* Images.xcassets */,
 			);
 			path = ClashX;
 			sourceTree = "<group>";
@@ -616,8 +616,8 @@
 				F9E70A152555222F0009AED3 /* GoogleService-Info.plist in Resources */,
 				4929F677258CD89B00A435F6 /* Country.mmdb.gz in Resources */,
 				4981C88B216BAE4A008CC14A /* Localizable.strings in Resources */,
+				F9FAB31E262BE04800DE02A6 /* Images.xcassets in Resources */,
 				495340B020DE5F7200B0D3FF /* StatusItemView.xib in Resources */,
-				491E6300258AEE3300313AEF /* AppIcon.icns in Resources */,
 				49CF3B2820CD7465001EBF94 /* Main.storyboard in Resources */,
 				499A485A22ED781100F6C675 /* RemoteConfigAddView.xib in Resources */,
 				4929F610258CD22E00A435F6 /* menu_icon@2x.png in Resources */,
@@ -935,11 +935,13 @@
 			baseConfigurationReference = 5217C006C5A22A1CEA24BFC1 /* Pods-ClashX.debug.xcconfig */;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD)";
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = ClashX/ClashX.entitlements;
 				CODE_SIGN_IDENTITY = "Developer ID Application";
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
+				COMPRESS_PNG_FILES = YES;
 				CURRENT_PROJECT_VERSION = 1.50.0;
 				DEVELOPMENT_TEAM = MEWHFZ92DY;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -967,6 +969,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				STRIP_INSTALLED_PRODUCT = NO;
+				STRIP_PNG_TEXT = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "ClashX/ClashX-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -978,11 +981,13 @@
 			baseConfigurationReference = A1485BCE642059532D01B8BA /* Pods-ClashX.release.xcconfig */;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD)";
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = ClashX/ClashX.entitlements;
 				CODE_SIGN_IDENTITY = "Developer ID Application";
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
+				COMPRESS_PNG_FILES = YES;
 				COPY_PHASE_STRIP = YES;
 				CURRENT_PROJECT_VERSION = 1.50.0;
 				DEPLOYMENT_POSTPROCESSING = YES;
@@ -1013,6 +1018,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				STRIP_INSTALLED_PRODUCT = YES;
+				STRIP_PNG_TEXT = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "ClashX/ClashX-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 			};
