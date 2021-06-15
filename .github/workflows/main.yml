@@ -93,8 +93,3 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITPAGE_TOKEN }}
       run: 'curl -u yichengchen:$GITHUB_TOKEN -X POST https://api.github.com/repos/yichengchen/clashX/pages/builds -H "Accept: application/vnd.github.mister-fantastic-preview+json"'
-
-    - name: upload crashlytics symbols
-      if: startsWith(github.ref, 'refs/tags/')  || contains(github.event.head_commit.message, '[appcenter]')
-      run: bundle exec fastlane run upload_symbols_to_crashlytics
-
