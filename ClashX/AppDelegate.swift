@@ -14,7 +14,6 @@ import RxSwift
 
 import AppCenter
 import AppCenterAnalytics
-import Firebase
 
 
 private let statusItemLengthWithSpeed: CGFloat = 72
@@ -745,13 +744,12 @@ extension AppDelegate {
         #if DEBUG
             return
         #else
-            FirebaseApp.configure()
             DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
                 AppCenter.start(withAppSecret: "dce6e9a3-b6e3-4fd2-9f2d-35c767a99663", services: [
                     Analytics.self,
                 ])
             }
-
+        
         #endif
     }
 
