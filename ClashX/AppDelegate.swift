@@ -685,6 +685,14 @@ extension AppDelegate {
 
 extension AppDelegate {
     @IBAction func openConfigFolder(_ sender: Any) {
+        if iCloudManager.shared.isICloudEnable() {
+            iCloudManager.shared.getUrl() {
+                url in
+                if let url = url {
+                    NSWorkspace.shared.open(url)
+                }
+            }
+        }
         NSWorkspace.shared.openFile(kConfigFolderPath)
     }
 

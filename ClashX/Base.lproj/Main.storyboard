@@ -280,7 +280,7 @@
                             <menu key="submenu" title="Config" id="tck-zU-JKQ">
                                 <items>
                                     <menuItem isSeparatorItem="YES" id="WzG-og-OyZ"/>
-                                    <menuItem title="Open local config Folder" keyEquivalent="o" id="DwE-WX-ETZ">
+                                    <menuItem title="Open config folder" keyEquivalent="o" id="DwE-WX-ETZ">
                                         <connections>
                                             <action selector="openConfigFolder:" target="Voe-Tx-rLC" id="6Ke-Bi-AAZ"/>
                                         </connections>
@@ -290,9 +290,9 @@
                                             <action selector="actionUpdateConfig:" target="Voe-Tx-rLC" id="oW5-Ll-SY8"/>
                                         </connections>
                                     </menuItem>
-                                    <menuItem title="Remote Config" id="h1C-R6-Y9w">
+                                    <menuItem title="Remote config" id="h1C-R6-Y9w">
                                         <modifierMask key="keyEquivalentModifierMask"/>
-                                        <menu key="submenu" title="Remote Config" id="az2-wz-yyy">
+                                        <menu key="submenu" title="Remote config" id="az2-wz-yyy">
                                             <items>
                                                 <menuItem title="Manage" keyEquivalent="m" id="Dwg-Qb-2AU">
                                                     <connections>
