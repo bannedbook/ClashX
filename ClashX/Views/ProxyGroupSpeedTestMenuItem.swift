@@ -44,6 +44,18 @@ class ProxyGroupSpeedTestMenuItem: NSMenuItem {
     @objc func healthCheck() {
         guard testType == .reTest else { return }
         ApiRequest.healthCheck(proxy: proxyGroup.name)
+        ApiRequest.getMergedProxyData { [weak self] proxyResp in
+            guard let self = self else { return }
+            var providers = Set<ClashProxyName>()
+            self.proxyGroup.all?.compactMap{
+                proxyResp?.proxiesMap[$0]?.enclosingProvider?.name
+            }.forEach{
+                providers.insert($0)
+            }
+            providers.forEach{
+                ApiRequest.healthCheck(proxy: $0)
+            }
+        }
         menu?.cancelTracking()
     }
 }

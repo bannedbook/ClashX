@@ -288,7 +288,7 @@ class ApiRequest {
             if res.response?.statusCode == 204 {
                 Logger.log("HeathCheck for \(proxy) finished")
             } else {
-                Logger.log("HeathCheck for \(proxy) failed")
+                Logger.log("HeathCheck for \(proxy) failed:\(res.response?.statusCode ?? -1)")
             }
             completeHandler?()
         }

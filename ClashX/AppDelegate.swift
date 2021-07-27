@@ -527,6 +527,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 }
             }
         }
+        
+        ApiRequest.requestProxyProviderList() {
+            providers in
+            providers.providers.forEach {
+                ApiRequest.healthCheck(proxy: $0.key)
+            }
+        }
     }
 }
 
