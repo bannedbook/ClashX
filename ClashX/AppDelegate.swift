@@ -692,8 +692,9 @@ extension AppDelegate {
                     NSWorkspace.shared.open(url)
                 }
             }
+        } else {
+            NSWorkspace.shared.openFile(kConfigFolderPath)
         }
-        NSWorkspace.shared.openFile(kConfigFolderPath)
     }
 
     @IBAction func actionUpdateConfig(_ sender: AnyObject) {
