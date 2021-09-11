@@ -14,13 +14,14 @@ jobs:
       run: |
         echo `/usr/bin/xcodebuild -version`
         openssl aes-256-cbc -k  "${{ secrets.ENCRYPTION_SECRET }}" -in ".github/certs/dist.p12.enc" -d -a -out ".github/certs/dist.p12" -md md5
-        gem install bundler:1.16.2
-        bundle install
-
-    - name: setup Go 1.16
+    - name: setup Go
       uses: actions/setup-go@v2
       with:
-        go-version: 1.16.x
+        go-version: 1.17.x
+    
+    - name: install deps
+      run: |
+        bash install_dependency.sh
     
     - name: update beta build version
       if: contains(github.event.head_commit.message, '[beta]') && !startsWith(github.ref, 'refs/tags/')
@@ -32,7 +33,6 @@ jobs:
       env:
         CODE_SIGN_IDENTITY: "Developer ID Application: Fuzhou West2Online Internet Inc. (MEWHFZ92DY)"
       run: |
-        bash install_dependency.sh
         cd ClashX
         python3 add_build_info.py
         cd ..

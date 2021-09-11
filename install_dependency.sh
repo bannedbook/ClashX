@@ -7,7 +7,8 @@ python3 build_clash_universal.py
 cd ../..
 
 echo "Pod install"
-pod install
+bundle install --jobs 4
+bundle exec pod install
 echo "delete old files"
 rm -f ./ClashX/Resources/Country.mmdb
 rm -rf ./ClashX/Resources/dashboard
