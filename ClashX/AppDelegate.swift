@@ -335,7 +335,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             .filter { $0 != nil }
             .observe(on: MainScheduler.instance)
             .debounce(.seconds(5), scheduler: MainScheduler.instance).bind { [weak self] _ in
-                self?.healthHeckOnNetworkChange()
+                self?.healthCheckOnNetworkChange()
             }.disposed(by: disposeBag)
 
         ConfigManager.shared
@@ -517,21 +517,30 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
     }
 
-    @objc func healthHeckOnNetworkChange() {
-        ApiRequest.requestProxyGroupList {
-            res in
-            for group in res.proxyGroups {
-                if group.type.isAutoGroup {
-                    Logger.log("Start Auto Health check for \(group.name)")
-                    ApiRequest.healthCheck(proxy: group.name)
+    @objc func healthCheckOnNetworkChange() {
+        ApiRequest.getMergedProxyData {
+            proxyResp in
+            guard let proxyResp = proxyResp else {return}
+            
+            var providers = Set<ClashProxyName>()
+            
+            let groups = proxyResp.proxyGroups.filter({$0.type.isAutoGroup})
+            for group in groups {
+                group.all?.compactMap{
+                    proxyResp.proxiesMap[$0]?.enclosingProvider?.name
+                }.forEach{
+                    providers.insert($0)
                 }
             }
-        }
-        
-        ApiRequest.requestProxyProviderList() {
-            providers in
-            providers.providers.forEach {
-                ApiRequest.healthCheck(proxy: $0.key)
+            
+            for group in groups {
+                Logger.log("Start auto health check for group \(group.name)")
+                ApiRequest.healthCheck(proxy: group.name)
+            }
+            
+            for provider in providers {
+                Logger.log("Start auto health check for provider \(provider)")
+                ApiRequest.healthCheck(proxy: provider)
             }
         }
     }
