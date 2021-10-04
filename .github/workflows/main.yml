@@ -60,6 +60,7 @@ jobs:
       env:
         FASTLANE_PASSWORD: ${{ secrets.FASTLANE_PASSWORD }}
         FASTLANE_USER: ${{ secrets.FASTLANE_USER }}
+        FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD: ${{ secrets.FASTLANE_PASSWORD }}
       run: |
         bundle exec fastlane run notarize package:"./ClashX.dmg" bundle_id:"com.west2online.ClashX" asc_provider:MEWHFZ92DY
 
