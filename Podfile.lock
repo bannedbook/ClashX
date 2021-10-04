@@ -1,8 +1,8 @@
 PODS:
-  - Alamofire (5.4.3)
-  - AppCenter/Analytics (4.2.0):
+  - Alamofire (5.4.4)
+  - AppCenter/Analytics (4.3.0):
     - AppCenter/Core
-  - AppCenter/Core (4.2.0)
+  - AppCenter/Core (4.3.0)
   - CocoaLumberjack/Core (3.7.2)
   - CocoaLumberjack/Swift (3.7.2):
     - CocoaLumberjack/Core
@@ -15,7 +15,7 @@ PODS:
   - RxRelay (6.2.0):
     - RxSwift (= 6.2.0)
   - RxSwift (6.2.0)
-  - Sparkle (1.26.0)
+  - Sparkle (1.27.0)
   - Starscream (3.1.1)
   - SwiftyJSON (5.0.1)
   - WebViewJavascriptBridge (6.0.3)
@@ -51,8 +51,8 @@ SPEC REPOS:
     - WebViewJavascriptBridge
 
 SPEC CHECKSUMS:
-  Alamofire: e447a2774a40c996748296fa2c55112fdbbc42f9
-  AppCenter: 87ef6eefd8ade4df59e88951288587429f3dd2a5
+  Alamofire: f3b09a368f1582ab751b3fff5460276e0d2cf5c9
+  AppCenter: 883369ab78427b0561c688158d689dfe1f993ea9
   CocoaLumberjack: b7e05132ff94f6ae4dfa9d5bce9141893a21d9da
   FlexibleDiff: b9ee9b8305b42c784f5dd40589203c97c55bbaa0
   GzipSwift: 893f3e48e597a1a4f62fafcb6514220fcf8287fa
@@ -60,7 +60,7 @@ SPEC CHECKSUMS:
   RxCocoa: 4baf94bb35f2c0ab31bc0cb9f1900155f646ba42
   RxRelay: e72dbfd157807478401ef1982e1c61c945c94b2f
   RxSwift: d356ab7bee873611322f134c5f9ef379fa183d8f
-  Sparkle: d56d028f4b0c123577825f5d1004f6140d77f90e
+  Sparkle: e1245ce5ba951c60183444a13a2c7d227778205d
   Starscream: 4bb2f9942274833f7b4d296a55504dcfc7edb7b0
   SwiftyJSON: 2f33a42c6fbc52764d96f13368585094bfd8aa5e
   WebViewJavascriptBridge: 7f5bc4d3581e672e8f32bd0f812d54bc69bb8e29
