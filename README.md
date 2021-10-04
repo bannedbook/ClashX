@@ -8,7 +8,7 @@
 
 A rule based proxy For Mac base on [Clash](https://github.com/Dreamacro/clash).
 
-
+ClashX 旨在提供一个简单轻量化的代理客户端，如果需要更多的定制化，可以考虑使用 [CFW Mac 版](https://github.com/Fndroid/clash_for_windows_pkg/releases) 
 
 ## Features
 
@@ -80,6 +80,18 @@ Checkout [Clash](https://github.com/Dreamacro/clash) or [SS-Rule-Snippet for Cla
   ```
   clash://install-config?url=http%3A%2F%2Fexample.com&name=example
   ```
+
+### Get process name
+
+You can add the follow config in your config file, and set your proxy mode to rule. Then open the log via help menu in ClashX.
+```
+script:
+  code: |
+    def main(ctx, metadata):
+      # Log ProcessName
+      ctx.log('Process Name: ' + ctx.resolve_process_name(metadata))
+      return 'DIRECT'
+```
 
 ### FAQ
 
