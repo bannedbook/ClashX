@@ -17,10 +17,10 @@
 "Benchmark Finished!" = "延迟测速完成";
 
 /* No comment provided by engineer. */
-"Benchmark has begun, please wait." = "延迟测速开始，请稍后";
+"Benchmark has begun, please wait." = "延迟测速开始，请稍候";
 
 /* No comment provided by engineer. */
-"Benchmark is processing, please wait." = "延迟测速正在进行中，请稍后。";
+"Benchmark is processing, please wait." = "延迟测速正在进行中，请稍候。";
 
 /* No comment provided by engineer. */
 "Cancel" = "取消";
