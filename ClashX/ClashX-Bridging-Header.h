@@ -3,4 +3,3 @@
 //
 #import "goClash.h"
 #import "ProxyConfigRemoteProcessProtocol.h"
-#import "BSBacktraceLogger.h"
