@@ -6,6 +6,7 @@
 //  Copyright © 2020 west2online. All rights reserved.
 //
 
+import Foundation
 enum Settings {
     @UserDefault("mmdbDownloadUrl", defaultValue: "")
     static var mmdbDownloadUrl:String
@@ -15,4 +16,7 @@ enum Settings {
 
     @UserDefault("usePacMode", defaultValue: false)
     static var usePacMode:Bool
+    
+    @UserDefault("configAutoUpdateInterval", defaultValue: 48*60*60)
+    static var configAutoUpdateInterval:TimeInterval
 }

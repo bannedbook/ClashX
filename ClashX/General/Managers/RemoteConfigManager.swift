@@ -56,7 +56,7 @@ class RemoteConfigManager {
 
         refreshActivity = NSBackgroundActivityScheduler(identifier: "com.ClashX.configupdate")
         refreshActivity?.repeats = true
-        refreshActivity?.interval = 60 * 60 * 3 // Three hour
+        refreshActivity?.interval = 60 * 60 * 2 // Two hour
         refreshActivity?.tolerance = 60 * 60
 
         refreshActivity?.schedule { [weak self] completionHandler in
@@ -88,8 +88,7 @@ class RemoteConfigManager {
 
         for config in configs {
             if config.updating { continue }
-            // 48 hour check
-            let timeLimitNoMantians = Date().timeIntervalSince(config.updateTime ?? Date(timeIntervalSince1970: 0)) < 60 * 60 * 48
+            let timeLimitNoMantians = Date().timeIntervalSince(config.updateTime ?? Date(timeIntervalSince1970: 0)) < Settings.configAutoUpdateInterval
 
             if timeLimitNoMantians && !ignoreTimeLimit {
                 Logger.log("[Auto Upgrade] Bypassing \(config.name) due to time check")
@@ -214,5 +213,29 @@ class RemoteConfigManager {
             Logger.log(res, level: .error)
             return res
         }
+    }
+    
+    static func showAdd() {
+        let alertView = NSAlert()
+        alertView.addButton(withTitle: NSLocalizedString("OK", comment: ""))
+        alertView.addButton(withTitle: NSLocalizedString("Cancel", comment: ""))
+        alertView.messageText = NSLocalizedString("Update remote config update interval", comment: "")
+        let setupView = RemoteConfigUpdateIntervalSettingView()
+        setupView.frame = NSRect(x: 0, y: 0, width: 100, height: 22)
+        alertView.accessoryView = setupView
+        let response = alertView.runModal()
+
+        guard response == .alertFirstButtonReturn else { return }
+        let stringValue = setupView.textfield.stringValue
+        guard let intValue = Int(stringValue), intValue > 0 else {
+            let alert = NSAlert()
+            alert.alertStyle = .critical
+            alert.informativeText = NSLocalizedString("Should be a least 1 hour", comment: "")
+            alert.addButton(withTitle: NSLocalizedString("OK", comment: ""))
+            alert.runModal()
+            return
+        }
+        Settings.configAutoUpdateInterval = TimeInterval(intValue * 60 * 60)
+        RemoteConfigManager.shared.autoUpdateCheck()
     }
 }

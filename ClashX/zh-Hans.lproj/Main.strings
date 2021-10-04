@@ -1,4 +1,3 @@
-
 /* Class = "NSMenuItem"; title = "ERROR"; ObjectID = "0iu-lB-eZN"; */
 "0iu-lB-eZN.title" = "ERROR";
 
@@ -29,7 +28,7 @@
 /* Class = "NSMenu"; title = "Main Menu"; ObjectID = "AYu-sK-qS6"; */
 "AYu-sK-qS6.title" = "Main Menu";
 
-/* Class = "NSMenu"; title = "Remote Config"; ObjectID = "az2-wz-yyy"; */
+/* Class = "NSMenu"; title = "Remote config"; ObjectID = "az2-wz-yyy"; */
 "az2-wz-yyy.title" = "托管配置";
 
 /* Class = "NSMenuItem"; title = "Start at login"; ObjectID = "B1J-XB-BiZ"; */
@@ -56,7 +55,7 @@
 /* Class = "NSMenuItem"; title = "Manage"; ObjectID = "Dwg-Qb-2AU"; */
 "Dwg-Qb-2AU.title" = "管理";
 
-/* Class = "NSMenuItem"; title = "Remote Config"; ObjectID = "h1C-R6-Y9w"; */
+/* Class = "NSMenuItem"; title = "Remote config"; ObjectID = "h1C-R6-Y9w"; */
 "h1C-R6-Y9w.title" = "托管配置";
 
 /* Class = "NSMenuItem"; title = "About"; ObjectID = "hUb-k9-TEf"; */
@@ -190,3 +189,6 @@
 
 /* Class = "NSTextFieldCell"; title = "This allows you to control the clash core running in the different machine"; ObjectID = "WkL-aX-66E"; */
 "WkL-aX-66E.title" = "远程控制器允许你控制其他设备上的 Clash 状态。";
+
+/* Class = "NSMenuItem"; title = "Set update Interval"; ObjectID = "h1H-7k-9HS"; */
+"h1H-7k-9HS.title" = "设置更新间隔";

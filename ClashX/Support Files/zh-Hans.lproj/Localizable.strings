@@ -1,4 +1,3 @@
-
 /* No comment provided by engineer. */
 "Add a remote config" = "添加托管配置文件";
 
@@ -69,6 +68,9 @@
 "Global" = "全局";
 
 /* No comment provided by engineer. */
+"hours" = "小时";
+
+/* No comment provided by engineer. */
 "Install" = "安装";
 
 /* No comment provided by engineer. */
@@ -79,6 +81,8 @@
 
 /* No comment provided by engineer. */
 "Load Balance" = "负载均衡";
+
+"Mode" = "模式";
 
 /* No comment provided by engineer. */
 "Need to Restart the ClashX to Take effect, Please start clashX manually" = "需要重启ClashX生效，请手动启动ClashX";
@@ -126,6 +130,12 @@
 "Rule" = "规则";
 
 /* No comment provided by engineer. */
+"Script" = "脚本";
+
+/* No comment provided by engineer. */
+"Should be a least 1 hour" = "至少需要1小时间隔";
+
+/* No comment provided by engineer. */
 "Show speedTest at top" = "顶端显示测速按钮";
 
 /* No comment provided by engineer. */
@@ -157,6 +167,9 @@
 
 /* No comment provided by engineer. */
 "Update GEOIP Database" = "更新IP数据库";
+
+/* No comment provided by engineer. */
+"Update remote config update interval" = "远程配置自动更新间隔";
 
 /* No comment provided by engineer. */
 "Updating" = "更新中";

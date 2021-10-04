@@ -1,4 +1,3 @@
-
 /* No comment provided by engineer. */
 "Add a remote config" = "Add a remote config";
 
@@ -69,6 +68,9 @@
 "Global" = "Global";
 
 /* No comment provided by engineer. */
+"hours" = "hours";
+
+/* No comment provided by engineer. */
 "Install" = "Install";
 
 /* No comment provided by engineer. */
@@ -79,6 +81,8 @@
 
 /* No comment provided by engineer. */
 "Load Balance" = "Load Balance";
+
+"Mode" = "Mode";
 
 /* No comment provided by engineer. */
 "Need to Restart the ClashX to Take effect, Please start clashX manually" = "Need to Restart the ClashX to Take effect, Please start clashX manually";
@@ -126,6 +130,12 @@
 "Rule" = "Rule";
 
 /* No comment provided by engineer. */
+"Script" = "Script";
+
+/* No comment provided by engineer. */
+"Should be a least 1 hour" = "Should be a least 1 hour";
+
+/* No comment provided by engineer. */
 "Show speedTest at top" = "Show speedTest at top";
 
 /* No comment provided by engineer. */
@@ -157,6 +167,9 @@
 
 /* No comment provided by engineer. */
 "Update GEOIP Database" = "Update GEOIP Database";
+
+/* No comment provided by engineer. */
+"Update remote config update interval" = "Update remote config update interval";
 
 /* No comment provided by engineer. */
 "Updating" = "Updating";

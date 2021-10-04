@@ -728,6 +728,10 @@ extension AppDelegate {
     @IBAction func actionUpdateRemoteConfig(_ sender: Any) {
         RemoteConfigManager.shared.updateCheck(ignoreTimeLimit: true, showNotification: true)
     }
+    
+    @IBAction func actionSetUpdateInterval(_ sender: Any) {
+        RemoteConfigManager.showAdd()
+    }
 
     @IBAction func actionSetUseApiMode(_ sender: Any) {
         let alert = NSAlert()
