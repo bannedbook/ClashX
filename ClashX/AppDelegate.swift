@@ -815,17 +815,6 @@ extension AppDelegate {
     }
 }
 
-// MARK: ANR
-extension AppDelegate {
-    private func startAnrDetect() {
-        #if DEBUG
-        return
-        #else
-        AnrDetectUtil.shared.start()
-        #endif
-    }
-}
-
 // MARK: Memory
 
 extension AppDelegate {
