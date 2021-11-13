@@ -13,6 +13,9 @@ enum Settings {
     
     @UserDefault("filterInterface", defaultValue: true)
     static var filterInterface:Bool
+    
+    @UserDefault("disableNoti", defaultValue: false)
+    static var disableNoti:Bool
 
     @UserDefault("usePacMode", defaultValue: false)
     static var usePacMode:Bool

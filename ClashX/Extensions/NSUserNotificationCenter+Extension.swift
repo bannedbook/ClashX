@@ -10,7 +10,7 @@ import Cocoa
 import UserNotifications
 
 extension NSUserNotificationCenter {
-    func post(title: String, info: String, identifier: String? = nil) {
+    func post(title: String, info: String, identifier: String? = nil, notiOnly: Bool = false) {
         if #available(OSX 10.14, *) {
             let notificationCenter = UNUserNotificationCenter.current()
             notificationCenter.delegate = UserNotificationCenterDelegate.shared
@@ -18,6 +18,7 @@ extension NSUserNotificationCenter {
                 [weak self] settings in
                 switch settings.authorizationStatus {
                 case .denied:
+                    guard !notiOnly else { return }
                     DispatchQueue.main.async {
                         self?.postNotificationAlert(title: title, info: info, identifier: identifier)
                     }
@@ -32,6 +33,7 @@ extension NSUserNotificationCenter {
                                 self?.postNotification(title: title, info: info, identifier: identifier)
                             }
                         } else {
+                            guard !notiOnly else { return }
                             DispatchQueue.main.async {
                                 self?.postNotificationAlert(title: title, info: info, identifier: identifier)
                             }
@@ -83,6 +85,9 @@ extension NSUserNotificationCenter {
     }
     
     func postNotificationAlert(title: String, info: String, identifier: String? = nil) {
+        if Settings.disableNoti {
+            return
+        }
         let alert = NSAlert()
         alert.messageText = title
         alert.informativeText = info
@@ -129,7 +134,7 @@ extension NSUserNotificationCenter {
     
     func postProxyChangeByOtherAppNotice() {
         post(title: NSLocalizedString("System Proxy Changed", comment: ""),
-             info: NSLocalizedString("Proxy settings are changed by another process. ClashX is no longer the default system proxy.", comment: ""))
+             info: NSLocalizedString("Proxy settings are changed by another process. ClashX is no longer the default system proxy.", comment: ""), notiOnly: true)
     }
 }
 
