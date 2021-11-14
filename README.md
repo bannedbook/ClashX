@@ -73,12 +73,17 @@ Checkout [Clash](https://github.com/Dreamacro/clash) or [SS-Rule-Snippet for Cla
 
 - Edit the `proxyIgnoreList.plist` to set up your own proxy ignore list
 
-### Use url scheme to import remote config.
+### URL Schemes.
 
-- Using url scheme describe below
+- Using url scheme to import remote config.
 
   ```
   clash://install-config?url=http%3A%2F%2Fexample.com&name=example
+  ```
+- Using url scheme to reload current config.
+
+  ```
+  clash://update-config
   ```
 
 ### Get process name
