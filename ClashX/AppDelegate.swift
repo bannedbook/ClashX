@@ -931,6 +931,8 @@ extension AppDelegate {
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
                 NotificationCenter.default.post(name: Notification.Name(rawValue: "didGetUrl"), object: nil, userInfo: userInfo)
             }
+        } else if host == "update-config" {
+          updateConfig()
         }
     }
 }
