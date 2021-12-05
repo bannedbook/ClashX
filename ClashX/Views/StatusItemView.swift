@@ -71,25 +71,29 @@ class StatusItemView: NSView {
         imageView.image = menuImage.tint(color: enableProxy ? selectedColor : unselectedColor)
         updateStatusItemView()
     }
+    
+    func getSpeedString(for byte: Int) -> String {
+        let kb = byte / 1024
+        if kb < 1024 {
+            return  "\(kb)KB/s"
+        } else {
+            let mb = Double(kb) / 1024.0
+            if mb >= 100 {
+                if mb >= 1000 {
+                    return String(format: "%.1fGB/s", mb/1024)
+                }
+                return String(format: "%.1fMB/s", mb)
+            } else {
+                return String(format: "%.2fMB/s", mb)
+            }
+        }
+    }
+    
 
     func updateSpeedLabel(up: Int, down: Int) {
         guard !speedContainerView.isHidden else { return }
-
-        let kbup = up / 1024
-        let kbdown = down / 1024
-        var finalUpStr: String
-        var finalDownStr: String
-        if kbup < 1024 {
-            finalUpStr = "\(kbup)KB/s"
-        } else {
-            finalUpStr = String(format: "%.2fMB/s", Double(kbup) / 1024.0)
-        }
-
-        if kbdown < 1024 {
-            finalDownStr = "\(kbdown)KB/s"
-        } else {
-            finalDownStr = String(format: "%.2fMB/s", Double(kbdown) / 1024.0)
-        }
+        let finalUpStr = getSpeedString(for: up)
+        let finalDownStr = getSpeedString(for: down)
 
         if downloadSpeedLabel.stringValue == finalDownStr && uploadSpeedLabel.stringValue == finalUpStr {
             return
