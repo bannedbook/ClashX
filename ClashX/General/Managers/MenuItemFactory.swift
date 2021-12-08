@@ -77,6 +77,11 @@ class MenuItemFactory {
             item.state = ConfigManager.selectConfigName == config ? .on : .off
             return item
         }
+        
+        if RemoteControlManager.selectConfig != nil {
+            complete([])
+            return
+        }
 
         if iCloudManager.shared.isICloudEnable() {
             iCloudManager.shared.getConfigFilesList {
