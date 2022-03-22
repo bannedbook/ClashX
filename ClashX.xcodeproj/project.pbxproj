@@ -67,7 +67,6 @@
 		8ACD21BB27A04C7800BC4632 /* ProxySettingCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ACD21BA27A04C7800BC4632 /* ProxySettingCommand.swift */; };
 		8ACD21BD27A04ED500BC4632 /* ProxyModeChangeCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ACD21BC27A04ED500BC4632 /* ProxyModeChangeCommand.swift */; };
 		9E0E2F1481CB327D3753969D /* libPods-ClashX.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CAE7981A9F34B5E210C549CB /* libPods-ClashX.a */; };
-		F90CC7FA2436116B001BA012 /* TunManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F90CC7F92436116B001BA012 /* TunManager.swift */; };
 		F910AA24240134AF00116E95 /* ProxyGroupMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = F910AA23240134AF00116E95 /* ProxyGroupMenu.swift */; };
 		F915A4622366ADEF004840BE /* ClashConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = F915A4612366ADEF004840BE /* ClashConnection.swift */; };
 		F9203A26236342820020D57D /* AppDelegate+..swift in Sources */ = {isa = PBXBuildFile; fileRef = F9203A25236342820020D57D /* AppDelegate+..swift */; };
@@ -939,7 +938,7 @@
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				COMPRESS_PNG_FILES = YES;
-				CURRENT_PROJECT_VERSION = 1.91.0;
+				CURRENT_PROJECT_VERSION = 1.91.1;
 				DEVELOPMENT_TEAM = MEWHFZ92DY;
 				ENABLE_HARDENED_RUNTIME = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -961,7 +960,7 @@
 					"$(PROJECT_DIR)/ClashX/goClash",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
-				MARKETING_VERSION = 1.91.0;
+				MARKETING_VERSION = 1.91.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.west2online.ClashX;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -986,7 +985,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				COMPRESS_PNG_FILES = YES;
 				COPY_PHASE_STRIP = YES;
-				CURRENT_PROJECT_VERSION = 1.91.0;
+				CURRENT_PROJECT_VERSION = 1.91.1;
 				DEPLOYMENT_POSTPROCESSING = YES;
 				DEVELOPMENT_TEAM = MEWHFZ92DY;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -1009,7 +1008,7 @@
 					"$(PROJECT_DIR)/ClashX/goClash",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
-				MARKETING_VERSION = 1.91.0;
+				MARKETING_VERSION = 1.91.1;
 				OTHER_CODE_SIGN_FLAGS = "--timestamp";
 				PRODUCT_BUNDLE_IDENTIFIER = com.west2online.ClashX;
 				PRODUCT_NAME = "$(TARGET_NAME)";
