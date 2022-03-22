@@ -113,3 +113,7 @@ defaults write com.west2online.ClashXPro disableNoti -bool true
 ```
 
 Note：强烈不推荐这么做，这可能导致clashx的很多重要错误提醒无法显示。
+
+### 全局快捷键
+
+- 设置详情点击 [全局快捷键](Shortcuts.md)
