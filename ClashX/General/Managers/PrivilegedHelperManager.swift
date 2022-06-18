@@ -112,39 +112,24 @@ class PrivilegedHelperManager {
         return .success
     }
 
-    private func helperConnection() -> NSXPCConnection? {
-        // Check that the connection is valid before trying to do an inter process call to helper
-        if connection == nil {
-            connection = NSXPCConnection(machServiceName: PrivilegedHelperManager.machServiceName, options: NSXPCConnection.Options.privileged)
-            connection?.remoteObjectInterface = NSXPCInterface(with: ProxyConfigRemoteProcessProtocol.self)
-            connection?.invalidationHandler = {
-                [weak self] in
-                guard let self = self else { return }
-                self.connection?.invalidationHandler = nil
-                OperationQueue.main.addOperation {
-                    self.connection = nil
-                    self._helper = nil
-                    Logger.log("XPC Connection Invalidated")
-                }
-            }
-            connection?.resume()
-        }
-        return connection
-    }
+
 
     func helper(failture: (() -> Void)? = nil) -> ProxyConfigRemoteProcessProtocol? {
-        if _helper == nil {
-            guard let newHelper = helperConnection()?.remoteObjectProxyWithErrorHandler({ error in
-                Logger.log("Helper connection was closed with error: \(error)")
-                failture?()
-            }) as? ProxyConfigRemoteProcessProtocol else { return nil }
-            _helper = newHelper
+        connection = NSXPCConnection(machServiceName: PrivilegedHelperManager.machServiceName, options: NSXPCConnection.Options.privileged)
+        connection?.remoteObjectInterface = NSXPCInterface(with: ProxyConfigRemoteProcessProtocol.self)
+        connection?.invalidationHandler = {
+            Logger.log("XPC Connection Invalidated")
         }
-        return _helper
+        connection?.resume()
+        guard let helper = connection?.remoteObjectProxyWithErrorHandler({ error in
+            Logger.log("Helper connection was closed with error: \(error)")
+            failture?()
+        }) as? ProxyConfigRemoteProcessProtocol else { return nil }
+        return helper
     }
+    
     var timer: Timer?
     private func getHelperStatus(callback:@escaping ((Bool)->Void)) {
-        
         var called = false
         let reply:((Bool)->Void) = {
             installed in
