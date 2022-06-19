@@ -33,11 +33,13 @@ class ClashResourceManager {
             let versionChange = AppVersionUtil.hasVersionChanged || AppVersionUtil.isFirstLaunch
             let customMMDBSet = !Settings.mmdbDownloadUrl.isEmpty
             if !vaild || (versionChange && customMMDBSet) {
+                Logger.log("removing new mmdb file")
                 try? fileManage.removeItem(atPath: destMMDBPath)
             }
         }
 
         if !fileManage.fileExists(atPath: destMMDBPath) {
+            Logger.log("installing new mmdb file")
             if let mmdbUrl = Bundle.main.url(forResource: "Country.mmdb", withExtension: "gz") {
                 do {
                     let data = try Data(contentsOf: mmdbUrl).gunzipped()
