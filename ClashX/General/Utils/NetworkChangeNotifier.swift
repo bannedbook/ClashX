@@ -27,7 +27,7 @@ class NetworkChangeNotifier {
             name: NSWorkspace.didWakeNotification, object: nil
         )
 
-        let changed: SCDynamicStoreCallBack = { dynamicStore, _, _ in
+        let changed: SCDynamicStoreCallBack = { _, _, _ in
             NotificationCenter.default.post(name: .systemNetworkStatusDidChange, object: nil)
         }
         var dynamicContext = SCDynamicStoreContext(version: 0, info: nil, retain: nil, release: nil, copyDescription: nil)
@@ -43,7 +43,7 @@ class NetworkChangeNotifier {
     }
 
     private static func startIPChangeWatch() {
-        let changed: SCDynamicStoreCallBack = { dynamicStore, _, _ in
+        let changed: SCDynamicStoreCallBack = { _, _, _ in
             NotificationCenter.default.post(name: .systemNetworkStatusIPUpdate, object: nil)
         }
         var dynamicContext = SCDynamicStoreContext(version: 0, info: nil, retain: nil, release: nil, copyDescription: nil)
@@ -91,12 +91,12 @@ class NetworkChangeNotifier {
             return http == currentPort && https == currentPort && socks == currentSocks
         }
     }
-    
+
     static func hasInterfaceProxySetToClash() -> Bool {
         let currentPort = ConfigManager.shared.currentConfig?.usedHttpPort
         let currentSocks = ConfigManager.shared.currentConfig?.usedSocksPort
         if let prefRef = SCPreferencesCreate(nil, "ClashX" as CFString, nil),
-           let sets = SCPreferencesGetValue(prefRef, kSCPrefNetworkServices){
+           let sets = SCPreferencesGetValue(prefRef, kSCPrefNetworkServices) {
             for key in sets.allKeys {
                 let dict = sets[key] as? NSDictionary
                 let proxySettings = dict?["Proxies"] as? [String:Any]

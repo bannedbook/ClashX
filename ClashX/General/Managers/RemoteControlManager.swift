@@ -28,7 +28,6 @@ class RemoteControlManager {
         static var selected: String
     }
 
-    
     static let shared = RemoteControlManager()
     static var configs: [RemoteControl] = loadConfig() {
         didSet {
@@ -44,7 +43,7 @@ class RemoteControlManager {
             Recorder.selected = selectConfig?.uuid ?? ""
         }
     }
-    
+
     private static var menuSeparator: NSMenuItem?
 
     static func loadConfig() -> [RemoteControl] {
@@ -67,7 +66,7 @@ class RemoteControlManager {
             RemoteControlManager.recoverSelection()
         }
     }
-    
+
     static private func recoverSelection() {
         if Recorder.selected != "" {
             if let config = configs.first(where: { $0.uuid == Recorder.selected }) {

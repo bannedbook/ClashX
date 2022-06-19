@@ -1,4 +1,3 @@
-
 import Alamofire
 import AppKit
 import Foundation
@@ -69,7 +68,7 @@ extension ClashResourceManager {
 
     @objc private static func updateGeoIP() {
         guard let url = showCustomAlert() else { return }
-        AF.download(url, to:  { (_, _) in
+        AF.download(url, to: { (_, _) in
             let path = kConfigFolderPath.appending("/Country.mmdb")
             return (URL(fileURLWithPath: path), .removePreviousFile)
         }).response { res in
@@ -92,7 +91,7 @@ extension ClashResourceManager {
             alert.runModal()
         }
     }
-    
+
     private static func showCustomAlert() -> String? {
         let alert = NSAlert()
         alert.messageText = NSLocalizedString("Custom your GEOIP MMDB download address.", comment: "")

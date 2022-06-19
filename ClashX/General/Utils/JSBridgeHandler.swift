@@ -16,7 +16,7 @@ class JsBridgeUtil {
 
         bridge.setWebViewDelegate(delegate)
 
-        bridge.registerHandler("isSystemProxySet") { anydata, responseCallback in
+        bridge.registerHandler("isSystemProxySet") { _, responseCallback in
             responseCallback?(ConfigManager.shared.proxyPortAutoSet)
         }
 
@@ -89,13 +89,13 @@ class JsBridgeUtil {
             let data = [
                 "host": host,
                 "port": port,
-                "secret": ConfigManager.shared.overrideSecret ?? ConfigManager.shared.apiSecret,
+                "secret": ConfigManager.shared.overrideSecret ?? ConfigManager.shared.apiSecret
             ]
             callback?(data)
         }
 
         // ping-pong
-        bridge.registerHandler("ping") { [weak bridge] anydata, responseCallback in
+        bridge.registerHandler("ping") { [weak bridge] _, responseCallback in
             bridge?.callHandler("pong")
             responseCallback?(true)
         }

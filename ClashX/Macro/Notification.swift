@@ -18,5 +18,5 @@ extension Notification.Name {
     static func proxyUpdate(for name: ClashProxyName) -> Notification.Name {
         return Notification.Name("kProxyUpdate_\(name)")
     }
-    
+
 }

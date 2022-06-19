@@ -8,8 +8,8 @@
 
 import Cocoa
 
-class iCloudManager {
-    static let shared = iCloudManager()
+class ICloudManager {
+    static let shared = ICloudManager()
     private let queue = DispatchQueue(label: "com.clashx.icloud")
     private var metaQuery: NSMetadataQuery?
     private var enableMenuItem: NSMenuItem?
@@ -104,7 +104,7 @@ class iCloudManager {
     }
 }
 
-extension iCloudManager {
+extension ICloudManager {
     func addEnableMenuItem(_ menu: inout NSMenu) {
         let item = NSMenuItem(title: NSLocalizedString("Use iCloud", comment: ""), action: #selector(enableMenuItemTap(sender:)), keyEquivalent: "")
         menu.addItem(item)

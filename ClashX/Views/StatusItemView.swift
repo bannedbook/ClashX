@@ -71,7 +71,7 @@ class StatusItemView: NSView {
         imageView.image = menuImage.tint(color: enableProxy ? selectedColor : unselectedColor)
         updateStatusItemView()
     }
-    
+
     func getSpeedString(for byte: Int) -> String {
         let kb = byte / 1024
         if kb < 1024 {
@@ -88,7 +88,6 @@ class StatusItemView: NSView {
             }
         }
     }
-    
 
     func updateSpeedLabel(up: Int, down: Int) {
         guard !speedContainerView.isHidden else { return }

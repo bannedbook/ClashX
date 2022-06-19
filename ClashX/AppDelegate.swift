@@ -15,7 +15,6 @@ import RxSwift
 import AppCenter
 import AppCenterAnalytics
 
-
 private let statusItemLengthWithSpeed: CGFloat = 72
 
 @NSApplicationMain
@@ -90,7 +89,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
         setupStatusMenuItemData()
         AppVersionUtil.showUpgradeAlert()
-        iCloudManager.shared.setup()
+        ICloudManager.shared.setup()
         setupExperimentalMenuItem()
 
         // install proxy helper
@@ -120,7 +119,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         ConfigManager.watchCurrentConfigFile()
 
         RemoteConfigManager.shared.autoUpdateCheck()
-
 
         setupNetworkNotifier()
     }
@@ -181,7 +179,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         Logger.log("ClashX will terminate")
         if NetworkChangeNotifier.isCurrentSystemSetToClash(looser: true) ||
             NetworkChangeNotifier.hasInterfaceProxySetToClash() {
-            Logger.log("Need Reset Proxy Setting again",level: .error)
+            Logger.log("Need Reset Proxy Setting again", level: .error)
             SystemProxyManager.shared.disableProxy()
         }
     }
@@ -271,13 +269,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 }
 
             }.disposed(by: disposeBag)
-        
+
         if !PrivilegedHelperManager.shared.isHelperCheckFinished.value &&
             ConfigManager.shared.proxyPortAutoSet {
             PrivilegedHelperManager.shared.isHelperCheckFinished
                 .filter({$0})
                 .take(1)
-                .take(while:{_ in ConfigManager.shared.proxyPortAutoSet})
+                .take(while: {_ in ConfigManager.shared.proxyPortAutoSet})
                 .observe(on: MainScheduler.instance)
                 .bind(onNext: { _ in
                     SystemProxyManager.shared.enableProxy()
@@ -285,7 +283,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         } else if ConfigManager.shared.proxyPortAutoSet {
             SystemProxyManager.shared.enableProxy()
         }
-        
+
         if !PrivilegedHelperManager.shared.isHelperCheckFinished.value {
             proxySettingMenuItem.target = nil
             PrivilegedHelperManager.shared.isHelperCheckFinished
@@ -424,7 +422,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         } else {
             ConfigManager.shared.isRunning = false
             proxyModeMenuItem.isEnabled = false
-            Logger.log(string,level: .error)
+            Logger.log(string, level: .error)
             NSUserNotificationCenter.default.postConfigErrorNotice(msg: string)
         }
         Logger.log("Start proxy done")
@@ -492,7 +490,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         if WebPortalManager.hasWebProtal {
             WebPortalManager.shared.addWebProtalMenuItem(&statusMenu)
         }
-        iCloudManager.shared.addEnableMenuItem(&experimentalMenu)
+        ICloudManager.shared.addEnableMenuItem(&experimentalMenu)
         AutoUpgardeManager.shared.setup()
         AutoUpgardeManager.shared.addChanelMenuItem(&experimentalMenu)
         updateExperimentalFeatureStatus()
@@ -524,23 +522,23 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         ApiRequest.getMergedProxyData {
             proxyResp in
             guard let proxyResp = proxyResp else {return}
-            
+
             var providers = Set<ClashProxyName>()
-            
+
             let groups = proxyResp.proxyGroups.filter({$0.type.isAutoGroup})
             for group in groups {
-                group.all?.compactMap{
+                group.all?.compactMap {
                     proxyResp.proxiesMap[$0]?.enclosingProvider?.name
-                }.forEach{
+                }.forEach {
                     providers.insert($0)
                 }
             }
-            
+
             for group in groups {
                 Logger.log("Start auto health check for group \(group.name)")
                 ApiRequest.healthCheck(proxy: group.name)
             }
-            
+
             for provider in providers {
                 Logger.log("Start auto health check for provider \(provider)")
                 ApiRequest.healthCheck(proxy: provider)
@@ -590,7 +588,7 @@ extension AppDelegate {
         }
         let config = ConfigManager.shared.currentConfig?.copy()
         config?.mode = mode
-        ApiRequest.updateOutBoundMode(mode: mode) { success in
+        ApiRequest.updateOutBoundMode(mode: mode) { _ in
             ConfigManager.shared.currentConfig = config
             ConfigManager.selectOutBoundMode = mode
             MenuItemFactory.recreateProxyMenuItems()
@@ -697,8 +695,8 @@ extension AppDelegate {
 
 extension AppDelegate {
     @IBAction func openConfigFolder(_ sender: Any) {
-        if iCloudManager.shared.isICloudEnable() {
-            iCloudManager.shared.getUrl() {
+        if ICloudManager.shared.isICloudEnable() {
+            ICloudManager.shared.getUrl {
                 url in
                 if let url = url {
                     NSWorkspace.shared.open(url)
@@ -728,7 +726,7 @@ extension AppDelegate {
     @IBAction func actionUpdateRemoteConfig(_ sender: Any) {
         RemoteConfigManager.shared.updateCheck(ignoreTimeLimit: true, showNotification: true)
     }
-    
+
     @IBAction func actionSetUpdateInterval(_ sender: Any) {
         RemoteConfigManager.showAdd()
     }
@@ -747,6 +745,7 @@ extension AppDelegate {
     @IBAction func actionUpdateProxyGroupMenu(_ sender: Any) {
         ConfigManager.shared.disableShowCurrentProxyInMenu = !ConfigManager.shared.disableShowCurrentProxyInMenu
         updateExperimentalFeatureStatus()
+        print("211")
         MenuItemFactory.recreateProxyMenuItems()
     }
 
@@ -780,10 +779,10 @@ extension AppDelegate {
         #else
             DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
                 AppCenter.start(withAppSecret: "dce6e9a3-b6e3-4fd2-9f2d-35c767a99663", services: [
-                    Analytics.self,
+                    Analytics.self
                 ])
             }
-        
+
         #endif
     }
 
@@ -805,7 +804,7 @@ extension AppDelegate {
                     UserDefaults.standard.removePersistentDomain(forName: domain)
                     UserDefaults.standard.synchronize()
                 }
-                NSUserNotificationCenter.default.post(title: "Fail on launch protect", info: "You origin Config has been renamed",notiOnly: false)
+                NSUserNotificationCenter.default.post(title: "Fail on launch protect", info: "You origin Config has been renamed", notiOnly: false)
             }
             DispatchQueue.global().asyncAfter(deadline: DispatchTime.now() + Double(Int64(5 * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC), execute: {
                 x.set(0, forKey: "launch_fail_times")
@@ -842,8 +841,8 @@ extension AppDelegate {
             }
         }
 
-        if iCloudManager.shared.isICloudEnable() {
-            iCloudManager.shared.getConfigFilesList { list in
+        if ICloudManager.shared.isICloudEnable() {
+            ICloudManager.shared.getConfigFilesList { list in
                 action(list)
             }
         } else {

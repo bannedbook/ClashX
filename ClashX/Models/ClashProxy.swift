@@ -58,8 +58,8 @@ class ClashProxySpeedHistory: Codable {
     let time: Date
     let delay: Int
 
-    class hisDateFormaterInstance {
-        static let shared = hisDateFormaterInstance()
+    class HisDateFormaterInstance {
+        static let shared = HisDateFormaterInstance()
         lazy var formater: DateFormatter = {
             var f = DateFormatter()
             f.dateFormat = "HH:mm"
@@ -75,7 +75,7 @@ class ClashProxySpeedHistory: Codable {
     }()
 
     lazy var dateDisplay: String = {
-        return hisDateFormaterInstance.shared.formater.string(from: time)
+        return HisDateFormaterInstance.shared.formater.string(from: time)
     }()
 
     lazy var displayString: String = "\(dateDisplay) \(delayDisplay)"
@@ -87,8 +87,8 @@ class ClashProxy: Codable {
     let all: [ClashProxyName]?
     let history: [ClashProxySpeedHistory]
     let now: ClashProxyName?
-    weak var enclosingResp: ClashProxyResp? = nil
-    weak var enclosingProvider: ClashProvider? = nil
+    weak var enclosingResp: ClashProxyResp?
+    weak var enclosingProvider: ClashProvider?
 
     enum SpeedtestAbleItem {
         case proxy(name: ClashProxyName)

@@ -31,7 +31,7 @@ class ProxyGroupMenuItemView: MenuItemBaseView {
         return [groupNameLabel.cell, selectProxyLabel.cell, arrowLabel.cell]
     }
 
-    init(group: ClashProxyName, targetProxy: ClashProxyName, hasLeftPadding: Bool, observeUpdate:Bool = true) {
+    init(group: ClashProxyName, targetProxy: ClashProxyName, hasLeftPadding: Bool, observeUpdate: Bool = true) {
         groupNameLabel = VibrancyTextField(labelWithString: group)
         selectProxyLabel = VibrancyTextField(labelWithString: targetProxy)
         super.init(autolayout: true)

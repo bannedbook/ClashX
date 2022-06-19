@@ -137,7 +137,7 @@ class ExternalControlAddView: NSView {
             nameField.leadingAnchor.constraint(equalTo: urlTextField.leadingAnchor),
             nameLabel.centerYAnchor.constraint(equalTo: nameField.centerYAnchor),
             nameLabel.leadingAnchor.constraint(greaterThanOrEqualTo: leadingAnchor),
-            nameField.leadingAnchor.constraint(equalTo: nameLabel.trailingAnchor, constant: 5),
+            nameField.leadingAnchor.constraint(equalTo: nameLabel.trailingAnchor, constant: 5)
         ])
     }
 

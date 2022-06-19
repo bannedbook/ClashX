@@ -14,7 +14,7 @@ extension PrivilegedHelperManager {
         let bash = """
         #!/bin/bash
         set -e
-        
+
         plistPath=/Library/LaunchDaemons/\(PrivilegedHelperManager.machServiceName).plist
         rm -rf /Library/PrivilegedHelperTools/\(PrivilegedHelperManager.machServiceName)
         if [ -e ${plistPath} ]; then
@@ -22,10 +22,10 @@ extension PrivilegedHelperManager {
         rm ${plistPath}
         fi
         launchctl remove \(PrivilegedHelperManager.machServiceName) || true
-        
+
         mkdir -p /Library/PrivilegedHelperTools/
         rm -f /Library/PrivilegedHelperTools/\(PrivilegedHelperManager.machServiceName)
-        
+
         cp "\(appPath)/Contents/Library/LaunchServices/\(PrivilegedHelperManager.machServiceName)" "/Library/PrivilegedHelperTools/\(PrivilegedHelperManager.machServiceName)"
 
         echo '
@@ -49,7 +49,7 @@ extension PrivilegedHelperManager {
         </dict>
         </plist>
         ' > ${plistPath}
-        
+
         launchctl load -w ${plistPath}
         """
         return bash

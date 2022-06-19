@@ -108,7 +108,7 @@ extension ProxyMenuItem {
     func getAttributedTitle(name: String, delay: String?) -> NSAttributedString {
         let paragraph = NSMutableParagraphStyle()
         paragraph.tabStops = [
-            NSTextTab(textAlignment: .right, location: 65 + maxProxyNameLength, options: [:]),
+            NSTextTab(textAlignment: .right, location: 65 + maxProxyNameLength, options: [:])
         ]
         let proxyName = name.replacingOccurrences(of: "\t", with: " ")
         let str: String
@@ -122,7 +122,7 @@ extension ProxyMenuItem {
             string: str,
             attributes: [
                 NSAttributedString.Key.paragraphStyle: paragraph,
-                NSAttributedString.Key.font: NSFont.menuBarFont(ofSize: 14),
+                NSAttributedString.Key.font: NSFont.menuBarFont(ofSize: 14)
             ]
         )
 

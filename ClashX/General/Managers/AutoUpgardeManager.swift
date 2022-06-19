@@ -32,8 +32,8 @@ class AutoUpgardeManager: NSObject {
         }
         return items
     }()
-    
-    private var allowSelectChannel:Bool {
+
+    private var allowSelectChannel: Bool {
         return Bundle.main.object(forInfoDictionaryKey: "SUDisallowSelectChannel") as? Bool != true
     }
 

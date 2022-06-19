@@ -16,7 +16,7 @@ class Logger {
         #if DEBUG
             DDLog.add(DDOSLogger.sharedInstance)
         #endif
-        //default time zone is "UTC"
+        // default time zone is "UTC"
         let dataFormatter = DateFormatter()
         dataFormatter.setLocalizedDateFormatFromTemplate("YYYY/MM/dd HH:mm:ss:SSS")
         fileLogger.logFormatter = DDLogFileFormatterDefault.init(dateFormatter: dataFormatter)

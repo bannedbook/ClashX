@@ -14,11 +14,11 @@ class RemoteConfigUpdateIntervalSettingView: NSView {
         super.init(frame: .zero)
         setup()
     }
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     let stackView = NSStackView()
     let textfield = NSTextField()
     func setup() {

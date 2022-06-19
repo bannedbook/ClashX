@@ -77,14 +77,14 @@ class MenuItemFactory {
             item.state = ConfigManager.selectConfigName == config ? .on : .off
             return item
         }
-        
+
         if RemoteControlManager.selectConfig != nil {
             complete([])
             return
         }
 
-        if iCloudManager.shared.isICloudEnable() {
-            iCloudManager.shared.getConfigFilesList {
+        if ICloudManager.shared.isICloudEnable() {
+            ICloudManager.shared.getConfigFilesList {
                 complete($0.map { generateMenuItem($0) })
             }
         } else {
@@ -113,8 +113,7 @@ class MenuItemFactory {
 
     private static func generateSelectorMenuItem(proxyGroup: ClashProxy,
                                                  proxyInfo: ClashProxyResp,
-                                                 leftPadding: Bool) -> NSMenuItem?
-    {
+                                                 leftPadding: Bool) -> NSMenuItem? {
         let proxyMap = proxyInfo.proxiesMap
 
         let isGlobalMode = ConfigManager.shared.currentConfig?.mode == .global
@@ -150,8 +149,7 @@ class MenuItemFactory {
 
     private static func generateUrlTestFallBackMenuItem(proxyGroup: ClashProxy,
                                                         proxyInfo: ClashProxyResp,
-                                                        leftPadding: Bool) -> NSMenuItem?
-    {
+                                                        leftPadding: Bool) -> NSMenuItem? {
         let proxyMap = proxyInfo.proxiesMap
         let selectedName = proxyGroup.now ?? ""
         let menu = NSMenuItem(title: proxyGroup.name, action: nil, keyEquivalent: "")

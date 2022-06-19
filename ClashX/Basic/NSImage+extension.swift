@@ -16,7 +16,7 @@ extension NSImage {
 
         color.set()
 
-        let imageRect = NSRect(origin: NSZeroPoint, size: image.size)
+        let imageRect = NSRect(origin: NSPoint.zero, size: image.size)
         imageRect.fill(using: .sourceIn)
 
         image.unlockFocus()

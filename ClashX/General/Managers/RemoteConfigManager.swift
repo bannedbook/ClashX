@@ -173,7 +173,7 @@ class RemoteConfigManager {
             }
             config.isPlaceHolderName = false
 
-            if iCloudManager.shared.isICloudEnable() {
+            if ICloudManager.shared.isICloudEnable() {
                 ConfigFileManager.shared.stopWatchConfigFile()
             } else if config.name == ConfigManager.selectConfigName {
                 ConfigFileManager.shared.pauseForNextChange()
@@ -192,8 +192,8 @@ class RemoteConfigManager {
                 }
             }
 
-            if iCloudManager.shared.isICloudEnable() {
-                iCloudManager.shared.getUrl { url in
+            if ICloudManager.shared.isICloudEnable() {
+                ICloudManager.shared.getUrl { url in
                     guard let url = url else { return }
                     let saveUrl = url.appendingPathComponent(Paths.configFileName(for: config.name))
                     saveAction(saveUrl.path)
@@ -214,7 +214,7 @@ class RemoteConfigManager {
             return res
         }
     }
-    
+
     static func showAdd() {
         let alertView = NSAlert()
         alertView.addButton(withTitle: NSLocalizedString("OK", comment: ""))
