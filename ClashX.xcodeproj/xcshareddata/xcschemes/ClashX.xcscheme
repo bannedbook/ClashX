@@ -15,8 +15,8 @@
                   <BuildableReference
                      BuildableIdentifier = "primary"
                      BlueprintIdentifier = "49CF3B1C20CD7463001EBF94"
-                     BuildableName = "ClashX Pro.app"
-                     BlueprintName = "ClashX Pro"
+                     BuildableName = "ClashX.app"
+                     BlueprintName = "ClashX"
                      ReferencedContainer = "container:ClashX.xcodeproj">
                   </BuildableReference>
                </EnvironmentBuildable>
