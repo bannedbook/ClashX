@@ -105,8 +105,8 @@ class ApiRequest {
     }
 
     static func requestConfigUpdate(configName: String, callback: @escaping ((ErrorString?) -> Void)) {
-        if iCloudManager.shared.isICloudEnable() {
-            iCloudManager.shared.getUrl { url in
+        if ICloudManager.shared.isICloudEnable() {
+            ICloudManager.shared.getUrl { url in
                 guard let url = url else {
                     callback("icloud error")
                     return
