@@ -76,7 +76,6 @@ func readConfig(path string) ([]byte, error) {
 	return data, err
 }
 
-
 func parseDefaultConfigThenStart(checkPort, allowLan bool) (*config.Config, error) {
 	buf, err := readConfig(constant.Path.Config())
 	if err != nil {
