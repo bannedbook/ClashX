@@ -1,6 +1,6 @@
 name: ClashX
 
-on: [push]
+on: [ push, pull_request ]
 
 env:
   FASTLANE_SKIP_UPDATE_CHECK: true
