@@ -35,6 +35,9 @@
 "ClashX Start Error!" = "ClashX 启动出错";
 
 /* No comment provided by engineer. */
+"ClashX use a daemon helper to setup your system proxy. Please enable ClashX in the Login Items under the Allow in the Background section and relaunch the app" = "ClashX需要通过后台Daemon进程来设置系统代理，请在\"系统偏好设置->登录项->允许在后台 中\"允许ClashX";
+
+/* No comment provided by engineer. */
 "Config file have been changed" = "配置文件已被修改";
 
 /* No comment provided by engineer. */
@@ -95,6 +98,9 @@
 
 /* No comment provided by engineer. */
 "OK" = "确定";
+
+/* No comment provided by engineer. */
+"Open System Login Item Setting" = "打开系统登录项设置";
 
 /* No comment provided by engineer. */
 "Ports Open Fail, Please try to restart ClashX" = "端口打开失败，请尝试重启ClashX";

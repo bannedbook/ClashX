@@ -31,6 +31,18 @@ class PrivilegedHelperManager {
     func checkInstall() {
         Logger.log("checkInstall", level: .debug)
 
+        if #available(macOS 13, *) {
+            let url = URL(string: "/Library/LaunchDaemons/\(PrivilegedHelperManager.machServiceName).plist")!
+            let status = SMAppService.statusForLegacyPlist(at: url)
+            if status == .requiresApproval {
+                let alert = NSAlert()
+                alert.messageText = NSLocalizedString("ClashX use a daemon helper to setup your system proxy. Please enable ClashX in the Login Items under the Allow in the Background section and relaunch the app", comment: "")
+                alert.addButton(withTitle: NSLocalizedString("Open System Login Item Setting", comment: ""))
+                alert.runModal()
+                SMAppService.openSystemSettingsLoginItems()
+                return
+            }
+        }
         getHelperStatus { [weak self] installed in
             guard let self = self else {return}
             if !installed {

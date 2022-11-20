@@ -35,6 +35,9 @@
 "ClashX Start Error!" = "ClashX Start Error!";
 
 /* No comment provided by engineer. */
+"ClashX use a daemon helper to setup your system proxy. Please enable ClashX in the Login Items under the Allow in the Background section and relaunch the app" = "ClashX use a daemon helper to setup your system proxy. Please enable ClashX in the Login Items under the Allow in the Background section and relaunch the app";
+
+/* No comment provided by engineer. */
 "Config file have been changed" = "Config file have been changed";
 
 /* No comment provided by engineer. */
@@ -95,6 +98,9 @@
 
 /* No comment provided by engineer. */
 "OK" = "OK";
+
+/* No comment provided by engineer. */
+"Open System Login Item Setting" = "Open System Login Item Setting";
 
 /* No comment provided by engineer. */
 "Ports Open Fail, Please try to restart ClashX" = "Ports Open Fail, Please try to restart ClashX";
