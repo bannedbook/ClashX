@@ -16,6 +16,7 @@ import (
 	"github.com/Dreamacro/clash/hub/executor"
 	"github.com/Dreamacro/clash/hub/route"
 	"github.com/Dreamacro/clash/log"
+	"github.com/Dreamacro/clash/tunnel/statistic"
 	"github.com/oschwald/geoip2-golang"
 	"github.com/phayes/freeport"
 )
@@ -211,6 +212,14 @@ func verifyGEOIPDataBase() bool {
 		return false
 	}
 	return true
+}
+
+//export clash_closeAllConnections
+func clash_closeAllConnections() {
+	snapshot := statistic.DefaultManager.Snapshot()
+	for _, c := range snapshot.Connections {
+		c.Close()
+	}
 }
 
 func main() {

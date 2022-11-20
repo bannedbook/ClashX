@@ -7,6 +7,7 @@
 //
 
 import Cocoa
+import SwiftyJSON
 
 enum ClashProxyType: String, Codable {
     case urltest = "URLTest"
@@ -151,24 +152,22 @@ class ClashProxyResp {
 
     var enclosingProviderResp: ClashProviderResp?
 
-    init(_ data: Any?) {
-        guard
-            let data = data as? [String: [String: Any]],
-            let proxies = data["proxies"]
+    init(_ data: Data?) {
+        guard let data
         else {
             self.proxiesMap = [:]
             self.proxies = []
             return
         }
-
+        let proxies = JSON(data)["proxies"]
         var proxiesModel = [ClashProxy]()
 
         var proxiesMap = [ClashProxyName: ClashProxy]()
 
         let decoder = JSONDecoder()
         decoder.dateDecodingStrategy = .formatted(DateFormatter.js)
-        for value in proxies.values {
-            guard let data = try? JSONSerialization.data(withJSONObject: value, options: .prettyPrinted) else {
+        for value in proxies.dictionaryValue.values {
+            guard let data = try? value.rawData() else {
                 continue
             }
             guard let proxy = try? decoder.decode(ClashProxy.self, from: data) else {
