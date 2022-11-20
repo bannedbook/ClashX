@@ -1,10 +1,10 @@
 PODS:
   - Alamofire (5.6.2)
-  - AppCenter/Analytics (4.4.3):
+  - AppCenter/Analytics (5.0.0):
     - AppCenter/Core
-  - AppCenter/Core (4.4.3)
-  - CocoaLumberjack/Core (3.7.4)
-  - CocoaLumberjack/Swift (3.7.4):
+  - AppCenter/Core (5.0.0)
+  - CocoaLumberjack/Core (3.8.0)
+  - CocoaLumberjack/Swift (3.8.0):
     - CocoaLumberjack/Core
   - FlexibleDiff (0.0.9)
   - GzipSwift (5.1.1)
@@ -52,8 +52,8 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   Alamofire: d368e1ff8a298e6dde360e35a3e68e6c610e7204
-  AppCenter: 3fd04aa1b166e16fdb03ec81dabe488aece83fbd
-  CocoaLumberjack: 543c79c114dadc3b1aba95641d8738b06b05b646
+  AppCenter: 30ac5adefc8fc41d9530f1cc91829810a6af4c93
+  CocoaLumberjack: 78abfb691154e2a9df8ded4350d504ee19d90732
   FlexibleDiff: b9ee9b8305b42c784f5dd40589203c97c55bbaa0
   GzipSwift: 893f3e48e597a1a4f62fafcb6514220fcf8287fa
   LetsMove: 7b9fe44737707d984fbd3f47af46609a9a07b461
@@ -65,6 +65,6 @@ SPEC CHECKSUMS:
   SwiftyJSON: 2f33a42c6fbc52764d96f13368585094bfd8aa5e
   WebViewJavascriptBridge: 7f5bc4d3581e672e8f32bd0f812d54bc69bb8e29
 
-PODFILE CHECKSUM: 3d889ed6c786fdaa0a2b35a70d4c5abcb240da2b
+PODFILE CHECKSUM: 8723148a909e836604a13ea038cf5206d1d450a0
 
 COCOAPODS: 1.11.3

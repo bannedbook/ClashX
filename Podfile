@@ -9,7 +9,7 @@ post_install do |installer|
         end
       end
       if config.build_settings['MACOSX_DEPLOYMENT_TARGET'] == ''
-        config.build_settings['MACOSX_DEPLOYMENT_TARGET'] = '10.10'
+        config.build_settings['MACOSX_DEPLOYMENT_TARGET'] = '10.13'
       end
     end
   end
