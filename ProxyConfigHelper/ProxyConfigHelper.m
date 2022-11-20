@@ -92,10 +92,11 @@ ProxyConfigRemoteProcessProtocol
           socksPort:(int)socksPort
             pac:(NSString *)pac
             filterInterface:(BOOL)filterInterface
+                 ignoreList:(NSArray<NSString *>*)ignoreList
             error:(stringReplyBlock)reply {
     dispatch_async(dispatch_get_main_queue(), ^{
         ProxySettingTool *tool = [ProxySettingTool new];
-        [tool enableProxyWithport:port socksPort:socksPort pacUrl:pac filterInterface:filterInterface];
+        [tool enableProxyWithport:port socksPort:socksPort pacUrl:pac filterInterface:filterInterface ignoreList:ignoreList];
         reply(nil);
     });
 }

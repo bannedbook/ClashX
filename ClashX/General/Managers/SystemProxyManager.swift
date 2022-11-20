@@ -61,6 +61,7 @@ class SystemProxyManager: NSObject {
                             socksPort: Int32(socksPort),
                             pac: nil,
                             filterInterface: Settings.filterInterface,
+                            ignoreList: Settings.proxyIgnoreList,
                             error: { error in
             if let error = error {
                 Logger.log("enableProxy \(error)", level: .error)
