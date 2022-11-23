@@ -1,5 +1,5 @@
-github.com/Dreamacro/clash v1.11.13-0.20221120133055-5b07d7b776d1 h1:GtzUKc1AgyiFoi578Q6h03Ae/bz4Sjl8ygIb29PKJJ0=
-github.com/Dreamacro/clash v1.11.13-0.20221120133055-5b07d7b776d1/go.mod h1:V0EqpSiaXUeuHVyc2356972oWDB2ItxYqDjRHy75cgM=
+github.com/Dreamacro/clash v1.11.13-0.20221122130151-efa4b9e0b8ac h1:4Cu4WdT9ZEknzZj52M+PSXnIV/jQqjsYdaTEoMlM1ew=
+github.com/Dreamacro/clash v1.11.13-0.20221122130151-efa4b9e0b8ac/go.mod h1:V0EqpSiaXUeuHVyc2356972oWDB2ItxYqDjRHy75cgM=
 github.com/ajg/form v1.5.1 h1:t9c7v8JUKu/XxOGBU0yjNpaMloxGEJhUkqFRq0ibGeU=
 github.com/ajg/form v1.5.1/go.mod h1:uL1WgH+h2mgNtvBq0339dVnzXdBETtL2LeUXaIv25UY=
 github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
