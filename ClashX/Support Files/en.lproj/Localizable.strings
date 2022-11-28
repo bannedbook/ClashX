@@ -77,6 +77,9 @@
 "hours" = "hours";
 
 /* No comment provided by engineer. */
+"If you can not find ClashX in the settings, you can try reset daemon" = "If you can not find ClashX in the settings, you can try reset daemon";
+
+/* No comment provided by engineer. */
 "Install" = "Install";
 
 /* No comment provided by engineer. */
@@ -134,6 +137,9 @@
 
 /* No comment provided by engineer. */
 "Remote Config Update Fail" = "Remote Config Update Fail";
+
+/* No comment provided by engineer. */
+"Reset Daemon" = "Reset Daemon";
 
 /* No comment provided by engineer. */
 "ReTest" = "ReTest";

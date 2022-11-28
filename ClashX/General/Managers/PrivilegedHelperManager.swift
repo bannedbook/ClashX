@@ -36,10 +36,16 @@ class PrivilegedHelperManager {
             let status = SMAppService.statusForLegacyPlist(at: url)
             if status == .requiresApproval {
                 let alert = NSAlert()
-                alert.messageText = NSLocalizedString("ClashX use a daemon helper to setup your system proxy. Please enable ClashX in the Login Items under the Allow in the Background section and relaunch the app", comment: "")
+                let notice = NSLocalizedString("ClashX use a daemon helper to setup your system proxy. Please enable ClashX in the Login Items under the Allow in the Background section and relaunch the app", comment: "")
+                let addition = NSLocalizedString("If you can not find ClashX in the settings, you can try reset daemon", comment: "")
+                alert.messageText = notice + "\n" + addition
                 alert.addButton(withTitle: NSLocalizedString("Open System Login Item Setting", comment: ""))
-                alert.runModal()
-                SMAppService.openSystemSettingsLoginItems()
+                alert.addButton(withTitle: NSLocalizedString("Reset Daemon", comment: ""))
+                if alert.runModal() == .alertFirstButtonReturn {
+                    SMAppService.openSystemSettingsLoginItems()
+                } else {
+                    removeInstallHelper()
+                }
             }
         }
         getHelperStatus { [weak self] status in

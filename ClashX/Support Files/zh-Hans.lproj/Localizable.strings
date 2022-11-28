@@ -77,6 +77,9 @@
 "hours" = "小时";
 
 /* No comment provided by engineer. */
+"If you can not find ClashX in the settings, you can try reset daemon" = "如果在设置里没找到ClashX,可以尝试重置守护程序";
+
+/* No comment provided by engineer. */
 "Install" = "安装";
 
 /* No comment provided by engineer. */
@@ -134,6 +137,9 @@
 
 /* No comment provided by engineer. */
 "Remote Config Update Fail" = "托管配置文件更新失败";
+
+/* No comment provided by engineer. */
+"Reset Daemon" = "重置守护程序";
 
 /* No comment provided by engineer. */
 "ReTest" = "重新测速";
