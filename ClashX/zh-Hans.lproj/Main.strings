@@ -202,7 +202,7 @@
 /* Class = "NSTabViewItem"; label = "General"; ObjectID = "Ltt-Vq-Hh1"; */
 "Ltt-Vq-Hh1.label" = "通用";
 
-/* Class = "NSTextFieldCell"; title = "Bypass proxy settings for there Hosts & Domains"; ObjectID = "NPu-V9-f3r"; */
+/* Class = "NSTextFieldCell"; title = "Bypass proxy settings for these Hosts & Domains"; ObjectID = "NPu-V9-f3r"; */
 "NPu-V9-f3r.title" = "忽略这些主机与域的代理设置";
 
 /* Class = "NSButtonCell"; title = "Launch at login"; ObjectID = "dV6-4Z-2SO"; */

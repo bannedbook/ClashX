@@ -65,7 +65,7 @@ Checkout [Clash](https://github.com/Dreamacro/clash) or [SS-Rule-Snippet for Cla
 
 ### Change default system ignore list.
 
-- Change by menu -> Config -> Setting -> Bypass proxy settings for there Hosts & Domains
+- Change by menu -> Config -> Setting -> Bypass proxy settings for these Hosts & Domains
 
 ### URL Schemes.
 
