@@ -100,6 +100,9 @@
 "Never" = "Never";
 
 /* No comment provided by engineer. */
+"Never show again" = "Never show again";
+
+/* No comment provided by engineer. */
 "OK" = "OK";
 
 /* No comment provided by engineer. */
@@ -179,6 +182,9 @@
 
 /* No comment provided by engineer. */
 "The remote config name is duplicated" = "The remote config name is duplicated";
+
+/* No comment provided by engineer. */
+"The status icon is coverd or hide by other app." = "The status icon is coverd or hide by other app.";
 
 /* No comment provided by engineer. */
 "This version of ClashX contains a break change due to clash core 1.0 released. Check if your config is not working properly." = "This version of ClashX contains a break change due to clash core 1.0 released. Check if your config is not working properly.";

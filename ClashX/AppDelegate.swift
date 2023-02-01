@@ -86,6 +86,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     func postFinishLaunching() {
         defer {
             statusItem.menu = statusMenu
+            DispatchQueue.main.asyncAfter(deadline: .now()+1) {
+                self.checkMenuIconVisable()
+            }
+
         }
         setupStatusMenuItemData()
         AppVersionUtil.showUpgradeAlert()
@@ -181,6 +185,61 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             NetworkChangeNotifier.hasInterfaceProxySetToClash() {
             Logger.log("Need Reset Proxy Setting again", level: .error)
             SystemProxyManager.shared.disableProxy()
+        }
+    }
+    
+    
+    func buttonRectOnScreen() -> CGRect {
+            guard let button = statusItem.button else { return .zero }
+            guard let window = button.window else { return .zero }
+            let buttonRect = button.convert(button.bounds, to: nil)
+            let onScreenRect = window.convertToScreen(buttonRect)
+            return onScreenRect
+        }
+
+     func leftScreenX() -> CGFloat {
+            let screens = NSScreen.screens
+            
+            var left: CGFloat = 0
+            
+            for screen in screens {
+                if screen.frame.origin.x < left {
+                    left = screen.frame.origin.x
+                }
+            }
+            return left
+        }
+    
+    func checkMenuIconVisable() {
+        guard let button = statusItem.button else {assertionFailure(); return }
+        guard let window = button.window else {assertionFailure(); return }
+        let buttonRect = button.convert(button.bounds, to: nil)
+        let onScreenRect = window.convertToScreen(buttonRect)
+        var leftScreenX: CGFloat = 0
+        for screen in NSScreen.screens {
+            if screen.frame.origin.x < leftScreenX {
+                leftScreenX = screen.frame.origin.x
+            }
+        }
+        let isMenuIconHidden = onScreenRect.midX < leftScreenX
+        
+        var isCoverdByNotch = false
+        if #available(macOS 12, *), NSScreen.screens.count == 1, let screen = NSScreen.screens.first, let leftArea = screen.auxiliaryTopLeftArea, let rightArea = screen.auxiliaryTopRightArea {
+            if onScreenRect.minX > leftArea.maxX, onScreenRect.maxX<rightArea.minX {
+                isCoverdByNotch = true
+            }
+        }
+        
+        Logger.log("checkMenuIconVisable: \(onScreenRect) \(leftScreenX), hidden: \(isMenuIconHidden), coverd by notch:\(isCoverdByNotch)")
+
+        if (isMenuIconHidden || isCoverdByNotch), !Settings.disableMenubarNotice {
+            let alert = NSAlert()
+            alert.messageText = NSLocalizedString("The status icon is coverd or hide by other app.", comment: "")
+            alert.addButton(withTitle: NSLocalizedString("OK", comment: ""))
+            alert.addButton(withTitle: NSLocalizedString("Never show again", comment: ""))
+            if alert.runModal() == .alertSecondButtonReturn {
+                Settings.disableMenubarNotice = true
+            }
         }
     }
 

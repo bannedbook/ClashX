@@ -100,6 +100,9 @@
 "Never" = "从未";
 
 /* No comment provided by engineer. */
+"Never show again" = "不再提示";
+
+/* No comment provided by engineer. */
 "OK" = "确定";
 
 /* No comment provided by engineer. */
@@ -179,6 +182,9 @@
 
 /* No comment provided by engineer. */
 "The remote config name is duplicated" = "托管配置文件名称重复";
+
+/* No comment provided by engineer. */
+"The status icon is coverd or hide by other app." = "菜单栏图标被刘海屏遮挡或者被其他app隐藏，请检查菜单栏状态。";
 
 /* No comment provided by engineer. */
 "This version of ClashX contains a break change due to clash core 1.0 released. Check if your config is not working properly." = "由于Clash Core发布1.0版本，使用此版本的 ClashX 可能需要更新配置内容\n前往 https://github.com/Dreamacro/clash/wiki/breaking-changes-in-1.0.0 查看详情";
