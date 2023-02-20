@@ -193,9 +193,6 @@
 /* Class = "NSMenuItem"; title = "Set update interval"; ObjectID = "h1H-7k-9HS"; */
 "h1H-7k-9HS.title" = "设置更新间隔";
 
-/* Class = "NSBox"; title = "Box"; ObjectID = "Gnh-m8-PAz"; */
-"Gnh-m8-PAz.title" = "";
-
 /* Class = "NSTabViewController"; title = "Settings"; ObjectID = "LAj-p8-9gd"; */
 "LAj-p8-9gd.title" = "ClashX 设置";
 
@@ -209,7 +206,7 @@
 "dV6-4Z-2SO.title" = "开机启动";
 
 /* Class = "NSViewController"; title = "General"; ObjectID = "kma-mp-ncL"; */
-"kma-mp-ncL.title" = "";
+"kma-mp-ncL.title" = "通用";
 
 /* Class = "NSMenuItem"; title = "Settings"; ObjectID = "krh-QF-pqZ"; */
 "krh-QF-pqZ.title" = "更多设置";
@@ -222,3 +219,21 @@
 
 /* Class = "NSTextFieldCell"; title = "Separated by commas(,)"; ObjectID = "sfe-wu-UXp"; */
 "sfe-wu-UXp.title" = "使用英文逗号(,)分隔";
+
+/* Class = "NSButtonCell"; title = "Allow control from lan"; ObjectID = "E8B-e5-K0A"; */
+"E8B-e5-K0A.title" = "允许局域网控制(不推荐)";
+
+/* Class = "NSBox"; title = "Port Settings (restart app to take effect)"; ObjectID = "bcR-rG-52F"; */
+"bcR-rG-52F.title" = "端口设置(重启应用生效)";
+
+/* Class = "NSTextFieldCell"; title = "Api Port:"; ObjectID = "mbn-tK-UQa"; */
+"mbn-tK-UQa.title" = "Api 端口";
+
+/* Class = "NSTextFieldCell"; title = "Proxy Port:"; ObjectID = "uUA-LS-Hu8"; */
+"uUA-LS-Hu8.title" = "代理端口";
+
+/* Class = "NSButtonCell"; title = "Reset"; ObjectID = "yXh-2Y-aTS"; */
+"yXh-2Y-aTS.title" = "重置";
+
+/* Class = "NSBox"; title = "Box"; ObjectID = "Gnh-m8-PAz"; */
+"Gnh-m8-PAz.title" = "Box";

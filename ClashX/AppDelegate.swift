@@ -467,11 +467,25 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             setUIPath(uiPath.goStringBuffer())
         }
 
-        Logger.log("Trying start proxy")
-        let string = run(ConfigManager.builtInApiMode.goObject(), ConfigManager.allowConnectFromLan.goObject())?.toString() ?? ""
-        let jsonData = string.data(using: .utf8) ?? Data()
+        Logger.log("Trying start proxy, build-in mode: \(ConfigManager.builtInApiMode), allow lan: \(ConfigManager.allowConnectFromLan) custom port: \(Settings.proxyPort)")
+
+        var apiAddr = ""
+        if Settings.apiPort > 0 {
+            if Settings.apiPortAllowLan {
+                apiAddr = "0.0.0.0:\(Settings.apiPort)"
+            } else {
+                apiAddr = "127.0.0.1:\(Settings.apiPort)"
+            }
+        }
+        let startRes = run(ConfigManager.builtInApiMode.goObject(),
+                         ConfigManager.allowConnectFromLan.goObject(),
+                           GoUint32(Settings.proxyPort),
+                         apiAddr.goStringBuffer())?
+            .toString() ?? ""
+        let jsonData = startRes.data(using: .utf8) ?? Data()
         if let res = try? JSONDecoder().decode(StartProxyResp.self, from: jsonData) {
             let port = res.externalController.components(separatedBy: ":").last ?? "9090"
+            ConfigManager.shared.allowExternalControl = !res.externalController.contains("127.0.0.1") && !res.externalController.contains("localhost")
             ConfigManager.shared.apiPort = port
             ConfigManager.shared.apiSecret = res.secret
             ConfigManager.shared.isRunning = true
@@ -480,8 +494,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         } else {
             ConfigManager.shared.isRunning = false
             proxyModeMenuItem.isEnabled = false
-            Logger.log(string, level: .error)
-            NSUserNotificationCenter.default.postConfigErrorNotice(msg: string)
+            Logger.log(startRes, level: .error)
+            NSUserNotificationCenter.default.postConfigErrorNotice(msg: startRes)
         }
         Logger.log("Start proxy done")
     }

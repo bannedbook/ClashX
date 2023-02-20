@@ -77,7 +77,7 @@ func readConfig(path string) ([]byte, error) {
 	return data, err
 }
 
-func parseDefaultConfigThenStart(checkPort, allowLan bool) (*config.Config, error) {
+func parseDefaultConfigThenStart(checkPort, allowLan bool, proxyPort uint32, externalController string) (*config.Config, error) {
 	buf, err := readConfig(constant.Path.Config())
 	if err != nil {
 		return nil, err
@@ -88,29 +88,37 @@ func parseDefaultConfigThenStart(checkPort, allowLan bool) (*config.Config, erro
 		return nil, err
 	}
 
-	if rawCfg.MixedPort == 0 {
-		if rawCfg.Port > 0 {
-			rawCfg.MixedPort = rawCfg.Port
-			rawCfg.Port = 0
-		} else if rawCfg.SocksPort > 0 {
-			rawCfg.MixedPort = rawCfg.SocksPort
-			rawCfg.SocksPort = 0
-		} else {
-			rawCfg.MixedPort = 7890
-		}
+	if proxyPort > 0 {
+		rawCfg.MixedPort = int(proxyPort)
+		rawCfg.SocksPort = 0
+		rawCfg.Port = 0
+	} else {
+		if rawCfg.MixedPort == 0 {
+			if rawCfg.Port > 0 {
+				rawCfg.MixedPort = rawCfg.Port
+				rawCfg.Port = 0
+			} else if rawCfg.SocksPort > 0 {
+				rawCfg.MixedPort = rawCfg.SocksPort
+				rawCfg.SocksPort = 0
+			} else {
+				rawCfg.MixedPort = 7890
+			}
 
-		if rawCfg.SocksPort == rawCfg.MixedPort {
-			rawCfg.SocksPort = 0
-		}
+			if rawCfg.SocksPort == rawCfg.MixedPort {
+				rawCfg.SocksPort = 0
+			}
 
-		if rawCfg.Port == rawCfg.MixedPort {
-			rawCfg.Port = 0
+			if rawCfg.Port == rawCfg.MixedPort {
+				rawCfg.Port = 0
+			}
 		}
-
 	}
 
 	rawCfg.ExternalUI = ""
 	rawCfg.Profile.StoreSelected = false
+	if len(externalController) > 0 {
+		rawCfg.ExternalController = externalController
+	}
 	if checkPort {
 		if !isAddrValid(rawCfg.ExternalController) {
 			port, err := freeport.GetFreePort()
@@ -154,8 +162,8 @@ func verifyClashConfig(content *C.char) *C.char {
 }
 
 //export run
-func run(checkConfig, allowLan bool) *C.char {
-	cfg, err := parseDefaultConfigThenStart(checkConfig, allowLan)
+func run(checkConfig, allowLan bool, portOverride uint32, externalController *C.char) *C.char {
+	cfg, err := parseDefaultConfigThenStart(checkConfig, allowLan, portOverride, C.GoString(externalController))
 	if err != nil {
 		return C.CString(err.Error())
 	}
