@@ -47,7 +47,7 @@
     }];
 }
 
-- (void)restoreProxySettint:(NSDictionary *)savedInfo
+- (void)restoreProxySetting:(NSDictionary *)savedInfo
                 currentPort:(int)port
            currentSocksPort:(int)socksPort
             filterInterface:(BOOL)filterInterface{

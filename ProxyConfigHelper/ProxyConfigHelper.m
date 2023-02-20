@@ -117,7 +117,7 @@ ProxyConfigRemoteProcessProtocol
                               error:(stringReplyBlock)reply {
     dispatch_async(dispatch_get_main_queue(), ^{
         ProxySettingTool *tool = [ProxySettingTool new];
-        [tool restoreProxySettint:dict currentPort:port currentSocksPort:socksPort filterInterface:filterInterface];
+        [tool restoreProxySetting:dict currentPort:port currentSocksPort:socksPort filterInterface:filterInterface];
         reply(nil);
     });
 }
