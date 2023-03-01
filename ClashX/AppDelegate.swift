@@ -11,6 +11,7 @@ import Cocoa
 import LetsMove
 import RxCocoa
 import RxSwift
+import CocoaLumberjack
 
 import AppCenter
 import AppCenterAnalytics
@@ -110,6 +111,25 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         // claer not existed selected model
         removeUnExistProxyGroups()
 
+        // clash logger
+        if ApiRequest.useDirectApi() {
+            Logger.log("setup built in logger/traffic")
+            clash_setLogBlock { line, level in
+                let clashLevel = ClashLogLevel(rawValue: level ?? "info")
+                Logger.log(line ?? "", level: clashLevel ?? .info)
+            }
+            clashSetupLogger()
+
+            clash_setTrafficBlock { [weak self] up, down in
+                DispatchQueue.main.async {
+                    self?.didUpdateTraffic(up: Int(up), down: Int(down))
+                }
+            }
+            clashSetupTraffic()
+
+        } else {
+            Logger.log("do not setup built in logger/traffic, useDirectApi = false")
+        }
         // start proxy
         Logger.log("initClashCore")
         initClashCore()
@@ -789,6 +809,7 @@ extension AppDelegate {
     @IBAction func actionSetLogLevel(_ sender: NSMenuItem) {
         let level = ClashLogLevel(rawValue: sender.title.lowercased()) ?? .unknow
         ConfigManager.selectLoggingApiLevel = level
+        dynamicLogLevel = level.toDDLogLevel()
         updateLoggingLevel()
         resetStreamApi()
     }

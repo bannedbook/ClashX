@@ -1,7 +1,40 @@
 package main
 
+/*
+#cgo CFLAGS: -x objective-c
+#cgo LDFLAGS: -framework Foundation
+#import <Foundation/Foundation.h>
+
+typedef void (^NStringCallback)(NSString *,NSString *);
+typedef void (^IntCallback)(int64_t,int64_t);
+NStringCallback logCallback;
+IntCallback     trafficCallback;
+void clash_setLogBlock(NStringCallback block) {
+	logCallback = [block copy];
+}
+
+void clash_setTrafficBlock(IntCallback block) {
+	trafficCallback = [block copy];
+}
+
+static inline void sendLogToUI(char *s, char *level) {
+	@autoreleasepool {
+		if (logCallback) {
+			logCallback([NSString stringWithUTF8String:s], [NSString stringWithUTF8String:level]);
+		}
+	}
+}
+
+static inline void sendTrafficToUI(int64_t up, int64_t down) {
+	if (trafficCallback) {
+		trafficCallback(up, down);
+	}
+}
+*/
+import "C"
+
 import (
-	"C"
+	"bytes"
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
@@ -10,6 +43,10 @@ import (
 	"path/filepath"
 	"strconv"
 	"strings"
+	"sync"
+	"syscall"
+	"time"
+	"unsafe"
 
 	"github.com/Dreamacro/clash/config"
 	"github.com/Dreamacro/clash/constant"
@@ -159,6 +196,39 @@ func verifyClashConfig(content *C.char) *C.char {
 		return C.CString("No proxy found in config")
 	}
 	return C.CString("success")
+}
+
+//export clashSetupLogger
+func clashSetupLogger() {
+	sub := log.Subscribe()
+	logBuf := bytes.Buffer{}
+
+	go func() {
+		for l := range sub {
+			logBuf.Reset()
+			log.PrettyPrint(&logBuf, l, false, false)
+			cs := C.CString(logBuf.String())
+			cl := C.CString(l.Level)
+			C.sendLogToUI(cs, cl)
+			C.free(unsafe.Pointer(cs))
+			C.free(unsafe.Pointer(cl))
+		}
+	}()
+}
+
+//export clashSetupTraffic
+func clashSetupTraffic() {
+	go func() {
+		tick := time.NewTicker(time.Second)
+		defer tick.Stop()
+		t := statistic.DefaultManager
+		buf := &bytes.Buffer{}
+		for range tick.C {
+			buf.Reset()
+			up, down := t.Now()
+			C.sendTrafficToUI(C.longlong(up), C.longlong(down))
+		}
+	}()
 }
 
 //export run

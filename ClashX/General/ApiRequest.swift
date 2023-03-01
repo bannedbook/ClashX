@@ -346,6 +346,7 @@ extension ApiRequest {
     }
 
     private func requestTrafficInfo() {
+        if ApiRequest.useDirectApi() { return }
         trafficWebSocketRetryTimer?.invalidate()
         trafficWebSocketRetryTimer = nil
         trafficWebSocket?.disconnect(forceTimeout: 0, closeCode: 0)
@@ -361,6 +362,7 @@ extension ApiRequest {
     }
 
     private func requestLog() {
+        if ApiRequest.useDirectApi() { return }
         loggingWebSocketRetryTimer?.invalidate()
         loggingWebSocketRetryTimer = nil
         loggingWebSocket?.disconnect()

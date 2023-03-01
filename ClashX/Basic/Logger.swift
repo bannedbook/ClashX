@@ -23,6 +23,7 @@ class Logger {
         fileLogger.rollingFrequency = TimeInterval(60 * 60 * 24) // 24 hours
         fileLogger.logFileManager.maximumNumberOfLogFiles = 3
         DDLog.add(fileLogger)
+        dynamicLogLevel = ConfigManager.selectLoggingApiLevel.toDDLogLevel()
     }
 
     private func logToFile(msg: String, level: ClashLogLevel) {
@@ -36,7 +37,7 @@ class Logger {
         case .warning:
             DDLogWarn(msg)
         case .unknow:
-            DDLogVerbose(msg)
+            DDLogWarn(msg)
         }
     }
 
