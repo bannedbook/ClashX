@@ -15,7 +15,7 @@ import RxSwift
 import AppCenter
 import AppCenterAnalytics
 
-private let statusItemLengthWithSpeed: CGFloat = 72
+let statusItemLengthWithSpeed: CGFloat = 72
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
@@ -50,7 +50,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     @IBOutlet var externalControlSeparator: NSMenuItem!
 
     var disposeBag = DisposeBag()
-    var statusItemView: StatusItemView!
+    var statusItemView: StatusItemViewProtocol!
     var isSpeedTesting = false
 
     var runAfterConfigReload: (() -> Void)?
@@ -74,8 +74,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         ProcessInfo.processInfo.disableSuddenTermination()
         // setup menu item first
         statusItem = NSStatusBar.system.statusItem(withLength: statusItemLengthWithSpeed)
-        statusItemView = StatusItemView.create(statusItem: statusItem)
-        statusItemView.frame = CGRect(x: 0, y: 0, width: statusItemLengthWithSpeed, height: 22)
+        if #available(macOS 11, *), let button = statusItem.button {
+            statusItemView = NewStatusMenuView.create(on: button)
+        } else {
+            statusItemView = StatusItemView.create(statusItem: statusItem)
+        }
+        statusItemView.updateSize(width: statusItemLengthWithSpeed)
         statusMenu.delegate = self
         registCrashLogger()
         DispatchQueue.main.async {
@@ -250,7 +254,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 self.showNetSpeedIndicatorMenuItem.state = (show ?? true) ? .on : .off
                 let statusItemLength: CGFloat = (show ?? true) ? statusItemLengthWithSpeed : 25
                 self.statusItem.length = statusItemLength
-                self.statusItemView.frame.size.width = statusItemLength
+                self.statusItemView.updateSize(width: statusItemLength)
                 self.statusItemView.showSpeedContainer(show: show ?? true)
             }.disposed(by: disposeBag)
 
