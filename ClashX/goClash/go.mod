@@ -3,7 +3,7 @@ module github.com/yichengchen/clashX/ClashX
 go 1.19
 
 require (
-	github.com/Dreamacro/clash v1.13.1-0.20230216134340-8173d6681b07
+	github.com/Dreamacro/clash v1.13.1-0.20230228052842-f78a7cb2cbe3
 	github.com/oschwald/geoip2-golang v1.8.0
 	github.com/phayes/freeport v0.0.0-20180830031419-95f893ade6f2
 )
