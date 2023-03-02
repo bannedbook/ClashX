@@ -43,8 +43,6 @@ import (
 	"path/filepath"
 	"strconv"
 	"strings"
-	"sync"
-	"syscall"
 	"time"
 	"unsafe"
 
@@ -201,14 +199,11 @@ func verifyClashConfig(content *C.char) *C.char {
 //export clashSetupLogger
 func clashSetupLogger() {
 	sub := log.Subscribe()
-	logBuf := bytes.Buffer{}
-
 	go func() {
-		for l := range sub {
-			logBuf.Reset()
-			log.PrettyPrint(&logBuf, l, false, false)
-			cs := C.CString(logBuf.String())
-			cl := C.CString(l.Level)
+		for elm := range sub {
+			log := elm.(log.Event)
+			cs := C.CString(log.Payload)
+			cl := C.CString(log.Type())
 			C.sendLogToUI(cs, cl)
 			C.free(unsafe.Pointer(cs))
 			C.free(unsafe.Pointer(cl))
