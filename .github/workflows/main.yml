@@ -32,6 +32,13 @@ jobs:
       run: |
         bundle exec fastlane beta
         bundle exec fastlane run set_info_plist_value path:ClashX/Info.plist key:BETA value:YES
+        
+    - name: update tag build version
+      if: startsWith(github.ref, 'refs/tags/')
+      run: |
+        tag=${GITHUB_REF##*/}
+        bundle exec fastlane run increment_build_number_in_plist build_number:"${tag}"  scheme:"ClashX"
+        bundle exec fastlane run increment_version_number_in_plist version_number:"${tag}"  scheme:"ClashX"
 
     - name: build
       env:
