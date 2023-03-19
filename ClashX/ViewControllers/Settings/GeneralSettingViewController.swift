@@ -16,6 +16,7 @@ class GeneralSettingViewController: NSViewController {
     @IBOutlet weak var reduceNotificationsButton: NSButton!
     @IBOutlet weak var useiCloudButton: NSButton!
 
+    @IBOutlet weak var allowApiLanUsageSwitcher: NSButton!
     @IBOutlet weak var proxyPortTextField: NSTextField!
     @IBOutlet weak var apiPortTextField: NSTextField!
 
@@ -75,6 +76,10 @@ class GeneralSettingViewController: NSViewController {
             .bind {
                 Settings.apiPort = $0
             }.disposed(by: disposeBag)
+
+        allowApiLanUsageSwitcher.rx.state.bind { state in
+            Settings.apiPortAllowLan = state == .on
+        }.disposed(by: disposeBag)
     }
 
     override func viewDidAppear() {

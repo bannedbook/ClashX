@@ -309,6 +309,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="allowApiLanUsageSwitcher" destination="uj5-FG-2x5" id="QKh-ZT-Iie"/>
                         <outlet property="apiPortTextField" destination="xJH-gA-vcL" id="L8f-GZ-BYW"/>
                         <outlet property="ignoreListTextView" destination="JDw-FW-A2o" id="fhs-QW-Ug6"/>
                         <outlet property="launchAtLoginButton" destination="jsq-3u-CRd" id="RnH-Va-nCX"/>
