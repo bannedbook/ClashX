@@ -100,8 +100,12 @@ func parseDefaultConfigThenStart(checkPort, allowLan bool, proxyPort uint32, ext
 
 	if proxyPort > 0 {
 		rawCfg.MixedPort = int(proxyPort)
-		rawCfg.SocksPort = 0
-		rawCfg.Port = 0
+		if rawCfg.Port == rawCfg.MixedPort {
+			rawCfg.Port = 0
+		}
+		if rawCfg.SocksPort == rawCfg.MixedPort {
+			rawCfg.SocksPort = 0
+		}
 	} else {
 		if rawCfg.MixedPort == 0 {
 			if rawCfg.Port > 0 {
