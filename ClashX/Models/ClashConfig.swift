@@ -26,7 +26,7 @@ extension ClashProxyMode {
 
 enum ClashLogLevel: String, Codable {
     case info
-    case warning = "warn"
+    case warning
     case error
     case debug
     case silent
