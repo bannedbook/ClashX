@@ -121,8 +121,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             clashSetupLogger()
 
             clash_setTrafficBlock { [weak self] up, down in
-                DispatchQueue.main.async {
-                    self?.didUpdateTraffic(up: Int(up), down: Int(down))
+                if RemoteControlManager.selectConfig == nil {
+                    DispatchQueue.main.async {
+                        self?.didUpdateTraffic(up: Int(up), down: Int(down))
+                    }
                 }
             }
             clashSetupTraffic()

@@ -346,10 +346,13 @@ extension ApiRequest {
     }
 
     private func requestTrafficInfo() {
-        if ApiRequest.useDirectApi() { return }
+        if ApiRequest.useDirectApi() {
+            trafficWebSocket?.disconnect(forceTimeout: 0.5)
+            return
+        }
         trafficWebSocketRetryTimer?.invalidate()
         trafficWebSocketRetryTimer = nil
-        trafficWebSocket?.disconnect(forceTimeout: 0, closeCode: 0)
+        trafficWebSocket?.disconnect(forceTimeout: 0.5)
 
         let socket = WebSocket(url: URL(string: ConfigManager.apiUrl.appending("/traffic"))!)
 
@@ -362,10 +365,13 @@ extension ApiRequest {
     }
 
     private func requestLog() {
-        if ApiRequest.useDirectApi() { return }
+        if ApiRequest.useDirectApi() {
+            loggingWebSocket?.disconnect(forceTimeout: 1)
+            return
+        }
         loggingWebSocketRetryTimer?.invalidate()
         loggingWebSocketRetryTimer = nil
-        loggingWebSocket?.disconnect()
+        loggingWebSocket?.disconnect(forceTimeout: 1)
 
         let uriString = "/logs?level=".appending(ConfigManager.selectLoggingApiLevel.rawValue)
         let socket = WebSocket(url: URL(string: ConfigManager.apiUrl.appending(uriString))!)
