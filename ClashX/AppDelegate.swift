@@ -15,6 +15,7 @@ import CocoaLumberjack
 
 import AppCenter
 import AppCenterAnalytics
+import AppCenterCrashes
 
 let statusItemLengthWithSpeed: CGFloat = 72
 
@@ -59,8 +60,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     var dashboardWindowController: ClashWebViewWindowController?
 
     func applicationWillFinishLaunching(_ notification: Notification) {
+        Logger.log("applicationWillFinishLaunching")
         signal(SIGPIPE, SIG_IGN)
-        // crash recorder
         failLaunchProtect()
         NSAppleEventManager.shared()
             .setEventHandler(self,
@@ -82,13 +83,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
         statusItemView.updateSize(width: statusItemLengthWithSpeed)
         statusMenu.delegate = self
-        registCrashLogger()
         DispatchQueue.main.async {
             self.postFinishLaunching()
         }
     }
 
     func postFinishLaunching() {
+        Logger.log("postFinishLaunching")
         defer {
             statusItem.menu = statusMenu
             DispatchQueue.main.asyncAfter(deadline: .now()+1) {
@@ -151,6 +152,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         RemoteConfigManager.shared.autoUpdateCheck()
 
         setupNetworkNotifier()
+        registCrashLogger()
     }
 
     func applicationShouldTerminate(_ sender: NSApplication) -> NSApplication.TerminateReply {
@@ -877,7 +879,8 @@ extension AppDelegate {
         #else
             DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
                 AppCenter.start(withAppSecret: "dce6e9a3-b6e3-4fd2-9f2d-35c767a99663", services: [
-                    Analytics.self
+                    Analytics.self,
+                    Crashes.self
                 ])
             }
 

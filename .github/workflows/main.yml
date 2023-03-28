@@ -83,6 +83,7 @@ jobs:
         APPCENTER_API_TOKEN: ${{ secrets.APPCENTER_API_TOKEN }}
         APPCENTER_DISTRIBUTE_FILE: ClashX.dmg
         APPCENTER_OWNER_NAME: ${{ secrets.APPCENTER_OWNER_NAME }}
+        APPCENTER_DISTRIBUTE_DSYM: "ClashX.app.dSYM.zip"
       run: |
         appversion=`defaults read \`pwd\`/ClashX.app/Contents/Info.plist CFBundleShortVersionString`
         buildVersion=`defaults read \`pwd\`/ClashX.app/Contents/Info.plist CFBundleVersion`
@@ -96,7 +97,9 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        files: ClashX.dmg
+        files: |
+            ClashX.app.dSYM.zip
+            ClashX.dmg
         draft: true
         prerelease: true
 
