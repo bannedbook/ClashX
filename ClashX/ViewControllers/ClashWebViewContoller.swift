@@ -202,7 +202,7 @@ class CustomWKWebView: WKWebView {
     var dragableAreaHeight: CGFloat = 30
     let alwaysDragableLeftAreaWidth: CGFloat = 150
 
-    private func isInDargArea(with event:NSEvent?) -> Bool {
+    private func isInDargArea(with event: NSEvent?) -> Bool {
         guard let event = event else { return false }
         let x = event.locationInWindow.x
         let y = (window?.frame.size.height ?? 0) - event.locationInWindow.y

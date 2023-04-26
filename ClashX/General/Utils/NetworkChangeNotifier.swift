@@ -78,7 +78,7 @@ class NetworkChangeNotifier {
         return (httpProxy, httpsProxy, socksProxy)
     }
 
-    static func isCurrentSystemSetToClash(looser:Bool = false) -> Bool {
+    static func isCurrentSystemSetToClash(looser: Bool = false) -> Bool {
         let (http, https, socks) = NetworkChangeNotifier.currentSystemProxySetting()
         let currentPort = ConfigManager.shared.currentConfig?.usedHttpPort ?? 0
         let currentSocks = ConfigManager.shared.currentConfig?.usedSocksPort ?? 0
@@ -99,7 +99,7 @@ class NetworkChangeNotifier {
            let sets = SCPreferencesGetValue(prefRef, kSCPrefNetworkServices) {
             for key in sets.allKeys {
                 let dict = sets[key] as? NSDictionary
-                let proxySettings = dict?["Proxies"] as? [String:Any]
+                let proxySettings = dict?["Proxies"] as? [String: Any]
                 if currentPort != nil {
                     if proxySettings?[kCFNetworkProxiesHTTPPort as String] as? Int == currentPort ||
                         proxySettings?[kCFNetworkProxiesHTTPSPort as String] as? Int == currentPort {

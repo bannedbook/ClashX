@@ -69,7 +69,7 @@ public final class LoginServiceKit {
         guard isExistLoginItems(at: path) == false else {
             return false
         }
-        
+
         if #available(macOS 13.0, *) {
             do {
                 try SMAppService.mainApp.register()
@@ -79,7 +79,7 @@ public final class LoginServiceKit {
                 return false
             }
         }
-        
+
         guard let (list, _) = snapshot else {
             return false
         }
@@ -93,7 +93,7 @@ public final class LoginServiceKit {
         guard isExistLoginItems(at: path) == true else {
             return false
         }
-        
+
         if #available(macOS 13.0, *) {
             do {
                 try SMAppService.mainApp.unregister()

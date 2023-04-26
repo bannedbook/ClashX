@@ -9,7 +9,7 @@
 import AppKit
 import SwiftUI
 @available(macOS 10.15, *)
-class NewStatusMenuView:NSHostingView<SwiftUIView>, StatusItemViewProtocol {
+class NewStatusMenuView: NSHostingView<SwiftUIView>, StatusItemViewProtocol {
     private var viewModel: StatusMenuViewModel!
 
     static func create(on button: NSView) -> NewStatusMenuView {
@@ -45,7 +45,7 @@ class NewStatusMenuView:NSHostingView<SwiftUIView>, StatusItemViewProtocol {
 }
 
 @available(macOS 10.15, *)
-class StatusMenuViewModel:ObservableObject {
+class StatusMenuViewModel: ObservableObject {
     @Published var image = StatusItemTool.getMenuImage(enableProxy: false)
     @Published var upSpeed = "0KB/s"
     @Published var downSpeed = "0KB/s"
@@ -56,7 +56,7 @@ class StatusMenuViewModel:ObservableObject {
 struct SwiftUIView: View {
     @ObservedObject var viewModel: StatusMenuViewModel
     var body: some View {
-        HStack(alignment:.center) {
+        HStack(alignment: .center) {
             Image(nsImage: $viewModel.image.wrappedValue).renderingMode(.template)
             if $viewModel.showSpeed.wrappedValue {
                 Spacer(minLength: 0)
