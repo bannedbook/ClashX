@@ -49,7 +49,7 @@ jobs:
         cd ..
         bundle exec fastlane build
         echo "Checking SMJobBless Vailded"
-        python SMJobBlessUtil.py check ClashX.app
+        python3 SMJobBlessUtil.py check ClashX.app
         echo "Check done"
 
     - name: setup node
