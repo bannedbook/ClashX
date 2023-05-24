@@ -8,6 +8,7 @@
 
 import Cocoa
 import SystemConfiguration
+import CoreWLAN
 
 class NetworkChangeNotifier {
     static func start() {
@@ -178,5 +179,9 @@ class NetworkChangeNotifier {
             }
         }
         return allowIPV6 ? ipv6 : nil
+    }
+    
+    static func getCurrentSSID() -> String? {
+        return CWWiFiClient.shared().interface()?.ssid()
     }
 }

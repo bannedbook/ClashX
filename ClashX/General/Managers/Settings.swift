@@ -46,5 +46,8 @@ enum Settings {
 
     @UserDefault("apiPortAllowLan", defaultValue: false)
     static var apiPortAllowLan: Bool
+    
+    @UserDefault("disableSSIDList", defaultValue: [])
+    static var disableSSIDList:[String]
 
 }

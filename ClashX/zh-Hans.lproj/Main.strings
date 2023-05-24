@@ -237,3 +237,9 @@
 
 /* Class = "NSBox"; title = "Box"; ObjectID = "Gnh-m8-PAz"; */
 "Gnh-m8-PAz.title" = "Box";
+
+/* Class = "NSTextFieldCell"; title = "SSID Suspend"; ObjectID = "F1s-SF-dqX"; */
+"F1s-SF-dqX.title" = "在特定 WiFi SSID 下自动暂停";
+
+/* Class = "NSTextFieldCell"; title = "Separated by commas(,)"; ObjectID = "xnL-ma-vFo"; */
+"xnL-ma-vFo.title" = "使用英文逗号(,)分隔";

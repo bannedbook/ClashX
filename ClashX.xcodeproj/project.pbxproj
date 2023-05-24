@@ -66,6 +66,7 @@
 		49D176A72355FE680093DD7B /* NetworkChangeNotifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49D176A62355FE680093DD7B /* NetworkChangeNotifier.swift */; };
 		49D176A9235614340093DD7B /* ProxyGroupSpeedTestMenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49D176A8235614340093DD7B /* ProxyGroupSpeedTestMenuItem.swift */; };
 		49D176AB23575BB20093DD7B /* ProxyGroupMenuItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49D176AA23575BB20093DD7B /* ProxyGroupMenuItemView.swift */; };
+		49D223392A1DA5F10002FFCB /* SSIDSuspendTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49D223382A1DA5F10002FFCB /* SSIDSuspendTool.swift */; };
 		49D6A45229AEEC15006487EF /* StatusItemTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49D6A45129AEEC15006487EF /* StatusItemTool.swift */; };
 		49D6A45429AEEC3C006487EF /* NewStatusItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49D6A45329AEEC3C006487EF /* NewStatusItemView.swift */; };
 		49D6A45629AEEC55006487EF /* StatusItemViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49D6A45529AEEC55006487EF /* StatusItemViewProtocol.swift */; };
@@ -199,6 +200,7 @@
 		49D176A62355FE680093DD7B /* NetworkChangeNotifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkChangeNotifier.swift; sourceTree = "<group>"; };
 		49D176A8235614340093DD7B /* ProxyGroupSpeedTestMenuItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProxyGroupSpeedTestMenuItem.swift; sourceTree = "<group>"; };
 		49D176AA23575BB20093DD7B /* ProxyGroupMenuItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProxyGroupMenuItemView.swift; sourceTree = "<group>"; };
+		49D223382A1DA5F10002FFCB /* SSIDSuspendTool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SSIDSuspendTool.swift; sourceTree = "<group>"; };
 		49D6A45129AEEC15006487EF /* StatusItemTool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusItemTool.swift; sourceTree = "<group>"; };
 		49D6A45329AEEC3C006487EF /* NewStatusItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewStatusItemView.swift; sourceTree = "<group>"; };
 		49D6A45529AEEC55006487EF /* StatusItemViewProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusItemViewProtocol.swift; sourceTree = "<group>"; };
@@ -294,6 +296,7 @@
 				493AEAE2221AE3420016FE98 /* AppVersionUtil.swift */,
 				49D176A62355FE680093DD7B /* NetworkChangeNotifier.swift */,
 				49B445152457CDF000B27E3E /* ClashStatusTool.swift */,
+				49D223382A1DA5F10002FFCB /* SSIDSuspendTool.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -775,6 +778,7 @@
 				499A486522EEA3FD00F6C675 /* Array+Safe.swift in Sources */,
 				F92D0B24236BC12000575E15 /* SavedProxyModel.swift in Sources */,
 				F92D0B2A236C759100575E15 /* NSTextField+Vibrancy.swift in Sources */,
+				49D223392A1DA5F10002FFCB /* SSIDSuspendTool.swift in Sources */,
 				F910AA24240134AF00116E95 /* ProxyGroupMenu.swift in Sources */,
 				4952C3BF2115C7CA004A4FA8 /* MenuItemFactory.swift in Sources */,
 				49D6A45429AEEC3C006487EF /* NewStatusItemView.swift in Sources */,

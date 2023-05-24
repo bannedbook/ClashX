@@ -19,7 +19,8 @@ class GeneralSettingViewController: NSViewController {
     @IBOutlet weak var allowApiLanUsageSwitcher: NSButton!
     @IBOutlet weak var proxyPortTextField: NSTextField!
     @IBOutlet weak var apiPortTextField: NSTextField!
-
+    @IBOutlet var ssidSuspendTextField: NSTextView!
+    
     var disposeBag = DisposeBag()
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,6 +32,16 @@ class GeneralSettingViewController: NSViewController {
                 Settings.proxyIgnoreList = arr
             }.disposed(by: disposeBag)
 
+        
+        ssidSuspendTextField.string = Settings.disableSSIDList.joined(separator: ",")
+        ssidSuspendTextField.rx
+            .string.debounce(.milliseconds(500), scheduler: MainScheduler.instance)
+            .map { $0.components(separatedBy: ",").filter {!$0.isEmpty} }
+            .subscribe { arr in
+                Settings.disableSSIDList = arr
+                SSIDSuspendTool.shared.update()
+            }.disposed(by: disposeBag)
+        
         LaunchAtLogin.shared.isEnableVirable
             .map { $0 ? .on : .off }
             .bind(to: launchAtLoginButton.rx.state)
