@@ -49,5 +49,8 @@ enum Settings {
     
     @UserDefault("disableSSIDList", defaultValue: [])
     static var disableSSIDList:[String]
+    
+    @UserDefault("useSwiftUiMenuBar", defaultValue: true)
+    static var useSwiftUiMenuBar: Bool
 
 }

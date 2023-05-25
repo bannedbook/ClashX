@@ -87,7 +87,7 @@ class GeneralSettingViewController: NSViewController {
             .bind {
                 Settings.apiPort = $0
             }.disposed(by: disposeBag)
-
+        allowApiLanUsageSwitcher.state = Settings.apiPortAllowLan ? .on : .off
         allowApiLanUsageSwitcher.rx.state.bind { state in
             Settings.apiPortAllowLan = state == .on
         }.disposed(by: disposeBag)

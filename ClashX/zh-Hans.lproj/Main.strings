@@ -243,3 +243,15 @@
 
 /* Class = "NSTextFieldCell"; title = "Separated by commas(,)"; ObjectID = "xnL-ma-vFo"; */
 "xnL-ma-vFo.title" = "使用英文逗号(,)分隔";
+
+/* Class = "NSTabViewItem"; label = "Debug"; ObjectID = "3Om-yT-A83"; */
+"3Om-yT-A83.label" = "调试";
+
+/* Class = "NSBox"; title = "Debug Setting"; ObjectID = "NLT-FZ-48V"; */
+"NLT-FZ-48V.title" = "调试设置";
+
+/* Class = "NSButtonCell"; title = "Use SwiftUI to render status bar icon. (MacOS 13+)"; ObjectID = "eY9-1i-i7P"; */
+"eY9-1i-i7P.title" = "使用 SwiftUI 进行菜单栏图标渲染";
+
+/* Class = "NSViewController"; title = "Debug"; ObjectID = "kdV-Em-qBi"; */
+"kdV-Em-qBi.title" = "调试";

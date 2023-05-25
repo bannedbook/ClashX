@@ -76,7 +76,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         ProcessInfo.processInfo.disableSuddenTermination()
         // setup menu item first
         statusItem = NSStatusBar.system.statusItem(withLength: statusItemLengthWithSpeed)
-        if #available(macOS 11, *), let button = statusItem.button {
+        if #available(macOS 13, *), Settings.useSwiftUiMenuBar, let button = statusItem.button {
             statusItemView = NewStatusMenuView.create(on: button)
         } else {
             statusItemView = StatusItemView.create(statusItem: statusItem)
