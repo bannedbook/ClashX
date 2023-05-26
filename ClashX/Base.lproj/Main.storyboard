@@ -1521,30 +1521,63 @@
             <objects>
                 <viewController title="Debug" showSeguePresentationStyle="single" id="kdV-Em-qBi" customClass="DebugSettingViewController" customModule="ClashX" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="mud-rj-Isy">
-                        <rect key="frame" x="0.0" y="0.0" width="416" height="117"/>
+                        <rect key="frame" x="0.0" y="0.0" width="416" height="157"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <box title="Debug Setting" translatesAutoresizingMaskIntoConstraints="NO" id="NLT-FZ-48V">
-                                <rect key="frame" x="17" y="21" width="382" height="76"/>
+                                <rect key="frame" x="17" y="21" width="382" height="116"/>
                                 <view key="contentView" id="JPj-NU-Cwp">
-                                    <rect key="frame" x="4" y="5" width="374" height="56"/>
+                                    <rect key="frame" x="4" y="5" width="374" height="96"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <stackView distribution="fill" orientation="vertical" alignment="leading" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" verticalHuggingPriority="1000" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6bh-Rg-qaG">
                                             <rect key="frame" x="20" y="20" width="334" height="16"/>
                                             <subviews>
                                                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="CUS-EE-bqd">
-                                                    <rect key="frame" x="-2" y="-1" width="336" height="18"/>
+                                                    <rect key="frame" x="-2" y="39" width="336" height="18"/>
                                                     <buttonCell key="cell" type="check" title="Use SwiftUI to render status bar icon. (MacOS 13+)" bezelStyle="regularSquare" imagePosition="left" inset="2" id="eY9-1i-i7P">
                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                         <font key="font" metaFont="system"/>
                                                     </buttonCell>
                                                 </button>
+                                                <stackView distribution="fill" orientation="horizontal" alignment="top" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BPB-SW-GgH">
+                                                    <rect key="frame" x="0.0" y="0.0" width="240" height="20"/>
+                                                    <subviews>
+                                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="FdV-ph-XP8">
+                                                            <rect key="frame" x="-2" y="4" width="82" height="16"/>
+                                                            <textFieldCell key="cell" lineBreakMode="clipping" title="Proxy Helper" id="aSG-9A-eeG">
+                                                                <font key="font" usesAppearanceFont="YES"/>
+                                                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                            </textFieldCell>
+                                                        </textField>
+                                                        <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="tk3-Vg-1aq">
+                                                            <rect key="frame" x="79" y="-7" width="168" height="32"/>
+                                                            <buttonCell key="cell" type="push" title="Uninstall Proxy Helper" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="AY0-nP-cGT">
+                                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                                <font key="font" metaFont="system"/>
+                                                            </buttonCell>
+                                                            <connections>
+                                                                <action selector="actionUnInstallProxyHelper:" target="kdV-Em-qBi" id="GzM-BT-c1B"/>
+                                                            </connections>
+                                                        </button>
+                                                    </subviews>
+                                                    <visibilityPriorities>
+                                                        <integer value="1000"/>
+                                                        <integer value="1000"/>
+                                                    </visibilityPriorities>
+                                                    <customSpacing>
+                                                        <real value="3.4028234663852886e+38"/>
+                                                        <real value="3.4028234663852886e+38"/>
+                                                    </customSpacing>
+                                                </stackView>
                                             </subviews>
                                             <visibilityPriorities>
                                                 <integer value="1000"/>
+                                                <integer value="1000"/>
                                             </visibilityPriorities>
                                             <customSpacing>
+                                                <real value="3.4028234663852886e+38"/>
                                                 <real value="3.4028234663852886e+38"/>
                                             </customSpacing>
                                         </stackView>

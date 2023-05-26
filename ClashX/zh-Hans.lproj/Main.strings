@@ -251,7 +251,7 @@
 "NLT-FZ-48V.title" = "调试设置";
 
 /* Class = "NSButtonCell"; title = "Use SwiftUI to render status bar icon. (MacOS 13+)"; ObjectID = "eY9-1i-i7P"; */
-"eY9-1i-i7P.title" = "使用 SwiftUI 进行菜单栏图标渲染";
+"eY9-1i-i7P.title" = "使用 SwiftUI 进行菜单栏图标渲染 (MacOS 13+)";
 
 /* Class = "NSViewController"; title = "Debug"; ObjectID = "kdV-Em-qBi"; */
 "kdV-Em-qBi.title" = "调试";
@@ -270,3 +270,9 @@
 
 /* Class = "NSTextFieldCell"; title = "Please ensure to address any potential shortcut conflicts. Global shortcuts take precedence over regular shortcuts."; ObjectID = "GGx-F2-7kE"; */
 "GGx-F2-7kE.title" = "请务必注意处理可能存在的快捷键冲突,全局快捷键将优先于普通快捷键。";
+
+/* Class = "NSButtonCell"; title = "Uninstall Proxy Helper"; ObjectID = "AY0-nP-cGT"; */
+"AY0-nP-cGT.title" = "移除助手程序";
+
+/* Class = "NSTextFieldCell"; title = "Proxy Helper"; ObjectID = "aSG-9A-eeG"; */
+"aSG-9A-eeG.title" = "助手程序";

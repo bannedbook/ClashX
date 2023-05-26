@@ -88,10 +88,12 @@ extension PrivilegedHelperManager {
             Thread.sleep(forTimeInterval: 5)
         }
         let script = """
-        launchctl remove \(PrivilegedHelperManager.machServiceName) || true
-        rm -rf /Library/LaunchDaemons/\(PrivilegedHelperManager.machServiceName).plist
-        rm -rf /Library/PrivilegedHelperTools/\(PrivilegedHelperManager.machServiceName)
+        /bin/launchctl remove \(PrivilegedHelperManager.machServiceName) || true
+        /usr/bin/killall -u root -9 \(PrivilegedHelperManager.machServiceName)
+        /bin/rm -rf /Library/LaunchDaemons/\(PrivilegedHelperManager.machServiceName).plist
+        /bin/rm -rf /Library/PrivilegedHelperTools/\(PrivilegedHelperManager.machServiceName)
         """
+
         runScriptWithRootPermission(script: script)
     }
 }

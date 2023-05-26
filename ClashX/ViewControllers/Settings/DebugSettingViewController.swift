@@ -19,4 +19,7 @@ class DebugSettingViewController: NSViewController {
             Settings.useSwiftUiMenuBar = state == .on
         }.disposed(by: disposeBag)
     }
+    @IBAction func actionUnInstallProxyHelper(_ sender: Any) {
+        PrivilegedHelperManager.shared.removeInstallHelper()
+    }
 }
