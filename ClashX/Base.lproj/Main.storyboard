@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="21701" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="21507"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="21701"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -12,6 +12,7 @@
                 <tabViewController title="Settings" showSeguePresentationStyle="single" selectedTabViewItemIndex="0" id="LAj-p8-9gd" customClass="SettingTabViewController" customModule="ClashX" customModuleProvider="target" sceneMemberID="viewController">
                     <tabViewItems>
                         <tabViewItem label="General" identifier="general" image="gearshape" catalog="system" id="Ltt-Vq-Hh1"/>
+                        <tabViewItem image="keyboard" catalog="system" id="gnz-rO-Jv7"/>
                         <tabViewItem label="Debug" identifier="Debug" image="hammer" catalog="system" id="3Om-yT-A83"/>
                     </tabViewItems>
                     <tabView key="tabView" type="noTabsNoBorder" id="81C-Yt-rOb">
@@ -25,6 +26,7 @@
                     <connections>
                         <outlet property="tabView" destination="81C-Yt-rOb" id="lOZ-Kw-8VB"/>
                         <segue destination="kma-mp-ncL" kind="relationship" relationship="tabItems" id="sab-cs-oab"/>
+                        <segue destination="wKZ-TE-sf8" kind="relationship" relationship="tabItems" id="T1L-JQ-EKQ"/>
                         <segue destination="kdV-Em-qBi" kind="relationship" relationship="tabItems" id="Mkx-Wo-vD6"/>
                     </connections>
                 </tabViewController>
@@ -297,15 +299,15 @@
                                                 <scrollView borderType="none" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vfh-gi-qYe">
                                                     <rect key="frame" x="20" y="50" width="339" height="100"/>
                                                     <clipView key="contentView" drawsBackground="NO" id="bzV-Hc-3eJ">
-                                                        <rect key="frame" x="0.0" y="0.0" width="339" height="100"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="324" height="100"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                         <subviews>
                                                             <textView importsGraphics="NO" richText="NO" verticallyResizable="YES" spellingCorrection="YES" smartInsertDelete="YES" id="JDw-FW-A2o">
-                                                                <rect key="frame" x="0.0" y="0.0" width="339" height="100"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="324" height="100"/>
                                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                 <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                                                <size key="minSize" width="339" height="100"/>
+                                                                <size key="minSize" width="324" height="100"/>
                                                                 <size key="maxSize" width="339" height="10000000"/>
                                                                 <color key="insertionPointColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                                             </textView>
@@ -319,7 +321,7 @@
                                                         <autoresizingMask key="autoresizingMask"/>
                                                     </scroller>
                                                     <scroller key="verticalScroller" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="dbQ-aI-3eA">
-                                                        <rect key="frame" x="323" y="0.0" width="16" height="100"/>
+                                                        <rect key="frame" x="324" y="0.0" width="15" height="100"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                     </scroller>
                                                 </scrollView>
@@ -1517,7 +1519,7 @@
         <!--Debug-->
         <scene sceneID="uyL-8z-i0d">
             <objects>
-                <viewController title="Debug" showSeguePresentationStyle="single" id="kdV-Em-qBi" customClass="DebugSettingViewController" customModule="ClashX_Pro" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Debug" showSeguePresentationStyle="single" id="kdV-Em-qBi" customClass="DebugSettingViewController" customModule="ClashX" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="mud-rj-Isy">
                         <rect key="frame" x="0.0" y="0.0" width="416" height="117"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -1571,10 +1573,88 @@
             </objects>
             <point key="canvasLocation" x="668" y="1482.5"/>
         </scene>
+        <!--Global ShortCut-->
+        <scene sceneID="723-vr-5MK">
+            <objects>
+                <viewController title="Global ShortCut" showSeguePresentationStyle="single" id="wKZ-TE-sf8" customClass="GlobalShortCutViewController" customModule="ClashX" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" id="6Ss-22-m8j">
+                        <rect key="frame" x="0.0" y="0.0" width="507" height="414"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="20" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Y2e-mg-7Hh">
+                                <rect key="frame" x="20" y="20" width="467" height="374"/>
+                                <subviews>
+                                    <box ambiguous="YES" title="Proxy" translatesAutoresizingMaskIntoConstraints="NO" id="BFE-Qq-B2H">
+                                        <rect key="frame" x="-3" y="118" width="473" height="256"/>
+                                        <view key="contentView" ambiguous="YES" id="zD3-a4-GtN">
+                                            <rect key="frame" x="4" y="5" width="465" height="236"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                        </view>
+                                    </box>
+                                    <box ambiguous="YES" title="Mode" translatesAutoresizingMaskIntoConstraints="NO" id="1d5-NL-UsJ">
+                                        <rect key="frame" x="-3" y="82" width="473" height="20"/>
+                                        <view key="contentView" ambiguous="YES" id="kTK-fR-GhL">
+                                            <rect key="frame" x="4" y="5" width="465" height="0.0"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                        </view>
+                                    </box>
+                                    <box ambiguous="YES" title="Other" translatesAutoresizingMaskIntoConstraints="NO" id="AMT-oc-r8A" userLabel="Other">
+                                        <rect key="frame" x="-3" y="46" width="473" height="20"/>
+                                        <view key="contentView" ambiguous="YES" id="lP6-io-wrz">
+                                            <rect key="frame" x="4" y="5" width="465" height="0.0"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                        </view>
+                                    </box>
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="249" translatesAutoresizingMaskIntoConstraints="NO" id="b4I-7R-wVz">
+                                        <rect key="frame" x="-2" y="0.0" width="471" height="30"/>
+                                        <textFieldCell key="cell" alignment="left" title="Please ensure to address any potential shortcut conflicts. Global shortcuts take precedence over regular shortcuts." id="GGx-F2-7kE">
+                                            <font key="font" metaFont="cellTitle"/>
+                                            <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                    </textField>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="1d5-NL-UsJ" firstAttribute="width" secondItem="Y2e-mg-7Hh" secondAttribute="width" id="MyX-kB-qEz"/>
+                                    <constraint firstItem="AMT-oc-r8A" firstAttribute="width" secondItem="Y2e-mg-7Hh" secondAttribute="width" id="cNr-dX-ERJ"/>
+                                    <constraint firstItem="BFE-Qq-B2H" firstAttribute="width" secondItem="Y2e-mg-7Hh" secondAttribute="width" id="vlG-7H-Rp4"/>
+                                </constraints>
+                                <visibilityPriorities>
+                                    <integer value="1000"/>
+                                    <integer value="1000"/>
+                                    <integer value="1000"/>
+                                    <integer value="1000"/>
+                                </visibilityPriorities>
+                                <customSpacing>
+                                    <real value="3.4028234663852886e+38"/>
+                                    <real value="3.4028234663852886e+38"/>
+                                    <real value="3.4028234663852886e+38"/>
+                                    <real value="3.4028234663852886e+38"/>
+                                </customSpacing>
+                            </stackView>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="Y2e-mg-7Hh" firstAttribute="leading" secondItem="6Ss-22-m8j" secondAttribute="leading" constant="20" symbolic="YES" id="KmG-7U-z46"/>
+                            <constraint firstAttribute="trailing" secondItem="Y2e-mg-7Hh" secondAttribute="trailing" constant="20" symbolic="YES" id="Ovw-YV-pOb"/>
+                            <constraint firstItem="Y2e-mg-7Hh" firstAttribute="top" secondItem="6Ss-22-m8j" secondAttribute="top" constant="20" symbolic="YES" id="cJJ-kT-R1c"/>
+                            <constraint firstAttribute="bottom" secondItem="Y2e-mg-7Hh" secondAttribute="bottom" constant="20" symbolic="YES" id="gbx-mT-npp"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="modeBoxView" destination="kTK-fR-GhL" id="D5n-YX-aya"/>
+                        <outlet property="otherBoxView" destination="lP6-io-wrz" id="7w1-En-MEl"/>
+                        <outlet property="proxyBox" destination="BFE-Qq-B2H" id="IG2-Fa-v80"/>
+                    </connections>
+                </viewController>
+                <customObject id="dgl-Fi-8yX" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="893.5" y="1939"/>
+        </scene>
     </scenes>
     <resources>
         <image name="AppIcon" width="128" height="128"/>
         <image name="gearshape" catalog="system" width="16" height="16"/>
         <image name="hammer" catalog="system" width="19" height="18"/>
+        <image name="keyboard" catalog="system" width="19" height="13"/>
     </resources>
 </document>

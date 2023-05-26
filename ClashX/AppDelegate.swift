@@ -153,6 +153,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
         setupNetworkNotifier()
         registCrashLogger()
+        KeyboardShortCutManager.setup()
     }
 
     func applicationShouldTerminate(_ sender: NSApplication) -> NSApplication.TerminateReply {
@@ -654,7 +655,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 // MARK: Main actions
 
 extension AppDelegate {
-    @IBAction func actionDashboard(_ sender: NSMenuItem) {
+    @IBAction func actionDashboard(_ sender: NSMenuItem?) {
         if dashboardWindowController == nil {
             dashboardWindowController = ClashWebViewWindowController.create()
             dashboardWindowController?.onWindowClose = {
@@ -690,6 +691,10 @@ extension AppDelegate {
         default:
             return
         }
+        switchProxyMode(mode: mode)
+    }
+    
+    func switchProxyMode(mode: ClashProxyMode) {
         let config = ConfigManager.shared.currentConfig?.copy()
         config?.mode = mode
         ApiRequest.updateOutBoundMode(mode: mode) { _ in
@@ -703,7 +708,7 @@ extension AppDelegate {
         ConfigManager.shared.showNetSpeedIndicator = !(sender.state == .on)
     }
 
-    @IBAction func actionSetSystemProxy(_ sender: Any) {
+    @IBAction func actionSetSystemProxy(_ sender: Any?) {
         var canSaveProxy = true
         if ConfigManager.shared.proxyPortAutoSet && ConfigManager.shared.proxyShouldPaused.value {
             ConfigManager.shared.proxyPortAutoSet = false
@@ -792,7 +797,7 @@ extension AppDelegate: ApiRequestStreamDelegate {
 // MARK: Help actions
 
 extension AppDelegate {
-    @IBAction func actionShowLog(_ sender: Any) {
+    @IBAction func actionShowLog(_ sender: Any?) {
         NSWorkspace.shared.openFile(Logger.shared.logFilePath())
     }
 }

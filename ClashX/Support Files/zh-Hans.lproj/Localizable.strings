@@ -44,6 +44,12 @@
 "Config loading Fail!" = "配置文件加载失败";
 
 /* No comment provided by engineer. */
+"Copy Shell Command" = "复制终端代理命令";
+
+/* No comment provided by engineer. */
+"Copy Shell Command (External)" = "复制终端代理命令(外部IP)";
+
+/* No comment provided by engineer. */
 "Custom your GEOIP MMDB download address." = "自定义下载地址";
 
 /* No comment provided by engineer. */
@@ -51,6 +57,9 @@
 
 /* No comment provided by engineer. */
 "Direct" = "直连";
+
+/* No comment provided by engineer. */
+"Direct Mode" = "直接连接";
 
 /* No comment provided by engineer. */
 "Disable Restore Proxy Setting" = "关闭自动还原之前代理";
@@ -72,6 +81,9 @@
 
 /* No comment provided by engineer. */
 "Global" = "全局";
+
+/* No comment provided by engineer. */
+"Global Mode" = "全局连接";
 
 /* No comment provided by engineer. */
 "hours" = "小时";
@@ -104,6 +116,15 @@
 
 /* No comment provided by engineer. */
 "OK" = "确定";
+
+/* No comment provided by engineer. */
+"Open Dashboard" = "打开控制台";
+
+/* No comment provided by engineer. */
+"Open Log" = "打开日志";
+
+/* No comment provided by engineer. */
+"Open Menu" = "打开菜单";
 
 /* No comment provided by engineer. */
 "Open System Login Item Setting" = "打开系统登录项设置";
@@ -151,7 +172,13 @@
 "Rule" = "规则";
 
 /* No comment provided by engineer. */
+"Rule Mode" = "规则判断";
+
+/* No comment provided by engineer. */
 "Script" = "脚本";
+
+/* No comment provided by engineer. */
+"Script Mode" = "脚本模式";
 
 /* No comment provided by engineer. */
 "Should be a least 1 hour" = "至少需要1小时间隔";
@@ -170,6 +197,9 @@
 
 /* No comment provided by engineer. */
 "Success!" = "成功！";
+
+/* No comment provided by engineer. */
+"System Proxy" = "设置系统代理";
 
 /* No comment provided by engineer. */
 "System Proxy Changed" = "系统代理设置已修改";

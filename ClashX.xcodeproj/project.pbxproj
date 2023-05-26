@@ -3,10 +3,13 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 51;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4905A2C52A2058B000AEDA2E /* GlobalShortCutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4905A2C42A2058B000AEDA2E /* GlobalShortCutViewController.swift */; };
+		4905A2C82A2058D400AEDA2E /* KeyboardShortcuts in Frameworks */ = {isa = PBXBuildFile; productRef = 4905A2C72A2058D400AEDA2E /* KeyboardShortcuts */; };
+		4905A2CA2A20841B00AEDA2E /* NSView+Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4905A2C92A20841B00AEDA2E /* NSView+Layout.swift */; };
 		4908087B29F8F405007A4944 /* libresolv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 4908087A29F8F3FF007A4944 /* libresolv.tbd */; };
 		4913C82321157D0200F6B87C /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4913C82221157D0200F6B87C /* Notification.swift */; };
 		491E6203258A424D00313AEF /* CommonUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 491E61FD258A424500313AEF /* CommonUtils.m */; };
@@ -134,6 +137,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		4905A2C42A2058B000AEDA2E /* GlobalShortCutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalShortCutViewController.swift; sourceTree = "<group>"; };
+		4905A2C92A20841B00AEDA2E /* NSView+Layout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSView+Layout.swift"; sourceTree = "<group>"; };
 		4908087A29F8F3FF007A4944 /* libresolv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libresolv.tbd; path = usr/lib/libresolv.tbd; sourceTree = SDKROOT; };
 		4913C82221157D0200F6B87C /* Notification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notification.swift; sourceTree = "<group>"; };
 		491E61FC258A424500313AEF /* CommonUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommonUtils.h; sourceTree = "<group>"; };
@@ -250,6 +255,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F9C180A3243C6590005EE8C4 /* goClash.a in Frameworks */,
+				4905A2C82A2058D400AEDA2E /* KeyboardShortcuts in Frameworks */,
 				9E0E2F1481CB327D3753969D /* libPods-ClashX.a in Frameworks */,
 				4908087B29F8F405007A4944 /* libresolv.tbd in Frameworks */,
 			);
@@ -417,6 +423,7 @@
 				498BC2522929CC2A00CA8084 /* SettingTabViewController.swift */,
 				498BC2542929CCAE00CA8084 /* GeneralSettingViewController.swift */,
 				49281C7F2A1F01FA00F60935 /* DebugSettingViewController.swift */,
+				4905A2C42A2058B000AEDA2E /* GlobalShortCutViewController.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -427,6 +434,7 @@
 				495A44D220D267D000888A0A /* LaunchAtLogin.swift */,
 				4966E9E5211824F300A391FB /* NSImage+extension.swift */,
 				496BDEDF21196F1E00C5207F /* Logger.swift */,
+				4905A2C92A20841B00AEDA2E /* NSView+Layout.swift */,
 				49B10869216A356D0064FFCE /* String+Extension.swift */,
 				49ABB748236B0F9E00535CD7 /* UnsafePointer+bridge.swift */,
 			);
@@ -575,6 +583,9 @@
 				F935B2EC2307B7CD009E4D33 /* PBXTargetDependency */,
 			);
 			name = ClashX;
+			packageProductDependencies = (
+				4905A2C72A2058D400AEDA2E /* KeyboardShortcuts */,
+			);
 			productName = ClashX;
 			productReference = 49CF3B1D20CD7463001EBF94 /* ClashX.app */;
 			productType = "com.apple.product-type.application";
@@ -633,6 +644,9 @@
 				"zh-Hans",
 			);
 			mainGroup = 49CF3B1420CD7463001EBF94;
+			packageReferences = (
+				4905A2C62A2058D400AEDA2E /* XCRemoteSwiftPackageReference "KeyboardShortcuts" */,
+			);
 			productRefGroup = 49CF3B1E20CD7463001EBF94 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -761,8 +775,10 @@
 				493AEAE3221AE3420016FE98 /* AppVersionUtil.swift in Sources */,
 				49CF3B2120CD7463001EBF94 /* AppDelegate.swift in Sources */,
 				496BDEE021196F1E00C5207F /* Logger.swift in Sources */,
+				4905A2CA2A20841B00AEDA2E /* NSView+Layout.swift in Sources */,
 				49722FEF211F338B00650A41 /* FileEvent.swift in Sources */,
 				49D176A72355FE680093DD7B /* NetworkChangeNotifier.swift in Sources */,
+				4905A2C52A2058B000AEDA2E /* GlobalShortCutViewController.swift in Sources */,
 				4913C82321157D0200F6B87C /* Notification.swift in Sources */,
 				8ACD21BD27A04ED500BC4632 /* ProxyModeChangeCommand.swift in Sources */,
 				498BC2552929CCAE00CA8084 /* GeneralSettingViewController.swift in Sources */,
@@ -1161,6 +1177,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		4905A2C62A2058D400AEDA2E /* XCRemoteSwiftPackageReference "KeyboardShortcuts" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/sindresorhus/KeyboardShortcuts.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		4905A2C72A2058D400AEDA2E /* KeyboardShortcuts */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4905A2C62A2058D400AEDA2E /* XCRemoteSwiftPackageReference "KeyboardShortcuts" */;
+			productName = KeyboardShortcuts;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 49CF3B1520CD7463001EBF94 /* Project object */;
 }
