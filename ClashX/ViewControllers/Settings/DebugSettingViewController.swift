@@ -22,4 +22,7 @@ class DebugSettingViewController: NSViewController {
     @IBAction func actionUnInstallProxyHelper(_ sender: Any) {
         PrivilegedHelperManager.shared.removeInstallHelper()
     }
+    @IBAction func actionOpenLogFolder(_ sender: Any) {
+        NSWorkspace.shared.openFile(Logger.shared.logFolder())
+    }
 }

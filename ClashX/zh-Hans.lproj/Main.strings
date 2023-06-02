@@ -276,3 +276,9 @@
 
 /* Class = "NSTextFieldCell"; title = "Proxy Helper"; ObjectID = "aSG-9A-eeG"; */
 "aSG-9A-eeG.title" = "助手程序";
+
+/* Class = "NSButtonCell"; title = "Open Log Folder"; ObjectID = "afj-4G-usr"; */
+"afj-4G-usr.title" = "打开日志文件夹";
+
+/* Class = "NSTextFieldCell"; title = "Log"; ObjectID = "c01-0L-1SQ"; */
+"c01-0L-1SQ.title" = "日志";

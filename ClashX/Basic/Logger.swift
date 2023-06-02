@@ -48,4 +48,8 @@ class Logger {
     func logFilePath() -> String {
         return fileLogger.logFileManager.sortedLogFilePaths.first ?? ""
     }
+    
+    func logFolder() -> String {
+        return fileLogger.logFileManager.logsDirectory
+    }
 }
