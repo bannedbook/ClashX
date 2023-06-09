@@ -15,7 +15,13 @@ class MenuItemBaseView: NSView {
 
     // MARK: Public
 
-    var isHighlighted: Bool = false
+    var isHighlighted: Bool = false {
+        didSet {
+            if isHighlighted != oldValue {
+                setNeedsDisplay()
+            }
+        }
+    }
 
     let effectView: NSVisualEffectView = {
         let effectView = NSVisualEffectView()

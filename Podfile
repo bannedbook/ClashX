@@ -8,7 +8,7 @@ post_install do |installer|
           config.build_settings['SWIFT_VERSION'] = '5'
         end
       end
-      if config.build_settings['MACOSX_DEPLOYMENT_TARGET'] == ''
+      if config.build_settings['MACOSX_DEPLOYMENT_TARGET'] == '' || Gem::Version.new(config.build_settings['MACOSX_DEPLOYMENT_TARGET']) < Gem::Version.new("10.13")
         config.build_settings['MACOSX_DEPLOYMENT_TARGET'] = '10.13'
       end
     end
