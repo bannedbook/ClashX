@@ -489,6 +489,18 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     func startProxy() {
         if ConfigManager.shared.isRunning { return }
+        
+        if !Settings.isApiSecretSet {
+            if #available(macOS 11.0, *), let password = SecCreateSharedWebCredentialPassword() as? String {
+                Settings.apiSecret = password
+            } else {
+                Settings.apiSecret = UUID().uuidString
+            }
+        }
+        
+        if clash_checkSecret().toString() == "" || Settings.overrideConfigSecret {
+            clash_setSecret(Settings.apiSecret.goStringBuffer())
+        }
 
         struct StartProxyResp: Codable {
             let externalController: String

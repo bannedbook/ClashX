@@ -160,7 +160,7 @@
 "Remote Config Update" = "遠程配置更新";
 
 /* No comment provided by engineer. */
-"Remote Config Update Fail" = ""遠程配置更新失敗";
+"Remote Config Update Fail" = "遠程配置更新失敗";
 
 /* No comment provided by engineer. */
 "Reset Daemon" = "重置守護進程";

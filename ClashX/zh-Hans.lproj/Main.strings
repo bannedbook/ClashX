@@ -282,3 +282,9 @@
 
 /* Class = "NSTextFieldCell"; title = "Log"; ObjectID = "c01-0L-1SQ"; */
 "c01-0L-1SQ.title" = "日志";
+
+/* Class = "NSButtonCell"; title = "Override Config Setting"; ObjectID = "LW4-cA-3bB"; */
+"LW4-cA-3bB.title" = "覆盖配置文件设置";
+
+/* Class = "NSTextFieldCell"; title = "Api Secret:"; ObjectID = "ckH-Er-PfX"; */
+"ckH-Er-PfX.title" = "Api秘钥";

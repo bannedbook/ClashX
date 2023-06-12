@@ -285,3 +285,9 @@
 
 /* Class = "NSTextFieldCell"; title = "Proxy Helper"; ObjectID = "aSG-9A-eeG"; */
 "aSG-9A-eeG.title" = "代理程式";
+
+/* Class = "NSButtonCell"; title = "Override Config Setting"; ObjectID = "LW4-cA-3bB"; */
+"LW4-cA-3bB.title" = "覆蓋配置文件設置";
+
+/* Class = "NSTextFieldCell"; title = "Api Secret:"; ObjectID = "ckH-Er-PfX"; */
+"ckH-Er-PfX.title" = "API 秘鑰";

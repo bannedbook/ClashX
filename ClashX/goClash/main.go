@@ -31,6 +31,8 @@ import (
 	"github.com/phayes/freeport"
 )
 
+var secretOverride string = ""
+
 func isAddrValid(addr string) bool {
 	if addr != "" {
 		comps := strings.Split(addr, ":")
@@ -87,13 +89,17 @@ func readConfig(path string) ([]byte, error) {
 	return data, err
 }
 
-func parseDefaultConfigThenStart(checkPort, allowLan bool, proxyPort uint32, externalController string) (*config.Config, error) {
+func getRawCfg() (*config.RawConfig, error) {
 	buf, err := readConfig(constant.Path.Config())
 	if err != nil {
 		return nil, err
 	}
 
-	rawCfg, err := config.UnmarshalRawConfig(buf)
+	return config.UnmarshalRawConfig(buf)
+}
+
+func parseDefaultConfigThenStart(checkPort, allowLan bool, proxyPort uint32, externalController string) (*config.Config, error) {
+	rawCfg, err := getRawCfg()
 	if err != nil {
 		return nil, err
 	}
@@ -127,7 +133,9 @@ func parseDefaultConfigThenStart(checkPort, allowLan bool, proxyPort uint32, ext
 			}
 		}
 	}
-
+	if secretOverride != "" {
+		rawCfg.Secret = secretOverride
+	}
 	rawCfg.ExternalUI = ""
 	rawCfg.Profile.StoreSelected = false
 	if len(externalController) > 0 {
@@ -203,6 +211,23 @@ func clashSetupTraffic() {
 			C.sendTrafficToUI(C.longlong(up), C.longlong(down))
 		}
 	}()
+}
+
+//export clash_checkSecret
+func clash_checkSecret() *C.char {
+	cfg, err := getRawCfg()
+	if err != nil {
+		return C.CString("")
+	}
+	if cfg.Secret != "" {
+		return C.CString(cfg.Secret)
+	}
+	return C.CString("")
+}
+
+//export clash_setSecret
+func clash_setSecret(secret *C.char) {
+	secretOverride = C.GoString(secret)
 }
 
 //export run

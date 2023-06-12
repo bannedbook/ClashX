@@ -21,6 +21,11 @@ class GeneralSettingViewController: NSViewController {
     @IBOutlet weak var apiPortTextField: NSTextField!
     @IBOutlet var ssidSuspendTextField: NSTextView!
     
+    @IBOutlet weak var apiSecretTextField: NSTextField!
+    
+    @IBOutlet weak var apiSecretOverrideButton: NSButton!
+    
+    
     var disposeBag = DisposeBag()
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -73,6 +78,16 @@ class GeneralSettingViewController: NSViewController {
         } else {
             apiPortTextField.stringValue = ConfigManager.shared.apiPort
         }
+        
+        apiSecretTextField.stringValue = Settings.apiSecret
+        apiSecretTextField.rx.text.compactMap {$0}.bind {
+            Settings.apiSecret = $0
+        }.disposed(by: disposeBag)
+        
+        apiSecretOverrideButton.state = Settings.overrideConfigSecret ? .on : .off
+        apiSecretOverrideButton.rx.state.bind { state in
+            Settings.overrideConfigSecret = state == .on
+        }.disposed(by: disposeBag)
 
         proxyPortTextField.rx.text
             .compactMap {$0}
