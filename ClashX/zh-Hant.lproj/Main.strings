@@ -203,7 +203,7 @@
 "YIO-Vj-64f.title" = "顯示網絡指示器";
 
 /* Class = "NSButtonCell"; title = "Add"; ObjectID = "ZcF-10-jsl"; */
-"ZcF-10-jsl.title" = ""添加;
+"ZcF-10-jsl.title" = "添加";
 
 /* Class = "NSTextFieldCell"; title = "Proxy Helper"; ObjectID = "aSG-9A-eeG"; */
 "aSG-9A-eeG.title" = "代理助手";
