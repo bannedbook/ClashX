@@ -98,6 +98,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             }
 
         }
+        if #unavailable(macOS 10.15) {
+            // dashboard is not support in macOS 10.15 below
+            self.dashboardMenuItem.isHidden = true
+        }
         setupStatusMenuItemData()
         AppVersionUtil.showUpgradeAlert()
         ICloudManager.shared.setup()
