@@ -15,7 +15,7 @@ class ICloudManager {
     private let queue = DispatchQueue(label: "com.clashx.icloud")
     private var metaQuery: NSMetadataQuery?
     private var enableMenuItem: NSMenuItem?
-    private var icloudAvailable = false {
+    private(set) var icloudAvailable = false {
         didSet { useiCloud.accept(userEnableiCloud && icloudAvailable) }
     }
     private var disposeBag = DisposeBag()

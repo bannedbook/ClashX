@@ -25,4 +25,21 @@ class DebugSettingViewController: NSViewController {
     @IBAction func actionOpenLogFolder(_ sender: Any) {
         NSWorkspace.shared.openFile(Logger.shared.logFolder())
     }
+    @IBAction func actionOpenLocalConfig(_ sender: Any) {
+        NSWorkspace.shared.openFile(kConfigFolderPath)
+
+        
+    }
+    @IBAction func actionOpenIcloudConfig(_ sender: Any) {
+        if ICloudManager.shared.icloudAvailable {
+            ICloudManager.shared.getUrl {
+                url in
+                if let url = url {
+                    NSWorkspace.shared.open(url)
+                }
+            }
+        } else {
+            NSAlert.alert(with: NSLocalizedString("iCloud not available", comment: ""))
+        }
+    }
 }

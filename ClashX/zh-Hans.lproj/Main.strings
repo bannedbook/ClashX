@@ -288,3 +288,12 @@
 
 /* Class = "NSTextFieldCell"; title = "Api Secret:"; ObjectID = "ckH-Er-PfX"; */
 "ckH-Er-PfX.title" = "Api秘钥";
+
+/* Class = "NSButtonCell"; title = "iCloud"; ObjectID = "URV-fZ-bJf"; */
+"URV-fZ-bJf.title" = "iCloud";
+
+/* Class = "NSButtonCell"; title = "Local"; ObjectID = "YF4-uZ-A0M"; */
+"YF4-uZ-A0M.title" = "本地";
+
+/* Class = "NSTextFieldCell"; title = "Config Folder"; ObjectID = "ZA9-qc-wi4"; */
+"ZA9-qc-wi4.title" = "配置文件夹";

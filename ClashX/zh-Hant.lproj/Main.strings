@@ -283,11 +283,17 @@
 /* Class = "NSTextFieldCell"; title = "Core Version"; ObjectID = "zwo-q5-k5N"; */
 "zwo-q5-k5N.title" = "核心版本";
 
-/* Class = "NSTextFieldCell"; title = "Proxy Helper"; ObjectID = "aSG-9A-eeG"; */
-"aSG-9A-eeG.title" = "代理程式";
-
 /* Class = "NSButtonCell"; title = "Override Config Setting"; ObjectID = "LW4-cA-3bB"; */
 "LW4-cA-3bB.title" = "覆蓋配置文件設置";
 
 /* Class = "NSTextFieldCell"; title = "Api Secret:"; ObjectID = "ckH-Er-PfX"; */
 "ckH-Er-PfX.title" = "API 秘鑰";
+
+/* Class = "NSButtonCell"; title = "iCloud"; ObjectID = "URV-fZ-bJf"; */
+"URV-fZ-bJf.title" = "iCloud";
+
+/* Class = "NSButtonCell"; title = "Local"; ObjectID = "YF4-uZ-A0M"; */
+"YF4-uZ-A0M.title" = "本地";
+
+/* Class = "NSTextFieldCell"; title = "Config Folder"; ObjectID = "ZA9-qc-wi4"; */
+"ZA9-qc-wi4.title" = "配置文件夾";

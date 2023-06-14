@@ -89,6 +89,9 @@
 "hours" = "小時";
 
 /* No comment provided by engineer. */
+"iCloud not available" = "iCloud 不可用";
+
+/* No comment provided by engineer. */
 "If you can not find ClashX in the settings, you can try reset daemon" = "如果在設定裡沒找到ClashX,可以嘗試重置守護程序";
 
 /* No comment provided by engineer. */
