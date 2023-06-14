@@ -31,5 +31,6 @@ target 'ClashX' do
   pod 'Sparkle','~>1.0'
   pod "FlexibleDiff"
   pod 'GzipSwift'
+  pod 'SwiftLint'
 end
 

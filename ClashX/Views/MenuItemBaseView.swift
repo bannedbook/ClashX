@@ -133,7 +133,7 @@ class MenuItemBaseView: NSView {
     override func viewDidMoveToSuperview() {
         super.viewDidMoveToSuperview()
         guard autolayout else { return }
-        if #available(macOS 10.15, *) {} else {
+        if #unavailable(macOS 10.15) {
             if let view = superview {
                 view.autoresizingMask = [.width]
             }

@@ -49,16 +49,16 @@ class ClashWebViewContoller: NSViewController {
     let disposeBag = DisposeBag()
     let minSize = NSSize(width: 920, height: 580)
     var lastSize: CGSize? {
-        set {
-            if let size = newValue {
-                UserDefaults.standard.set(NSStringFromSize(size), forKey: "ClashWebViewContoller.lastSize")
-            }
-        }
         get {
             if let str = UserDefaults.standard.value(forKey: "ClashWebViewContoller.lastSize") as? String {
                 return NSSizeFromString(str) as CGSize
             }
             return nil
+        }
+        set {
+            if let size = newValue {
+                UserDefaults.standard.set(NSStringFromSize(size), forKey: "ClashWebViewContoller.lastSize")
+            }
         }
     }
 

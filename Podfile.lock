@@ -19,6 +19,7 @@ PODS:
   - RxSwift (6.5.0)
   - Sparkle (1.27.1)
   - Starscream (3.1.1)
+  - SwiftLint (0.52.2)
   - SwiftyJSON (5.0.1)
   - WebViewJavascriptBridge (6.0.3)
 
@@ -34,6 +35,7 @@ DEPENDENCIES:
   - RxSwift
   - Sparkle (~> 1.0)
   - Starscream (= 3.1.1)
+  - SwiftLint
   - SwiftyJSON
   - WebViewJavascriptBridge
 
@@ -50,6 +52,7 @@ SPEC REPOS:
     - RxSwift
     - Sparkle
     - Starscream
+    - SwiftLint
     - SwiftyJSON
     - WebViewJavascriptBridge
 
@@ -65,9 +68,10 @@ SPEC CHECKSUMS:
   RxSwift: 5710a9e6b17f3c3d6e40d6e559b9fa1e813b2ef8
   Sparkle: 23f98b268284c8c03e6228230fc8f1807ef041d5
   Starscream: 4bb2f9942274833f7b4d296a55504dcfc7edb7b0
+  SwiftLint: 1ac76dac888ca05cb0cf24d0c85887ec1209961d
   SwiftyJSON: 2f33a42c6fbc52764d96f13368585094bfd8aa5e
   WebViewJavascriptBridge: 7f5bc4d3581e672e8f32bd0f812d54bc69bb8e29
 
-PODFILE CHECKSUM: 7a4b4f95913a2481c21fe728bf31871a3b75fb6c
+PODFILE CHECKSUM: 284f3854ad1af36e9775ecb5fb562876d99ad634
 
 COCOAPODS: 1.12.1

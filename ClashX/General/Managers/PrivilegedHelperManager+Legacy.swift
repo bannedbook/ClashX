@@ -62,10 +62,10 @@ extension PrivilegedHelperManager {
             let appleScriptStr = "do shell script \"bash \(tmpPath.path) \" with administrator privileges"
             let appleScript = NSAppleScript(source: appleScriptStr)
             var dict: NSDictionary?
-            if let _ = appleScript?.executeAndReturnError(&dict) {
-                return
+            if appleScript?.executeAndReturnError(&dict) == nil {
+                Logger.log("apple script failed")
             } else {
-                Logger.log("apple script fail: \(String(describing: dict))")
+                Logger.log("apple script result: \(String(describing: dict))")
             }
         } catch let err {
             Logger.log("legacyInstallHelper create script fail: \(err)")

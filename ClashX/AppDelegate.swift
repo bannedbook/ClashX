@@ -217,37 +217,14 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
     }
 
-    func buttonRectOnScreen() -> CGRect {
-            guard let button = statusItem.button else { return .zero }
-            guard let window = button.window else { return .zero }
-            let buttonRect = button.convert(button.bounds, to: nil)
-            let onScreenRect = window.convertToScreen(buttonRect)
-            return onScreenRect
-        }
-
-     func leftScreenX() -> CGFloat {
-            let screens = NSScreen.screens
-
-            var left: CGFloat = 0
-
-            for screen in screens {
-                if screen.frame.origin.x < left {
-                    left = screen.frame.origin.x
-                }
-            }
-            return left
-        }
-
     func checkMenuIconVisable() {
         guard let button = statusItem.button else {assertionFailure(); return }
         guard let window = button.window else {assertionFailure(); return }
         let buttonRect = button.convert(button.bounds, to: nil)
         let onScreenRect = window.convertToScreen(buttonRect)
         var leftScreenX: CGFloat = 0
-        for screen in NSScreen.screens {
-            if screen.frame.origin.x < leftScreenX {
-                leftScreenX = screen.frame.origin.x
-            }
+        for screen in NSScreen.screens where screen.frame.origin.x < leftScreenX {
+            leftScreenX = screen.frame.origin.x
         }
         let isMenuIconHidden = onScreenRect.midX < leftScreenX
 
@@ -489,7 +466,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     func startProxy() {
         if ConfigManager.shared.isRunning { return }
-        
+
         if !Settings.isApiSecretSet {
             if #available(macOS 11.0, *), let password = SecCreateSharedWebCredentialPassword() as? String {
                 Settings.apiSecret = password
@@ -497,7 +474,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 Settings.apiSecret = UUID().uuidString
             }
         }
-        
+
         if clash_checkSecret().toString() == "" || Settings.overrideConfigSecret {
             clash_setSecret(Settings.apiSecret.goStringBuffer())
         }
@@ -705,7 +682,7 @@ extension AppDelegate {
         }
         switchProxyMode(mode: mode)
     }
-    
+
     func switchProxyMode(mode: ClashProxyMode) {
         let config = ConfigManager.shared.currentConfig?.copy()
         config?.mode = mode

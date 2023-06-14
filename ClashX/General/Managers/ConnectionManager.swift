@@ -28,10 +28,8 @@ class ConnectionManager {
     static func closeConnection(for group: String) {
         guard enableAutoClose else { return }
         ApiRequest.getConnections { conns in
-            for conn in conns {
-                if conn.chains.contains(group) {
-                    ApiRequest.closeConnection(conn)
-                }
+            for conn in conns where conn.chains.contains(group) {
+                ApiRequest.closeConnection(conn)
             }
         }
     }
