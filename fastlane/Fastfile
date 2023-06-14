@@ -6,12 +6,23 @@ build_app(
   workspace: "ClashX.xcworkspace",
   scheme: "ClashX",
   export_method: "developer-id",
-  skip_package_pkg: "true",
-  clean: "true"
+  skip_package_pkg: "false",
+  clean: "true",
+  derived_data_path: "./build_derived_data"
 )
-
-sh(command: "rm -vfr ~/Library/Developer/Xcode/Archives/*")
 end
+
+lane :check do
+  build_app(
+    workspace: "ClashX.xcworkspace",
+    scheme: "ClashX",
+    codesigning_identity: "-",
+    export_method: "developer-id",
+    skip_package_pkg: "true",
+    clean: "true",
+    derived_data_path: "./build_derived_data"
+  )
+  end
 
 lane :beta do
 current_version = get_version_number(

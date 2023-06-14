@@ -614,6 +614,7 @@
                         <outlet property="apiPortMenuItem" destination="hwG-qf-DeZ" id="d6K-i7-yCo"/>
                         <outlet property="autoStartMenuItem" destination="B1J-XB-BiZ" id="xaS-h5-qd0"/>
                         <outlet property="buildApiModeMenuitem" destination="xG5-B4-mlw" id="1Fy-UQ-jFs"/>
+                        <outlet property="checkForUpdateMenuItem" destination="p0T-J8-Emx" id="9BN-2j-QNB"/>
                         <outlet property="configSeparatorLine" destination="WzG-og-OyZ" id="hhn-AP-zKJ"/>
                         <outlet property="copyExportCommandExternalMenuItem" destination="7wl-vK-5JO" id="1Lu-Tu-FJy"/>
                         <outlet property="copyExportCommandMenuItem" destination="Jmb-PK-rMW" id="tiF-vV-Sqh"/>
@@ -817,9 +818,6 @@
                                     </menuItem>
                                     <menuItem title="Check Update" id="p0T-J8-Emx">
                                         <modifierMask key="keyEquivalentModifierMask"/>
-                                        <connections>
-                                            <action selector="checkForUpdates:" target="fth-rt-saN" id="gaF-35-d7h"/>
-                                        </connections>
                                     </menuItem>
                                     <menuItem title="Log level" id="3Da-fL-Mzr">
                                         <modifierMask key="keyEquivalentModifierMask"/>
@@ -908,7 +906,7 @@
                     </items>
                 </menu>
                 <customObject id="YLy-65-1bz" customClass="NSFontManager"/>
-                <customObject id="fth-rt-saN" customClass="SUUpdater"/>
+                <customObject id="fth-rt-saN"/>
                 <customObject id="Ady-hI-5gd" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
                 <userDefaultsController representsSharedInstance="YES" id="dwS-am-r7H"/>
             </objects>

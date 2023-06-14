@@ -28,7 +28,7 @@ target 'ClashX' do
   pod 'Starscream','3.1.1'
   pod 'AppCenter/Analytics'
   pod 'AppCenter/Crashes'
-  pod 'Sparkle','~>1.0'
+  pod 'Sparkle','~>2.0'
   pod "FlexibleDiff"
   pod 'GzipSwift'
   pod 'SwiftLint'

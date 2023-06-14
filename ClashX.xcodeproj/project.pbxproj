@@ -576,7 +576,6 @@
 				49CF3B1B20CD7463001EBF94 /* Resources */,
 				A741C26F5755233F0D7CEC6F /* [CP] Embed Pods Frameworks */,
 				663E4677213FCDC4006F11BB /* Copy Files */,
-				494ED8F023EB0B36008D5D2F /* Run Script - Sparkle */,
 				318032FABBC2E552CB58B254 /* [CP] Copy Pods Resources */,
 				49B93AD42A3965B40080967C /* Swift Lint */,
 			);

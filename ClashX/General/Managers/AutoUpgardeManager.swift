@@ -10,8 +10,9 @@ import Cocoa
 import Sparkle
 
 class AutoUpgardeManager: NSObject {
+    var checkForUpdatesMenuItem: NSMenuItem?
     static let shared = AutoUpgardeManager()
-
+    private var controller:SPUStandardUpdaterController?
     private var current: Channel = {
         if let value = UserDefaults.standard.object(forKey: "AutoUpgardeManager.current") as? Int,
             let channel = Channel(rawValue: value) { return channel }
@@ -38,10 +39,14 @@ class AutoUpgardeManager: NSObject {
     }
 
     // MARK: Public
-
     func setup() {
-        guard WebPortalManager.hasWebProtal == false, allowSelectChannel else { return }
-        SUUpdater.shared()?.delegate = self
+        controller = SPUStandardUpdaterController(updaterDelegate: self, userDriverDelegate: nil)
+    }
+
+    func setupCheckForUpdatesMenuItem(_ item: NSMenuItem) {
+        checkForUpdatesMenuItem = item
+        checkForUpdatesMenuItem?.target = controller
+        checkForUpdatesMenuItem?.action = #selector(SPUStandardUpdaterController.checkForUpdates(_:))
     }
 
     func addChanelMenuItem(_ menu: inout NSMenu) {
@@ -72,12 +77,13 @@ extension AutoUpgardeManager {
     }
 }
 
-extension AutoUpgardeManager: SUUpdaterDelegate {
-    func feedURLString(for updater: SUUpdater) -> String? {
+extension AutoUpgardeManager: SPUUpdaterDelegate {
+    func feedURLString(for updater: SPUUpdater) -> String? {
+        guard WebPortalManager.hasWebProtal == false, allowSelectChannel else { return nil }
         return current.urlString
     }
 
-    func updaterWillRelaunchApplication(_ updater: SUUpdater) {
+    func updaterWillRelaunchApplication(_ updater: SPUUpdater) {
         SystemProxyManager.shared.disableProxy(port: 0, socksPort: 0, forceDisable: true)
     }
 }

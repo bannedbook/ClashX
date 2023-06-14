@@ -22,7 +22,8 @@ let statusItemLengthWithSpeed: CGFloat = 72
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
     var statusItem: NSStatusItem!
-
+    @IBOutlet weak var checkForUpdateMenuItem: NSMenuItem!
+    
     @IBOutlet var statusMenu: NSMenu!
     @IBOutlet var proxySettingMenuItem: NSMenuItem!
     @IBOutlet var autoStartMenuItem: NSMenuItem!
@@ -587,6 +588,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
         AutoUpgardeManager.shared.setup()
         AutoUpgardeManager.shared.addChanelMenuItem(&experimentalMenu)
+        AutoUpgardeManager.shared.setupCheckForUpdatesMenuItem(checkForUpdateMenuItem)
         updateExperimentalFeatureStatus()
         RemoteControlManager.setupMenuItem(separator: externalControlSeparator)
     }
