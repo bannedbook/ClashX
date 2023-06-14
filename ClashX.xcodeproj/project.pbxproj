@@ -716,24 +716,6 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ClashX/Pods-ClashX-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		494ED8F023EB0B36008D5D2F /* Run Script - Sparkle */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 12;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			name = "Run Script - Sparkle";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nLOCATION=\"${BUILT_PRODUCTS_DIR}\"/\"${FRAMEWORKS_FOLDER_PATH}\"\n\n# By default, use the configured code signing identity for the project/target\nIDENTITY=\"${EXPANDED_CODE_SIGN_IDENTITY_NAME}\"\nif [ \"$IDENTITY\" == \"\" ]\nthen\n  # If a code signing identity is not specified, use ad hoc signing\n  IDENTITY=\"-\"\nfi\ncodesign --verbose --force --deep -o runtime --sign \"$IDENTITY\" \"$LOCATION/Sparkle.framework/Versions/A/Resources/AutoUpdate.app\"\ncodesign --verbose --force -o runtime --sign \"$IDENTITY\" \"$LOCATION/Sparkle.framework/Versions/A\"\n";
-		};
 		49B93AD42A3965B40080967C /* Swift Lint */ = {
 			isa = PBXShellScriptBuildPhase;
 			alwaysOutOfDate = 1;
