@@ -23,7 +23,7 @@ let statusItemLengthWithSpeed: CGFloat = 72
 class AppDelegate: NSObject, NSApplicationDelegate {
     var statusItem: NSStatusItem!
     @IBOutlet weak var checkForUpdateMenuItem: NSMenuItem!
-    
+
     @IBOutlet var statusMenu: NSMenu!
     @IBOutlet var proxySettingMenuItem: NSMenuItem!
     @IBOutlet var autoStartMenuItem: NSMenuItem!
@@ -93,7 +93,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         Logger.log("postFinishLaunching")
         defer {
             statusItem.menu = statusMenu
-            DispatchQueue.main.asyncAfter(deadline: .now()+1) {
+            DispatchQueue.main.asyncAfter(deadline: .now()+5) {
                 self.checkMenuIconVisable()
             }
 

@@ -38,6 +38,9 @@
 "ClashX use a daemon helper to setup your system proxy. Please enable ClashX in the Login Items under the Allow in the Background section and relaunch the app" = "ClashX需要通過後台Daemon進程來設定系統代理，請在\"系統偏好設定->登錄項->允許在後台 中\"允許ClashX";
 
 /* No comment provided by engineer. */
+"Click OK to quit the app and apply change." = "確認清理併退出軟件";
+
+/* No comment provided by engineer. */
 "Config file have been changed" = "配置文件已被修改";
 
 /* No comment provided by engineer. */

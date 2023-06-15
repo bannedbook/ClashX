@@ -297,3 +297,9 @@
 
 /* Class = "NSTextFieldCell"; title = "Config Folder"; ObjectID = "ZA9-qc-wi4"; */
 "ZA9-qc-wi4.title" = "配置文件夹";
+
+/* Class = "NSButtonCell"; title = "Reset"; ObjectID = "5ws-55-f1g"; */
+"5ws-55-f1g.title" = "重置";
+
+/* Class = "NSTextFieldCell"; title = "App Setting"; ObjectID = "PF0-Gd-XbR"; */
+"PF0-Gd-XbR.title" = "应用配置";

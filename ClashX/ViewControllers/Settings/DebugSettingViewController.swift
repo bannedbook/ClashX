@@ -41,4 +41,12 @@ class DebugSettingViewController: NSViewController {
             NSAlert.alert(with: NSLocalizedString("iCloud not available", comment: ""))
         }
     }
+
+    @IBAction func actionResetUserDefault(_ sender: Any) {
+        guard let domain = Bundle.main.bundleIdentifier else { return }
+        NSAlert.alert(with: NSLocalizedString("Click OK to quit the app and apply change.", comment: ""))
+        UserDefaults.standard.removePersistentDomain(forName: domain)
+        UserDefaults.standard.synchronize()
+        NSApplication.shared.terminate(self)
+    }
 }
