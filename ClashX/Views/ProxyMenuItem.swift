@@ -71,7 +71,11 @@ class ProxyMenuItem: NSMenuItem {
             assertionFailure()
             return
         }
-        updateDelay(info.history.last?.delayDisplay, rawValue: info.history.last?.delay)
+        if info.alive == false {
+            updateDelay(NSLocalizedString("fail", comment: ""), rawValue: 0)
+        } else {
+            updateDelay(info.history.last?.delayDisplay, rawValue: info.history.last?.delay)
+        }
     }
 
     @objc private func proxyGroupInfoUpdate(note: Notification) {
