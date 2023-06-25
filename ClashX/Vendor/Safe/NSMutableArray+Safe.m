@@ -18,6 +18,9 @@
         if (index < self.count) {
             return [self hookObjectAtIndex:index];
         }
+        if ([self.firstObject isKindOfClass:[NSNumber class]] || self.count == 0) {
+            return @(22); // menu height
+        }
         return nil;
     }
 }
