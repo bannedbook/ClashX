@@ -47,6 +47,8 @@
 		498BC2532929CC2A00CA8084 /* SettingTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498BC2522929CC2A00CA8084 /* SettingTabViewController.swift */; };
 		498BC2552929CCAE00CA8084 /* GeneralSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498BC2542929CCAE00CA8084 /* GeneralSettingViewController.swift */; };
 		4994B5522A47C1C900E595B9 /* NSMutableArray+Safe.m in Sources */ = {isa = PBXBuildFile; fileRef = 4994B5512A47C1C900E595B9 /* NSMutableArray+Safe.m */; };
+		4994B5542A47C4FF00E595B9 /* NormalMenuItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4994B5532A47C4FF00E595B9 /* NormalMenuItemView.swift */; };
+		4994B5562A47C5FA00E595B9 /* Hotfixs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4994B5552A47C5FA00E595B9 /* Hotfixs.swift */; };
 		499976C821359F0400E7BF83 /* ClashWebViewContoller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499976C721359F0400E7BF83 /* ClashWebViewContoller.swift */; };
 		499A485522ED707300F6C675 /* RemoteConfigViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499A485322ED707300F6C675 /* RemoteConfigViewController.swift */; };
 		499A485822ED715200F6C675 /* RemoteConfigModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499A485722ED715200F6C675 /* RemoteConfigModel.swift */; };
@@ -184,6 +186,8 @@
 		498BC2542929CCAE00CA8084 /* GeneralSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralSettingViewController.swift; sourceTree = "<group>"; };
 		4994B5502A47C1C900E595B9 /* NSMutableArray+Safe.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSMutableArray+Safe.h"; sourceTree = "<group>"; };
 		4994B5512A47C1C900E595B9 /* NSMutableArray+Safe.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSMutableArray+Safe.m"; sourceTree = "<group>"; };
+		4994B5532A47C4FF00E595B9 /* NormalMenuItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NormalMenuItemView.swift; sourceTree = "<group>"; };
+		4994B5552A47C5FA00E595B9 /* Hotfixs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Hotfixs.swift; sourceTree = "<group>"; };
 		499976C721359F0400E7BF83 /* ClashWebViewContoller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClashWebViewContoller.swift; sourceTree = "<group>"; };
 		499A485322ED707300F6C675 /* RemoteConfigViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteConfigViewController.swift; sourceTree = "<group>"; };
 		499A485722ED715200F6C675 /* RemoteConfigModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteConfigModel.swift; sourceTree = "<group>"; };
@@ -341,6 +345,7 @@
 				491C250121BD561200AB5D44 /* Managers */,
 				491C250021BD55B900AB5D44 /* Utils */,
 				492C4868210EE6B9004554A0 /* ApiRequest.swift */,
+				4994B5552A47C5FA00E595B9 /* Hotfixs.swift */,
 			);
 			path = General;
 			sourceTree = "<group>";
@@ -372,6 +377,7 @@
 				F910AA23240134AF00116E95 /* ProxyGroupMenu.swift */,
 				493A9F272453E60400D35296 /* ProxyDelayHistoryMenu.swift */,
 				49228456270AADE20027A4B6 /* RemoteConfigUpdateIntervalSettingView.swift */,
+				4994B5532A47C4FF00E595B9 /* NormalMenuItemView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -832,6 +838,7 @@
 				49D176A9235614340093DD7B /* ProxyGroupSpeedTestMenuItem.swift in Sources */,
 				F976275C23634DF8000EDEFE /* LoginServiceKit.swift in Sources */,
 				4966E9E6211824F300A391FB /* NSImage+extension.swift in Sources */,
+				4994B5542A47C4FF00E595B9 /* NormalMenuItemView.swift in Sources */,
 				F92D0B2E236D35C000575E15 /* ProxyItemView.swift in Sources */,
 				49BB31E7246853EA008A4CB0 /* ICloudManager.swift in Sources */,
 				49B1086A216A356D0064FFCE /* String+Extension.swift in Sources */,
@@ -843,6 +850,7 @@
 				499A485E22ED9B7C00F6C675 /* NSTableView+Reload.swift in Sources */,
 				F939724C23A4B33500FE5A3F /* ClashProvider.swift in Sources */,
 				498BC2532929CC2A00CA8084 /* SettingTabViewController.swift in Sources */,
+				4994B5562A47C5FA00E595B9 /* Hotfixs.swift in Sources */,
 				49862FA0218418C600A1D5EC /* ClashRule.swift in Sources */,
 				49C9EF64223E78F5005D8B6A /* ClashProxy.swift in Sources */,
 				4929F684258CE07500A435F6 /* UserDefaultWrapper.swift in Sources */,
