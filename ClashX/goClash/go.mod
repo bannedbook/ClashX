@@ -3,7 +3,7 @@ module github.com/yichengchen/clashX/ClashX
 go 1.19
 
 require (
-	github.com/Dreamacro/clash v1.16.1-0.20230616131910-31fe77ee694d
+	github.com/Dreamacro/clash v1.16.1-0.20230625011906-5212aaf445ec
 	github.com/oschwald/geoip2-golang v1.8.0
 	github.com/phayes/freeport v0.0.0-20180830031419-95f893ade6f2
 )
@@ -11,6 +11,7 @@ require (
 require (
 	github.com/Dreamacro/protobytes v0.0.0-20230324064118-87bc784139cd // indirect
 	github.com/ajg/form v1.5.1 // indirect
+	github.com/dlclark/regexp2 v1.10.0 // indirect
 	github.com/go-chi/chi/v5 v5.0.8 // indirect
 	github.com/go-chi/cors v1.2.1 // indirect
 	github.com/go-chi/render v1.0.2 // indirect
