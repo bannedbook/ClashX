@@ -159,7 +159,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         setupNetworkNotifier()
         registCrashLogger()
         KeyboardShortCutManager.setup()
-        Hotfixs.applyMacOS14Hotfix(modeItem: proxyModeMenuItem)
     }
 
     func applicationShouldTerminate(_ sender: NSApplication) -> NSApplication.TerminateReply {
