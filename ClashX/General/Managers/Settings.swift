@@ -8,7 +8,8 @@
 
 import Foundation
 enum Settings {
-    @UserDefault("mmdbDownloadUrl", defaultValue: "")
+    static let defaultMmdbDownloadUrl = "https://github.com/Dreamacro/maxmind-geoip/releases/latest/download/Country.mmdb"
+    @UserDefault("mmdbDownloadUrl", defaultValue: defaultMmdbDownloadUrl)
     static var mmdbDownloadUrl: String
 
     @UserDefault("filterInterface", defaultValue: true)
@@ -64,4 +65,23 @@ enum Settings {
 
     @UserDefault("overrideConfigSecret", defaultValue: false)
     static var overrideConfigSecret: Bool
+
+    @UserDefault("kBuiltInApiMode", defaultValue: true)
+    static var builtInApiMode: Bool
+
+    static let disableShowCurrentProxyInMenu = !AppDelegate.isAboveMacOS14
+
+    static let defaultBenchmarkUrl = "http://cp.cloudflare.com/generate_204"
+    @UserDefault("benchMarkUrl", defaultValue: defaultBenchmarkUrl)
+    static var benchMarkUrl: String {
+        didSet {
+            if benchMarkUrl.count == 0 {
+                benchMarkUrl = defaultBenchmarkUrl
+            }
+        }
+    }
+
+    @UserDefault("kDisableRestoreProxy", defaultValue: false)
+    static var disableRestoreProxy: Bool
+
 }

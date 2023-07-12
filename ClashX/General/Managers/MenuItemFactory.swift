@@ -13,11 +13,7 @@ import SwiftyJSON
 class MenuItemFactory {
     private static var cachedProxyData: ClashProxyResp?
 
-    static var useViewToRenderProxy: Bool = UserDefaults.standard.object(forKey: "useViewToRenderProxy") as? Bool ?? AppDelegate.isAboveMacOS152 {
-        didSet {
-            UserDefaults.standard.set(useViewToRenderProxy, forKey: "useViewToRenderProxy")
-        }
-    }
+    static let useViewToRenderProxy: Bool = AppDelegate.isAboveMacOS152
 
     // MARK: - Public
 
@@ -123,7 +119,7 @@ class MenuItemFactory {
 
         let menu = NSMenuItem(title: proxyGroup.name, action: nil, keyEquivalent: "")
         let selectedName = proxyGroup.now ?? ""
-        if !ConfigManager.shared.disableShowCurrentProxyInMenu {
+        if !Settings.disableShowCurrentProxyInMenu {
             menu.view = ProxyGroupMenuItemView(group: proxyGroup.name, targetProxy: selectedName, hasLeftPadding: leftPadding)
         }
         let submenu = ProxyGroupMenu(title: proxyGroup.name)
@@ -153,7 +149,7 @@ class MenuItemFactory {
         let proxyMap = proxyInfo.proxiesMap
         let selectedName = proxyGroup.now ?? ""
         let menu = NSMenuItem(title: proxyGroup.name, action: nil, keyEquivalent: "")
-        if !ConfigManager.shared.disableShowCurrentProxyInMenu {
+        if !Settings.disableShowCurrentProxyInMenu {
             menu.view = ProxyGroupMenuItemView(group: proxyGroup.name, targetProxy: selectedName, hasLeftPadding: leftPadding)
         }
         let submenu = NSMenu(title: proxyGroup.name)
@@ -188,7 +184,7 @@ class MenuItemFactory {
         let proxyMap = proxyInfo.proxiesMap
 
         let menu = NSMenuItem(title: proxyGroup.name, action: nil, keyEquivalent: "")
-        if !ConfigManager.shared.disableShowCurrentProxyInMenu {
+        if !Settings.disableShowCurrentProxyInMenu {
             menu.view = ProxyGroupMenuItemView(group: proxyGroup.name, targetProxy: NSLocalizedString("Load Balance", comment: ""), hasLeftPadding: leftPadding, observeUpdate: false)
         }
         let submenu = ProxyGroupMenu(title: proxyGroup.name)
@@ -228,27 +224,6 @@ class MenuItemFactory {
         }
         menu.submenu = submenu
         return menu
-    }
-}
-
-// MARK: - Experimental
-
-extension MenuItemFactory {
-    static func addExperimentalMenuItem(_ menu: inout NSMenu) {
-        let useViewRender = NSMenuItem(title: NSLocalizedString("Enhance proxy list render", comment: ""), action: #selector(optionUseViewRenderMenuItemTap(sender:)), keyEquivalent: "")
-        useViewRender.target = self
-        menu.addItem(useViewRender)
-        updateUseViewRenderMenuItem(useViewRender)
-    }
-
-    static func updateUseViewRenderMenuItem(_ item: NSMenuItem) {
-        item.state = useViewToRenderProxy ? .on : .off
-    }
-
-    @objc static func optionUseViewRenderMenuItemTap(sender: NSMenuItem) {
-        useViewToRenderProxy = !useViewToRenderProxy
-        updateUseViewRenderMenuItem(sender)
-        recreateProxyMenuItems()
     }
 }
 

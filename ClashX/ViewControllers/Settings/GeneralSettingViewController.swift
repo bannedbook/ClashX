@@ -25,9 +25,13 @@ class GeneralSettingViewController: NSViewController {
 
     @IBOutlet weak var apiSecretOverrideButton: NSButton!
 
+    @IBOutlet weak var speedTestUrlField: NSTextField!
+
     var disposeBag = DisposeBag()
     override func viewDidLoad() {
         super.viewDidLoad()
+        speedTestUrlField.stringValue = Settings.benchMarkUrl
+        speedTestUrlField.placeholderString = Settings.defaultBenchmarkUrl
         ignoreListTextView.string = Settings.proxyIgnoreList.joined(separator: ",")
         ignoreListTextView.rx
             .string.debounce(.milliseconds(500), scheduler: MainScheduler.instance)
@@ -109,6 +113,14 @@ class GeneralSettingViewController: NSViewController {
     override func viewDidAppear() {
         super.viewDidAppear()
         view.window?.makeFirstResponder(nil)
+    }
+
+    override func viewWillDisappear() {
+        super.viewWillDisappear()
+        let url = speedTestUrlField.stringValue
+        if url.isUrlVaild() || url.count == 0 {
+            Settings.benchMarkUrl = url
+        }
     }
 
     @IBAction func actionResetIgnoreList(_ sender: Any) {

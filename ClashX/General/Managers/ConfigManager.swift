@@ -94,12 +94,6 @@ class ConfigManager {
 
     let showNetSpeedIndicatorObservable = UserDefaults.standard.rx.observe(Bool.self, "showNetSpeedIndicator")
 
-    var benchMarkUrl: String = UserDefaults.standard.string(forKey: "benchMarkUrl") ?? "http://cp.cloudflare.com/generate_204" {
-        didSet {
-            UserDefaults.standard.set(benchMarkUrl, forKey: "benchMarkUrl")
-        }
-    }
-
     static var apiUrl: String {
         if let override = shared.overrideApiURL {
             return override.absoluteString
@@ -149,18 +143,6 @@ class ConfigManager {
         }
         set {
             UserDefaults.standard.set(newValue.rawValue, forKey: "selectLoggingApiLevel")
-        }
-    }
-
-    static var builtInApiMode = (UserDefaults.standard.object(forKey: "kBuiltInApiMode") as? Bool) ?? true {
-        didSet {
-            UserDefaults.standard.set(builtInApiMode, forKey: "kBuiltInApiMode")
-        }
-    }
-
-    var disableShowCurrentProxyInMenu: Bool = UserDefaults.standard.object(forKey: "kSDisableShowCurrentProxyInMenu") as? Bool ?? !AppDelegate.isAboveMacOS14 {
-        didSet {
-            UserDefaults.standard.set(disableShowCurrentProxyInMenu, forKey: "kSDisableShowCurrentProxyInMenu")
         }
     }
 }

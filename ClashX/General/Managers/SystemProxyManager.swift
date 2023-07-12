@@ -21,21 +21,12 @@ class SystemProxyManager: NSObject {
         }
     }
 
-    private var disableRestoreProxy: Bool {
-        get {
-            return UserDefaults.standard.bool(forKey: "kDisableRestoreProxy")
-        }
-        set {
-            UserDefaults.standard.set(newValue, forKey: "kDisableRestoreProxy")
-        }
-    }
-
     private var helper: ProxyConfigRemoteProcessProtocol? {
         PrivilegedHelperManager.shared.helper()
     }
 
     func saveProxy() {
-        guard !disableRestoreProxy else { return }
+        guard !Settings.disableRestoreProxy else { return }
         Logger.log("saveProxy", level: .debug)
         helper?.getCurrentProxySetting({ [weak self] info in
             Logger.log("saveProxy done", level: .debug)
@@ -82,7 +73,7 @@ class SystemProxyManager: NSObject {
     func disableProxy(port: Int, socksPort: Int, forceDisable: Bool = false, complete: (() -> Void)? = nil) {
         Logger.log("disableProxy", level: .debug)
 
-        if disableRestoreProxy || forceDisable {
+        if Settings.disableRestoreProxy || forceDisable {
             helper?.disableProxy(withFilterInterface: Settings.filterInterface) { error in
                 if let error = error {
                     Logger.log("disableProxy \(error)", level: .error)
@@ -98,23 +89,5 @@ class SystemProxyManager: NSObject {
             }
             complete?()
         })
-    }
-
-    // MARK: - Expriment Menu Items
-
-    func addDisableRestoreProxyMenuItem(_ menu: inout NSMenu) {
-        let item = NSMenuItem(title: NSLocalizedString("Disable Restore Proxy Setting", comment: ""), action: #selector(optionMenuItemTap(sender:)), keyEquivalent: "")
-        item.target = self
-        menu.addItem(item)
-        updateMenuItemStatus(item)
-    }
-
-    func updateMenuItemStatus(_ item: NSMenuItem) {
-        item.state = disableRestoreProxy ? .on : .off
-    }
-
-    @objc func optionMenuItemTap(sender: NSMenuItem) {
-        disableRestoreProxy = !disableRestoreProxy
-        updateMenuItemStatus(sender)
     }
 }

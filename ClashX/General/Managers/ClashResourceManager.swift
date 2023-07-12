@@ -62,13 +62,8 @@ class ClashResourceManager {
 }
 
 extension ClashResourceManager {
-    static func addUpdateMMDBMenuItem(_ menu: inout NSMenu) {
-        let item = NSMenuItem(title: NSLocalizedString("Update GEOIP Database", comment: ""), action: #selector(updateGeoIP), keyEquivalent: "")
-        item.target = self
-        menu.addItem(item)
-    }
 
-    @objc private static func updateGeoIP() {
+    static func updateGeoIP() {
         guard let url = showCustomAlert() else { return }
         AF.download(url, to: { (_, _) in
             let path = kConfigFolderPath.appending("/Country.mmdb")
@@ -98,8 +93,12 @@ extension ClashResourceManager {
         let alert = NSAlert()
         alert.messageText = NSLocalizedString("Custom your GEOIP MMDB download address.", comment: "")
         let inputView = NSTextField(frame: NSRect(x: 0, y: 0, width: 250, height: 24))
-        inputView.placeholderString =  "https://github.com/Dreamacro/maxmind-geoip/releases/latest/download/Country.mmdb"
-        inputView.stringValue = Settings.mmdbDownloadUrl
+        inputView.placeholderString = Settings.defaultMmdbDownloadUrl
+        if Settings.mmdbDownloadUrl.count > 0 {
+            inputView.stringValue = Settings.mmdbDownloadUrl
+        } else {
+            inputView.stringValue = Settings.defaultMmdbDownloadUrl
+        }
         alert.accessoryView = inputView
         alert.addButton(withTitle: NSLocalizedString("OK", comment: ""))
         alert.addButton(withTitle: NSLocalizedString("Cancel", comment: ""))

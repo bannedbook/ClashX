@@ -11,6 +11,9 @@ import RxSwift
 
 class DebugSettingViewController: NSViewController {
     @IBOutlet weak var swiftuiMenuBarButton: NSButton!
+    @IBOutlet weak var useBuiltinApiButton: NSButton!
+    @IBOutlet weak var revertProxyButton: NSButton!
+    @IBOutlet weak var updateChannelPopButton: NSPopUpButton!
     var disposeBag = DisposeBag()
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -18,6 +21,9 @@ class DebugSettingViewController: NSViewController {
         swiftuiMenuBarButton.rx.state.bind { state in
             Settings.useSwiftUiMenuBar = state == .on
         }.disposed(by: disposeBag)
+        useBuiltinApiButton.state = Settings.builtInApiMode ? .on:.off
+        revertProxyButton.state = Settings.disableRestoreProxy ? .off : .on
+        AutoUpgardeManager.shared.addChannelMenuItem(updateChannelPopButton)
     }
     @IBAction func actionUnInstallProxyHelper(_ sender: Any) {
         PrivilegedHelperManager.shared.removeInstallHelper()
@@ -48,5 +54,27 @@ class DebugSettingViewController: NSViewController {
         UserDefaults.standard.removePersistentDomain(forName: domain)
         UserDefaults.standard.synchronize()
         NSApplication.shared.terminate(self)
+    }
+
+    @IBAction func actionSetUseApiMode(_ sender: Any) {
+        let alert = NSAlert()
+        alert.informativeText = NSLocalizedString("Need to Restart the ClashX to Take effect, Please start clashX manually", comment: "")
+        alert.addButton(withTitle: NSLocalizedString("Apply and Quit", comment: ""))
+        alert.addButton(withTitle: NSLocalizedString("Cancel", comment: ""))
+        if alert.runModal() == .alertFirstButtonReturn {
+            Settings.builtInApiMode = !Settings.builtInApiMode
+            NSApp.terminate(nil)
+        } else {
+            useBuiltinApiButton.state = Settings.builtInApiMode ? .on:.off
+        }
+    }
+
+    @IBAction func actionUpdateGeoipDb(_ sender: Any) {
+        ClashResourceManager.updateGeoIP()
+    }
+
+    @IBAction func actionRevertProxy(_ sender: Any) {
+        Settings.disableRestoreProxy.toggle()
+        revertProxyButton.state = Settings.disableRestoreProxy ? .off : .on
     }
 }

@@ -23,17 +23,6 @@ class AutoUpgardeManager: NSObject {
         }
     }
 
-    private lazy var menuItems: [Channel: NSMenuItem] = {
-        var items = [Channel: NSMenuItem]()
-        for channel in Channel.allCases {
-            let item = NSMenuItem(title: channel.title, action: #selector(didSelectUpgradeChannel(_:)), keyEquivalent: "")
-            item.target = self
-            item.tag = channel.rawValue
-            items[channel] = item
-        }
-        return items
-    }()
-
     private var allowSelectChannel: Bool {
         return Bundle.main.object(forInfoDictionaryKey: "SUDisallowSelectChannel") as? Bool != true
     }
@@ -49,31 +38,19 @@ class AutoUpgardeManager: NSObject {
         checkForUpdatesMenuItem?.action = #selector(SPUStandardUpdaterController.checkForUpdates(_:))
     }
 
-    func addChanelMenuItem(_ menu: inout NSMenu) {
-        guard WebPortalManager.hasWebProtal == false, allowSelectChannel else { return }
-        let upgradeMenu = NSMenu(title: NSLocalizedString("Upgrade Channel", comment: ""))
-        for (_, item) in menuItems {
-            upgradeMenu.addItem(item)
+    func addChannelMenuItem(_ button: NSPopUpButton) {
+        for channel in Channel.allCases {
+            button.addItem(withTitle: channel.title)
+            button.lastItem?.tag = channel.rawValue
         }
-
-        let upgradeMenuItem = NSMenuItem(title: NSLocalizedString("Upgrade Channel", comment: ""), action: nil, keyEquivalent: "")
-        upgradeMenuItem.submenu = upgradeMenu
-        menu.addItem(upgradeMenuItem)
-        updateDisplayStatus()
+        button.target = self
+        button.action = #selector(didselectChannel(sender:))
+        button.selectItem(withTag: current.rawValue)
     }
-}
 
-extension AutoUpgardeManager {
-    @objc private func didSelectUpgradeChannel(_ menuItem: NSMenuItem) {
-        guard let channel = Channel(rawValue: menuItem.tag) else { return }
+    @objc func didselectChannel(sender: NSPopUpButton) {
+        guard let tag = sender.selectedItem?.tag, let channel = Channel(rawValue: tag) else { return }
         current = channel
-        updateDisplayStatus()
-    }
-
-    private func updateDisplayStatus() {
-        for (channel, menuItem) in menuItems {
-            menuItem.state = channel == current ? .on : .off
-        }
     }
 }
 

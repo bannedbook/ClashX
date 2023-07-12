@@ -8,9 +8,6 @@
 "Apply and Quit" = "应用并退出";
 
 /* No comment provided by engineer. */
-"Auto Close Connection" = "切换代理时中断连接";
-
-/* No comment provided by engineer. */
 "Benchmark" = "延迟测速";
 
 /* No comment provided by engineer. */
@@ -65,22 +62,13 @@
 "Direct Mode" = "直接连接";
 
 /* No comment provided by engineer. */
-"Disable Restore Proxy Setting" = "关闭自动还原之前代理";
-
-/* No comment provided by engineer. */
 "Download fail" = "下载失败";
-
-/* No comment provided by engineer. */
-"Enhance proxy list render" = "增强渲染代理列表";
 
 /* No comment provided by engineer. */
 "fail" = "失败";
 
 /* No comment provided by engineer. */
 "Fail:" = "失败：";
-
-/* No comment provided by engineer. */
-"fails: %@" = "失败: %@";
 
 /* No comment provided by engineer. */
 "Global" = "全局";
@@ -108,8 +96,6 @@
 
 /* No comment provided by engineer. */
 "Load Balance" = "负载均衡";
-
-"Mode" = "模式";
 
 /* No comment provided by engineer. */
 "Need to Restart the ClashX to Take effect, Please start clashX manually" = "需要重启ClashX生效，请手动启动ClashX";
@@ -181,16 +167,7 @@
 "Rule Mode" = "规则判断";
 
 /* No comment provided by engineer. */
-"Script" = "脚本";
-
-/* No comment provided by engineer. */
-"Script Mode" = "脚本模式";
-
-/* No comment provided by engineer. */
 "Should be a least 1 hour" = "至少需要1小时间隔";
-
-/* No comment provided by engineer. */
-"Show speedTest at top" = "顶端显示测速按钮";
 
 /* No comment provided by engineer. */
 "Stable" = "Stable";
@@ -233,15 +210,6 @@
 
 /* No comment provided by engineer. */
 "Updating" = "更新中";
-
-/* No comment provided by engineer. */
-"Upgrade Channel" = "更新通道";
-
-/* No comment provided by engineer. */
-"URL is not valid" = "链接不合法";
-
-/* No comment provided by engineer. */
-"Use iCloud" = "使用iCloud";
 
 /* No comment provided by engineer. */
 "Use reload config to try reconnect." = "使用重载配置文件按钮尝试重新连接";

@@ -77,7 +77,7 @@ class ApiRequest {
         if ConfigManager.shared.overrideApiURL != nil {
             return false
         }
-        return ConfigManager.builtInApiMode
+        return Settings.builtInApiMode
     }
 
     static func requestConfig(completeHandler: @escaping ((ClashConfig) -> Void)) {
@@ -262,7 +262,7 @@ class ApiRequest {
     static func getProxyDelay(proxyName: String, callback: @escaping ((Int) -> Void)) {
         req("/proxies/\(proxyName.encoded)/delay",
             method: .get,
-            parameters: ["timeout": 5000, "url": ConfigManager.shared.benchMarkUrl])
+            parameters: ["timeout": 5000, "url": Settings.benchMarkUrl])
             .responseData { res in
                 switch res.result {
                 case let .success(value):

@@ -45,11 +45,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     @IBOutlet var apiPortMenuItem: NSMenuItem!
     @IBOutlet var ipMenuItem: NSMenuItem!
     @IBOutlet var remoteConfigAutoupdateMenuItem: NSMenuItem!
-    @IBOutlet var buildApiModeMenuitem: NSMenuItem!
-    @IBOutlet var showProxyGroupCurrentMenuItem: NSMenuItem!
     @IBOutlet var copyExportCommandMenuItem: NSMenuItem!
     @IBOutlet var copyExportCommandExternalMenuItem: NSMenuItem!
-    @IBOutlet var experimentalMenu: NSMenu!
     @IBOutlet var externalControlSeparator: NSMenuItem!
 
     var disposeBag = DisposeBag()
@@ -105,7 +102,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         setupStatusMenuItemData()
         AppVersionUtil.showUpgradeAlert()
         ICloudManager.shared.setup()
-        setupExperimentalMenuItem()
+
+        if WebPortalManager.hasWebProtal {
+            WebPortalManager.shared.addWebProtalMenuItem(&statusMenu)
+        }
+        RemoteControlManager.setupMenuItem(separator: externalControlSeparator)
+        AutoUpgardeManager.shared.setup()
+        AutoUpgardeManager.shared.setupCheckForUpdatesMenuItem(checkForUpdateMenuItem)
 
         // install proxy helper
         _ = ClashResourceManager.check()
@@ -144,7 +147,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         Logger.log("initClashCore finish")
         setupData()
         runAfterConfigReload = { [weak self] in
-            if !ConfigManager.builtInApiMode {
+            if !Settings.builtInApiMode {
                 self?.selectAllowLanWithMenory()
             }
         }
@@ -495,7 +498,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             setUIPath(uiPath.goStringBuffer())
         }
 
-        Logger.log("Trying start proxy, build-in mode: \(ConfigManager.builtInApiMode), allow lan: \(ConfigManager.allowConnectFromLan) custom port: \(Settings.proxyPort)")
+        Logger.log("Trying start proxy, build-in mode: \(Settings.builtInApiMode), allow lan: \(ConfigManager.allowConnectFromLan) custom port: \(Settings.proxyPort)")
 
         var apiAddr = ""
         if Settings.apiPort > 0 {
@@ -505,7 +508,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 apiAddr = "127.0.0.1:\(Settings.apiPort)"
             }
         }
-        let startRes = run(ConfigManager.builtInApiMode.goObject(),
+        let startRes = run(Settings.builtInApiMode.goObject(),
                          ConfigManager.allowConnectFromLan.goObject(),
                            GoUint32(Settings.proxyPort),
                          apiAddr.goStringBuffer())?
@@ -580,26 +583,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 NotificationCenter.default.post(name: .reloadDashboard, object: nil)
             }
         }
-    }
-
-    func setupExperimentalMenuItem() {
-        ConnectionManager.addCloseOptionMenuItem(&experimentalMenu)
-        ClashResourceManager.addUpdateMMDBMenuItem(&experimentalMenu)
-        SystemProxyManager.shared.addDisableRestoreProxyMenuItem(&experimentalMenu)
-        MenuItemFactory.addExperimentalMenuItem(&experimentalMenu)
-        if WebPortalManager.hasWebProtal {
-            WebPortalManager.shared.addWebProtalMenuItem(&statusMenu)
-        }
-        AutoUpgardeManager.shared.setup()
-        AutoUpgardeManager.shared.addChanelMenuItem(&experimentalMenu)
-        AutoUpgardeManager.shared.setupCheckForUpdatesMenuItem(checkForUpdateMenuItem)
-        updateExperimentalFeatureStatus()
-        RemoteControlManager.setupMenuItem(separator: externalControlSeparator)
-    }
-
-    func updateExperimentalFeatureStatus() {
-        buildApiModeMenuitem.state = ConfigManager.builtInApiMode ? .on : .off
-        showProxyGroupCurrentMenuItem.state = ConfigManager.shared.disableShowCurrentProxyInMenu ? .off : .on
     }
 
     @objc func resetProxySettingOnWakeupFromSleep() {
@@ -836,44 +819,6 @@ extension AppDelegate {
 
     @IBAction func actionSetUpdateInterval(_ sender: Any) {
         RemoteConfigManager.showAdd()
-    }
-
-    @IBAction func actionSetUseApiMode(_ sender: Any) {
-        let alert = NSAlert()
-        alert.informativeText = NSLocalizedString("Need to Restart the ClashX to Take effect, Please start clashX manually", comment: "")
-        alert.addButton(withTitle: NSLocalizedString("Apply and Quit", comment: ""))
-        alert.addButton(withTitle: NSLocalizedString("Cancel", comment: ""))
-        if alert.runModal() == .alertFirstButtonReturn {
-            ConfigManager.builtInApiMode = !ConfigManager.builtInApiMode
-            NSApp.terminate(nil)
-        }
-    }
-
-    @IBAction func actionUpdateProxyGroupMenu(_ sender: Any) {
-        ConfigManager.shared.disableShowCurrentProxyInMenu = !ConfigManager.shared.disableShowCurrentProxyInMenu
-        updateExperimentalFeatureStatus()
-        print("211")
-        MenuItemFactory.recreateProxyMenuItems()
-    }
-
-    @IBAction func actionSetBenchmarkUrl(_ sender: Any) {
-        let alert = NSAlert()
-        let textfiled = NSTextField(frame: NSRect(x: 0, y: 0, width: 300, height: 20))
-        textfiled.stringValue = ConfigManager.shared.benchMarkUrl
-        alert.messageText = NSLocalizedString("Benchmark", comment: "")
-        alert.accessoryView = textfiled
-        alert.addButton(withTitle: NSLocalizedString("OK", comment: ""))
-        alert.addButton(withTitle: NSLocalizedString("Cancel", comment: ""))
-
-        if alert.runModal() == .alertFirstButtonReturn {
-            if textfiled.stringValue.isUrlVaild() {
-                ConfigManager.shared.benchMarkUrl = textfiled.stringValue
-            } else {
-                let err = NSAlert()
-                err.messageText = NSLocalizedString("URL is not valid", comment: "")
-                err.runModal()
-            }
-        }
     }
 }
 
