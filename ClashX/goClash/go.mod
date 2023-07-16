@@ -1,6 +1,6 @@
 module github.com/yichengchen/clashX/ClashX
 
-go 1.19
+go 1.20
 
 require (
 	github.com/Dreamacro/clash v1.16.1-0.20230625011906-5212aaf445ec

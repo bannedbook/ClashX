@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>BETA</key>
-	<false/>
+	<true/>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDocumentTypes</key>

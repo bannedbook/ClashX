@@ -141,7 +141,7 @@ private class ProxyGroupSpeedTestMenuItemView: MenuItemBaseView {
             self.label.stringValue = menu.title
             menu.isEnabled = true
             self.setNeedsDisplay()
-            if providers.count > 0 {
+            if !providers.isEmpty {
                 MenuItemFactory.refreshExistingMenuItems()
             }
         }

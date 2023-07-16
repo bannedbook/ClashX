@@ -75,7 +75,7 @@ enum Settings {
     @UserDefault("benchMarkUrl", defaultValue: defaultBenchmarkUrl)
     static var benchMarkUrl: String {
         didSet {
-            if benchMarkUrl.count == 0 {
+            if benchMarkUrl.isEmpty {
                 benchMarkUrl = defaultBenchmarkUrl
             }
         }

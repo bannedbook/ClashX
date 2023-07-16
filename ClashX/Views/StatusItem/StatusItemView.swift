@@ -52,8 +52,8 @@ class StatusItemView: NSView, StatusItemViewProtocol {
 
     func updateSpeedLabel(up: Int, down: Int) {
         guard !speedContainerView.isHidden else { return }
-        let finalUpStr = StatusItemTool.getSpeedString(for: up)
-        let finalDownStr = StatusItemTool.getSpeedString(for: down)
+        let finalUpStr = SpeedUtils.getSpeedString(for: up)
+        let finalDownStr = SpeedUtils.getSpeedString(for: down)
 
         if downloadSpeedLabel.stringValue == finalDownStr && uploadSpeedLabel.stringValue == finalUpStr {
             return

@@ -62,13 +62,13 @@ class RemoteControlManager {
         menuSeparator = separator
         updateMenuItems()
         updateDropDownMenuItems()
-        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+        DispatchQueue.main.asyncAfter(deadline: .now()+0.5) {
             RemoteControlManager.recoverSelection()
         }
     }
 
     static private func recoverSelection() {
-        if Recorder.selected != "" {
+        if !Recorder.selected.isEmpty {
             if let config = configs.first(where: { $0.uuid == Recorder.selected }) {
                 selectConfig = config
                 updateRemoteControl()

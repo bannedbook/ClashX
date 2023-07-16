@@ -94,10 +94,10 @@ extension ClashResourceManager {
         alert.messageText = NSLocalizedString("Custom your GEOIP MMDB download address.", comment: "")
         let inputView = NSTextField(frame: NSRect(x: 0, y: 0, width: 250, height: 24))
         inputView.placeholderString = Settings.defaultMmdbDownloadUrl
-        if Settings.mmdbDownloadUrl.count > 0 {
-            inputView.stringValue = Settings.mmdbDownloadUrl
-        } else {
+        if Settings.mmdbDownloadUrl.isEmpty {
             inputView.stringValue = Settings.defaultMmdbDownloadUrl
+        } else {
+            inputView.stringValue = Settings.mmdbDownloadUrl
         }
         alert.accessoryView = inputView
         alert.addButton(withTitle: NSLocalizedString("OK", comment: ""))

@@ -35,7 +35,7 @@ class ProxyDelayHistoryMenu: NSMenu {
         let historys = Array(proxy.history.reversed())
         let change = Changeset(previous: currentHistory, current: historys, identifier: { $0.time })
         currentHistory = historys
-        if change.moves.count == 0 && change.mutations.count == 0 {
+        if change.moves.isEmpty && change.mutations.isEmpty {
             change.removals.reversed().forEach { idx in
                 removeItem(at: idx)
             }

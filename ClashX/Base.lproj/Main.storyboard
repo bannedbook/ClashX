@@ -682,6 +682,7 @@
                         <outlet property="autoStartMenuItem" destination="B1J-XB-BiZ" id="xaS-h5-qd0"/>
                         <outlet property="checkForUpdateMenuItem" destination="p0T-J8-Emx" id="9BN-2j-QNB"/>
                         <outlet property="configSeparatorLine" destination="WzG-og-OyZ" id="hhn-AP-zKJ"/>
+                        <outlet property="connectionsMenuItem" destination="v4s-jd-g1N" id="MXJ-IS-6uq"/>
                         <outlet property="copyExportCommandExternalMenuItem" destination="7wl-vK-5JO" id="1Lu-Tu-FJy"/>
                         <outlet property="copyExportCommandMenuItem" destination="Jmb-PK-rMW" id="tiF-vV-Sqh"/>
                         <outlet property="dashboardMenuItem" destination="XG6-2M-PNi" id="hzn-77-3Uc"/>
@@ -774,6 +775,12 @@
                         <menuItem title="Dashboard" enabled="NO" keyEquivalent="d" id="XG6-2M-PNi">
                             <connections>
                                 <action selector="actionDashboard:" target="Voe-Tx-rLC" id="i6y-pW-cD3"/>
+                            </connections>
+                        </menuItem>
+                        <menuItem title="Connection Details" keyEquivalent="D" id="v4s-jd-g1N">
+                            <modifierMask key="keyEquivalentModifierMask" shift="YES" command="YES"/>
+                            <connections>
+                                <action selector="actionConnections:" target="Voe-Tx-rLC" id="vlk-mX-pNQ"/>
                             </connections>
                         </menuItem>
                         <menuItem isSeparatorItem="YES" id="UpD-DI-Smv"/>

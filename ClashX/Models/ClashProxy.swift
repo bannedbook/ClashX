@@ -127,7 +127,7 @@ class ClashProxy: Codable {
     }()
 
     lazy var isSpeedTestable: Bool = {
-        return speedtestAble.count > 0
+        return !speedtestAble.isEmpty
     }()
 
     private enum CodingKeys: String, CodingKey {

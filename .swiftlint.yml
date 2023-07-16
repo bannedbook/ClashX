@@ -9,6 +9,10 @@ disabled_rules: # rule identifiers turned on by default to exclude from running
   - type_body_length
   - cyclomatic_complexity
   - function_body_length
+  - nesting
+opt_in_rules: # some rules are turned off by default, so you need to opt-in
+  - empty_count
+  - empty_string
 included: # paths to include during linting. `--path` is ignored if present.
   - ClashX
 excluded: # paths to ignore during linting. Takes precedence over `included`.

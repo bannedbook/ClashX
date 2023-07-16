@@ -25,55 +25,11 @@ enum WebCacheCleaner {
     }
 }
 
-class ClashWebViewWindowController: NSWindowController {
-    var onWindowClose: (() -> Void)?
-
-    static func create() -> ClashWebViewWindowController {
-        let win = NSWindow()
-        win.center()
-        let wc = ClashWebViewWindowController(window: win)
-        wc.contentViewController = ClashWebViewContoller()
-        return wc
-    }
-
-    override func showWindow(_ sender: Any?) {
-        super.showWindow(sender)
-        NSApp.activate(ignoringOtherApps: true)
-        window?.makeKeyAndOrderFront(self)
-        window?.delegate = self
-    }
-}
-
-extension ClashWebViewWindowController: NSWindowDelegate {
-    func windowWillClose(_ notification: Notification) {
-        NSApp.setActivationPolicy(.accessory)
-        onWindowClose?()
-        if let contentVC = contentViewController as? ClashWebViewContoller, let win = window {
-            if !win.styleMask.contains(.fullScreen) {
-                contentVC.lastSize = win.frame.size
-            }
-        }
-    }
-}
-
 class ClashWebViewContoller: NSViewController {
     let webview: CustomWKWebView = CustomWKWebView()
     var bridge: WebViewJavascriptBridge?
     let disposeBag = DisposeBag()
     let minSize = NSSize(width: 920, height: 580)
-    var lastSize: CGSize? {
-        get {
-            if let str = UserDefaults.standard.value(forKey: "ClashWebViewContoller.lastSize") as? String {
-                return NSSizeFromString(str) as CGSize
-            }
-            return nil
-        }
-        set {
-            if let size = newValue {
-                UserDefaults.standard.set(NSStringFromSize(size), forKey: "ClashWebViewContoller.lastSize")
-            }
-        }
-    }
 
     let effectView = NSVisualEffectView()
 
@@ -139,13 +95,6 @@ class ClashWebViewContoller: NSViewController {
         view.layer?.cornerRadius = 10
 
         view.window?.minSize = minSize
-        if let lastSize = lastSize, lastSize != .zero {
-            view.window?.setContentSize(lastSize)
-        }
-        view.window?.center()
-        if NSApp.activationPolicy() == .accessory {
-            NSApp.setActivationPolicy(.regular)
-        }
     }
 
     func setupView() {
@@ -174,10 +123,6 @@ class ClashWebViewContoller: NSViewController {
             return
         }
         Logger.log("load dashboard url fail", level: .error)
-    }
-
-    deinit {
-        NSApp.setActivationPolicy(.accessory)
     }
 }
 

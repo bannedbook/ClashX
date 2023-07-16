@@ -118,7 +118,7 @@ class GeneralSettingViewController: NSViewController {
     override func viewWillDisappear() {
         super.viewWillDisappear()
         let url = speedTestUrlField.stringValue
-        if url.isUrlVaild() || url.count == 0 {
+        if url.isUrlVaild() || url.isEmpty {
             Settings.benchMarkUrl = url
         }
     }

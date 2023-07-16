@@ -1,8 +1,17 @@
 /* No comment provided by engineer. */
+"Active Connections" = "活動連線";
+
+/* No comment provided by engineer. */
 "Add a remote config" = "添加託管配置文件";
 
 /* No comment provided by engineer. */
 "Add a remote control config" = "添加遠程控制器配置";
+
+/* No comment provided by engineer. */
+"All Clients" = "所有客戶端";
+
+/* No comment provided by engineer. */
+"All Hosts" = "所有主機名";
 
 /* No comment provided by engineer. */
 "Apply and Quit" = "應用並退出";
@@ -38,10 +47,19 @@
 "Click OK to quit the app and apply change." = "確認清理併退出軟件";
 
 /* No comment provided by engineer. */
+"Client" = "客戶端";
+
+/* No comment provided by engineer. */
+"Close Connection" = "關閉連線";
+
+/* No comment provided by engineer. */
 "Config file have been changed" = "配置文件已被修改";
 
 /* No comment provided by engineer. */
 "Config loading Fail!" = "配置文件加載失敗";
+
+/* No comment provided by engineer. */
+"Connecting" = "連接中";
 
 /* No comment provided by engineer. */
 "Copy Shell Command" = "複製終端代理命令";
@@ -53,6 +71,9 @@
 "Custom your GEOIP MMDB download address." = "自定義下載地址";
 
 /* No comment provided by engineer. */
+"Date" = "時間";
+
+/* No comment provided by engineer. */
 "Details" = "查看詳情";
 
 /* No comment provided by engineer. */
@@ -62,10 +83,22 @@
 "Direct Mode" = "直接連接";
 
 /* No comment provided by engineer. */
+"Done" = "完成";
+
+/* No comment provided by engineer. */
+"Download" = "下載";
+
+/* No comment provided by engineer. */
 "Download fail" = "下載失敗";
 
 /* No comment provided by engineer. */
+"Download speed" = "下載速率";
+
+/* No comment provided by engineer. */
 "fail" = "失敗";
+
+/* No comment provided by engineer. */
+"Fail" = "失敗";
 
 /* No comment provided by engineer. */
 "Fail:" = "失敗：";
@@ -75,6 +108,12 @@
 
 /* No comment provided by engineer. */
 "Global Mode" = "全局連接";
+
+/* No comment provided by engineer. */
+"Host" = "主機名";
+
+/* No comment provided by engineer. */
+"Hosts" = "主機名";
 
 /* No comment provided by engineer. */
 "hours" = "小時";
@@ -98,6 +137,9 @@
 "Load Balance" = "負載均衡";
 
 /* No comment provided by engineer. */
+"Local Clients" = "本地程式";
+
+/* No comment provided by engineer. */
 "Need to Restart the ClashX to Take effect, Please start clashX manually" = "需要重啟ClashX生效，請手動啟動ClashX";
 
 /* No comment provided by engineer. */
@@ -108,6 +150,9 @@
 
 /* No comment provided by engineer. */
 "OK" = "確定";
+
+/* No comment provided by engineer. */
+"Open Connection Details" = "打開連接查看器";
 
 /* No comment provided by engineer. */
 "Open Dashboard" = "打開控制台";
@@ -137,6 +182,9 @@
 "Quit" = "退出";
 
 /* No comment provided by engineer. */
+"Recent Connections" = "最近連線";
+
+/* No comment provided by engineer. */
 "Reduce alerts if notification permission is disabled" = "在通知權限關閉時減少提示彈窗";
 
 /* No comment provided by engineer. */
@@ -155,6 +203,9 @@
 "Remote Config Update Fail" = "遠程配置更新失敗";
 
 /* No comment provided by engineer. */
+"Requests" = "請求";
+
+/* No comment provided by engineer. */
 "Reset Daemon" = "重置守護進程";
 
 /* No comment provided by engineer. */
@@ -170,7 +221,13 @@
 "Should be a least 1 hour" = "應該至少 1 小時";
 
 /* No comment provided by engineer. */
+"Sources" = "來源";
+
+/* No comment provided by engineer. */
 "Stable" = "穩定";
+
+/* No comment provided by engineer. */
+"Status" = "狀態";
 
 /* No comment provided by engineer. */
 "Succeed!" = "成功！";
@@ -203,6 +260,12 @@
 "This version of ClashX contains a break change due to clash core 1.0 released. Check if your config is not working properly." = "此版本的 ClashX 包含因 clash core 1.0 發布而導致的中斷更改。請檢查您的配置是否無法正常工作";
 
 /* No comment provided by engineer. */
+"Type" = "類型";
+
+/* No comment provided by engineer. */
+"Unknown" = "未知";
+
+/* No comment provided by engineer. */
 "Update GEOIP Database" = "更新 GEOIP 數據庫";
 
 /* No comment provided by engineer. */
@@ -210,6 +273,12 @@
 
 /* No comment provided by engineer. */
 "Updating" = "更新中";
+
+/* No comment provided by engineer. */
+"Upload" = "上傳";
+
+/* No comment provided by engineer. */
+"Upload speed" = "上傳速率";
 
 /* No comment provided by engineer. */
 "Use reload config to try reconnect." = "使用重新加載配置嘗試重新連接";

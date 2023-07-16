@@ -1,0 +1,53 @@
+/* Class = "NSTextFieldCell"; title = "NetworkType"; ObjectID = "6p6-n8-rBg"; */
+"6p6-n8-rBg.title" = "NetworkType";
+
+/* Class = "NSBox"; title = "Current Speed"; ObjectID = "7fZ-OX-aWF"; */
+"7fZ-OX-aWF.title" = "Current Speed";
+
+/* Class = "NSTextFieldCell"; title = "Source"; ObjectID = "9Id-dT-XYP"; */
+"9Id-dT-XYP.title" = "Source";
+
+/* Class = "NSTextFieldCell"; title = "Upload"; ObjectID = "CGD-ut-PXk"; */
+"CGD-ut-PXk.title" = "Upload";
+
+/* Class = "NSBox"; title = "Rule"; ObjectID = "CiP-Ib-BPd"; */
+"CiP-Ib-BPd.title" = "Rule";
+
+/* Class = "NSTextFieldCell"; title = "Upload"; ObjectID = "GhE-tw-D8L"; */
+"GhE-tw-D8L.title" = "Upload";
+
+/* Class = "NSTextFieldCell"; title = "Entry"; ObjectID = "KQt-5l-lyc"; */
+"KQt-5l-lyc.title" = "Entry";
+
+/* Class = "NSTextFieldCell"; title = "Upload"; ObjectID = "KsS-nl-D2n"; */
+"KsS-nl-D2n.title" = "Upload";
+
+/* Class = "NSBox"; title = "Proxy Chain"; ObjectID = "MIz-sg-4Rx"; */
+"MIz-sg-4Rx.title" = "Proxy Chain";
+
+/* Class = "NSBox"; title = "Max Speed"; ObjectID = "NBq-b1-RLL"; */
+"NBq-b1-RLL.title" = "Max Speed";
+
+/* Class = "NSTextFieldCell"; title = "Download"; ObjectID = "ZEc-E9-AXS"; */
+"ZEc-E9-AXS.title" = "Download";
+
+/* Class = "NSTextFieldCell"; title = "Download"; ObjectID = "iem-RP-B0u"; */
+"iem-RP-B0u.title" = "Download";
+
+/* Class = "NSBox"; title = "General"; ObjectID = "leq-MF-MFL"; */
+"leq-MF-MFL.title" = "General";
+
+/* Class = "NSTextFieldCell"; title = "Dest."; ObjectID = "m5m-4U-xAi"; */
+"m5m-4U-xAi.title" = "Dest.";
+
+/* Class = "NSBox"; title = "Other"; ObjectID = "nG8-0D-7W1"; */
+"nG8-0D-7W1.title" = "Other";
+
+/* Class = "NSBox"; title = "Address"; ObjectID = "obG-yt-Gi8"; */
+"obG-yt-Gi8.title" = "Address";
+
+/* Class = "NSTextFieldCell"; title = "Download"; ObjectID = "tes-yR-PKh"; */
+"tes-yR-PKh.title" = "Download";
+
+/* Class = "NSBox"; title = "Total"; ObjectID = "xB0-fx-J0y"; */
+"xB0-fx-J0y.title" = "Total";

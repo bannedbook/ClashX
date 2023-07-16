@@ -61,7 +61,7 @@ class ICloudManager {
                 return
             }
             let files = try? FileManager.default.contentsOfDirectory(atPath: url.path)
-            if let count = files?.count, count == 0 {
+            if files?.isEmpty == true {
                 let path = Bundle.main.path(forResource: "sampleConfig", ofType: "yaml")!
                 try? FileManager.default.copyItem(atPath: path, toPath: kDefaultConfigFilePath)
                 try? FileManager.default.copyItem(atPath: Bundle.main.path(forResource: "sampleConfig", ofType: "yaml")!, toPath: url.appendingPathComponent("config.yaml").path)
@@ -90,7 +90,7 @@ class ICloudManager {
                     complete?(url)
                 }
             } catch let err {
-                print(err)
+                Logger.log("\(err)")
                 DispatchQueue.main.async {
                     complete?(nil)
                 }

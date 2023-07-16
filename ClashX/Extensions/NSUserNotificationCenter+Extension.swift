@@ -110,8 +110,8 @@ extension NSUserNotificationCenter {
     }
 
     func postConfigErrorNotice(msg: String) {
-        let configName = ConfigManager.selectConfigName.count > 0 ?
-        Paths.configFileName(for: ConfigManager.selectConfigName) : ""
+        let configName = ConfigManager.selectConfigName.isEmpty ? "" :
+        Paths.configFileName(for: ConfigManager.selectConfigName)
 
         let message = "\(configName): \(msg)"
         postNotificationAlert(title: NSLocalizedString("Config loading Fail!", comment: ""), info: message)

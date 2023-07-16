@@ -31,8 +31,8 @@ class NewStatusMenuView: NSHostingView<SwiftUIView>, StatusItemViewProtocol {
     }
 
     func updateSpeedLabel(up: Int, down: Int) {
-        let upSpeed = StatusItemTool.getSpeedString(for: up)
-        let downSpeed = StatusItemTool.getSpeedString(for: down)
+        let upSpeed = SpeedUtils.getSpeedString(for: up)
+        let downSpeed = SpeedUtils.getSpeedString(for: down)
         if upSpeed != viewModel.upSpeed {viewModel.upSpeed = upSpeed}
         if downSpeed != viewModel.downSpeed {viewModel.downSpeed = downSpeed}
     }

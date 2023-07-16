@@ -48,14 +48,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     @IBOutlet var copyExportCommandMenuItem: NSMenuItem!
     @IBOutlet var copyExportCommandExternalMenuItem: NSMenuItem!
     @IBOutlet var externalControlSeparator: NSMenuItem!
+    @IBOutlet var connectionsMenuItem: NSMenuItem!
 
     var disposeBag = DisposeBag()
     var statusItemView: StatusItemViewProtocol!
     var isSpeedTesting = false
 
     var runAfterConfigReload: (() -> Void)?
-
-    var dashboardWindowController: ClashWebViewWindowController?
 
     func applicationWillFinishLaunching(_ notification: Notification) {
         Logger.log("applicationWillFinishLaunching")
@@ -98,6 +97,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         if #unavailable(macOS 10.15) {
             // dashboard is not support in macOS 10.15 below
             self.dashboardMenuItem.isHidden = true
+            self.connectionsMenuItem.isHidden = true
         }
         setupStatusMenuItemData()
         AppVersionUtil.showUpgradeAlert()
@@ -106,7 +106,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         if WebPortalManager.hasWebProtal {
             WebPortalManager.shared.addWebProtalMenuItem(&statusMenu)
         }
-        RemoteControlManager.setupMenuItem(separator: externalControlSeparator)
         AutoUpgardeManager.shared.setup()
         AutoUpgardeManager.shared.setupCheckForUpdatesMenuItem(checkForUpdateMenuItem)
 
@@ -162,6 +161,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         setupNetworkNotifier()
         registCrashLogger()
         KeyboardShortCutManager.setup()
+        RemoteControlManager.setupMenuItem(separator: externalControlSeparator)
     }
 
     func applicationShouldTerminate(_ sender: NSApplication) -> NSApplication.TerminateReply {
@@ -441,7 +441,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     func updateProxyList(withMenus menus: [NSMenuItem]) {
         let startIndex = statusMenu.items.firstIndex(of: separatorLineTop)! + 1
         let endIndex = statusMenu.items.firstIndex(of: sepatatorLineEndProxySelect)!
-        sepatatorLineEndProxySelect.isHidden = menus.count == 0
+        sepatatorLineEndProxySelect.isHidden = menus.isEmpty
         for _ in 0..<endIndex - startIndex {
             statusMenu.removeItem(at: startIndex)
         }
@@ -483,7 +483,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             }
         }
 
-        if clash_checkSecret().toString() == "" || Settings.overrideConfigSecret {
+        if clash_checkSecret().toString().isEmpty || Settings.overrideConfigSecret {
             clash_setSecret(Settings.apiSecret.goStringBuffer())
         }
 
@@ -634,14 +634,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
 extension AppDelegate {
     @IBAction func actionDashboard(_ sender: NSMenuItem?) {
-        if dashboardWindowController == nil {
-            dashboardWindowController = ClashWebViewWindowController.create()
-            dashboardWindowController?.onWindowClose = {
-                [weak self] in
-                self?.dashboardWindowController = nil
-            }
+        ClashWindowController<ClashWebViewContoller>.create().showWindow(sender)
+    }
+
+    @IBAction func actionConnections(_ sender: NSMenuItem?) {
+        if #available(macOS 10.15, *) {
+            ClashWindowController<DashboardViewController>.create().showWindow(sender)
         }
-        dashboardWindowController?.showWindow(sender)
     }
 
     @IBAction func actionAllowFromLan(_ sender: NSMenuItem) {

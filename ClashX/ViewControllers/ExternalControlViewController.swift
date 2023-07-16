@@ -142,6 +142,6 @@ class ExternalControlAddView: NSView {
     }
 
     func isVaild() -> Bool {
-        return urlTextField.stringValue.isUrlVaild() && nameLabel.stringValue.count > 0
+        return urlTextField.stringValue.isUrlVaild() && !nameLabel.stringValue.isEmpty
     }
 }

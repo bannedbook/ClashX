@@ -96,7 +96,7 @@ class MenuItemFactory {
         let app = AppDelegate.shared
         let startIndex = app.statusMenu.items.firstIndex(of: app.separatorLineTop)! + 1
         let endIndex = app.statusMenu.items.firstIndex(of: app.sepatatorLineEndProxySelect)!
-        app.sepatatorLineEndProxySelect.isHidden = menus.count == 0
+        app.sepatatorLineEndProxySelect.isHidden = menus.isEmpty
         for _ in 0..<endIndex - startIndex {
             app.statusMenu.removeItem(at: startIndex)
         }
@@ -172,7 +172,7 @@ class MenuItemFactory {
     }
 
     private static func addSpeedTestMenuItem(_ menu: NSMenu, proxyGroup: ClashProxy) {
-        guard proxyGroup.speedtestAble.count > 0 else { return }
+        guard !proxyGroup.speedtestAble.isEmpty else { return }
         let speedTestItem = ProxyGroupSpeedTestMenuItem(group: proxyGroup)
         let separator = NSMenuItem.separator()
         menu.insertItem(separator, at: 0)

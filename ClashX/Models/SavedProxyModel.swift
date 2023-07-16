@@ -26,9 +26,6 @@ struct SavedProxyModel: Codable {
             let filtered = models.filter({ model in
                 let pass = !set.contains(model.key)
                 set.insert(model.key)
-                if !pass {
-                    print("pass", model)
-                }
                 return pass
             })
             return filtered

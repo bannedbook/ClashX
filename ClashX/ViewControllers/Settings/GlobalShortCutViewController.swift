@@ -21,6 +21,7 @@ extension KeyboardShortcuts.Name {
     static let log = Self("shortCut.log")
     static let dashboard = Self("shortCut.dashboard")
     static let openMenu = Self("shortCut.openMenu")
+    static let nativeDashboard = Self("shortCut.nativeDashboard")
 
 }
 
@@ -61,6 +62,11 @@ enum KeyboardShortCutManager {
         KeyboardShortcuts.onKeyUp(for: .openMenu) {
             AppDelegate.shared.statusItem.button?.performClick(nil)
         }
+        if #available(macOS 10.15, *) {
+            KeyboardShortcuts.onKeyUp(for: .nativeDashboard) {
+                ClashWindowController<DashboardViewController>.create().showWindow(self)
+            }
+        }
     }
 }
 
@@ -88,11 +94,15 @@ class GlobalShortCutViewController: NSViewController {
             [NSTextField(labelWithString: NSLocalizedString("Global Mode", comment: "")), KeyboardShortcuts.RecorderCocoa(for: .modeGlobal)]
         ])
 
-        addGridView(in: otherBoxView, with: [
+        var otherItems:[[NSView]] = [
             [NSTextField(labelWithString: NSLocalizedString("Open Menu", comment: "")), KeyboardShortcuts.RecorderCocoa(for: .openMenu)],
             [NSTextField(labelWithString: NSLocalizedString("Open Log", comment: "")), KeyboardShortcuts.RecorderCocoa(for: .log)],
             [NSTextField(labelWithString: NSLocalizedString("Open Dashboard", comment: "")), KeyboardShortcuts.RecorderCocoa(for: .dashboard)]
-        ])
+        ]
+        if #available(macOS 10.15, *) {
+            otherItems.append([NSTextField(labelWithString: NSLocalizedString("Open Connection Details", comment: "")), KeyboardShortcuts.RecorderCocoa(for: .nativeDashboard)])
+        }
+        addGridView(in: otherBoxView, with: otherItems)
     }
 
     func addGridView(in superView: NSView, with views: [[NSView]]) {

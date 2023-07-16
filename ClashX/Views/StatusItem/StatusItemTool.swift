@@ -33,23 +33,6 @@ enum StatusItemTool {
         return font
     }()
 
-    static func getSpeedString(for byte: Int) -> String {
-        let kb = byte / 1024
-        if kb < 1024 {
-            return  "\(kb)KB/s"
-        } else {
-            let mb = Double(kb) / 1024.0
-            if mb >= 100 {
-                if mb >= 1000 {
-                    return String(format: "%.1fGB/s", mb/1024)
-                }
-                return String(format: "%.1fMB/s", mb)
-            } else {
-                return String(format: "%.2fMB/s", mb)
-            }
-        }
-    }
-
     static func getMenuImage(enableProxy: Bool) -> NSImage {
         let selectedColor = NSColor.red
         let unselectedColor = selectedColor.withSystemEffect(.disabled)

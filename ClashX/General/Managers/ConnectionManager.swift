@@ -12,7 +12,7 @@ enum ConnectionManager {
     static func closeConnection(for group: String) {
         ApiRequest.getConnections { conns in
             for conn in conns where conn.chains.contains(group) {
-                ApiRequest.closeConnection(conn)
+                ApiRequest.closeConnection(conn.id)
             }
         }
     }

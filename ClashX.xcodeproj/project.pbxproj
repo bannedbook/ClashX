@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0AD7506B2A5B9A04001FFBBD /* ConnectionLeftPannelViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD7506A2A5B9A04001FFBBD /* ConnectionLeftPannelViewModel.swift */; };
+		0AD7506D2A5B9B26001FFBBD /* ConnectionLeftTextCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD7506C2A5B9B26001FFBBD /* ConnectionLeftTextCellView.swift */; };
+		0AEF6EAF2A5F961B00EFEE23 /* SectionedTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AEF6EAE2A5F961B00EFEE23 /* SectionedTableView.swift */; };
 		4905A2C52A2058B000AEDA2E /* GlobalShortCutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4905A2C42A2058B000AEDA2E /* GlobalShortCutViewController.swift */; };
 		4905A2C82A2058D400AEDA2E /* KeyboardShortcuts in Frameworks */ = {isa = PBXBuildFile; productRef = 4905A2C72A2058D400AEDA2E /* KeyboardShortcuts */; };
 		4905A2CA2A20841B00AEDA2E /* NSView+Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4905A2C92A20841B00AEDA2E /* NSView+Layout.swift */; };
@@ -34,6 +37,7 @@
 		4960A6DB2136529200B940C9 /* JSBridgeHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4960A6DA2136529200B940C9 /* JSBridgeHandler.swift */; };
 		4966E9E32118153A00A391FB /* NSUserNotificationCenter+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4966E9E22118153A00A391FB /* NSUserNotificationCenter+Extension.swift */; };
 		4966E9E6211824F300A391FB /* NSImage+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4966E9E5211824F300A391FB /* NSImage+extension.swift */; };
+		4969E73D2A5E3CB20012E005 /* ConnectionDetailInfoGeneralView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4969E73F2A5E3CB20012E005 /* ConnectionDetailInfoGeneralView.xib */; };
 		496BDEE021196F1E00C5207F /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 496BDEDF21196F1E00C5207F /* Logger.swift */; };
 		49722FEF211F338B00650A41 /* FileEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49722FEA211F338B00650A41 /* FileEvent.swift */; };
 		49722FF0211F338B00650A41 /* EventStream.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49722FEB211F338B00650A41 /* EventStream.swift */; };
@@ -46,6 +50,14 @@
 		4989F98E20D0AE990001E564 /* sampleConfig.yaml in Resources */ = {isa = PBXBuildFile; fileRef = 4989F98D20D0AE990001E564 /* sampleConfig.yaml */; };
 		498BC2532929CC2A00CA8084 /* SettingTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498BC2522929CC2A00CA8084 /* SettingTabViewController.swift */; };
 		498BC2552929CCAE00CA8084 /* GeneralSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498BC2542929CCAE00CA8084 /* GeneralSettingViewController.swift */; };
+		498D87D82A617D2200CD456F /* DashboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498D87D72A617D2200CD456F /* DashboardViewController.swift */; };
+		498D87DA2A617E9900CD456F /* DashboardSubViewControllerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498D87D92A617E9900CD456F /* DashboardSubViewControllerProtocol.swift */; };
+		4991D2282A5646D200978143 /* ConnectionProxyClientCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4991D2272A5646D200978143 /* ConnectionProxyClientCellView.swift */; };
+		4991D22A2A56472300978143 /* ConnectionCellProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4991D2292A56472300978143 /* ConnectionCellProtocol.swift */; };
+		4991D22C2A56478400978143 /* ConnectionColume.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4991D22B2A56478400978143 /* ConnectionColume.swift */; };
+		4991D22E2A564A4200978143 /* ConnectionTextCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4991D22D2A564A4200978143 /* ConnectionTextCellView.swift */; };
+		4991D2302A564DDC00978143 /* SpeedUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4991D22F2A564DDC00978143 /* SpeedUtils.swift */; };
+		4991D2322A565E6A00978143 /* Combine+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4991D2312A565E6A00978143 /* Combine+Ext.swift */; };
 		4994B5542A47C4FF00E595B9 /* NormalMenuItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4994B5532A47C4FF00E595B9 /* NormalMenuItemView.swift */; };
 		499976C821359F0400E7BF83 /* ClashWebViewContoller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499976C721359F0400E7BF83 /* ClashWebViewContoller.swift */; };
 		499A485522ED707300F6C675 /* RemoteConfigViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499A485322ED707300F6C675 /* RemoteConfigViewController.swift */; };
@@ -63,7 +75,16 @@
 		49B4575F244FD4D100463C39 /* PrivilegedHelperManager+Legacy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49B4575E244FD4D100463C39 /* PrivilegedHelperManager+Legacy.swift */; };
 		49BB31E7246853EA008A4CB0 /* ICloudManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49BB31E6246853EA008A4CB0 /* ICloudManager.swift */; };
 		49BC061C212931F4005A0FE7 /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49BC061B212931F4005A0FE7 /* AboutViewController.swift */; };
+		49C9AFEC2A592C5D00178BB4 /* ConnectionDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C9AFEB2A592C5D00178BB4 /* ConnectionDetailViewModel.swift */; };
+		49C9AFF22A59366200178BB4 /* ConnectionDetailInfoGeneralView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C9AFF12A59366200178BB4 /* ConnectionDetailInfoGeneralView.swift */; };
+		49C9AFF42A593B8800178BB4 /* ConnectionTopListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C9AFF32A593B8800178BB4 /* ConnectionTopListViewModel.swift */; };
 		49C9EF64223E78F5005D8B6A /* ClashProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C9EF63223E78F5005D8B6A /* ClashProxy.swift */; };
+		49CCDA282A54F8DA00FF1E13 /* ConnectionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49CCDA272A54F8DA00FF1E13 /* ConnectionsViewController.swift */; };
+		49CCDA2A2A54F9AC00FF1E13 /* ClashWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49CCDA292A54F9AC00FF1E13 /* ClashWindowController.swift */; };
+		49CCDA2D2A54FBA600FF1E13 /* ConnectionsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49CCDA2C2A54FBA600FF1E13 /* ConnectionsViewModel.swift */; };
+		49CCDA302A54FC3300FF1E13 /* ConnectionLeftPannelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49CCDA2F2A54FC3300FF1E13 /* ConnectionLeftPannelView.swift */; };
+		49CCDA322A5506D100FF1E13 /* ConnectionTopListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49CCDA312A5506D100FF1E13 /* ConnectionTopListView.swift */; };
+		49CCDA362A55126A00FF1E13 /* ConnectionDetailInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49CCDA352A55126A00FF1E13 /* ConnectionDetailInfoView.swift */; };
 		49CF3B2120CD7463001EBF94 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49CF3B2020CD7463001EBF94 /* AppDelegate.swift */; };
 		49CF3B2820CD7465001EBF94 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 49CF3B2620CD7465001EBF94 /* Main.storyboard */; };
 		49CF3B5C20CE8068001EBF94 /* ClashResourceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49CF3B5B20CE8068001EBF94 /* ClashResourceManager.swift */; };
@@ -75,6 +96,9 @@
 		49D6A45229AEEC15006487EF /* StatusItemTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49D6A45129AEEC15006487EF /* StatusItemTool.swift */; };
 		49D6A45429AEEC3C006487EF /* NewStatusItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49D6A45329AEEC3C006487EF /* NewStatusItemView.swift */; };
 		49D6A45629AEEC55006487EF /* StatusItemViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49D6A45529AEEC55006487EF /* StatusItemViewProtocol.swift */; };
+		49D767742A6195C800830333 /* ConnectionsReq.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49D767732A6195C800830333 /* ConnectionsReq.swift */; };
+		49D767762A6195E600830333 /* StructedLogReq.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49D767752A6195E600830333 /* StructedLogReq.swift */; };
+		49D84AD32A56E9760074CCDB /* ConnectionStatusIconCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49D84AD22A56E9760074CCDB /* ConnectionStatusIconCellView.swift */; };
 		8A2BBEA727A03ACB0081EBEF /* ProxySetting.sdef in Resources */ = {isa = PBXBuildFile; fileRef = 8A2BBEA627A03ACB0081EBEF /* ProxySetting.sdef */; };
 		8ACD21BB27A04C7800BC4632 /* ProxySettingCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ACD21BA27A04C7800BC4632 /* ProxySettingCommand.swift */; };
 		8ACD21BD27A04ED500BC4632 /* ProxyModeChangeCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ACD21BC27A04ED500BC4632 /* ProxyModeChangeCommand.swift */; };
@@ -138,6 +162,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0AD7506A2A5B9A04001FFBBD /* ConnectionLeftPannelViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionLeftPannelViewModel.swift; sourceTree = "<group>"; };
+		0AD7506C2A5B9B26001FFBBD /* ConnectionLeftTextCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionLeftTextCellView.swift; sourceTree = "<group>"; };
+		0AEF6EAE2A5F961B00EFEE23 /* SectionedTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SectionedTableView.swift; sourceTree = "<group>"; };
 		4905A2C42A2058B000AEDA2E /* GlobalShortCutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalShortCutViewController.swift; sourceTree = "<group>"; };
 		4905A2C92A20841B00AEDA2E /* NSView+Layout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSView+Layout.swift"; sourceTree = "<group>"; };
 		4908087A29F8F3FF007A4944 /* libresolv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libresolv.tbd; path = usr/lib/libresolv.tbd; sourceTree = SDKROOT; };
@@ -165,6 +192,9 @@
 		4960A6DA2136529200B940C9 /* JSBridgeHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSBridgeHandler.swift; sourceTree = "<group>"; };
 		4966E9E22118153A00A391FB /* NSUserNotificationCenter+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSUserNotificationCenter+Extension.swift"; sourceTree = "<group>"; };
 		4966E9E5211824F300A391FB /* NSImage+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSImage+extension.swift"; sourceTree = "<group>"; };
+		4969E73E2A5E3CB20012E005 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/ConnectionDetailInfoGeneralView.xib; sourceTree = "<group>"; };
+		4969E7412A5E3CB80012E005 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/ConnectionDetailInfoGeneralView.strings"; sourceTree = "<group>"; };
+		4969E7432A5E3CB90012E005 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/ConnectionDetailInfoGeneralView.strings"; sourceTree = "<group>"; };
 		496BDEDF21196F1E00C5207F /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		496C16462A3418C80052064A /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Main.strings"; sourceTree = "<group>"; };
 		496C16472A3418C80052064A /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Localizable.strings"; sourceTree = "<group>"; };
@@ -182,6 +212,14 @@
 		4989F98D20D0AE990001E564 /* sampleConfig.yaml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.yaml; path = sampleConfig.yaml; sourceTree = "<group>"; };
 		498BC2522929CC2A00CA8084 /* SettingTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingTabViewController.swift; sourceTree = "<group>"; };
 		498BC2542929CCAE00CA8084 /* GeneralSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralSettingViewController.swift; sourceTree = "<group>"; };
+		498D87D72A617D2200CD456F /* DashboardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardViewController.swift; sourceTree = "<group>"; };
+		498D87D92A617E9900CD456F /* DashboardSubViewControllerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardSubViewControllerProtocol.swift; sourceTree = "<group>"; };
+		4991D2272A5646D200978143 /* ConnectionProxyClientCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionProxyClientCellView.swift; sourceTree = "<group>"; };
+		4991D2292A56472300978143 /* ConnectionCellProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionCellProtocol.swift; sourceTree = "<group>"; };
+		4991D22B2A56478400978143 /* ConnectionColume.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionColume.swift; sourceTree = "<group>"; };
+		4991D22D2A564A4200978143 /* ConnectionTextCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionTextCellView.swift; sourceTree = "<group>"; };
+		4991D22F2A564DDC00978143 /* SpeedUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeedUtils.swift; sourceTree = "<group>"; };
+		4991D2312A565E6A00978143 /* Combine+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Combine+Ext.swift"; sourceTree = "<group>"; };
 		4994B5532A47C4FF00E595B9 /* NormalMenuItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NormalMenuItemView.swift; sourceTree = "<group>"; };
 		499976C721359F0400E7BF83 /* ClashWebViewContoller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClashWebViewContoller.swift; sourceTree = "<group>"; };
 		499A485322ED707300F6C675 /* RemoteConfigViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteConfigViewController.swift; sourceTree = "<group>"; };
@@ -199,7 +237,16 @@
 		49B4575E244FD4D100463C39 /* PrivilegedHelperManager+Legacy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PrivilegedHelperManager+Legacy.swift"; sourceTree = "<group>"; };
 		49BB31E6246853EA008A4CB0 /* ICloudManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ICloudManager.swift; sourceTree = "<group>"; };
 		49BC061B212931F4005A0FE7 /* AboutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
+		49C9AFEB2A592C5D00178BB4 /* ConnectionDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionDetailViewModel.swift; sourceTree = "<group>"; };
+		49C9AFF12A59366200178BB4 /* ConnectionDetailInfoGeneralView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionDetailInfoGeneralView.swift; sourceTree = "<group>"; };
+		49C9AFF32A593B8800178BB4 /* ConnectionTopListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionTopListViewModel.swift; sourceTree = "<group>"; };
 		49C9EF63223E78F5005D8B6A /* ClashProxy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClashProxy.swift; sourceTree = "<group>"; };
+		49CCDA272A54F8DA00FF1E13 /* ConnectionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionsViewController.swift; sourceTree = "<group>"; };
+		49CCDA292A54F9AC00FF1E13 /* ClashWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClashWindowController.swift; sourceTree = "<group>"; };
+		49CCDA2C2A54FBA600FF1E13 /* ConnectionsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionsViewModel.swift; sourceTree = "<group>"; };
+		49CCDA2F2A54FC3300FF1E13 /* ConnectionLeftPannelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionLeftPannelView.swift; sourceTree = "<group>"; };
+		49CCDA312A5506D100FF1E13 /* ConnectionTopListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionTopListView.swift; sourceTree = "<group>"; };
+		49CCDA352A55126A00FF1E13 /* ConnectionDetailInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionDetailInfoView.swift; sourceTree = "<group>"; };
 		49CF3B1D20CD7463001EBF94 /* ClashX.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ClashX.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		49CF3B2020CD7463001EBF94 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		49CF3B2720CD7465001EBF94 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -215,8 +262,11 @@
 		49D6A45129AEEC15006487EF /* StatusItemTool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusItemTool.swift; sourceTree = "<group>"; };
 		49D6A45329AEEC3C006487EF /* NewStatusItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewStatusItemView.swift; sourceTree = "<group>"; };
 		49D6A45529AEEC55006487EF /* StatusItemViewProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusItemViewProtocol.swift; sourceTree = "<group>"; };
+		49D767732A6195C800830333 /* ConnectionsReq.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionsReq.swift; sourceTree = "<group>"; };
+		49D767752A6195E600830333 /* StructedLogReq.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StructedLogReq.swift; sourceTree = "<group>"; };
 		49D8276627E9B01700159D93 /* LoginKitWrapper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoginKitWrapper.h; sourceTree = "<group>"; };
 		49D8276727E9B01700159D93 /* LoginKitWrapper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoginKitWrapper.m; sourceTree = "<group>"; };
+		49D84AD22A56E9760074CCDB /* ConnectionStatusIconCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionStatusIconCellView.swift; sourceTree = "<group>"; };
 		5217C006C5A22A1CEA24BFC1 /* Pods-ClashX.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ClashX.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ClashX/Pods-ClashX.debug.xcconfig"; sourceTree = "<group>"; };
 		8A2BBEA627A03ACB0081EBEF /* ProxySetting.sdef */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = ProxySetting.sdef; sourceTree = "<group>"; };
 		8ACD21BA27A04C7800BC4632 /* ProxySettingCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProxySettingCommand.swift; sourceTree = "<group>"; };
@@ -413,6 +463,7 @@
 		4989F98520D0AA300001E564 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				49CCDA2B2A54FA8900FF1E13 /* Connections */,
 				498BC2512929CC0A00CA8084 /* Settings */,
 				49BC061B212931F4005A0FE7 /* AboutViewController.swift */,
 				499976C721359F0400E7BF83 /* ClashWebViewContoller.swift */,
@@ -433,6 +484,18 @@
 			path = Settings;
 			sourceTree = "<group>";
 		};
+		4991D2262A56467600978143 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				4991D2272A5646D200978143 /* ConnectionProxyClientCellView.swift */,
+				4991D2292A56472300978143 /* ConnectionCellProtocol.swift */,
+				4991D22D2A564A4200978143 /* ConnectionTextCellView.swift */,
+				49D84AD22A56E9760074CCDB /* ConnectionStatusIconCellView.swift */,
+				0AD7506C2A5B9B26001FFBBD /* ConnectionLeftTextCellView.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
 		4997732220D251A60009B136 /* Basic */ = {
 			isa = PBXGroup;
 			children = (
@@ -442,6 +505,8 @@
 				4905A2C92A20841B00AEDA2E /* NSView+Layout.swift */,
 				49B10869216A356D0064FFCE /* String+Extension.swift */,
 				49ABB748236B0F9E00535CD7 /* UnsafePointer+bridge.swift */,
+				4991D22F2A564DDC00978143 /* SpeedUtils.swift */,
+				4991D2312A565E6A00978143 /* Combine+Ext.swift */,
 			);
 			path = Basic;
 			sourceTree = "<group>";
@@ -456,6 +521,45 @@
 				49D6A45529AEEC55006487EF /* StatusItemViewProtocol.swift */,
 			);
 			path = StatusItem;
+			sourceTree = "<group>";
+		};
+		49C9AFF52A596ABA00178BB4 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				49CCDA2C2A54FBA600FF1E13 /* ConnectionsViewModel.swift */,
+				49C9AFEB2A592C5D00178BB4 /* ConnectionDetailViewModel.swift */,
+				49C9AFF32A593B8800178BB4 /* ConnectionTopListViewModel.swift */,
+				0AD7506A2A5B9A04001FFBBD /* ConnectionLeftPannelViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		49CCDA2B2A54FA8900FF1E13 /* Connections */ = {
+			isa = PBXGroup;
+			children = (
+				49D767722A6195BE00830333 /* Requests */,
+				49C9AFF52A596ABA00178BB4 /* ViewModels */,
+				49CCDA2E2A54FC1900FF1E13 /* Views */,
+				49CCDA272A54F8DA00FF1E13 /* ConnectionsViewController.swift */,
+				498D87D72A617D2200CD456F /* DashboardViewController.swift */,
+				498D87D92A617E9900CD456F /* DashboardSubViewControllerProtocol.swift */,
+			);
+			path = Connections;
+			sourceTree = "<group>";
+		};
+		49CCDA2E2A54FC1900FF1E13 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				4991D2262A56467600978143 /* Cell */,
+				4991D22B2A56478400978143 /* ConnectionColume.swift */,
+				49C9AFF12A59366200178BB4 /* ConnectionDetailInfoGeneralView.swift */,
+				4969E73F2A5E3CB20012E005 /* ConnectionDetailInfoGeneralView.xib */,
+				49CCDA352A55126A00FF1E13 /* ConnectionDetailInfoView.swift */,
+				49CCDA2F2A54FC3300FF1E13 /* ConnectionLeftPannelView.swift */,
+				49CCDA312A5506D100FF1E13 /* ConnectionTopListView.swift */,
+				0AEF6EAE2A5F961B00EFEE23 /* SectionedTableView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		49CF3B1420CD7463001EBF94 = {
@@ -498,6 +602,7 @@
 				49CF3B2A20CD7465001EBF94 /* ClashX.entitlements */,
 				49CF3B3520CD75DF001EBF94 /* ClashX-Bridging-Header.h */,
 				F9FAB31D262BE04800DE02A6 /* Images.xcassets */,
+				49CCDA292A54F9AC00FF1E13 /* ClashWindowController.swift */,
 			);
 			path = ClashX;
 			sourceTree = "<group>";
@@ -510,6 +615,15 @@
 				4981C88D216BAE4A008CC14A /* Localizable.strings */,
 			);
 			path = "Support Files";
+			sourceTree = "<group>";
+		};
+		49D767722A6195BE00830333 /* Requests */ = {
+			isa = PBXGroup;
+			children = (
+				49D767732A6195C800830333 /* ConnectionsReq.swift */,
+				49D767752A6195E600830333 /* StructedLogReq.swift */,
+			);
+			path = Requests;
 			sourceTree = "<group>";
 		};
 		76229F122B00E935D126742A /* Pods */ = {
@@ -669,6 +783,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4969E73D2A5E3CB20012E005 /* ConnectionDetailInfoGeneralView.xib in Resources */,
 				49761DA721C9497000AE13EF /* dashboard in Resources */,
 				4929F677258CD89B00A435F6 /* Country.mmdb.gz in Resources */,
 				4981C88B216BAE4A008CC14A /* Localizable.strings in Resources */,
@@ -737,7 +852,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "${PODS_ROOT}/SwiftLint/swiftlint --fix\n";
+			shellScript = "${PODS_ROOT}/SwiftLint/swiftlint --fix && ${PODS_ROOT}/SwiftLint/swiftlint\n";
 		};
 		A741C26F5755233F0D7CEC6F /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -776,20 +891,30 @@
 				F977FAAE23669D6400C17F1F /* ConnectionManager.swift in Sources */,
 				495340B320DE68C300B0D3FF /* StatusItemView.swift in Sources */,
 				F935B2FC23085515009E4D33 /* SystemProxyManager.swift in Sources */,
+				0AD7506D2A5B9B26001FFBBD /* ConnectionLeftTextCellView.swift in Sources */,
 				495A44D320D267D000888A0A /* LaunchAtLogin.swift in Sources */,
+				4991D2322A565E6A00978143 /* Combine+Ext.swift in Sources */,
 				49281C802A1F01FA00F60935 /* DebugSettingViewController.swift in Sources */,
+				49D767762A6195E600830333 /* StructedLogReq.swift in Sources */,
+				49CCDA2A2A54F9AC00FF1E13 /* ClashWindowController.swift in Sources */,
 				4929F67F258CE04700A435F6 /* Settings.swift in Sources */,
 				49D6A45629AEEC55006487EF /* StatusItemViewProtocol.swift in Sources */,
 				493AEAE3221AE3420016FE98 /* AppVersionUtil.swift in Sources */,
 				49CF3B2120CD7463001EBF94 /* AppDelegate.swift in Sources */,
+				49CCDA2D2A54FBA600FF1E13 /* ConnectionsViewModel.swift in Sources */,
+				49C9AFEC2A592C5D00178BB4 /* ConnectionDetailViewModel.swift in Sources */,
+				4991D2302A564DDC00978143 /* SpeedUtils.swift in Sources */,
 				496BDEE021196F1E00C5207F /* Logger.swift in Sources */,
 				4905A2CA2A20841B00AEDA2E /* NSView+Layout.swift in Sources */,
 				49722FEF211F338B00650A41 /* FileEvent.swift in Sources */,
 				49D176A72355FE680093DD7B /* NetworkChangeNotifier.swift in Sources */,
+				49D84AD32A56E9760074CCDB /* ConnectionStatusIconCellView.swift in Sources */,
 				4905A2C52A2058B000AEDA2E /* GlobalShortCutViewController.swift in Sources */,
 				4913C82321157D0200F6B87C /* Notification.swift in Sources */,
 				8ACD21BD27A04ED500BC4632 /* ProxyModeChangeCommand.swift in Sources */,
 				498BC2552929CCAE00CA8084 /* GeneralSettingViewController.swift in Sources */,
+				498D87D82A617D2200CD456F /* DashboardViewController.swift in Sources */,
+				4991D22E2A564A4200978143 /* ConnectionTextCellView.swift in Sources */,
 				49228457270AADE20027A4B6 /* RemoteConfigUpdateIntervalSettingView.swift in Sources */,
 				F9203A26236342820020D57D /* AppDelegate+..swift in Sources */,
 				499A485C22ED793C00F6C675 /* NSView+Nib.swift in Sources */,
@@ -806,22 +931,33 @@
 				499A486522EEA3FD00F6C675 /* Array+Safe.swift in Sources */,
 				F92D0B24236BC12000575E15 /* SavedProxyModel.swift in Sources */,
 				F92D0B2A236C759100575E15 /* NSTextField+Vibrancy.swift in Sources */,
+				49CCDA302A54FC3300FF1E13 /* ConnectionLeftPannelView.swift in Sources */,
 				49D223392A1DA5F10002FFCB /* SSIDSuspendTool.swift in Sources */,
 				F910AA24240134AF00116E95 /* ProxyGroupMenu.swift in Sources */,
+				4991D22A2A56472300978143 /* ConnectionCellProtocol.swift in Sources */,
 				4952C3BF2115C7CA004A4FA8 /* MenuItemFactory.swift in Sources */,
 				49D6A45429AEEC3C006487EF /* NewStatusItemView.swift in Sources */,
+				49D767742A6195C800830333 /* ConnectionsReq.swift in Sources */,
+				49C9AFF22A59366200178BB4 /* ConnectionDetailInfoGeneralView.swift in Sources */,
 				F977FAAC2366790500C17F1F /* AutoUpgardeManager.swift in Sources */,
 				499A485822ED715200F6C675 /* RemoteConfigModel.swift in Sources */,
+				49C9AFF42A593B8800178BB4 /* ConnectionTopListViewModel.swift in Sources */,
+				498D87DA2A617E9900CD456F /* DashboardSubViewControllerProtocol.swift in Sources */,
 				49D176AB23575BB20093DD7B /* ProxyGroupMenuItemView.swift in Sources */,
 				49B4575D244F4A2A00463C39 /* PrivilegedHelperManager.swift in Sources */,
+				4991D2282A5646D200978143 /* ConnectionProxyClientCellView.swift in Sources */,
+				4991D22C2A56478400978143 /* ConnectionColume.swift in Sources */,
 				49B4575F244FD4D100463C39 /* PrivilegedHelperManager+Legacy.swift in Sources */,
 				4966E9E32118153A00A391FB /* NSUserNotificationCenter+Extension.swift in Sources */,
 				F9E754D2239CC28D00CEE7CC /* NSAlert+Extension.swift in Sources */,
 				499976C821359F0400E7BF83 /* ClashWebViewContoller.swift in Sources */,
+				49CCDA282A54F8DA00FF1E13 /* ConnectionsViewController.swift in Sources */,
+				49CCDA322A5506D100FF1E13 /* ConnectionTopListView.swift in Sources */,
 				49D176A9235614340093DD7B /* ProxyGroupSpeedTestMenuItem.swift in Sources */,
 				F976275C23634DF8000EDEFE /* LoginServiceKit.swift in Sources */,
 				4966E9E6211824F300A391FB /* NSImage+extension.swift in Sources */,
 				4994B5542A47C4FF00E595B9 /* NormalMenuItemView.swift in Sources */,
+				0AD7506B2A5B9A04001FFBBD /* ConnectionLeftPannelViewModel.swift in Sources */,
 				F92D0B2E236D35C000575E15 /* ProxyItemView.swift in Sources */,
 				49BB31E7246853EA008A4CB0 /* ICloudManager.swift in Sources */,
 				49B1086A216A356D0064FFCE /* String+Extension.swift in Sources */,
@@ -832,8 +968,10 @@
 				493AEAE5221AE7230016FE98 /* ProxyMenuItem.swift in Sources */,
 				499A485E22ED9B7C00F6C675 /* NSTableView+Reload.swift in Sources */,
 				F939724C23A4B33500FE5A3F /* ClashProvider.swift in Sources */,
+				0AEF6EAF2A5F961B00EFEE23 /* SectionedTableView.swift in Sources */,
 				498BC2532929CC2A00CA8084 /* SettingTabViewController.swift in Sources */,
 				49862FA0218418C600A1D5EC /* ClashRule.swift in Sources */,
+				49CCDA362A55126A00FF1E13 /* ConnectionDetailInfoView.swift in Sources */,
 				49C9EF64223E78F5005D8B6A /* ClashProxy.swift in Sources */,
 				4929F684258CE07500A435F6 /* UserDefaultWrapper.swift in Sources */,
 				F9E8F34623A12B89002DE5E8 /* String+Encode.swift in Sources */,
@@ -863,6 +1001,16 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		4969E73F2A5E3CB20012E005 /* ConnectionDetailInfoGeneralView.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4969E73E2A5E3CB20012E005 /* Base */,
+				4969E7412A5E3CB80012E005 /* zh-Hans */,
+				4969E7432A5E3CB90012E005 /* zh-Hant */,
+			);
+			name = ConnectionDetailInfoGeneralView.xib;
+			sourceTree = "<group>";
+		};
 		4981C88D216BAE4A008CC14A /* Localizable.strings */ = {
 			isa = PBXVariantGroup;
 			children = (

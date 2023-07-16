@@ -1,8 +1,17 @@
 /* No comment provided by engineer. */
+"Active Connections" = "活动连接";
+
+/* No comment provided by engineer. */
 "Add a remote config" = "添加托管配置文件";
 
 /* No comment provided by engineer. */
 "Add a remote control config" = "添加远程控制器配置";
+
+/* No comment provided by engineer. */
+"All Clients" = "所有客户端";
+
+/* No comment provided by engineer. */
+"All Hosts" = "所有主机名";
 
 /* No comment provided by engineer. */
 "Apply and Quit" = "应用并退出";
@@ -38,10 +47,19 @@
 "Click OK to quit the app and apply change." = "确认清理并退出软件";
 
 /* No comment provided by engineer. */
+"Client" = "客户端";
+
+/* No comment provided by engineer. */
+"Close Connection" = "关闭连接";
+
+/* No comment provided by engineer. */
 "Config file have been changed" = "配置文件已被修改";
 
 /* No comment provided by engineer. */
 "Config loading Fail!" = "配置文件加载失败";
+
+/* No comment provided by engineer. */
+"Connecting" = "连接中";
 
 /* No comment provided by engineer. */
 "Copy Shell Command" = "复制终端代理命令";
@@ -53,6 +71,9 @@
 "Custom your GEOIP MMDB download address." = "自定义下载地址";
 
 /* No comment provided by engineer. */
+"Date" = "时间";
+
+/* No comment provided by engineer. */
 "Details" = "查看详情";
 
 /* No comment provided by engineer. */
@@ -62,10 +83,22 @@
 "Direct Mode" = "直接连接";
 
 /* No comment provided by engineer. */
+"Done" = "完成";
+
+/* No comment provided by engineer. */
+"Download" = "下载";
+
+/* No comment provided by engineer. */
 "Download fail" = "下载失败";
 
 /* No comment provided by engineer. */
+"Download speed" = "下载速率";
+
+/* No comment provided by engineer. */
 "fail" = "失败";
+
+/* No comment provided by engineer. */
+"Fail" = "失败";
 
 /* No comment provided by engineer. */
 "Fail:" = "失败：";
@@ -75,6 +108,12 @@
 
 /* No comment provided by engineer. */
 "Global Mode" = "全局连接";
+
+/* No comment provided by engineer. */
+"Host" = "主机名";
+
+/* No comment provided by engineer. */
+"Hosts" = "主机名";
 
 /* No comment provided by engineer. */
 "hours" = "小时";
@@ -98,6 +137,9 @@
 "Load Balance" = "负载均衡";
 
 /* No comment provided by engineer. */
+"Local Clients" = "本地程序";
+
+/* No comment provided by engineer. */
 "Need to Restart the ClashX to Take effect, Please start clashX manually" = "需要重启ClashX生效，请手动启动ClashX";
 
 /* No comment provided by engineer. */
@@ -108,6 +150,9 @@
 
 /* No comment provided by engineer. */
 "OK" = "确定";
+
+/* No comment provided by engineer. */
+"Open Connection Details" = "打开连接查看器";
 
 /* No comment provided by engineer. */
 "Open Dashboard" = "打开控制台";
@@ -137,6 +182,9 @@
 "Quit" = "退出";
 
 /* No comment provided by engineer. */
+"Recent Connections" = "最近连接";
+
+/* No comment provided by engineer. */
 "Reduce alerts if notification permission is disabled" = "在通知权限关闭时减少提示弹窗";
 
 /* No comment provided by engineer. */
@@ -155,6 +203,9 @@
 "Remote Config Update Fail" = "托管配置文件更新失败";
 
 /* No comment provided by engineer. */
+"Requests" = "请求";
+
+/* No comment provided by engineer. */
 "Reset Daemon" = "重置守护程序";
 
 /* No comment provided by engineer. */
@@ -170,7 +221,13 @@
 "Should be a least 1 hour" = "至少需要1小时间隔";
 
 /* No comment provided by engineer. */
+"Sources" = "来源";
+
+/* No comment provided by engineer. */
 "Stable" = "Stable";
+
+/* No comment provided by engineer. */
+"Status" = "状态";
 
 /* No comment provided by engineer. */
 "Succeed!" = "成功！";
@@ -203,6 +260,12 @@
 "This version of ClashX contains a break change due to clash core 1.0 released. Check if your config is not working properly." = "由于Clash Core发布1.0版本，使用此版本的 ClashX 可能需要更新配置内容\n前往 https://github.com/Dreamacro/clash/wiki/breaking-changes-in-1.0.0 查看详情";
 
 /* No comment provided by engineer. */
+"Type" = "类型";
+
+/* No comment provided by engineer. */
+"Unknown" = "未知";
+
+/* No comment provided by engineer. */
 "Update GEOIP Database" = "更新IP数据库";
 
 /* No comment provided by engineer. */
@@ -210,6 +273,12 @@
 
 /* No comment provided by engineer. */
 "Updating" = "更新中";
+
+/* No comment provided by engineer. */
+"Upload" = "上传";
+
+/* No comment provided by engineer. */
+"Upload speed" = "上传速率";
 
 /* No comment provided by engineer. */
 "Use reload config to try reconnect." = "使用重载配置文件按钮尝试重新连接";
