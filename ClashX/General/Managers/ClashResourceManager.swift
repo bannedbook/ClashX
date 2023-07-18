@@ -31,8 +31,7 @@ class ClashResourceManager {
         if fileManage.fileExists(atPath: destMMDBPath) {
             let vaild = verifyGEOIPDataBase().toBool()
             let versionChange = AppVersionUtil.hasVersionChanged || AppVersionUtil.isFirstLaunch
-            let customMMDBSet = !Settings.mmdbDownloadUrl.isEmpty
-            if !vaild || (versionChange && customMMDBSet) {
+            if !vaild || versionChange {
                 Logger.log("removing new mmdb file")
                 try? fileManage.removeItem(atPath: destMMDBPath)
             }
