@@ -22,8 +22,26 @@ class ConnectionDetailInfoView: NSView {
     init() {
         super.init(frame: .zero)
         wantsLayer = true
-        layer?.backgroundColor = NSColor.white.cgColor
+        updateColor()
         setupSubviews()
+    }
+
+    override func viewDidChangeEffectiveAppearance() {
+        super.viewDidChangeEffectiveAppearance()
+        updateColor()
+    }
+
+    func updateColor() {
+        if #available(macOS 11.0, *) {
+            effectiveAppearance.performAsCurrentDrawingAppearance {
+                layer?.backgroundColor = NSColor.controlColor.cgColor
+            }
+        } else {
+            let pervious = NSAppearance.current
+            NSAppearance.current = effectiveAppearance
+            layer?.backgroundColor = NSColor.controlColor.cgColor
+            NSAppearance.current = pervious
+        }
     }
 
     required init?(coder: NSCoder) {
