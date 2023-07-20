@@ -116,7 +116,7 @@ extension ClashConnectionSnapShot {
     }
     //    {"network":"tcp","type":"HTTP Connect","sourceIP":"127.0.0.1","destinationIP":"124.72.132.104","sourcePort":"59217","destinationPort":"443","host":"slardar-bd.feishu.cn","dnsMode":"normal","processPath":"","specialProxy":""}
     class MetaData:NSObject, Codable {
-        let network:String
+        @objc let network:String
         @objc let type:String
         let sourceIP: String
         let destinationIP:String

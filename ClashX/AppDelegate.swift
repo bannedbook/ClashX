@@ -842,7 +842,7 @@ extension AppDelegate {
         #if DEBUG
             return
         #else
-            UserDefaults.standard.register(defaults: ["NSApplicationCrashOnExceptions": true])
+            UserDefaults.standard.register(defaults: ["NSApplicationCrashOnExceptions": false])
             let x = UserDefaults.standard
             var launch_fail_times: Int = 0
             if let xx = x.object(forKey: "launch_fail_times") as? Int { launch_fail_times = xx }
