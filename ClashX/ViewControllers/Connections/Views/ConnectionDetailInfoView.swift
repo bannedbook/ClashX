@@ -34,12 +34,12 @@ class ConnectionDetailInfoView: NSView {
     func updateColor() {
         if #available(macOS 11.0, *) {
             effectiveAppearance.performAsCurrentDrawingAppearance {
-                layer?.backgroundColor = NSColor.controlColor.cgColor
+                layer?.backgroundColor = NSColor.controlBackgroundColor.cgColor
             }
         } else {
             let pervious = NSAppearance.current
             NSAppearance.current = effectiveAppearance
-            layer?.backgroundColor = NSColor.controlColor.cgColor
+            layer?.backgroundColor = NSColor.controlBackgroundColor.cgColor
             NSAppearance.current = pervious
         }
     }
