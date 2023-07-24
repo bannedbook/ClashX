@@ -17,13 +17,13 @@ enum ConnectionColume:String, CaseIterable {
     case statusIcon
     case process
     case status
+    case date
     case url
     case rule
-    case date
-    case upload
-    case download
     case currentUpload
     case currentDownload
+    case upload
+    case download
     case type
 
     var columeTitle:String {
@@ -66,6 +66,14 @@ enum ConnectionColume:String, CaseIterable {
         case .statusIcon: return 16
         case .status: return 30
         default:return 60
+        }
+    }
+
+    var width:CGFloat {
+        switch self {
+        case .upload, .download, .currentUpload, .currentDownload: return 80
+        case .status: return 50
+        default:return 100
         }
     }
 

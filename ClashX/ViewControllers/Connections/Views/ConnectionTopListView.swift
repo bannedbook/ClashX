@@ -43,9 +43,12 @@ class ConnectionTopListView: NSView {
             column.title = columnType.columeTitle
             column.minWidth = columnType.minWidth
             column.maxWidth = columnType.maxWidth
+            column.width = columnType.width
             column.sortDescriptorPrototype = viewModel.sortSortDescriptor(for: columnType)
             tableView.addTableColumn(column)
         }
+        tableView.autosaveName = className.appending("tableAutoSave")
+        tableView.autosaveTableColumns = true
         tableView.sortDescriptors = [viewModel.currentSortDescriptor].compactMap {$0}
         tableView.usesAlternatingRowBackgroundColors = true
         tableView.delegate = self
