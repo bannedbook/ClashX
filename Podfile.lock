@@ -1,12 +1,12 @@
 PODS:
-  - Alamofire (5.7.1)
+  - Alamofire (5.8.0)
   - AppCenter/Analytics (5.0.3):
     - AppCenter/Core
   - AppCenter/Core (5.0.3)
   - AppCenter/Crashes (5.0.3):
     - AppCenter/Core
-  - CocoaLumberjack/Core (3.8.0)
-  - CocoaLumberjack/Swift (3.8.0):
+  - CocoaLumberjack/Core (3.8.1)
+  - CocoaLumberjack/Swift (3.8.1):
     - CocoaLumberjack/Core
   - FlexibleDiff (0.0.9)
   - GzipSwift (5.1.1)
@@ -57,9 +57,9 @@ SPEC REPOS:
     - WebViewJavascriptBridge
 
 SPEC CHECKSUMS:
-  Alamofire: 0123a34370cb170936ae79a8df46cc62b2edeb88
+  Alamofire: 0e92e751b3e9e66d7982db43919d01f313b8eb91
   AppCenter: a4070ec3d4418b5539067a51f57155012e486ebd
-  CocoaLumberjack: 78abfb691154e2a9df8ded4350d504ee19d90732
+  CocoaLumberjack: 5c7e64cdb877770859bddec4d3d5a0d7c9299df9
   FlexibleDiff: b9ee9b8305b42c784f5dd40589203c97c55bbaa0
   GzipSwift: 893f3e48e597a1a4f62fafcb6514220fcf8287fa
   LetsMove: 7b9fe44737707d984fbd3f47af46609a9a07b461
