@@ -33,14 +33,6 @@ class ClashWebViewContoller: NSViewController {
 
     let effectView = NSVisualEffectView()
 
-    static func createWindowController() -> NSWindowController {
-        let sb = NSStoryboard(name: "Main", bundle: Bundle.main)
-        let vc = sb.instantiateController(withIdentifier: "ClashWebViewContoller") as! ClashWebViewContoller
-        let wc = NSWindowController(window: NSWindow())
-        wc.contentViewController = vc
-        return wc
-    }
-
     override func loadView() {
         view = NSView(frame: NSRect(origin: .zero, size: minSize))
     }
@@ -86,9 +78,6 @@ class ClashWebViewContoller: NSViewController {
 
         view.window?.isOpaque = false
         view.window?.backgroundColor = NSColor.clear
-        view.window?.styleMask.insert(.closable)
-        view.window?.styleMask.insert(.resizable)
-        view.window?.styleMask.insert(.miniaturizable)
         view.window?.toolbar = NSToolbar()
         view.window?.toolbar?.showsBaselineSeparator = false
         view.wantsLayer = true

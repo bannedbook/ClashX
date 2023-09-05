@@ -51,9 +51,6 @@ class DashboardViewController: NSViewController {
         super.viewWillAppear()
         toolbar.delegate = self
         view.window?.toolbar = toolbar
-        view.window?.styleMask.insert(.closable)
-        view.window?.styleMask.insert(.resizable)
-        view.window?.styleMask.insert(.miniaturizable)
         view.window?.backgroundColor = NSColor.clear
         if #available(macOS 11.0, *) {
             view.window?.toolbarStyle = .unifiedCompact

@@ -36,7 +36,6 @@
 		495BFB8821919B9800C8779D /* RemoteConfigManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 495BFB8721919B9800C8779D /* RemoteConfigManager.swift */; };
 		4960A6DB2136529200B940C9 /* JSBridgeHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4960A6DA2136529200B940C9 /* JSBridgeHandler.swift */; };
 		496322222AA5D89E00854231 /* UpdateExternalResourceAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 496322212AA5D89E00854231 /* UpdateExternalResourceAction.swift */; };
-		496322242AA5D91200854231 /* BaseAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 496322232AA5D91200854231 /* BaseAction.swift */; };
 		4966E9E32118153A00A391FB /* NSUserNotificationCenter+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4966E9E22118153A00A391FB /* NSUserNotificationCenter+Extension.swift */; };
 		4969E73D2A5E3CB20012E005 /* ConnectionDetailInfoGeneralView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4969E73F2A5E3CB20012E005 /* ConnectionDetailInfoGeneralView.xib */; };
 		496BDEE021196F1E00C5207F /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 496BDEDF21196F1E00C5207F /* Logger.swift */; };
@@ -48,6 +47,7 @@
 		4981C88B216BAE4A008CC14A /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4981C88D216BAE4A008CC14A /* Localizable.strings */; };
 		4982F51F2344A216008804B0 /* Cgo+Convert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4982F51E2344A216008804B0 /* Cgo+Convert.swift */; };
 		49862FA0218418C600A1D5EC /* ClashRule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49862F9F218418C600A1D5EC /* ClashRule.swift */; };
+		49870ADB2AA75DC7002B106B /* TerminalCleanUpAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49870ADA2AA75DC7002B106B /* TerminalCleanUpAction.swift */; };
 		4989F98E20D0AE990001E564 /* sampleConfig.yaml in Resources */ = {isa = PBXBuildFile; fileRef = 4989F98D20D0AE990001E564 /* sampleConfig.yaml */; };
 		498BC2532929CC2A00CA8084 /* SettingTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498BC2522929CC2A00CA8084 /* SettingTabViewController.swift */; };
 		498BC2552929CCAE00CA8084 /* GeneralSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498BC2542929CCAE00CA8084 /* GeneralSettingViewController.swift */; };
@@ -191,7 +191,6 @@
 		495BFB8721919B9800C8779D /* RemoteConfigManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteConfigManager.swift; sourceTree = "<group>"; };
 		4960A6DA2136529200B940C9 /* JSBridgeHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSBridgeHandler.swift; sourceTree = "<group>"; };
 		496322212AA5D89E00854231 /* UpdateExternalResourceAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateExternalResourceAction.swift; sourceTree = "<group>"; };
-		496322232AA5D91200854231 /* BaseAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseAction.swift; sourceTree = "<group>"; };
 		4966E9E22118153A00A391FB /* NSUserNotificationCenter+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSUserNotificationCenter+Extension.swift"; sourceTree = "<group>"; };
 		4969E73E2A5E3CB20012E005 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/ConnectionDetailInfoGeneralView.xib; sourceTree = "<group>"; };
 		4969E7412A5E3CB80012E005 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/ConnectionDetailInfoGeneralView.strings"; sourceTree = "<group>"; };
@@ -209,6 +208,7 @@
 		4981C88E216BAE4D008CC14A /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		4982F51E2344A216008804B0 /* Cgo+Convert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Cgo+Convert.swift"; sourceTree = "<group>"; };
 		49862F9F218418C600A1D5EC /* ClashRule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClashRule.swift; sourceTree = "<group>"; };
+		49870ADA2AA75DC7002B106B /* TerminalCleanUpAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TerminalCleanUpAction.swift; sourceTree = "<group>"; };
 		498960722340F21C00AFB7EC /* com.west2online.ClashX.ProxyConfigHelper.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = com.west2online.ClashX.ProxyConfigHelper.entitlements; sourceTree = "<group>"; };
 		4989F98D20D0AE990001E564 /* sampleConfig.yaml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.yaml; path = sampleConfig.yaml; sourceTree = "<group>"; };
 		498BC2522929CC2A00CA8084 /* SettingTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingTabViewController.swift; sourceTree = "<group>"; };
@@ -430,7 +430,7 @@
 			isa = PBXGroup;
 			children = (
 				496322212AA5D89E00854231 /* UpdateExternalResourceAction.swift */,
-				496322232AA5D91200854231 /* BaseAction.swift */,
+				49870ADA2AA75DC7002B106B /* TerminalCleanUpAction.swift */,
 			);
 			path = Actions;
 			sourceTree = "<group>";
@@ -910,7 +910,6 @@
 				499A485522ED707300F6C675 /* RemoteConfigViewController.swift in Sources */,
 				49D6A45229AEEC15006487EF /* StatusItemTool.swift in Sources */,
 				49CF3B5C20CE8068001EBF94 /* ClashResourceManager.swift in Sources */,
-				496322242AA5D91200854231 /* BaseAction.swift in Sources */,
 				4952C3D02117027C004A4FA8 /* ConfigFileManager.swift in Sources */,
 				49BC061C212931F4005A0FE7 /* AboutViewController.swift in Sources */,
 				4949D154213242F600EF85E6 /* Paths.swift in Sources */,
@@ -951,6 +950,7 @@
 				492C4871210EF62E004554A0 /* ClashConfig.swift in Sources */,
 				492C4869210EE6B9004554A0 /* ApiRequest.swift in Sources */,
 				49CF3B6520CEE06C001EBF94 /* ConfigManager.swift in Sources */,
+				49870ADB2AA75DC7002B106B /* TerminalCleanUpAction.swift in Sources */,
 				F9E754D0239CC21F00CEE7CC /* WebPortalManager.swift in Sources */,
 				495BFB8821919B9800C8779D /* RemoteConfigManager.swift in Sources */,
 				4982F51F2344A216008804B0 /* Cgo+Convert.swift in Sources */,

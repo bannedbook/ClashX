@@ -312,3 +312,6 @@
 
 /* Class = "NSButtonCell"; title = "Enable IPv6"; ObjectID = "KRm-2U-T4s"; */
 "KRm-2U-T4s.title" = "启用IPv6";
+
+/* Class = "NSMenuItem"; title = "Quit ClashX"; ObjectID = "TsN-g8-OjG"; */
+"TsN-g8-OjG.title" = "退出 ClashX";

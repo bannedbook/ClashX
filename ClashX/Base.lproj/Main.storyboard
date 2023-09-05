@@ -9,7 +9,7 @@
         <!--Settings-->
         <scene sceneID="7zJ-aQ-tNg">
             <objects>
-                <tabViewController title="Settings" showSeguePresentationStyle="single" selectedTabViewItemIndex="0" id="LAj-p8-9gd" customClass="SettingTabViewController" customModule="ClashX" customModuleProvider="target" sceneMemberID="viewController">
+                <tabViewController title="Settings" storyboardIdentifier="SettingTabViewController" showSeguePresentationStyle="single" selectedTabViewItemIndex="0" id="LAj-p8-9gd" customClass="SettingTabViewController" customModule="ClashX" customModuleProvider="target" sceneMemberID="viewController">
                     <tabViewItems>
                         <tabViewItem label="General" identifier="general" image="gearshape" catalog="system" id="Ltt-Vq-Hh1"/>
                         <tabViewItem image="keyboard" catalog="system" id="gnz-rO-Jv7"/>
@@ -529,6 +529,13 @@
                             <menuItem title="ClashX" id="1Xt-HY-uBw" userLabel="ClashX">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="ClashX" systemMenu="apple" id="uQy-DD-JDr">
+                                    <items>
+                                        <menuItem title="Quit ClashX" keyEquivalent="q" id="TsN-g8-OjG">
+                                            <connections>
+                                                <action selector="terminate:" target="Ady-hI-5gd" id="u3Z-Ml-nGa"/>
+                                            </connections>
+                                        </menuItem>
+                                    </items>
                                     <attributedString key="userComments">
                                         <fragment content="#bc-ignore!"/>
                                     </attributedString>
@@ -864,8 +871,7 @@
                         <menuItem title="Settings" id="krh-QF-pqZ">
                             <modifierMask key="keyEquivalentModifierMask"/>
                             <connections>
-                                <action selector="actionUpdateConfig:" target="Voe-Tx-rLC" id="L8c-KG-g8D"/>
-                                <segue destination="LAj-p8-9gd" kind="show" id="BTv-JW-0Fb"/>
+                                <action selector="actionMoreSetting:" target="Voe-Tx-rLC" id="PF2-an-kBo"/>
                             </connections>
                         </menuItem>
                         <menuItem title="Help" id="Dd9-2F-FVY">

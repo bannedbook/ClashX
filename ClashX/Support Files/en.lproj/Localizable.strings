@@ -185,6 +185,9 @@
 "Quit" = "Quit";
 
 /* No comment provided by engineer. */
+"Quit ClashX?" = "Quit ClashX?";
+
+/* No comment provided by engineer. */
 "Recent Connections" = "Recent Connections";
 
 /* No comment provided by engineer. */
@@ -255,6 +258,9 @@
 
 /* No comment provided by engineer. */
 "Testing" = "Testing";
+
+/* No comment provided by engineer. */
+"The active connections will be interrupted." = "The active connections will be interrupted.";
 
 /* No comment provided by engineer. */
 "The remote config name is duplicated" = "The remote config name is duplicated";

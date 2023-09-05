@@ -24,7 +24,8 @@ private class ClashWindowsRecorder {
 
 class ClashWindowController<T: NSViewController>: NSWindowController, NSWindowDelegate {
     var onWindowClose: (() -> Void)?
-    var lastSize: CGSize? {
+    private var fromCache = false
+    private var lastSize: CGSize? {
         get {
             if let str = UserDefaults.standard.value(forKey: "lastSize.\(T.className())") as? String {
                 return NSSizeFromString(str) as CGSize
@@ -40,12 +41,23 @@ class ClashWindowController<T: NSViewController>: NSWindowController, NSWindowDe
 
     static func create() -> NSWindowController {
         if let wc = ClashWindowsRecorder.shared.windowControllers.first(where: { $0 is Self }) {
+            (wc as? ClashWindowController)?.fromCache = true
             return wc
         }
         let win = NSWindow()
         let wc = ClashWindowController(window: win)
-        wc.contentViewController = T()
+        if let X = T.self as? NibLoadable.Type {
+            wc.contentViewController = (X.createFromNib(in: .main) as! NSViewController)
+        } else {
+            wc.contentViewController = T()
+        }
         win.titlebarAppearsTransparent = false
+        win.styleMask.insert(.closable)
+        win.styleMask.insert(.resizable)
+        win.styleMask.insert(.miniaturizable)
+        if let title = wc.contentViewController?.title {
+            win.title = title
+        }
         ClashWindowsRecorder.shared.windowControllers.append(wc)
         return wc
     }
@@ -53,10 +65,10 @@ class ClashWindowController<T: NSViewController>: NSWindowController, NSWindowDe
     override func showWindow(_ sender: Any?) {
         super.showWindow(sender)
         NSApp.activate(ignoringOtherApps: true)
-        if let lastSize = lastSize, lastSize != .zero {
+        if !fromCache, let lastSize = lastSize, lastSize != .zero {
             window?.setContentSize(lastSize)
+            window?.center()
         }
-        window?.center()
         window?.makeKeyAndOrderFront(self)
         window?.delegate = self
     }

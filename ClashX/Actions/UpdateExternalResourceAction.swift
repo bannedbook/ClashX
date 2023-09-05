@@ -7,7 +7,7 @@
 //
 
 import Foundation
-enum UpdateExternalResourceAction: BaseStaticAction {
+enum UpdateExternalResourceAction {
     static func run() {
         ApiRequest.requestExternalProviderNames { provider in
             let group = DispatchGroup()

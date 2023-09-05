@@ -8,7 +8,7 @@
 
 import Cocoa
 
-class SettingTabViewController: NSTabViewController {
+class SettingTabViewController: NSTabViewController, NibLoadable {
     override func viewDidLoad() {
         super.viewDidLoad()
         tabStyle = .toolbar

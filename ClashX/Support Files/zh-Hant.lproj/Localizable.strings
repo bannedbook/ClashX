@@ -185,6 +185,9 @@
 "Quit" = "退出";
 
 /* No comment provided by engineer. */
+"Quit ClashX?" = "退出 ClashX?";
+
+/* No comment provided by engineer. */
 "Recent Connections" = "最近連線";
 
 /* No comment provided by engineer. */
@@ -255,6 +258,9 @@
 
 /* No comment provided by engineer. */
 "Testing" = "測試中";
+
+/* No comment provided by engineer. */
+"The active connections will be interrupted." = "活躍的連接將被中斷。";
 
 /* No comment provided by engineer. */
 "The remote config name is duplicated" = "遠端配置名稱重複";

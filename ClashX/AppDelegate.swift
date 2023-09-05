@@ -21,7 +21,7 @@ let statusItemLengthWithSpeed: CGFloat = 72
 
 @main
 class AppDelegate: NSObject, NSApplicationDelegate {
-    var statusItem: NSStatusItem!
+    private(set) var statusItem: NSStatusItem!
     @IBOutlet var checkForUpdateMenuItem: NSMenuItem!
 
     @IBOutlet var statusMenu: NSMenu!
@@ -160,54 +160,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
     func applicationShouldTerminate(_ sender: NSApplication) -> NSApplication.TerminateReply {
-        let group = DispatchGroup()
-        var shouldWait = false
-
-        if ConfigManager.shared.proxyPortAutoSet && !ConfigManager.shared.isProxySetByOtherVariable.value || NetworkChangeNotifier.isCurrentSystemSetToClash(looser: true) ||
-            NetworkChangeNotifier.hasInterfaceProxySetToClash() {
-            Logger.log("ClashX quit need clean proxy setting")
-            shouldWait = true
-            group.enter()
-
-            SystemProxyManager.shared.disableProxy(forceDisable: ConfigManager.shared.isProxySetByOtherVariable.value) {
-                group.leave()
-            }
-        }
-
-        if !shouldWait {
-            Logger.log("ClashX quit without clean waiting")
-            return .terminateNow
-        }
-
-        if statusItem != nil, statusItem.menu != nil {
-            statusItem.menu = nil
-        }
-        disposeBag = DisposeBag()
-
-        DispatchQueue.global(qos: .default).async {
-            let res = group.wait(timeout: .now() + 5)
-            switch res {
-            case .success:
-                Logger.log("ClashX quit after clean up finish")
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-                    NSApp.reply(toApplicationShouldTerminate: true)
-                }
-                DispatchQueue.global().asyncAfter(deadline: .now() + 1) {
-                    NSApp.reply(toApplicationShouldTerminate: true)
-                }
-            case .timedOut:
-                Logger.log("ClashX quit after clean up timeout")
-                DispatchQueue.main.async {
-                    NSApp.reply(toApplicationShouldTerminate: true)
-                }
-                DispatchQueue.global().asyncAfter(deadline: .now() + 1) {
-                    NSApp.reply(toApplicationShouldTerminate: true)
-                }
-            }
-        }
-
-        Logger.log("ClashX quit wait for clean up")
-        return .terminateLater
+        return TerminalConfirmAction.run()
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {
@@ -757,6 +710,10 @@ extension AppDelegate {
 
     @IBAction func actionQuit(_ sender: Any) {
         NSApplication.shared.terminate(self)
+    }
+
+    @IBAction func actionMoreSetting(_ sender: Any) {
+        ClashWindowController<SettingTabViewController>.create().showWindow(sender)
     }
 }
 
