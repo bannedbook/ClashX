@@ -128,6 +128,24 @@ class NetworkChangeNotifier {
         return dict?[kSCDynamicStorePropNetPrimaryInterface as String]
     }
 
+    static func getPrimaryIsDhcp() -> Bool {
+        let store = SCDynamicStoreCreate(nil, "ClashX" as CFString, nil, nil)
+        if store == nil {
+            return false
+        }
+
+        let key = SCDynamicStoreKeyCreateNetworkGlobalEntity(nil, kSCDynamicStoreDomainState, kSCEntNetIPv4)
+        let dict = SCDynamicStoreCopyValue(store, key) as? [String: String]
+
+        guard let serviceID = dict?[kSCDynamicStorePropNetPrimaryService as String] else { return false }
+        let dhcpInfoKey = SCDynamicStoreKeyCreateNetworkServiceEntity(nil,
+                                      kSCDynamicStoreDomainState,
+                                                             serviceID as CFString,
+                                      kSCEntNetDHCP)
+        let dhcpInfo = SCDynamicStoreCopyValue(store, dhcpInfoKey)  as? [String: Any]
+        return dhcpInfo != nil
+    }
+
     static func getCurrentDns() -> [String] {
         let store = SCDynamicStoreCreate(nil, "ClashX" as CFString, nil, nil)
         if store == nil {

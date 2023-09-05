@@ -175,7 +175,8 @@ class RemoteConfigManager {
 
             if ICloudManager.shared.useiCloud.value {
                 ConfigFileManager.shared.stopWatchConfigFile()
-            } else if config.name == ConfigManager.selectConfigName {
+            }
+            if config.name == ConfigManager.selectConfigName {
                 ConfigFileManager.shared.pauseForNextChange()
             }
 

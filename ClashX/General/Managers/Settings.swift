@@ -18,9 +18,6 @@ enum Settings {
     @UserDefault("disableNoti", defaultValue: false)
     static var disableNoti: Bool
 
-    @UserDefault("usePacMode", defaultValue: false)
-    static var usePacMode: Bool
-
     @UserDefault("configAutoUpdateInterval", defaultValue: 48*60*60)
     static var configAutoUpdateInterval: TimeInterval
 
