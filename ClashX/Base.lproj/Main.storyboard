@@ -43,10 +43,10 @@
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="10" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VYa-DX-JOe">
-                                <rect key="frame" x="20" y="20" width="432" height="610"/>
+                                <rect key="frame" x="20" y="20" width="432" height="634"/>
                                 <subviews>
                                     <box borderType="line" title="Box" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="Gnh-m8-PAz">
-                                        <rect key="frame" x="-3" y="516" width="438" height="96"/>
+                                        <rect key="frame" x="-3" y="540" width="438" height="96"/>
                                         <view key="contentView" id="Lai-8r-q7z">
                                             <rect key="frame" x="4" y="5" width="430" height="88"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -96,15 +96,22 @@
                                             </constraints>
                                         </view>
                                     </box>
-                                    <box title="Port Settings (restart app to take effect)" translatesAutoresizingMaskIntoConstraints="NO" id="bcR-rG-52F">
-                                        <rect key="frame" x="-3" y="374" width="438" height="136"/>
+                                    <box title="Clash Settings (restart app to take effect)" translatesAutoresizingMaskIntoConstraints="NO" id="bcR-rG-52F">
+                                        <rect key="frame" x="-3" y="374" width="438" height="160"/>
                                         <view key="contentView" id="baR-Ra-RV2">
-                                            <rect key="frame" x="4" y="5" width="430" height="116"/>
+                                            <rect key="frame" x="4" y="5" width="430" height="140"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <stackView distribution="fill" orientation="vertical" alignment="leading" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" verticalHuggingPriority="1000" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ito-5t-76A">
-                                                    <rect key="frame" x="20" y="20" width="390" height="76"/>
+                                                    <rect key="frame" x="20" y="20" width="390" height="100"/>
                                                     <subviews>
+                                                        <button verticalHuggingPriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="buf-aL-Tkl">
+                                                            <rect key="frame" x="-2" y="83" width="98" height="18"/>
+                                                            <buttonCell key="cell" type="check" title="Enable IPv6" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="KRm-2U-T4s">
+                                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                                <font key="font" metaFont="system"/>
+                                                            </buttonCell>
+                                                        </button>
                                                         <customView focusRingType="none" verticalHuggingPriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="1Qb-v8-TZs">
                                                             <rect key="frame" x="0.0" y="56" width="175" height="20"/>
                                                             <subviews>
@@ -237,8 +244,10 @@
                                                         <integer value="1000"/>
                                                         <integer value="1000"/>
                                                         <integer value="1000"/>
+                                                        <integer value="1000"/>
                                                     </visibilityPriorities>
                                                     <customSpacing>
+                                                        <real value="3.4028234663852886e+38"/>
                                                         <real value="3.4028234663852886e+38"/>
                                                         <real value="3.4028234663852886e+38"/>
                                                         <real value="3.4028234663852886e+38"/>
@@ -278,15 +287,15 @@
                                                 <scrollView borderType="none" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" translatesAutoresizingMaskIntoConstraints="NO" id="plI-7S-yCW">
                                                     <rect key="frame" x="20" y="10" width="390" height="20"/>
                                                     <clipView key="contentView" drawsBackground="NO" id="HHy-NP-pH6">
-                                                        <rect key="frame" x="0.0" y="0.0" width="375" height="20"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="390" height="20"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                         <subviews>
                                                             <textView importsGraphics="NO" richText="NO" verticallyResizable="YES" spellingCorrection="YES" smartInsertDelete="YES" id="sjz-uN-XpL">
-                                                                <rect key="frame" x="0.0" y="0.0" width="375" height="20"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="390" height="20"/>
                                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                 <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                                                <size key="minSize" width="375" height="20"/>
+                                                                <size key="minSize" width="390" height="20"/>
                                                                 <size key="maxSize" width="450" height="10000000"/>
                                                                 <color key="insertionPointColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                                             </textView>
@@ -300,7 +309,7 @@
                                                         <autoresizingMask key="autoresizingMask"/>
                                                     </scroller>
                                                     <scroller key="verticalScroller" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="OaY-Eu-ksx">
-                                                        <rect key="frame" x="375" y="0.0" width="15" height="20"/>
+                                                        <rect key="frame" x="374" y="0.0" width="16" height="20"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                     </scroller>
                                                 </scrollView>
@@ -407,15 +416,15 @@
                                                 <scrollView borderType="none" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vfh-gi-qYe">
                                                     <rect key="frame" x="20" y="50" width="390" height="100"/>
                                                     <clipView key="contentView" drawsBackground="NO" id="bzV-Hc-3eJ">
-                                                        <rect key="frame" x="0.0" y="0.0" width="375" height="100"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="390" height="100"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                         <subviews>
                                                             <textView importsGraphics="NO" richText="NO" verticallyResizable="YES" spellingCorrection="YES" smartInsertDelete="YES" id="JDw-FW-A2o">
-                                                                <rect key="frame" x="0.0" y="0.0" width="375" height="100"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="390" height="100"/>
                                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                 <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                                                <size key="minSize" width="375" height="100"/>
+                                                                <size key="minSize" width="390" height="100"/>
                                                                 <size key="maxSize" width="450" height="10000000"/>
                                                                 <color key="insertionPointColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                                             </textView>
@@ -429,7 +438,7 @@
                                                         <autoresizingMask key="autoresizingMask"/>
                                                     </scroller>
                                                     <scroller key="verticalScroller" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="dbQ-aI-3eA">
-                                                        <rect key="frame" x="375" y="0.0" width="15" height="100"/>
+                                                        <rect key="frame" x="374" y="0.0" width="16" height="100"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                     </scroller>
                                                 </scrollView>
@@ -498,6 +507,7 @@
                         <outlet property="apiSecretOverrideButton" destination="N0V-ac-Acm" id="n9x-y4-XsR"/>
                         <outlet property="apiSecretTextField" destination="CE4-Aa-FiI" id="po3-LI-T3l"/>
                         <outlet property="ignoreListTextView" destination="JDw-FW-A2o" id="fhs-QW-Ug6"/>
+                        <outlet property="ipv6Button" destination="buf-aL-Tkl" id="s3h-2l-ik5"/>
                         <outlet property="launchAtLoginButton" destination="jsq-3u-CRd" id="RnH-Va-nCX"/>
                         <outlet property="proxyPortTextField" destination="mBx-6u-i5v" id="7Af-XU-9Xn"/>
                         <outlet property="reduceNotificationsButton" destination="6V3-wn-WSa" id="VtV-aI-dQi"/>

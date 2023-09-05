@@ -221,6 +221,9 @@
 "Rule Mode" = "规则判断";
 
 /* No comment provided by engineer. */
+"Script" = "脚本";
+
+/* No comment provided by engineer. */
 "Should be a least 1 hour" = "至少需要1小时间隔";
 
 /* No comment provided by engineer. */

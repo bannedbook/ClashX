@@ -25,6 +25,7 @@ class GeneralSettingViewController: NSViewController {
 
     @IBOutlet var apiSecretOverrideButton: NSButton!
 
+    @IBOutlet var ipv6Button: NSButton!
     @IBOutlet var speedTestUrlField: NSTextField!
 
     var disposeBag = DisposeBag()
@@ -68,6 +69,11 @@ class GeneralSettingViewController: NSViewController {
         reduceNotificationsButton.state = Settings.disableNoti ? .on : .off
         reduceNotificationsButton.rx.state.map { $0 == .on }.subscribe {
             Settings.disableNoti = $0
+        }.disposed(by: disposeBag)
+
+        ipv6Button.state = Settings.enableIPV6 ? .on : .off
+        ipv6Button.rx.state.map { $0 == .on }.subscribe {
+            Settings.enableIPV6 = $0
         }.disposed(by: disposeBag)
 
         if Settings.proxyPort > 0 {

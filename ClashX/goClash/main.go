@@ -33,6 +33,7 @@ import (
 )
 
 var secretOverride string = ""
+var enableIPV6 bool = false
 
 func isAddrValid(addr string) bool {
 	if addr != "" {
@@ -99,7 +100,7 @@ func getRawCfg() (*config.RawConfig, error) {
 	return config.UnmarshalRawConfig(buf)
 }
 
-func parseDefaultConfigThenStart(checkPort, allowLan bool, proxyPort uint32, externalController string) (*config.Config, error) {
+func parseDefaultConfigThenStart(checkPort, allowLan, ipv6 bool, proxyPort uint32, externalController string) (*config.Config, error) {
 	rawCfg, err := getRawCfg()
 	if err != nil {
 		return nil, err
@@ -139,6 +140,8 @@ func parseDefaultConfigThenStart(checkPort, allowLan bool, proxyPort uint32, ext
 	}
 	rawCfg.ExternalUI = ""
 	rawCfg.Profile.StoreSelected = false
+	enableIPV6 = ipv6
+	rawCfg.IPv6 = ipv6
 	if len(externalController) > 0 {
 		rawCfg.ExternalController = externalController
 	}
@@ -232,8 +235,8 @@ func clash_setSecret(secret *C.char) {
 }
 
 //export run
-func run(checkConfig, allowLan bool, portOverride uint32, externalController *C.char) *C.char {
-	cfg, err := parseDefaultConfigThenStart(checkConfig, allowLan, portOverride, C.GoString(externalController))
+func run(checkConfig, allowLan, ipv6 bool, portOverride uint32, externalController *C.char) *C.char {
+	cfg, err := parseDefaultConfigThenStart(checkConfig, allowLan, ipv6, portOverride, C.GoString(externalController))
 	if err != nil {
 		return C.CString(err.Error())
 	}
@@ -262,6 +265,7 @@ func clashUpdateConfig(path *C.char) *C.char {
 	if err != nil {
 		return C.CString(err.Error())
 	}
+	cfg.General.IPv6 = enableIPV6
 	executor.ApplyConfig(cfg, false)
 	return C.CString("success")
 }

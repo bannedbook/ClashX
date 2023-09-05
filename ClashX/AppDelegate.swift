@@ -506,6 +506,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
         let startRes = run(Settings.builtInApiMode.goObject(),
                            ConfigManager.allowConnectFromLan.goObject(),
+                           Settings.enableIPV6.goObject(),
                            GoUint32(Settings.proxyPort),
                            apiAddr.goStringBuffer())?
             .toString() ?? ""

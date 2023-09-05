@@ -208,8 +208,8 @@
 /* Class = "NSButtonCell"; title = "Allow control from lan"; ObjectID = "E8B-e5-K0A"; */
 "E8B-e5-K0A.title" = "允许局域网控制(不推荐)";
 
-/* Class = "NSBox"; title = "Port Settings (restart app to take effect)"; ObjectID = "bcR-rG-52F"; */
-"bcR-rG-52F.title" = "端口设置(重启应用生效)";
+/* Class = "NSBox"; title = "Clash Settings (restart app to take effect)"; ObjectID = "bcR-rG-52F"; */
+"bcR-rG-52F.title" = "Clash设置(重启应用生效)";
 
 /* Class = "NSTextFieldCell"; title = "Api Port:"; ObjectID = "mbn-tK-UQa"; */
 "mbn-tK-UQa.title" = "Api 端口";
@@ -234,9 +234,6 @@
 
 /* Class = "NSBox"; title = "Debug Setting"; ObjectID = "NLT-FZ-48V"; */
 "NLT-FZ-48V.title" = "调试设置";
-
-/* Class = "NSButtonCell"; title = "Use SwiftUI to render status bar icon. (MacOS 13+)"; ObjectID = "eY9-1i-i7P"; */
-"eY9-1i-i7P.title" = "使用 SwiftUI 进行菜单栏图标渲染 (MacOS 13+)";
 
 /* Class = "NSViewController"; title = "Debug"; ObjectID = "kdV-Em-qBi"; */
 "kdV-Em-qBi.title" = "调试";
@@ -312,3 +309,6 @@
 
 /* Class = "NSMenuItem"; title = "Update external resources"; ObjectID = "9g1-lW-mA8"; */
 "9g1-lW-mA8.title" = "更新外部资源";
+
+/* Class = "NSButtonCell"; title = "Enable IPv6"; ObjectID = "KRm-2U-T4s"; */
+"KRm-2U-T4s.title" = "启用IPv6";

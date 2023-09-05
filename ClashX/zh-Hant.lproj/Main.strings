@@ -196,17 +196,14 @@
 /* Class = "NSButtonCell"; title = "Open Log Folder"; ObjectID = "afj-4G-usr"; */
 "afj-4G-usr.title" = "打開日誌文件夾";
 
-/* Class = "NSBox"; title = "Port Settings (restart app to take effect)"; ObjectID = "bcR-rG-52F"; */
-"bcR-rG-52F.title" = "端口設定";
+/* Class = "NSBox"; title = "Clash Settings (restart app to take effect)"; ObjectID = "bcR-rG-52F"; */
+"bcR-rG-52F.title" = "Clash設定";
 
 /* Class = "NSTextFieldCell"; title = "Log"; ObjectID = "c01-0L-1SQ"; */
 "c01-0L-1SQ.title" = "日誌";
 
 /* Class = "NSButtonCell"; title = "Launch at login"; ObjectID = "dV6-4Z-2SO"; */
 "dV6-4Z-2SO.title" = "登錄時啟動";
-
-/* Class = "NSButtonCell"; title = "Use SwiftUI to render status bar icon. (MacOS 13+)"; ObjectID = "eY9-1i-i7P"; */
-"eY9-1i-i7P.title" = "使用 SwiftUI 渲染狀態欄圖標";
 
 /* Class = "NSMenuItem"; title = "Set update interval"; ObjectID = "h1H-7k-9HS"; */
 "h1H-7k-9HS.title" = "設定更新間隔";
@@ -312,3 +309,6 @@
 
 /* Class = "NSMenuItem"; title = "Update external resources"; ObjectID = "9g1-lW-mA8"; */
 "9g1-lW-mA8.title" = "更新外部資源";
+
+/* Class = "NSButtonCell"; title = "Enable IPv6"; ObjectID = "KRm-2U-T4s"; */
+"KRm-2U-T4s.title" = "啟用IPv6";

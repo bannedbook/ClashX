@@ -48,8 +48,8 @@ enum Settings {
     @UserDefault("disableSSIDList", defaultValue: [])
     static var disableSSIDList: [String]
 
-    @UserDefault("useSwiftUiMenuBar", defaultValue: true)
-    static var useSwiftUiMenuBar: Bool
+    @UserDefault("enableIPV6", defaultValue: false)
+    static var enableIPV6: Bool
 
     static let apiSecretKey = "api-secret"
 
