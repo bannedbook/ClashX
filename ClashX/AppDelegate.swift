@@ -77,6 +77,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         statusItemView = StatusItemView.create(statusItem: statusItem)
         statusItemView.updateSize(width: statusItemLengthWithSpeed)
         statusMenu.delegate = self
+        setupStatusMenuItemData()
         DispatchQueue.main.async {
             self.postFinishLaunching()
         }
@@ -95,7 +96,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             self.dashboardMenuItem.isHidden = true
             self.connectionsMenuItem.isHidden = true
         }
-        setupStatusMenuItemData()
         AppVersionUtil.showUpgradeAlert()
         ICloudManager.shared.setup()
 
@@ -264,16 +264,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             }.disposed(by: disposeBag)
 
         statusItemView.updateViewStatus(enableProxy: ConfigManager.shared.proxyPortAutoSet)
-
-        LaunchAtLogin.shared
-            .isEnableVirable
-            .asObservable()
-            .subscribe(onNext: { [weak self] enable in
-                guard let self = self else { return }
-                self.autoStartMenuItem.state = enable ? .on : .off
-            }).disposed(by: disposeBag)
-
-        remoteConfigAutoupdateMenuItem.state = RemoteConfigManager.autoUpdateEnable ? .on : .off
     }
 
     func setupData() {
@@ -354,6 +344,16 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         } else if ConfigManager.shared.proxyPortAutoSet {
             SystemProxyManager.shared.enableProxy()
         }
+
+        LaunchAtLogin.shared
+            .isEnableVirable
+            .asObservable()
+            .subscribe(onNext: { [weak self] enable in
+                guard let self = self else { return }
+                self.autoStartMenuItem.state = enable ? .on : .off
+            }).disposed(by: disposeBag)
+
+        remoteConfigAutoupdateMenuItem.state = RemoteConfigManager.autoUpdateEnable ? .on : .off
 
         if !PrivilegedHelperManager.shared.isHelperCheckFinished.value {
             proxySettingMenuItem.target = nil

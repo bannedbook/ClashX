@@ -45,8 +45,8 @@ class StatusItemView: NSView, StatusItemViewProtocol {
         uploadSpeedLabel.font = StatusItemTool.font
         downloadSpeedLabel.font = StatusItemTool.font
 
-        uploadSpeedLabel.textColor = NSColor.black
-        downloadSpeedLabel.textColor = NSColor.black
+        uploadSpeedLabel.textColor = NSColor.labelColor
+        downloadSpeedLabel.textColor = NSColor.labelColor
     }
 
     func updateSize(width: CGFloat) {
@@ -55,10 +55,9 @@ class StatusItemView: NSView, StatusItemViewProtocol {
 
     func updateViewStatus(enableProxy: Bool) {
         if enableProxy {
-            imageView.contentTintColor = NSColor.black
+            imageView.contentTintColor = NSColor.labelColor
         } else {
-            // withSystemEffect(.disabled) is 0.5
-            imageView.contentTintColor = NSColor.black.withAlphaComponent(0.25)
+            imageView.contentTintColor = NSColor.labelColor.withSystemEffect(.disabled)
         }
     }
 
