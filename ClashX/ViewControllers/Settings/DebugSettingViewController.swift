@@ -10,17 +10,12 @@ import AppKit
 import RxSwift
 
 class DebugSettingViewController: NSViewController {
-    @IBOutlet weak var swiftuiMenuBarButton: NSButton!
     @IBOutlet weak var useBuiltinApiButton: NSButton!
     @IBOutlet weak var revertProxyButton: NSButton!
     @IBOutlet weak var updateChannelPopButton: NSPopUpButton!
     var disposeBag = DisposeBag()
     override func viewDidLoad() {
         super.viewDidLoad()
-        swiftuiMenuBarButton.state = Settings.useSwiftUiMenuBar ? .on : .off
-        swiftuiMenuBarButton.rx.state.bind { state in
-            Settings.useSwiftUiMenuBar = state == .on
-        }.disposed(by: disposeBag)
         useBuiltinApiButton.state = Settings.builtInApiMode ? .on:.off
         revertProxyButton.state = Settings.disableRestoreProxy ? .off : .on
         AutoUpgardeManager.shared.addChannelMenuItem(updateChannelPopButton)

@@ -18,14 +18,23 @@ class StatusItemView: NSView, StatusItemViewProtocol {
     @IBOutlet var downloadSpeedLabel: NSTextField!
     @IBOutlet var speedContainerView: NSView!
 
-    weak var statusItem: NSStatusItem?
+    var up:Int = 0
+    var down: Int = 0
 
     static func create(statusItem: NSStatusItem?) -> StatusItemView {
         var topLevelObjects: NSArray?
         if Bundle.main.loadNibNamed("StatusItemView", owner: self, topLevelObjects: &topLevelObjects) {
             let view = (topLevelObjects!.first(where: { $0 is NSView }) as? StatusItemView)!
-            view.statusItem = statusItem
             view.setupView()
+            view.imageView.image = StatusItemTool.menuImage
+
+            if let button = statusItem?.button {
+                button.addSubview(view)
+                button.imagePosition = .imageOverlaps
+            } else {
+                Logger.log("button = nil")
+                AppDelegate.shared.openConfigFolder(self)
+            }
             return view
         }
         return NSView() as! StatusItemView
@@ -44,45 +53,27 @@ class StatusItemView: NSView, StatusItemViewProtocol {
     }
 
     func updateViewStatus(enableProxy: Bool) {
-        let selectedColor = NSColor.red
-        let unselectedColor = selectedColor.withSystemEffect(.disabled)
-        imageView.image = StatusItemTool.menuImage.tint(color: enableProxy ? selectedColor : unselectedColor)
-        updateStatusItemView()
+        if enableProxy {
+            imageView.contentTintColor = NSColor.black
+        } else {
+            // withSystemEffect(.disabled) is 0.5
+            imageView.contentTintColor = NSColor.black.withAlphaComponent(0.25)
+        }
     }
 
     func updateSpeedLabel(up: Int, down: Int) {
         guard !speedContainerView.isHidden else { return }
-        let finalUpStr = SpeedUtils.getSpeedString(for: up)
-        let finalDownStr = SpeedUtils.getSpeedString(for: down)
-
-        if downloadSpeedLabel.stringValue == finalDownStr && uploadSpeedLabel.stringValue == finalUpStr {
-            return
+        if up != self.up {
+            uploadSpeedLabel.stringValue = SpeedUtils.getSpeedString(for: up)
+            self.up = up
         }
-        downloadSpeedLabel.stringValue = finalDownStr
-        uploadSpeedLabel.stringValue = finalUpStr
-        updateStatusItemView()
+        if down != self.down {
+            downloadSpeedLabel.stringValue = SpeedUtils.getSpeedString(for: down)
+            self.down = down
+        }
     }
 
     func showSpeedContainer(show: Bool) {
         speedContainerView.isHidden = !show
-        updateStatusItemView()
-    }
-
-    func updateStatusItemView() {
-        statusItem?.updateImage(withView: self)
-    }
-}
-
-extension NSStatusItem {
-    func updateImage(withView view: NSView) {
-        if let rep = view.bitmapImageRepForCachingDisplay(in: view.bounds) {
-            view.cacheDisplay(in: view.bounds, to: rep)
-            let img = NSImage(size: view.bounds.size)
-            img.addRepresentation(rep)
-            img.isTemplate = true
-            button?.image = img
-        } else {
-            Logger.log("generate status menu icon fail", level: .error)
-        }
     }
 }
