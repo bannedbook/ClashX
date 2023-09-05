@@ -35,6 +35,7 @@ class StatusItemView: NSView, StatusItemViewProtocol {
                 Logger.log("button = nil")
                 AppDelegate.shared.openConfigFolder(self)
             }
+            view.updateViewStatus(enableProxy: false)
             return view
         }
         return NSView() as! StatusItemView
