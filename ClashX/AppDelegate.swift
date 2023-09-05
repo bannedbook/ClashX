@@ -754,6 +754,10 @@ extension AppDelegate {
         }
     }
 
+    @IBAction func actionUpdateExternalResource(_ sender: Any) {
+        UpdateExternalResourceAction.run()
+    }
+
     @IBAction func actionQuit(_ sender: Any) {
         NSApplication.shared.terminate(self)
     }

@@ -104,6 +104,9 @@
 "Fail:" = "失敗：";
 
 /* No comment provided by engineer. */
+"fails: %@" = "失敗: %@";
+
+/* No comment provided by engineer. */
 "Global" = "全局";
 
 /* No comment provided by engineer. */
@@ -260,10 +263,16 @@
 "This version of ClashX contains a break change due to clash core 1.0 released. Check if your config is not working properly." = "此版本的 ClashX 包含因 clash core 1.0 發布而導致的中斷更改。請檢查您的配置是否無法正常工作";
 
 /* No comment provided by engineer. */
+"total: %d, success: %d" = "共計: %d, 成功: %d";
+
+/* No comment provided by engineer. */
 "Type" = "類型";
 
 /* No comment provided by engineer. */
 "Unknown" = "未知";
+
+/* No comment provided by engineer. */
+"Update external resource complete" = "更新外部資源完成";
 
 /* No comment provided by engineer. */
 "Update GEOIP Database" = "更新 GEOIP 數據庫";

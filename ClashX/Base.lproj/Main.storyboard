@@ -799,6 +799,12 @@
                                             <action selector="actionUpdateConfig:" target="Voe-Tx-rLC" id="oW5-Ll-SY8"/>
                                         </connections>
                                     </menuItem>
+                                    <menuItem title="Update external resources" keyEquivalent="U" id="9g1-lW-mA8">
+                                        <modifierMask key="keyEquivalentModifierMask" shift="YES" command="YES"/>
+                                        <connections>
+                                            <action selector="actionUpdateExternalResource:" target="Voe-Tx-rLC" id="wYg-KO-78x"/>
+                                        </connections>
+                                    </menuItem>
                                     <menuItem title="Remote config" id="h1C-R6-Y9w">
                                         <modifierMask key="keyEquivalentModifierMask"/>
                                         <menu key="submenu" title="Remote config" id="az2-wz-yyy">
@@ -828,9 +834,9 @@
                                             </items>
                                         </menu>
                                     </menuItem>
-                                    <menuItem title="Remote Controller" id="BRR-WK-aeP">
+                                    <menuItem title="Remote controller" id="BRR-WK-aeP">
                                         <modifierMask key="keyEquivalentModifierMask"/>
-                                        <menu key="submenu" title="Remote Controller" id="1He-Eq-fSy">
+                                        <menu key="submenu" title="Remote controller" id="1He-Eq-fSy">
                                             <items>
                                                 <menuItem isSeparatorItem="YES" id="tXn-AQ-OT3"/>
                                                 <menuItem title=" Manage" id="hlb-KQ-Fdr">

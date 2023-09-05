@@ -321,6 +321,78 @@ extension ApiRequest {
             req("/connections", method: .delete).response { _ in }
         }
     }
+
+    // MARK: - Providers
+
+    struct AllProviders {
+        var proxies = [String]()
+        var rules = [String]()
+    }
+
+    static func requestExternalProviderNames(completeHandler: @escaping (AllProviders) -> Void) {
+        var providers = AllProviders()
+        let group = DispatchGroup()
+        group.enter()
+        ApiRequest.req("/providers/proxies").responseData { resp in
+            switch resp.result {
+            case let .success(res):
+                let json = JSON(res)
+                let provoders = json["providers"].dictionaryValue
+                    .filter({ $0.value["vehicleType"] == "HTTP" }).map { $0.key }
+                providers.proxies = provoders
+            case let .failure(err):
+                Logger.log(err.localizedDescription, level: .warning)
+            }
+            group.leave()
+        }
+
+        #if PRO_VERSION
+        group.enter()
+        ApiRequest.req("/providers/rules").responseData { resp in
+            switch resp.result {
+            case let .success(res):
+                let json = JSON(res)
+                let provoders = json["providers"].dictionaryValue
+                    .filter({ $0.value["vehicleType"] == "HTTP" }).map { $0.key }
+                providers.rules = provoders
+            case let .failure(err):
+                Logger.log(err.localizedDescription, level: .warning)
+            }
+            group.leave()
+        }
+        #endif
+        group.notify(queue: .main) {
+            completeHandler(providers)
+        }
+    }
+
+    enum ProviderType {
+        case proxy
+        case rule
+    }
+
+    static func updateProvider(name: String, type: ProviderType, completeHandler: @escaping (Bool) -> Void) {
+        let url: String
+        switch type {
+        case .proxy:
+            url = "/providers/proxies/\(name.encoded)"
+        case .rule:
+            url = "/providers/rules/\(name.encoded)"
+        }
+        ApiRequest.req(url, method: .put).response { resp in
+            if resp.response?.statusCode == 204 {
+                completeHandler(true)
+            } else {
+                completeHandler(false)
+            }
+        }
+    }
+
+    static func resetFakeIpCache() {
+        ApiRequest.req("/cache/fakeip/flush", method: .post).response { resp in
+            Logger.log("flush fake ip: \(resp.response?.statusCode ?? -1)")
+        }
+    }
 }
 
 // MARK: - Stream Apis

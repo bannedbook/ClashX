@@ -73,7 +73,7 @@
 /* Class = "NSMenuItem"; title = "Copy shell command"; ObjectID = "Jmb-PK-rMW"; */
 "Jmb-PK-rMW.title" = "复制终端代理命令";
 
-/* Class = "NSMenuItem"; title = "Config"; ObjectID = "JMV-Dy-CI0"; */
+/* Class = "NSMenuItem"; title = "Configs"; ObjectID = "JMV-Dy-CI0"; */
 "JMV-Dy-CI0.title" = "配置";
 
 /* Class = "NSMenuItem"; title = "WARNING"; ObjectID = "ko2-Ir-DxA"; */
@@ -103,7 +103,7 @@
 /* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "RCv-zz-HKW"; */
 "RCv-zz-HKW.title" = "Text Cell";
 
-/* Class = "NSMenu"; title = "Config"; ObjectID = "tck-zU-JKQ"; */
+/* Class = "NSMenu"; title = "Configs"; ObjectID = "tck-zU-JKQ"; */
 "tck-zU-JKQ.title" = "配置";
 
 /* Class = "NSTextFieldCell"; title = "Configs"; ObjectID = "tL1-bl-LXd"; */
@@ -163,10 +163,10 @@
 /* Class = "NSTableColumn"; headerCell.title = "Api Url"; ObjectID = "yO6-uZ-IRv"; */
 "yO6-uZ-IRv.headerCell.title" = "Api Url";
 
-/* Class = "NSMenu"; title = "Remote Controller"; ObjectID = "1He-Eq-fSy"; */
+/* Class = "NSMenu"; title = "Remote controller"; ObjectID = "1He-Eq-fSy"; */
 "1He-Eq-fSy.title" = "远程控制器";
 
-/* Class = "NSMenuItem"; title = "Remote Controller"; ObjectID = "BRR-WK-aeP"; */
+/* Class = "NSMenuItem"; title = "Remote controller"; ObjectID = "BRR-WK-aeP"; */
 "BRR-WK-aeP.title" = "远程控制器";
 
 /* Class = "NSMenuItem"; title = " Manage"; ObjectID = "hlb-KQ-Fdr"; */
@@ -309,3 +309,6 @@
 
 /* Class = "NSButtonCell"; title = "Update"; ObjectID = "pHl-C4-fNt"; */
 "pHl-C4-fNt.title" = "更新";
+
+/* Class = "NSMenuItem"; title = "Update external resources"; ObjectID = "9g1-lW-mA8"; */
+"9g1-lW-mA8.title" = "更新外部资源";
