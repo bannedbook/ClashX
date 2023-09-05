@@ -29,15 +29,15 @@ class Logger {
     private func logToFile(msg: String, level: ClashLogLevel) {
         switch level {
         case .debug, .silent:
-            DDLogDebug(msg)
+            DDLogDebug(DDLogMessageFormat(stringLiteral: msg))
         case .error:
-            DDLogError(msg)
+            DDLogError(DDLogMessageFormat(stringLiteral: msg))
         case .info:
-            DDLogInfo(msg)
+            DDLogInfo(DDLogMessageFormat(stringLiteral: msg))
         case .warning:
-            DDLogWarn(msg)
+            DDLogWarn(DDLogMessageFormat(stringLiteral: msg))
         case .unknow:
-            DDLogWarn(msg)
+            DDLogWarn(DDLogMessageFormat(stringLiteral: msg))
         }
     }
 
