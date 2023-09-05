@@ -32,5 +32,6 @@ target 'ClashX' do
   pod "FlexibleDiff"
   pod 'GzipSwift'
   pod 'SwiftLint'
+  pod 'SwiftFormat/CLI', '~> 0.49'
 end
 
