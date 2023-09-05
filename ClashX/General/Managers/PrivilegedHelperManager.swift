@@ -19,8 +19,11 @@ class PrivilegedHelperManager {
     private var authRef: AuthorizationRef?
     private var connection: NSXPCConnection?
     private var _helper: ProxyConfigRemoteProcessProtocol?
-    static let machServiceName = "com.west2online.ClashX.ProxyConfigHelper"
-
+    #if PRO_VERSION
+        static let machServiceName = "com.west2online.ClashXPro.ProxyConfigHelper"
+    #else
+        static let machServiceName = "com.west2online.ClashX.ProxyConfigHelper"
+    #endif
     static let shared = PrivilegedHelperManager()
     init() {
         initAuthorizationRef()

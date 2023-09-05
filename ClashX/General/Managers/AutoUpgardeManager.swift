@@ -16,7 +16,11 @@ class AutoUpgardeManager: NSObject {
     private var current: Channel = {
         if let value = UserDefaults.standard.object(forKey: "AutoUpgardeManager.current") as? Int,
            let channel = Channel(rawValue: value) { return channel }
-        return .stable
+        #if PRO_VERSION
+            return .appcenter
+        #else
+            return .stable
+        #endif
     }() {
         didSet {
             UserDefaults.standard.set(current.rawValue, forKey: "AutoUpgardeManager.current")
@@ -70,8 +74,10 @@ extension AutoUpgardeManager: SPUUpdaterDelegate {
 
 extension AutoUpgardeManager {
     enum Channel: Int, CaseIterable {
-        case stable
-        case prelease
+        #if !PRO_VERSION
+            case stable
+            case prelease
+        #endif
         case appcenter
     }
 }
@@ -79,10 +85,12 @@ extension AutoUpgardeManager {
 extension AutoUpgardeManager.Channel {
     var title: String {
         switch self {
-        case .stable:
-            return NSLocalizedString("Stable", comment: "")
-        case .prelease:
-            return NSLocalizedString("Prelease", comment: "")
+        #if !PRO_VERSION
+            case .stable:
+                return NSLocalizedString("Stable", comment: "")
+            case .prelease:
+                return NSLocalizedString("Prelease", comment: "")
+        #endif
         case .appcenter:
             return "Appcenter"
         }
@@ -90,12 +98,18 @@ extension AutoUpgardeManager.Channel {
 
     var urlString: String {
         switch self {
-        case .stable:
-            return "https://yichengchen.github.io/clashX/appcast.xml"
-        case .prelease:
-            return "https://yichengchen.github.io/clashX/appcast_pre.xml"
+        #if !PRO_VERSION
+            case .stable:
+                return "https://yichengchen.github.io/clashX/appcast.xml"
+            case .prelease:
+                return "https://yichengchen.github.io/clashX/appcast_pre.xml"
+        #endif
         case .appcenter:
-            return "https://api.appcenter.ms/v0.1/public/sparkle/apps/dce6e9a3-b6e3-4fd2-9f2d-35c767a99663"
+            #if PRO_VERSION
+                return "https://api.appcenter.ms/v0.1/public/sparkle/apps/1cd052f7-e118-4d13-87fb-35176f9702c1"
+            #else
+                return "https://api.appcenter.ms/v0.1/public/sparkle/apps/dce6e9a3-b6e3-4fd2-9f2d-35c767a99663"
+            #endif
         }
     }
 }

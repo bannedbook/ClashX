@@ -31,6 +31,10 @@ import Foundation
             menuItem = delegate.proxyModeGlobalMenuItem
         case .direct:
             menuItem = delegate.proxyModeDirectMenuItem
+        #if PRO_VERSION
+            case .script:
+                menuItem = delegate.proxyModeScriptMenuItem
+        #endif
         }
         delegate.actionSwitchProxyMode(menuItem)
         return nil

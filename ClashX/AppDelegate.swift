@@ -59,6 +59,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     func applicationWillFinishLaunching(_ notification: Notification) {
         Logger.log("applicationWillFinishLaunching")
         signal(SIGPIPE, SIG_IGN)
+        // crash recorder
         failLaunchProtect()
         NSAppleEventManager.shared()
             .setEventHandler(self,
@@ -85,7 +86,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         Logger.log("postFinishLaunching")
         defer {
             statusItem.menu = statusMenu
-            DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 8) {
                 self.checkMenuIconVisable()
             }
         }
@@ -103,7 +104,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
         AutoUpgardeManager.shared.setup()
         AutoUpgardeManager.shared.setupCheckForUpdatesMenuItem(checkForUpdateMenuItem)
-
         // install proxy helper
         _ = ClashResourceManager.check()
         PrivilegedHelperManager.shared.checkInstall()
@@ -307,6 +307,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             .asObservable()
         Observable.zip(configObservable, configObservable.skip(1))
             .filter { _, new in return new != nil }
+            .observe(on: MainScheduler.instance)
             .bind { [weak self] old, config in
                 guard let self = self, let config = config else { return }
                 self.proxyModeDirectMenuItem.state = .off
