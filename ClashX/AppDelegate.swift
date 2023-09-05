@@ -509,10 +509,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 completeHandler?(err)
             }
 
-            if let error = err {
-                NSUserNotificationCenter.default
-                    .postNotificationAlert(title: NSLocalizedString("Reload Config Fail", comment: ""),
-                                           info: error)
+            if let err {
+                UpdateConfigAction.showError(text: err, configName: config)
             } else {
                 self.syncConfig()
                 self.resetStreamApi()

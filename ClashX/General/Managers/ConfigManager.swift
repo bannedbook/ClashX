@@ -145,6 +145,21 @@ class ConfigManager {
             UserDefaults.standard.set(newValue.rawValue, forKey: "selectLoggingApiLevel")
         }
     }
+
+    static func getConfigPath(configName: String, complete: ((String) -> Void)? = nil) {
+        if ICloudManager.shared.useiCloud.value {
+            ICloudManager.shared.getUrl { url in
+                guard let url = url else {
+                    return
+                }
+                let configPath = url.appendingPathComponent(Paths.configFileName(for: configName)).path
+                complete?(configPath)
+            }
+        } else {
+            let filePath = Paths.localConfigPath(for: configName)
+            complete?(filePath)
+        }
+    }
 }
 
 extension ConfigManager {
