@@ -10,11 +10,11 @@ import Foundation
 import Starscream
 
 @available(macOS 10.15, *)
-class ConnectionsReq:WebSocketDelegate {
-    private var socket:WebSocket?
+class ConnectionsReq: WebSocketDelegate {
+    private var socket: WebSocket?
 
     let decoder = JSONDecoder()
-    var onSnapshotUpdate:((ClashConnectionSnapShot) -> Void)?
+    var onSnapshotUpdate: ((ClashConnectionSnapShot) -> Void)?
     init() {
         if let url = URL(string: ConfigManager.apiUrl.appending("/connections")) {
             socket = WebSocket(url: url)
@@ -47,7 +47,6 @@ class ConnectionsReq:WebSocketDelegate {
 
     func websocketDidDisconnect(socket: Starscream.WebSocketClient, error: Error?) {
         Logger.log("websocketDidDisconnect: \(String(describing: error))", level: .warning)
-
     }
 
     func websocketDidReceiveData(socket: Starscream.WebSocketClient, data: Data) {}

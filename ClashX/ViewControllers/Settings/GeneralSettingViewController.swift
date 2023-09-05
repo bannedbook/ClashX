@@ -11,21 +11,21 @@ import RxSwift
 
 class GeneralSettingViewController: NSViewController {
     @IBOutlet var ignoreListTextView: NSTextView!
-    @IBOutlet weak var launchAtLoginButton: NSButton!
+    @IBOutlet var launchAtLoginButton: NSButton!
 
-    @IBOutlet weak var reduceNotificationsButton: NSButton!
-    @IBOutlet weak var useiCloudButton: NSButton!
+    @IBOutlet var reduceNotificationsButton: NSButton!
+    @IBOutlet var useiCloudButton: NSButton!
 
-    @IBOutlet weak var allowApiLanUsageSwitcher: NSButton!
-    @IBOutlet weak var proxyPortTextField: NSTextField!
-    @IBOutlet weak var apiPortTextField: NSTextField!
+    @IBOutlet var allowApiLanUsageSwitcher: NSButton!
+    @IBOutlet var proxyPortTextField: NSTextField!
+    @IBOutlet var apiPortTextField: NSTextField!
     @IBOutlet var ssidSuspendTextField: NSTextView!
 
-    @IBOutlet weak var apiSecretTextField: NSTextField!
+    @IBOutlet var apiSecretTextField: NSTextField!
 
-    @IBOutlet weak var apiSecretOverrideButton: NSButton!
+    @IBOutlet var apiSecretOverrideButton: NSButton!
 
-    @IBOutlet weak var speedTestUrlField: NSTextField!
+    @IBOutlet var speedTestUrlField: NSTextField!
 
     var disposeBag = DisposeBag()
     override func viewDidLoad() {
@@ -35,7 +35,7 @@ class GeneralSettingViewController: NSViewController {
         ignoreListTextView.string = Settings.proxyIgnoreList.joined(separator: ",")
         ignoreListTextView.rx
             .string.debounce(.milliseconds(500), scheduler: MainScheduler.instance)
-            .map { $0.components(separatedBy: ",").filter {!$0.isEmpty} }
+            .map { $0.components(separatedBy: ",").filter { !$0.isEmpty } }
             .subscribe { arr in
                 Settings.proxyIgnoreList = arr
             }.disposed(by: disposeBag)
@@ -43,7 +43,7 @@ class GeneralSettingViewController: NSViewController {
         ssidSuspendTextField.string = Settings.disableSSIDList.joined(separator: ",")
         ssidSuspendTextField.rx
             .string.debounce(.milliseconds(500), scheduler: MainScheduler.instance)
-            .map { $0.components(separatedBy: ",").filter {!$0.isEmpty} }
+            .map { $0.components(separatedBy: ",").filter { !$0.isEmpty } }
             .subscribe { arr in
                 Settings.disableSSIDList = arr
                 SSIDSuspendTool.shared.update()
@@ -53,7 +53,7 @@ class GeneralSettingViewController: NSViewController {
             .map { $0 ? .on : .off }
             .bind(to: launchAtLoginButton.rx.state)
             .disposed(by: disposeBag)
-        launchAtLoginButton.rx.state.map({$0 == .on}).subscribe {
+        launchAtLoginButton.rx.state.map { $0 == .on }.subscribe {
             LaunchAtLogin.shared.isEnabled = $0
         }.disposed(by: disposeBag)
 
@@ -61,12 +61,12 @@ class GeneralSettingViewController: NSViewController {
             .map { $0 ? .on : .off }
             .bind(to: useiCloudButton.rx.state)
             .disposed(by: disposeBag)
-        useiCloudButton.rx.state.map({$0 == .on}).subscribe {
+        useiCloudButton.rx.state.map { $0 == .on }.subscribe {
             ICloudManager.shared.userEnableiCloud = $0
         }.disposed(by: disposeBag)
         reduceNotificationsButton.toolTip = NSLocalizedString("Reduce alerts if notification permission is disabled", comment: "")
         reduceNotificationsButton.state = Settings.disableNoti ? .on : .off
-        reduceNotificationsButton.rx.state.map {$0 == .on }.subscribe {
+        reduceNotificationsButton.rx.state.map { $0 == .on }.subscribe {
             Settings.disableNoti = $0
         }.disposed(by: disposeBag)
 
@@ -82,7 +82,7 @@ class GeneralSettingViewController: NSViewController {
         }
 
         apiSecretTextField.stringValue = Settings.apiSecret
-        apiSecretTextField.rx.text.compactMap {$0}.bind {
+        apiSecretTextField.rx.text.compactMap { $0 }.bind {
             Settings.apiSecret = $0
         }.disposed(by: disposeBag)
 
@@ -92,15 +92,15 @@ class GeneralSettingViewController: NSViewController {
         }.disposed(by: disposeBag)
 
         proxyPortTextField.rx.text
-            .compactMap {$0}
-            .compactMap {Int($0)}
+            .compactMap { $0 }
+            .compactMap { Int($0) }
             .bind {
                 Settings.proxyPort = $0
             }.disposed(by: disposeBag)
 
         apiPortTextField.rx.text
-            .compactMap {$0}
-            .compactMap {Int($0)}
+            .compactMap { $0 }
+            .compactMap { Int($0) }
             .bind {
                 Settings.apiPort = $0
             }.disposed(by: disposeBag)

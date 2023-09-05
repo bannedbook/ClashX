@@ -75,7 +75,7 @@ class ConnectionsViewController: NSViewController {
             topViewModel?.applicationFilter = $0
         }
 
-        viewModel.$showBottomView.removeDuplicates().sink {  [weak self] show in
+        viewModel.$showBottomView.removeDuplicates().sink { [weak self] show in
             guard let self else { return }
             if show {
                 view.addSubview(detailView)
@@ -92,7 +92,6 @@ class ConnectionsViewController: NSViewController {
                 topViewBottomConstraint?.isActive = true
             }
         }.store(in: &disposeBag)
-
     }
 
     private func setupAllConnViewModel() {
@@ -100,19 +99,19 @@ class ConnectionsViewController: NSViewController {
             topViewModel?.connectionDidUpdate()
         }.store(in: &modeCancellable)
 
-        viewModel.$connections.map {Array($0.values)}.sink { [weak self] in
+        viewModel.$connections.map { Array($0.values) }.sink { [weak self] in
             self?.topViewModel.accept(connections: $0)
         }.store(in: &modeCancellable)
 
-        viewModel.$applicationMap.map {Array($0.values)}.sink { [weak self] in
+        viewModel.$applicationMap.map { Array($0.values) }.sink { [weak self] in
             self?.leftViewModel.accept(connections: $0)
         }.store(in: &modeCancellable)
 
-        viewModel.$sourceIPs.map {Array($0)}.sink { [weak self] in
+        viewModel.$sourceIPs.map { Array($0) }.sink { [weak self] in
             self?.leftViewModel.accept(sources: $0)
         }.store(in: &modeCancellable)
 
-        viewModel.$hosts.map {Array($0)}.sink { [weak self] in
+        viewModel.$hosts.map { Array($0) }.sink { [weak self] in
             self?.leftViewModel.accept(hosts: $0)
         }.store(in: &modeCancellable)
     }
@@ -126,7 +125,7 @@ class ConnectionsViewController: NSViewController {
         viewModel.connectionDataDidRefresh.send()
     }
 
-    func setActiveMode(enable:Bool) {
+    func setActiveMode(enable: Bool) {
         modeCancellable.removeAll()
         viewModel.activeOnlyMode = enable
         if viewModel.activeOnlyMode {
@@ -138,26 +137,27 @@ class ConnectionsViewController: NSViewController {
 }
 
 @available(macOS 10.15, *)
-extension ConnectionsViewController:DashboardSubViewControllerProtocol {
+extension ConnectionsViewController: DashboardSubViewControllerProtocol {
     func actionSearch(string: String) {
         topViewModel.textFilter = string
     }
 }
 
 class ConnectionsViewControllerBaseView: NSView {
-    var leftWidthConstraint:NSLayoutConstraint?
+    var leftWidthConstraint: NSLayoutConstraint?
     enum DragType {
         case none
         case leftPannel
     }
 
     var dragType = DragType.none
-    let dragSize:CGFloat = 5.0
+    let dragSize: CGFloat = 5.0
 
     override init(frame frameRect: NSRect) {
         super.init(frame: frameRect)
     }
 
+    @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -168,9 +168,10 @@ class ConnectionsViewControllerBaseView: NSView {
         }
         return self
     }
+
     override func updateTrackingAreas() {
         super.updateTrackingAreas()
-        trackingAreas.forEach({ removeTrackingArea($0) })
+        trackingAreas.forEach { removeTrackingArea($0) }
         addTrackingArea(NSTrackingArea(rect: bounds,
                                        options: [.mouseMoved,
                                                  .mouseEnteredAndExited,
@@ -216,5 +217,4 @@ class ConnectionsViewControllerBaseView: NSView {
         dragType = .none
         NSCursor.arrow.set()
     }
-
 }

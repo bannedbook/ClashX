@@ -1,5 +1,5 @@
 //
-//  ColumeType.swift
+//  ConnectionColume.swift
 //  ClashX
 //
 //  Created by yicheng on 2023/7/6.
@@ -7,13 +7,13 @@
 //
 
 enum ConnectionFilter {
-    case application(path:String)
-    case source(ip:String)
-    case hosts(name:String)
+    case application(path: String)
+    case source(ip: String)
+    case hosts(name: String)
 }
 
 @available(macOS 10.15, *)
-enum ConnectionColume:String, CaseIterable {
+enum ConnectionColume: String, CaseIterable {
     case statusIcon
     case process
     case status
@@ -26,7 +26,7 @@ enum ConnectionColume:String, CaseIterable {
     case download
     case type
 
-    var columeTitle:String {
+    var columeTitle: String {
         switch self {
         case .statusIcon: return ""
         case .process: return NSLocalizedString("Client", comment: "")
@@ -53,7 +53,7 @@ enum ConnectionColume:String, CaseIterable {
         case .download: return "download"
         case .currentUpload: return "uploadSpeed"
         case .currentDownload: return "downloadSpeed"
-        case .type:return "metadata.network"
+        case .type: return "metadata.network"
         }
     }
 
@@ -61,27 +61,26 @@ enum ConnectionColume:String, CaseIterable {
         return keypath == "upload" || keypath == "download" || keypath == "uploadSpeed" || keypath == "downloadSpeed" || keypath == "done"
     }
 
-    var minWidth:CGFloat {
+    var minWidth: CGFloat {
         switch self {
         case .statusIcon: return 16
         case .status: return 30
-        default:return 60
+        default: return 60
         }
     }
 
-    var width:CGFloat {
+    var width: CGFloat {
         switch self {
         case .upload, .download, .currentUpload, .currentDownload: return 80
         case .status: return 50
-        default:return 100
+        default: return 100
         }
     }
 
-    var maxWidth:CGFloat {
+    var maxWidth: CGFloat {
         switch self {
         case .statusIcon: return 16
-        default:return CGFloat.greatestFiniteMagnitude
+        default: return CGFloat.greatestFiniteMagnitude
         }
     }
-
 }

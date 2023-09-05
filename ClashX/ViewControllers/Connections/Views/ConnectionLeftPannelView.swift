@@ -8,7 +8,7 @@
 
 import AppKit
 
-fileprivate extension NSUserInterfaceItemIdentifier {
+private extension NSUserInterfaceItemIdentifier {
     static let mainColumn = NSUserInterfaceItemIdentifier("mainColumn")
     static let localApplication = NSUserInterfaceItemIdentifier("localApplication")
     static let remoteApplication = NSUserInterfaceItemIdentifier("remoteApplication")
@@ -18,7 +18,7 @@ fileprivate extension NSUserInterfaceItemIdentifier {
 
 @available(macOS 10.15, *)
 class ConnectionLeftPannelView: NSView {
-    let viewModel:ConnectionLeftPannelViewModel
+    let viewModel: ConnectionLeftPannelViewModel
     let columnIdentifier = NSUserInterfaceItemIdentifier(rawValue: "column")
     let effectView = NSVisualEffectView()
 
@@ -32,15 +32,17 @@ class ConnectionLeftPannelView: NSView {
         return table
     }()
 
-    init(viewModel:ConnectionLeftPannelViewModel) {
+    init(viewModel: ConnectionLeftPannelViewModel) {
         self.viewModel = viewModel
         super.init(frame: .zero)
         setupSubviews()
     }
 
+    @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+
     private func setupSubviews() {
         addSubview(effectView)
         effectView.makeConstraintsToBindToSuperview()
@@ -48,14 +50,14 @@ class ConnectionLeftPannelView: NSView {
         let segmentControl = NSSegmentedControl(labels: [NSLocalizedString("Client", comment: ""), NSLocalizedString("Host", comment: "")],
                                                 trackingMode: .selectOne,
                                                 target: self,
-                                                action: #selector(actionSelectSegment(sender: )))
+                                                action: #selector(actionSelectSegment(sender:)))
         addSubview(segmentControl)
-        segmentControl.makeConstraints {[
+        segmentControl.makeConstraints { [
             $0.leftAnchor.constraint(equalTo: leftAnchor, constant: 12),
             $0.rightAnchor.constraint(equalTo: rightAnchor, constant: -12),
             $0.heightAnchor.constraint(equalToConstant: 20),
             $0.topAnchor.constraint(equalTo: topAnchor, constant: 12)
-        ]}
+        ] }
         segmentControl.selectedSegment = 0
 
         let v = NSScrollView()
@@ -93,15 +95,14 @@ class ConnectionLeftPannelView: NSView {
     @objc func actionSelectSegment(sender: NSSegmentedControl?) {
         viewModel.setHostMode(enable: sender?.selectedSegment == 1)
     }
-
 }
 
 // MARK: - section map to cell logic.
+
 @available(macOS 10.15, *)
 private extension ConnectionLeftPannelView {
-
     func getIdentifier(section: Int) -> NSUserInterfaceItemIdentifier {
-        var identifier:NSUserInterfaceItemIdentifier = NSUserInterfaceItemIdentifier("")
+        var identifier = NSUserInterfaceItemIdentifier("")
         switch viewModel.currentSections[section] {
         case .local:
             identifier = .localApplication
@@ -114,7 +115,6 @@ private extension ConnectionLeftPannelView {
         }
         return identifier
     }
-
 }
 
 @available(macOS 10.15, *)
@@ -177,7 +177,7 @@ extension ConnectionLeftPannelView: TableViewSectionDataSource {
         case .remote:
             (view as! ConnectionLeftTextCellView).setup(with: viewModel.sources[indexPath.item])
         case .all:
-            (view as! ConnectionLeftTextCellView).setup(with: viewModel.isHostMode ? NSLocalizedString("All Hosts", comment: ""):NSLocalizedString("All Clients", comment: ""))
+            (view as! ConnectionLeftTextCellView).setup(with: viewModel.isHostMode ? NSLocalizedString("All Hosts", comment: "") : NSLocalizedString("All Clients", comment: ""))
         case .hosts:
             (view as! ConnectionLeftTextCellView).setup(with: viewModel.hosts[indexPath.item])
         }

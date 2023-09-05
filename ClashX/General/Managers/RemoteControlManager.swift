@@ -1,5 +1,5 @@
 //
-//  ClientOnlyManager.swift
+//  RemoteControlManager.swift
 //  ClashX Pro
 //
 //  Created by 称一称 on 2020/6/16.
@@ -62,12 +62,12 @@ class RemoteControlManager {
         menuSeparator = separator
         updateMenuItems()
         updateDropDownMenuItems()
-        DispatchQueue.main.asyncAfter(deadline: .now()+0.5) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             RemoteControlManager.recoverSelection()
         }
     }
 
-    static private func recoverSelection() {
+    private static func recoverSelection() {
         if !Recorder.selected.isEmpty {
             if let config = configs.first(where: { $0.uuid == Recorder.selected }) {
                 selectConfig = config
@@ -82,7 +82,7 @@ class RemoteControlManager {
     static func updateMenuItems() {
         guard let separator = menuSeparator, let menu = separator.menu else { return }
         let idx = menu.index(of: separator)
-        for _ in 0..<idx {
+        for _ in 0 ..< idx {
             menu.removeItem(at: 0)
         }
 
@@ -144,6 +144,7 @@ class ExternalControlMenuItem: NSMenuItem {
         super.init(title: title, action: nil, keyEquivalent: "")
     }
 
+    @available(*, unavailable)
     required init(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

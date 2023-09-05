@@ -9,5 +9,5 @@
 import AppKit
 
 protocol DashboardSubViewControllerProtocol: NSViewController {
-    func actionSearch(string:String)
+    func actionSearch(string: String)
 }

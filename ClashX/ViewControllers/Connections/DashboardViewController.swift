@@ -15,9 +15,9 @@ enum DashboardContentType: Int, CaseIterable {
     var title: String {
         switch self {
         case .allConnection:
-            return NSLocalizedString("Recent Connections", comment:"")
+            return NSLocalizedString("Recent Connections", comment: "")
         case .activeConnection:
-            return NSLocalizedString("Active Connections", comment:"")
+            return NSLocalizedString("Active Connections", comment: "")
         }
     }
 }
@@ -34,10 +34,10 @@ class DashboardViewController: NSViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        segmentControl = NSSegmentedControl(labels: DashboardContentType.allCases.map {$0.title},
+        segmentControl = NSSegmentedControl(labels: DashboardContentType.allCases.map(\.title),
                                             trackingMode: .selectOne,
                                             target: self,
-                                            action: #selector(actionSwitchSegmentControl(sender: )))
+                                            action: #selector(actionSwitchSegmentControl(sender:)))
         segmentControl.selectedSegment = 0
         searchField.delegate = self
         setCurrentVC(connectionVC)
@@ -83,7 +83,7 @@ class DashboardViewController: NSViewController {
 }
 
 @available(macOS 10.15, *)
-extension DashboardViewController:NSSearchFieldDelegate {
+extension DashboardViewController: NSSearchFieldDelegate {
     func controlTextDidChange(_ obj: Notification) {
         if let textField = obj.object as? NSTextField {
             currentContentVC?.actionSearch(string: textField.stringValue)

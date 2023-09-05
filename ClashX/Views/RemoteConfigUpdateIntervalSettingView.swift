@@ -6,8 +6,8 @@
 //  Copyright © 2021 west2online. All rights reserved.
 //
 
-import Foundation
 import AppKit
+import Foundation
 
 class RemoteConfigUpdateIntervalSettingView: NSView {
     init() {
@@ -15,6 +15,7 @@ class RemoteConfigUpdateIntervalSettingView: NSView {
         setup()
     }
 
+    @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -35,6 +36,6 @@ class RemoteConfigUpdateIntervalSettingView: NSView {
         ])
         stackView.translatesAutoresizingMaskIntoConstraints = false
         textfield.translatesAutoresizingMaskIntoConstraints = false
-        textfield.stringValue = "\(Int(Settings.configAutoUpdateInterval/3600))"
+        textfield.stringValue = "\(Int(Settings.configAutoUpdateInterval / 3600))"
     }
 }

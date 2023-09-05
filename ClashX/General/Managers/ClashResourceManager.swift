@@ -61,10 +61,9 @@ class ClashResourceManager {
 }
 
 extension ClashResourceManager {
-
     static func updateGeoIP() {
         guard let url = showCustomAlert() else { return }
-        AF.download(url, to: { (_, _) in
+        AF.download(url, to: { _, _ in
             let path = kConfigFolderPath.appending("/Country.mmdb")
             return (URL(fileURLWithPath: path), .removePreviousFile)
         }).response { res in

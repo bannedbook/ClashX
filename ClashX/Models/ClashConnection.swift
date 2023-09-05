@@ -22,8 +22,8 @@ extension ClashConnectionBaseSnapShot {
 @available(macOS 10.15, *)
 class ClashConnectionSnapShot: Decodable {
     var connections: [Connection]
-    let downloadTotal:Int
-    let uploadTotal:Int
+    let downloadTotal: Int
+    let uploadTotal: Int
 }
 
 @available(macOS 10.15, *)
@@ -45,7 +45,7 @@ extension ClashConnectionSnapShot {
             var title: String {
                 switch self {
                 case .connecting: return NSLocalizedString("Connecting", comment: "")
-                case .finished: return  NSLocalizedString("Done", comment: "")
+                case .finished: return NSLocalizedString("Done", comment: "")
                 case .fail: return NSLocalizedString("Fail", comment: "")
                 }
             }
@@ -53,12 +53,12 @@ extension ClashConnectionSnapShot {
 
         let id: String
         let chains: [String]
-        @objc let metadata:MetaData
-        @objc @Published var upload:Int
-        @objc @Published var download:Int
-        @objc let start:Date
-        @objc let rule:String
-        let rulePayload:String
+        @objc let metadata: MetaData
+        @objc @Published var upload: Int
+        @objc @Published var download: Int
+        @objc let start: Date
+        @objc let rule: String
+        let rulePayload: String
 
         @objc @Published var status = ConnStatus.connecting
         @objc @Published var uploadSpeed = 0 {
@@ -68,6 +68,7 @@ extension ClashConnectionSnapShot {
                 }
             }
         }
+
         @objc @Published var downloadSpeed = 0 {
             didSet {
                 if downloadSpeed > maxDownloadSpeed {
@@ -75,9 +76,10 @@ extension ClashConnectionSnapShot {
                 }
             }
         }
+
         @Published private(set) var maxUploadSpeed = 0
         @Published private(set) var maxDownloadSpeed = 0
-        var error:String?
+        var error: String?
 
         enum CodingKeys: CodingKey {
             case id
@@ -102,10 +104,10 @@ extension ClashConnectionSnapShot {
             rulePayload = try container.decode(String.self, forKey: .rulePayload)
         }
 
-        init(id:String, chains:[String], meta:MetaData, upload:Int, download:Int, start:Date, rule:String, rulePayload:String) {
+        init(id: String, chains: [String], meta: MetaData, upload: Int, download: Int, start: Date, rule: String, rulePayload: String) {
             self.id = id
             self.chains = chains
-            self.metadata = meta
+            metadata = meta
             self.upload = upload
             self.download = download
             self.start = start
@@ -114,27 +116,29 @@ extension ClashConnectionSnapShot {
             super.init()
         }
     }
+
     //    {"network":"tcp","type":"HTTP Connect","sourceIP":"127.0.0.1","destinationIP":"124.72.132.104","sourcePort":"59217","destinationPort":"443","host":"slardar-bd.feishu.cn","dnsMode":"normal","processPath":"","specialProxy":""}
-    class MetaData:NSObject, Codable {
-        @objc let network:String
-        @objc let type:String
+    class MetaData: NSObject, Codable {
+        @objc let network: String
+        @objc let type: String
         let sourceIP: String
-        let destinationIP:String
-        let sourcePort:String
-        let destinationPort:String
-        @objc let host:String
-        let dnsMode:String
-        let specialProxy:String?
-        var processPath:String
+        let destinationIP: String
+        let sourcePort: String
+        let destinationPort: String
+        @objc let host: String
+        let dnsMode: String
+        let specialProxy: String?
+        var processPath: String
 
         @objc var displayHost: String {
             if !host.isEmpty { return host }
             return destinationIP
         }
-        var pid:String?
-        var processImage:NSImage?
 
-        @objc var processName:String?
+        var pid: String?
+        var processImage: NSImage?
+
+        @objc var processName: String?
 
         enum CodingKeys: CodingKey {
             case network

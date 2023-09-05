@@ -1,5 +1,5 @@
 //
-//  iCloudManager.swift
+//  ICloudManager.swift
 //  ClashX
 //
 //  Created by yicheng on 2020/5/10.
@@ -7,8 +7,8 @@
 //
 
 import Cocoa
-import RxSwift
 import RxCocoa
+import RxSwift
 
 class ICloudManager {
     static let shared = ICloudManager()
@@ -18,6 +18,7 @@ class ICloudManager {
     private(set) var icloudAvailable = false {
         didSet { useiCloud.accept(userEnableiCloud && icloudAvailable) }
     }
+
     private var disposeBag = DisposeBag()
 
     let useiCloud = BehaviorRelay<Bool>(value: false)
@@ -31,7 +32,7 @@ class ICloudManager {
 
     func setup() {
         addNotification()
-        useiCloud.distinctUntilChanged().filter({$0}).subscribe {
+        useiCloud.distinctUntilChanged().filter { $0 }.subscribe {
             [weak self] _ in
             self?.checkiCloud()
         }.disposed(by: disposeBag)
@@ -43,7 +44,7 @@ class ICloudManager {
     func getConfigFilesList(configs: @escaping (([String]) -> Void)) {
         getUrl { url in
             guard let url = url,
-                let fileURLs = try? FileManager.default.contentsOfDirectory(atPath: url.path) else {
+                  let fileURLs = try? FileManager.default.contentsOfDirectory(atPath: url.path) else {
                 configs([])
                 return
             }

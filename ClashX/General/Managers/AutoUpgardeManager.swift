@@ -12,10 +12,10 @@ import Sparkle
 class AutoUpgardeManager: NSObject {
     var checkForUpdatesMenuItem: NSMenuItem?
     static let shared = AutoUpgardeManager()
-    private var controller:SPUStandardUpdaterController?
+    private var controller: SPUStandardUpdaterController?
     private var current: Channel = {
         if let value = UserDefaults.standard.object(forKey: "AutoUpgardeManager.current") as? Int,
-            let channel = Channel(rawValue: value) { return channel }
+           let channel = Channel(rawValue: value) { return channel }
         return .stable
     }() {
         didSet {
@@ -28,6 +28,7 @@ class AutoUpgardeManager: NSObject {
     }
 
     // MARK: Public
+
     func setup() {
         controller = SPUStandardUpdaterController(updaterDelegate: self, userDriverDelegate: nil)
     }

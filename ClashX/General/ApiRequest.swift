@@ -338,7 +338,7 @@ extension ApiRequest {
             case let .success(res):
                 let json = JSON(res)
                 let provoders = json["providers"].dictionaryValue
-                    .filter({ $0.value["vehicleType"] == "HTTP" }).map { $0.key }
+                    .filter { $0.value["vehicleType"] == "HTTP" }.map(\.key)
                 providers.proxies = provoders
             case let .failure(err):
                 Logger.log(err.localizedDescription, level: .warning)
@@ -347,19 +347,19 @@ extension ApiRequest {
         }
 
         #if PRO_VERSION
-        group.enter()
-        ApiRequest.req("/providers/rules").responseData { resp in
-            switch resp.result {
-            case let .success(res):
-                let json = JSON(res)
-                let provoders = json["providers"].dictionaryValue
-                    .filter({ $0.value["vehicleType"] == "HTTP" }).map { $0.key }
-                providers.rules = provoders
-            case let .failure(err):
-                Logger.log(err.localizedDescription, level: .warning)
+            group.enter()
+            ApiRequest.req("/providers/rules").responseData { resp in
+                switch resp.result {
+                case let .success(res):
+                    let json = JSON(res)
+                    let provoders = json["providers"].dictionaryValue
+                        .filter { $0.value["vehicleType"] == "HTTP" }.map(\.key)
+                    providers.rules = provoders
+                case let .failure(err):
+                    Logger.log(err.localizedDescription, level: .warning)
+                }
+                group.leave()
             }
-            group.leave()
-        }
         #endif
         group.notify(queue: .main) {
             completeHandler(providers)

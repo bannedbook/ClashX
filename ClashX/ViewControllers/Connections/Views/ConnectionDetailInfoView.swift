@@ -44,6 +44,7 @@ class ConnectionDetailInfoView: NSView {
         }
     }
 
+    @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -71,14 +72,14 @@ class ConnectionDetailInfoView: NSView {
         processNameLabel.font = NSFont.systemFont(ofSize: 17, weight: .bold)
         hostLabel.font = NSFont.systemFont(ofSize: 12)
         /*
-        let segmentControl = NSSegmentedControl(labels: ["General", "Event"], trackingMode: .selectOne, target: self, action: #selector(actionSelectSegment(sender: )))
-        addSubview(segmentControl)
-        segmentControl.makeConstraints {
-            [$0.leftAnchor.constraint(equalTo: logoView.centerXAnchor),
-             $0.topAnchor.constraint(equalTo: nameStackView.bottomAnchor, constant: 12)]
-        }
-        segmentControl.selectedSegment = 0
-         */
+         let segmentControl = NSSegmentedControl(labels: ["General", "Event"], trackingMode: .selectOne, target: self, action: #selector(actionSelectSegment(sender: )))
+         addSubview(segmentControl)
+         segmentControl.makeConstraints {
+             [$0.leftAnchor.constraint(equalTo: logoView.centerXAnchor),
+              $0.topAnchor.constraint(equalTo: nameStackView.bottomAnchor, constant: 12)]
+         }
+         segmentControl.selectedSegment = 0
+          */
         closeButton.title = NSLocalizedString("Close Connection", comment: "")
         closeButton.bezelStyle = .regularSquare
         closeButton.target = self
@@ -138,17 +139,17 @@ class ConnectionDetailInfoView: NSView {
         viewModel.$destination.weakAssign(to: \.stringValue, on: generalView.destLabel).store(in: &cancelable)
         viewModel.$otherText.weakAssign(to: \.string, on: generalView.otherTextView).store(in: &cancelable)
 
-        viewModel.$showCloseButton.map {!$0}.weakAssign(to: \.isHidden, on: closeButton).store(in: &cancelable)
+        viewModel.$showCloseButton.map { !$0 }.weakAssign(to: \.isHidden, on: closeButton).store(in: &cancelable)
     }
 
-    @objc func actionSelectSegment(sender: NSSegmentedControl?) { }
+    @objc func actionSelectSegment(sender: NSSegmentedControl?) {}
     @objc func actionCloseConn() {
         viewModel?.closeConnection()
     }
+
     func addGeneralView() {
         containerView.subviews.forEach { $0.removeFromSuperview() }
         containerView.addSubview(generalView)
         generalView.makeConstraintsToBindToSuperview()
-
     }
 }

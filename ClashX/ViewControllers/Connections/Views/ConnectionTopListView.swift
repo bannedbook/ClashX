@@ -10,7 +10,7 @@ import AppKit
 
 @available(macOS 10.15, *)
 class ConnectionTopListView: NSView {
-    private let viewModel:ConnectionTopListViewModel
+    private let viewModel: ConnectionTopListViewModel
 
     private let tableView: NSTableView = {
         let table = NSTableView()
@@ -20,12 +20,13 @@ class ConnectionTopListView: NSView {
 
     let closeConnectionMenuItem = NSMenuItem()
 
-    init(viewModel:ConnectionTopListViewModel) {
+    init(viewModel: ConnectionTopListViewModel) {
         self.viewModel = viewModel
         super.init(frame: .zero)
         setupSubviews()
     }
 
+    @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -49,7 +50,7 @@ class ConnectionTopListView: NSView {
         }
         tableView.autosaveName = className.appending("tableAutoSave")
         tableView.autosaveTableColumns = true
-        tableView.sortDescriptors = [viewModel.currentSortDescriptor].compactMap {$0}
+        tableView.sortDescriptors = [viewModel.currentSortDescriptor].compactMap { $0 }
         tableView.usesAlternatingRowBackgroundColors = true
         tableView.delegate = self
         tableView.allowsMultipleSelection = true
@@ -99,7 +100,7 @@ extension ConnectionTopListView: NSTableViewDelegate {
 
     func tableView(_ tableView: NSTableView, sortDescriptorsDidChange oldDescriptors: [NSSortDescriptor]) {
         viewModel.currentSortDescriptor = tableView.sortDescriptors.first
-        tableView.sortDescriptors = [viewModel.currentSortDescriptor].compactMap {$0}
+        tableView.sortDescriptors = [viewModel.currentSortDescriptor].compactMap { $0 }
     }
 }
 

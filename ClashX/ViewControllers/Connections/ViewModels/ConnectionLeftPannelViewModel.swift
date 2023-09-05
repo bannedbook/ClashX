@@ -10,7 +10,6 @@ import Combine
 
 @available(macOS 10.15, *)
 class ConnectionLeftPannelViewModel {
-
     enum Section: Int, CaseIterable {
         case all
         case local
@@ -23,14 +22,14 @@ class ConnectionLeftPannelViewModel {
     private(set) var sources = [String]()
     private(set) var hosts = [String]()
     private(set) var isHostMode = false
-    var onReloadTable:((IndexPath) -> Void)?
-    var onSelectedFilter:((ConnectionFilter?) -> Void)?
-    var selectedFilter:ConnectionFilter?
+    var onReloadTable: ((IndexPath) -> Void)?
+    var onSelectedFilter: ((ConnectionFilter?) -> Void)?
+    var selectedFilter: ConnectionFilter?
 
     func accept(connections new: [ConnectionApplication]) {
         var dupSet = Set<String>()
-        localApplications = new.filter {dupSet.insert($0.path ?? $0.pid).inserted}
-            .sorted(by: {$0.name ?? "" < $1.name ?? ""})
+        localApplications = new.filter { dupSet.insert($0.path ?? $0.pid).inserted }
+            .sorted(by: { $0.name ?? "" < $1.name ?? "" })
         if !isHostMode {
             onReloadTable?(getSelectedIndexPath())
         }
@@ -50,16 +49,16 @@ class ConnectionLeftPannelViewModel {
         }
     }
 
-    func accept(apps:[ConnectionApplication], sources: [String], hosts: [String]) {
+    func accept(apps: [ConnectionApplication], sources: [String], hosts: [String]) {
         var dupSet = Set<String>()
-        self.localApplications = apps.filter {dupSet.insert($0.path ?? $0.pid).inserted}
-            .sorted(by: {$0.name ?? "" < $1.name ?? ""})
+        localApplications = apps.filter { dupSet.insert($0.path ?? $0.pid).inserted }
+            .sorted(by: { $0.name ?? "" < $1.name ?? "" })
         self.sources = sources.sorted()
         self.hosts = hosts.sorted()
         onReloadTable?(getSelectedIndexPath())
     }
 
-    func setHostMode(enable:Bool) {
+    func setHostMode(enable: Bool) {
         isHostMode = enable
         selectedFilter = nil
         onSelectedFilter?(nil)
@@ -71,24 +70,23 @@ class ConnectionLeftPannelViewModel {
         switch selectedFilter {
         case .none:
             break
-        case .application(let path):
-            if let idx = localApplications.firstIndex(where: {($0.path ?? $0.pid) == path}) {
+        case let .application(path):
+            if let idx = localApplications.firstIndex(where: { ($0.path ?? $0.pid) == path }) {
                 return IndexPath(item: idx, section: 1)
             }
-        case .source(let ip):
-            if let idx = sources.firstIndex(where: {$0 == ip}) {
+        case let .source(ip):
+            if let idx = sources.firstIndex(where: { $0 == ip }) {
                 return IndexPath(item: idx, section: 2)
             }
-        case .hosts(let name):
-            if let idx = hosts.firstIndex(where: {$0 == name}) {
+        case let .hosts(name):
+            if let idx = hosts.firstIndex(where: { $0 == name }) {
                 return IndexPath(item: idx, section: 1)
             }
         }
         return IndexPath(item: 0, section: 0)
-
     }
 
-    func setSelect(indexPath:IndexPath) {
+    func setSelect(indexPath: IndexPath) {
         if indexPath.item < 0 || indexPath.section < 0 {
             selectedFilter = nil
             onSelectedFilter?(nil)
@@ -109,5 +107,4 @@ class ConnectionLeftPannelViewModel {
         }
         onSelectedFilter?(selectedFilter)
     }
-
 }

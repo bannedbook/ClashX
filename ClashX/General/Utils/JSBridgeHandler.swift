@@ -68,7 +68,7 @@ class JsBridgeUtil {
             var host = "127.0.0.1"
             var port = ConfigManager.shared.apiPort
             if let override = ConfigManager.shared.overrideApiURL,
-                let overridedHost = override.host {
+               let overridedHost = override.host {
                 host = overridedHost
                 port = "\(override.port ?? 80)"
             }

@@ -26,7 +26,7 @@ enum WebCacheCleaner {
 }
 
 class ClashWebViewContoller: NSViewController {
-    let webview: CustomWKWebView = CustomWKWebView()
+    let webview: CustomWKWebView = .init()
     var bridge: WebViewJavascriptBridge?
     let disposeBag = DisposeBag()
     let minSize = NSSize(width: 920, height: 580)
@@ -109,7 +109,7 @@ class ClashWebViewContoller: NSViewController {
     }
 
     func loadWebRecourses() {
-        WKWebsiteDataStore.default().removeData(ofTypes: [WKWebsiteDataTypeOfflineWebApplicationCache, WKWebsiteDataTypeMemoryCache], modifiedSince: Date(timeIntervalSince1970: 0), completionHandler: { })
+        WKWebsiteDataStore.default().removeData(ofTypes: [WKWebsiteDataTypeOfflineWebApplicationCache, WKWebsiteDataTypeMemoryCache], modifiedSince: Date(timeIntervalSince1970: 0), completionHandler: {})
         // defaults write com.west2online.ClashX webviewUrl "your url"
         if let userDefineUrl = UserDefaults.standard.string(forKey: "webviewUrl"), let url = URL(string: userDefineUrl) {
             Logger.log("get user define url: \(url)")

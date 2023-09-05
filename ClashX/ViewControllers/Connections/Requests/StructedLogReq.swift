@@ -6,19 +6,20 @@
 //  Copyright © 2023 west2online. All rights reserved.
 //
 
+import Combine
 import Foundation
 import Starscream
-import Combine
 
-class StructedLog:Codable {
-    class Pairs:Codable {
-        let key:String
-        let value:String
+class StructedLog: Codable {
+    class Pairs: Codable {
+        let key: String
+        let value: String
     }
-    let time:String
-    let level:String
-    let message:String
-    let fields:[Pairs]
+
+    let time: String
+    let level: String
+    let message: String
+    let fields: [Pairs]
 
     func convertToConn() -> LogConn? {
         let isTCP = message.starts(with: "[TCP]")
@@ -91,19 +92,19 @@ class LogConn {
 
 @available(macOS 10.15, *)
 class StructedLogReq: WebSocketDelegate {
-/*
-    {"time":"22:44:32","level":"warn","message":"[TCP] dial failed",
-    "fields":[{"key":"error","value":"dial tcp4 1.2.4.6:80: i/o timeout"},
-             {"key":"proxy","value":"Domestic"},
-             {"key":"lAddr","value":"127.0.0.1:49790"},
-             {"key":"rAddr","value":"1.2.4.6:80"},
-             {"key":"rule","value":"GeoIP"},
-             {"key":"rulePayload","value":"CN"}]
-    }
-    {"time":"22:42:09","level":"debug","message":"[TUN] hijack udp dns","fields":[{"key":"addr","value":"198.18.0.2:53"}]}
- */
+    /*
+        {"time":"22:44:32","level":"warn","message":"[TCP] dial failed",
+        "fields":[{"key":"error","value":"dial tcp4 1.2.4.6:80: i/o timeout"},
+                 {"key":"proxy","value":"Domestic"},
+                 {"key":"lAddr","value":"127.0.0.1:49790"},
+                 {"key":"rAddr","value":"1.2.4.6:80"},
+                 {"key":"rule","value":"GeoIP"},
+                 {"key":"rulePayload","value":"CN"}]
+        }
+        {"time":"22:42:09","level":"debug","message":"[TUN] hijack udp dns","fields":[{"key":"addr","value":"198.18.0.2:53"}]}
+     */
     let logLevel = ClashLogLevel.info
-    private var socket:WebSocket?
+    private var socket: WebSocket?
 
     let decoder = JSONDecoder()
 

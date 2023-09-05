@@ -49,7 +49,7 @@
 import Cocoa
 import ServiceManagement
 
-public final class LoginServiceKit {
+public enum LoginServiceKit {
     private static var snapshot: (list: LSSharedFileList, items: [LSSharedFileListItem])? {
         guard let list = LSSharedFileListCreate(nil, kLSSharedFileListSessionLoginItems.takeRetainedValue(), nil)?.takeRetainedValue() else {
             return nil

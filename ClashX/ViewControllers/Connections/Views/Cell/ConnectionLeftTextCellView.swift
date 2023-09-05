@@ -1,5 +1,5 @@
 //
-//  ApplicationLocalClientCellView.swift
+//  ConnectionLeftTextCellView.swift
 //  ClashX
 //
 //  Created by miniLV on 2023-07-10.
@@ -34,9 +34,9 @@ class ConnectionApplicationCellView: NSView {
         }
         nameLabel.makeConstraints {
             [
-             $0.centerYAnchor.constraint(equalTo: centerYAnchor),
-             $0.leadingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: 5),
-             $0.trailingAnchor.constraint(lessThanOrEqualTo: trailingAnchor)
+                $0.centerYAnchor.constraint(equalTo: centerYAnchor),
+                $0.leadingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: 5),
+                $0.trailingAnchor.constraint(lessThanOrEqualTo: trailingAnchor)
             ]
         }
         nameLabel.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
@@ -66,9 +66,9 @@ class ConnectionLeftTextCellView: NSView {
         nameLabel.font = NSFont.systemFont(ofSize: 13)
         nameLabel.makeConstraints {
             [
-             $0.centerYAnchor.constraint(equalTo: centerYAnchor),
-             $0.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 6),
-             $0.trailingAnchor.constraint(lessThanOrEqualTo: trailingAnchor)
+                $0.centerYAnchor.constraint(equalTo: centerYAnchor),
+                $0.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 6),
+                $0.trailingAnchor.constraint(lessThanOrEqualTo: trailingAnchor)
             ]
         }
         nameLabel.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
@@ -98,9 +98,9 @@ class ApplicationClientSectionCell: NSTableCellView {
         titleLabel.textColor = NSColor.secondaryLabelColor
         titleLabel.makeConstraints {
             [
-             $0.centerYAnchor.constraint(equalTo: centerYAnchor),
-             $0.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 0),
-             $0.trailingAnchor.constraint(lessThanOrEqualTo: trailingAnchor)
+                $0.centerYAnchor.constraint(equalTo: centerYAnchor),
+                $0.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 0),
+                $0.trailingAnchor.constraint(lessThanOrEqualTo: trailingAnchor)
             ]
         }
         titleLabel.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)

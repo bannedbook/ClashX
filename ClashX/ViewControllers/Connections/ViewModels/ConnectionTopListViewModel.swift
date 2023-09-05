@@ -15,8 +15,8 @@ class ConnectionTopListViewModel {
     private var selectedUUIDs = [String]()
     private var updateDebounceDate = Date()
 
-    var onReloadTable:(() -> Void)?
-    var onSelectedConnection:((ClashConnectionSnapShot.Connection?) -> Void)?
+    var onReloadTable: (() -> Void)?
+    var onSelectedConnection: ((ClashConnectionSnapShot.Connection?) -> Void)?
     var applicationFilter: ConnectionFilter? {
         didSet {
             updateData()
@@ -44,7 +44,6 @@ class ConnectionTopListViewModel {
         if let key = currentSortDescriptor?.key, ConnectionColume.isDynamicSort(for: key) {
             updateData(applyDebounce: true)
         }
-
     }
 
     func currentSelection() -> IndexSet {
@@ -59,7 +58,7 @@ class ConnectionTopListViewModel {
         }
     }
 
-    private func updateData(applyDebounce:Bool=false) {
+    private func updateData(applyDebounce: Bool = false) {
         let current = Date()
         if applyDebounce, current.timeIntervalSince(updateDebounceDate) < 0.2 {
             return
@@ -70,16 +69,16 @@ class ConnectionTopListViewModel {
         switch applicationFilter {
         case .none:
             break
-        case .application(let pathOrPid):
+        case let .application(pathOrPid):
             connections = connections.filter { conn in
                 conn.metadata.processPath == pathOrPid || conn.metadata.pid == pathOrPid
             }
 
-        case .source(let ip):
+        case let .source(ip):
             connections = connections.filter { conn in
                 conn.metadata.sourceIP == ip
             }
-        case .hosts(let name):
+        case let .hosts(name):
             connections = connections.filter { conn in
                 conn.metadata.displayHost == name
             }
@@ -88,16 +87,15 @@ class ConnectionTopListViewModel {
         if let textFilter = textFilter?.lowercased(), !textFilter.isEmpty {
             connections = connections.filter { conn in
                 conn.metadata.displayHost.contains(textFilter) ||
-                conn.metadata.network.contains(textFilter) ||
-                conn.chains.joined().lowercased().contains(textFilter) ||
-                conn.metadata.processName?.lowercased().contains(textFilter) ?? false ||
-                conn.rule.lowercased().contains(textFilter)
+                    conn.metadata.network.contains(textFilter) ||
+                    conn.chains.joined().lowercased().contains(textFilter) ||
+                    conn.metadata.processName?.lowercased().contains(textFilter) ?? false ||
+                    conn.rule.lowercased().contains(textFilter)
             }
         }
 
-        connections = (connections as NSArray).sortedArray(using: [currentSortDescriptor].compactMap {$0}) as! [ClashConnectionSnapShot.Connection]
+        connections = (connections as NSArray).sortedArray(using: [currentSortDescriptor].compactMap { $0 }) as! [ClashConnectionSnapShot.Connection]
         onReloadTable?()
-
     }
 
     func setSelect(row: IndexSet) {
@@ -119,5 +117,4 @@ class ConnectionTopListViewModel {
         }
         return nil
     }
-
 }

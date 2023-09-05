@@ -27,7 +27,7 @@ enum StatusItemTool {
         let fontSize: CGFloat = 9
         let font: NSFont
         if let fontName = UserDefaults.standard.string(forKey: "kStatusMenuFontName"),
-            let f = NSFont(name: fontName, size: fontSize) {
+           let f = NSFont(name: fontName, size: fontSize) {
             font = f
         } else {
             font = NSFont.menuBarFont(ofSize: fontSize)

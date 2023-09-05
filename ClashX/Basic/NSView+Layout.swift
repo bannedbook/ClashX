@@ -1,5 +1,5 @@
 //
-//  UIView+Layout.swift
+//  NSView+Layout.swift
 //  BilibiliLive
 //
 //  Created by Etan Chen on 2021/4/4.

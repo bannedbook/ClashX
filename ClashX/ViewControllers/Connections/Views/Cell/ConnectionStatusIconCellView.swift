@@ -37,7 +37,7 @@ class ConnectionStatusIconCellView: NSView, ConnectionCellProtocol {
         cancellable.removeAll()
         connection
             .$status
-            .map {$0.image }
+            .map(\.image)
             .weakAssign(to: \.image, on: imageView)
             .store(in: &cancellable)
     }

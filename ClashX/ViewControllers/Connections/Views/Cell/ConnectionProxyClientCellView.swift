@@ -34,9 +34,9 @@ class ConnectionProxyClientCellView: NSView, ConnectionCellProtocol {
         }
         nameLabel.makeConstraints {
             [
-             $0.centerYAnchor.constraint(equalTo: centerYAnchor),
-             $0.leadingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: 4),
-             $0.trailingAnchor.constraint(lessThanOrEqualTo: trailingAnchor)
+                $0.centerYAnchor.constraint(equalTo: centerYAnchor),
+                $0.leadingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: 4),
+                $0.trailingAnchor.constraint(lessThanOrEqualTo: trailingAnchor)
             ]
         }
         nameLabel.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)

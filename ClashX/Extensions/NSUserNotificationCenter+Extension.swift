@@ -67,13 +67,13 @@ extension NSUserNotificationCenter {
             let uuidString = UUID().uuidString
             let request = UNNotificationRequest(identifier: uuidString, content: content, trigger: nil)
             notificationCenter.add(request) { error in
-                    if let err = error {
-                        Logger.log("send noti fail: \(String(describing: err))")
-                        DispatchQueue.main.async {
-                            self.postNotificationAlert(title: title, info: info, identifier: identifier)
-                        }
+                if let err = error {
+                    Logger.log("send noti fail: \(String(describing: err))")
+                    DispatchQueue.main.async {
+                        self.postNotificationAlert(title: title, info: info, identifier: identifier)
                     }
                 }
+            }
         } else {
             let notification = NSUserNotification()
             notification.title = title
@@ -111,7 +111,7 @@ extension NSUserNotificationCenter {
 
     func postConfigErrorNotice(msg: String) {
         let configName = ConfigManager.selectConfigName.isEmpty ? "" :
-        Paths.configFileName(for: ConfigManager.selectConfigName)
+            Paths.configFileName(for: ConfigManager.selectConfigName)
 
         let message = "\(configName): \(msg)"
         postNotificationAlert(title: NSLocalizedString("Config loading Fail!", comment: ""), info: message)
@@ -142,10 +142,10 @@ class UserNotificationCenterDelegate: NSObject, NSUserNotificationCenterDelegate
     static let shared = UserNotificationCenterDelegate()
 
     func userNotificationCenter(_ center: NSUserNotificationCenter, didActivate notification: NSUserNotification) {
-            if let identifier = notification.userInfo?["identifier"] as? String {
-                handleNotificationActive(with: identifier)
-            }
-            center.removeAllDeliveredNotifications()
+        if let identifier = notification.userInfo?["identifier"] as? String {
+            handleNotificationActive(with: identifier)
+        }
+        center.removeAllDeliveredNotifications()
     }
 
     func userNotificationCenter(_ center: NSUserNotificationCenter, shouldPresent notification: NSUserNotification) -> Bool {
@@ -154,7 +154,6 @@ class UserNotificationCenterDelegate: NSObject, NSUserNotificationCenterDelegate
 
     @available(macOS 10.14, *)
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
-
         if let identifier = response.notification.request.content.userInfo["identifier"] as? String {
             handleNotificationActive(with: identifier)
         }

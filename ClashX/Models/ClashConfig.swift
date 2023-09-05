@@ -5,8 +5,8 @@
 //  Created by CYC on 2018/7/30.
 //  Copyright © 2018年 yichengchen. All rights reserved.
 //
-import Foundation
 import CocoaLumberjack
+import Foundation
 
 enum ClashProxyMode: String, Codable {
     case rule

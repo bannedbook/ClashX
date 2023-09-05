@@ -7,14 +7,14 @@
 //
 
 import Foundation
-enum UpdateExternalResourceAction:BaseStaticAction {
+enum UpdateExternalResourceAction: BaseStaticAction {
     static func run() {
         ApiRequest.requestExternalProviderNames { provider in
             let group = DispatchGroup()
             var successCount = 0
             let totalCount = provider.proxies.count + provider.rules.count
             if totalCount == 0 {
-                self.onFinished(success: 0, total: 0, fails: [])
+                onFinished(success: 0, total: 0, fails: [])
                 return
             }
             var fails = [String]()
@@ -39,13 +39,12 @@ enum UpdateExternalResourceAction:BaseStaticAction {
             }
 
             group.notify(queue: .main) {
-                self.onFinished(success: successCount, total: totalCount, fails: fails)
+                onFinished(success: successCount, total: totalCount, fails: fails)
             }
-
         }
     }
 
-    private static func onFinished(success:Int, total: Int, fails: [String]) {
+    private static func onFinished(success: Int, total: Int, fails: [String]) {
         var info = String(format: NSLocalizedString("total: %d, success: %d", comment: ""), total, success)
         if !fails.isEmpty {
             info.append(String(format: NSLocalizedString("fails: %@", comment: ""), fails.joined(separator: " ")))

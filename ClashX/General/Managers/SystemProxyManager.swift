@@ -28,12 +28,12 @@ class SystemProxyManager: NSObject {
     func saveProxy() {
         guard !Settings.disableRestoreProxy else { return }
         Logger.log("saveProxy", level: .debug)
-        helper?.getCurrentProxySetting({ [weak self] info in
+        helper?.getCurrentProxySetting { [weak self] info in
             Logger.log("saveProxy done", level: .debug)
             if let info = info as? [String: Any] {
                 self?.savedProxyInfo = info
             }
-        })
+        }
     }
 
     func enableProxy() {
@@ -58,10 +58,10 @@ class SystemProxyManager: NSObject {
                             filterInterface: Settings.filterInterface,
                             ignoreList: Settings.proxyIgnoreList,
                             error: { error in
-            if let error = error {
-                Logger.log("enableProxy \(error)", level: .error)
-            }
-        })
+                                if let error = error {
+                                    Logger.log("enableProxy \(error)", level: .error)
+                                }
+                            })
     }
 
     func disableProxy(forceDisable: Bool = false, complete: (() -> Void)? = nil) {

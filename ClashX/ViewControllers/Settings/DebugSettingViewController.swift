@@ -10,26 +10,29 @@ import AppKit
 import RxSwift
 
 class DebugSettingViewController: NSViewController {
-    @IBOutlet weak var useBuiltinApiButton: NSButton!
-    @IBOutlet weak var revertProxyButton: NSButton!
-    @IBOutlet weak var updateChannelPopButton: NSPopUpButton!
+    @IBOutlet var useBuiltinApiButton: NSButton!
+    @IBOutlet var revertProxyButton: NSButton!
+    @IBOutlet var updateChannelPopButton: NSPopUpButton!
     var disposeBag = DisposeBag()
     override func viewDidLoad() {
         super.viewDidLoad()
-        useBuiltinApiButton.state = Settings.builtInApiMode ? .on:.off
+        useBuiltinApiButton.state = Settings.builtInApiMode ? .on : .off
         revertProxyButton.state = Settings.disableRestoreProxy ? .off : .on
         AutoUpgardeManager.shared.addChannelMenuItem(updateChannelPopButton)
     }
+
     @IBAction func actionUnInstallProxyHelper(_ sender: Any) {
         PrivilegedHelperManager.shared.removeInstallHelper()
     }
+
     @IBAction func actionOpenLogFolder(_ sender: Any) {
         NSWorkspace.shared.openFile(Logger.shared.logFolder())
     }
+
     @IBAction func actionOpenLocalConfig(_ sender: Any) {
         NSWorkspace.shared.openFile(kConfigFolderPath)
-
     }
+
     @IBAction func actionOpenIcloudConfig(_ sender: Any) {
         if ICloudManager.shared.icloudAvailable {
             ICloudManager.shared.getUrl {
@@ -60,7 +63,7 @@ class DebugSettingViewController: NSViewController {
             Settings.builtInApiMode = !Settings.builtInApiMode
             NSApp.terminate(nil)
         } else {
-            useBuiltinApiButton.state = Settings.builtInApiMode ? .on:.off
+            useBuiltinApiButton.state = Settings.builtInApiMode ? .on : .off
         }
     }
 

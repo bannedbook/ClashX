@@ -35,6 +35,7 @@ class NormalMenuItemView: MenuItemBaseView {
         arrowLabel.frame = NSRect(x: bounds.width - arrowLabel.bounds.width - 12, y: 0, width: arrowLabel.bounds.width, height: 20)
     }
 
+    @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

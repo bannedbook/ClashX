@@ -38,7 +38,7 @@ class RemoteConfigManager {
 
     func migrateOldRemoteConfig() {
         if let url = UserDefaults.standard.string(forKey: "kRemoteConfigUrl"),
-            let name = URL(string: url)?.host {
+           let name = URL(string: url)?.host {
             configs.append(RemoteConfigModel(url: url, name: name))
             UserDefaults.standard.removeObject(forKey: "kRemoteConfigUrl")
             saveConfigs()
@@ -146,10 +146,10 @@ class RemoteConfigManager {
         urlRequest.cachePolicy = .reloadIgnoringCacheData
 
         AF.request(urlRequest)
-          .validate()
-          .responseString(encoding: .utf8) { res in
-            complete(try? res.result.get(), res.response?.suggestedFilename)
-        }
+            .validate()
+            .responseString(encoding: .utf8) { res in
+                complete(try? res.result.get(), res.response?.suggestedFilename)
+            }
     }
 
     static func updateConfig(config: RemoteConfigModel, complete: ((String?) -> Void)? = nil) {

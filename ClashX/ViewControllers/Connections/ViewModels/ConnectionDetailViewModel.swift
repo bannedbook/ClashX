@@ -6,13 +6,13 @@
 //  Copyright © 2023 west2online. All rights reserved.
 //
 
-import Combine
 import AppKit
+import Combine
 
 @available(macOS 10.15, *)
 class ConnectionDetailViewModel {
     @Published var processName = ""
-    @Published var processImage:NSImage?
+    @Published var processImage: NSImage?
     @Published var remoteHost = ""
 
     @Published var entry = ""
@@ -27,7 +27,7 @@ class ConnectionDetailViewModel {
     @Published var chain = ""
     @Published var sourceIP = ""
     @Published var destination = ""
-    @Published var applicationPath:String? = ""
+    @Published var applicationPath: String? = ""
     @Published var otherText = ""
     @Published var showCloseButton = false
 
@@ -57,14 +57,14 @@ class ConnectionDetailViewModel {
         entry = connection.metadata.type
         networkType = connection.metadata.network
 
-        connection.$download.map {SpeedUtils.getNetString(for: $0)}.weakAssign(to: \.totalDownload, on: self).store(in: &cancellable)
-        connection.$upload.map {SpeedUtils.getNetString(for: $0)}.weakAssign(to: \.totalUpload, on: self).store(in: &cancellable)
+        connection.$download.map { SpeedUtils.getNetString(for: $0) }.weakAssign(to: \.totalDownload, on: self).store(in: &cancellable)
+        connection.$upload.map { SpeedUtils.getNetString(for: $0) }.weakAssign(to: \.totalUpload, on: self).store(in: &cancellable)
 
-        connection.$maxUploadSpeed.map {SpeedUtils.getSpeedString(for: $0)}.weakAssign(to: \.maxUpload, on: self).store(in: &cancellable)
-        connection.$maxDownloadSpeed.map {SpeedUtils.getSpeedString(for: $0)}.weakAssign(to: \.maxDownload, on: self).store(in: &cancellable)
+        connection.$maxUploadSpeed.map { SpeedUtils.getSpeedString(for: $0) }.weakAssign(to: \.maxUpload, on: self).store(in: &cancellable)
+        connection.$maxDownloadSpeed.map { SpeedUtils.getSpeedString(for: $0) }.weakAssign(to: \.maxDownload, on: self).store(in: &cancellable)
 
-        connection.$uploadSpeed.map {SpeedUtils.getSpeedString(for: $0)}.weakAssign(to: \.currentUpload, on: self).store(in: &cancellable)
-        connection.$downloadSpeed.map {SpeedUtils.getSpeedString(for: $0)}.weakAssign(to: \.currentDownload, on: self).store(in: &cancellable)
+        connection.$uploadSpeed.map { SpeedUtils.getSpeedString(for: $0) }.weakAssign(to: \.currentUpload, on: self).store(in: &cancellable)
+        connection.$downloadSpeed.map { SpeedUtils.getSpeedString(for: $0) }.weakAssign(to: \.currentDownload, on: self).store(in: &cancellable)
 
         rule = connection.rule + "\n" + connection.rulePayload
         chain = connection.chains.joined(separator: "\n")
@@ -77,9 +77,9 @@ class ConnectionDetailViewModel {
         }
     }
 
-    func flag(from country:String) -> String {
+    func flag(from country: String) -> String {
         if country.isEmpty { return "" }
-        let base : UInt32 = 127397
+        let base: UInt32 = 127397
         var s = ""
         for v in country.uppercased().unicodeScalars {
             s.unicodeScalars.append(UnicodeScalar(base + v.value)!)

@@ -39,7 +39,7 @@ class ClashWindowController<T: NSViewController>: NSWindowController, NSWindowDe
     }
 
     static func create() -> NSWindowController {
-        if let wc = ClashWindowsRecorder.shared.windowControllers.first(where: {$0 is Self}) {
+        if let wc = ClashWindowsRecorder.shared.windowControllers.first(where: { $0 is Self }) {
             return wc
         }
         let win = NSWindow()
@@ -62,7 +62,7 @@ class ClashWindowController<T: NSViewController>: NSWindowController, NSWindowDe
     }
 
     func windowWillClose(_ notification: Notification) {
-        ClashWindowsRecorder.shared.windowControllers.removeAll(where: {$0 == self})
+        ClashWindowsRecorder.shared.windowControllers.removeAll(where: { $0 == self })
         onWindowClose?()
         if let win = window {
             if !win.styleMask.contains(.fullScreen) {

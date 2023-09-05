@@ -97,7 +97,7 @@ class MenuItemFactory {
         let startIndex = app.statusMenu.items.firstIndex(of: app.separatorLineTop)! + 1
         let endIndex = app.statusMenu.items.firstIndex(of: app.sepatatorLineEndProxySelect)!
         app.sepatatorLineEndProxySelect.isHidden = menus.isEmpty
-        for _ in 0..<endIndex - startIndex {
+        for _ in 0 ..< endIndex - startIndex {
             app.statusMenu.removeItem(at: startIndex)
         }
         for each in menus {

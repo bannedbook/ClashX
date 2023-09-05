@@ -22,7 +22,6 @@ extension KeyboardShortcuts.Name {
     static let dashboard = Self("shortCut.dashboard")
     static let openMenu = Self("shortCut.openMenu")
     static let nativeDashboard = Self("shortCut.nativeDashboard")
-
 }
 
 enum KeyboardShortCutManager {
@@ -71,10 +70,9 @@ enum KeyboardShortCutManager {
 }
 
 class GlobalShortCutViewController: NSViewController {
-
-    @IBOutlet weak var proxyBox: NSBox!
-    @IBOutlet weak var modeBoxView: NSView!
-    @IBOutlet weak var otherBoxView: NSView!
+    @IBOutlet var proxyBox: NSBox!
+    @IBOutlet var modeBoxView: NSView!
+    @IBOutlet var otherBoxView: NSView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -94,7 +92,7 @@ class GlobalShortCutViewController: NSViewController {
             [NSTextField(labelWithString: NSLocalizedString("Global Mode", comment: "")), KeyboardShortcuts.RecorderCocoa(for: .modeGlobal)]
         ])
 
-        var otherItems:[[NSView]] = [
+        var otherItems: [[NSView]] = [
             [NSTextField(labelWithString: NSLocalizedString("Open Menu", comment: "")), KeyboardShortcuts.RecorderCocoa(for: .openMenu)],
             [NSTextField(labelWithString: NSLocalizedString("Open Log", comment: "")), KeyboardShortcuts.RecorderCocoa(for: .log)],
             [NSTextField(labelWithString: NSLocalizedString("Open Dashboard", comment: "")), KeyboardShortcuts.RecorderCocoa(for: .dashboard)]

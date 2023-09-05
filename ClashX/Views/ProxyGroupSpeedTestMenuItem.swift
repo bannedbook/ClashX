@@ -37,6 +37,7 @@ class ProxyGroupSpeedTestMenuItem: NSMenuItem {
         }
     }
 
+    @available(*, unavailable)
     required init(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -80,6 +81,7 @@ private class ProxyGroupSpeedTestMenuItemView: MenuItemBaseView {
         label.textColor = NSColor.labelColor
     }
 
+    @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

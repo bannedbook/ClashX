@@ -9,7 +9,6 @@
 import Cocoa
 
 class SettingTabViewController: NSTabViewController {
-
     override func viewDidLoad() {
         super.viewDidLoad()
         tabStyle = .toolbar
@@ -21,5 +20,4 @@ class SettingTabViewController: NSTabViewController {
         }
         NSApp.activate(ignoringOtherApps: true)
     }
-
 }

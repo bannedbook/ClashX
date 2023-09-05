@@ -18,7 +18,7 @@ enum Settings {
     @UserDefault("disableNoti", defaultValue: false)
     static var disableNoti: Bool
 
-    @UserDefault("configAutoUpdateInterval", defaultValue: 48*60*60)
+    @UserDefault("configAutoUpdateInterval", defaultValue: 48 * 60 * 60)
     static var configAutoUpdateInterval: TimeInterval
 
     static let proxyIgnoreListDefaultValue = ["192.168.0.0/16",
@@ -80,5 +80,4 @@ enum Settings {
 
     @UserDefault("kDisableRestoreProxy", defaultValue: false)
     static var disableRestoreProxy: Bool
-
 }

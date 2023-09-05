@@ -18,7 +18,7 @@ class StatusItemView: NSView, StatusItemViewProtocol {
     @IBOutlet var downloadSpeedLabel: NSTextField!
     @IBOutlet var speedContainerView: NSView!
 
-    var up:Int = 0
+    var up: Int = 0
     var down: Int = 0
 
     static func create(statusItem: NSStatusItem?) -> StatusItemView {
