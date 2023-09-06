@@ -315,3 +315,9 @@
 
 /* Class = "NSMenuItem"; title = "Quit ClashX"; ObjectID = "TsN-g8-OjG"; */
 "TsN-g8-OjG.title" = "退出 ClashX";
+
+/* Class = "NSTextFieldCell"; title = "Crash Log Folder"; ObjectID = "LFb-xY-CNV"; */
+"LFb-xY-CNV.title" = "崩溃日志文件夹";
+
+/* Class = "NSButtonCell"; title = "Open"; ObjectID = "Wci-1w-zlx"; */
+"Wci-1w-zlx.title" = "打开";

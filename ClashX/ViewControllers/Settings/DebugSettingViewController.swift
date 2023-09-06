@@ -75,4 +75,8 @@ class DebugSettingViewController: NSViewController {
         Settings.disableRestoreProxy.toggle()
         revertProxyButton.state = Settings.disableRestoreProxy ? .off : .on
     }
+
+    @IBAction func actionOpenCrashLogFolder(_ sender: Any) {
+        NSWorkspace.shared.open(URL(fileURLWithPath: "\(NSHomeDirectory())/Library/Logs/DiagnosticReports", isDirectory: true))
+    }
 }
