@@ -67,7 +67,11 @@ class ProxyGroupMenuItemView: MenuItemBaseView {
         selectProxyLabel.leftAnchor.constraint(greaterThanOrEqualTo: groupNameLabel.rightAnchor, constant: 20).isActive = true
 
         // max
-        effectView.widthAnchor.constraint(lessThanOrEqualToConstant: 330).isActive = true
+        if #available(macOS 14, *) {
+            selectProxyLabel.widthAnchor.constraint(lessThanOrEqualToConstant: 200).isActive = true
+        } else {
+            effectView.widthAnchor.constraint(lessThanOrEqualToConstant: 330).isActive = true
+        }
         // font & color
         groupNameLabel.font = type(of: self).labelFont
         selectProxyLabel.font = type(of: self).labelFont
