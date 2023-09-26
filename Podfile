@@ -24,7 +24,6 @@ target 'ClashX' do
   pod 'RxSwift'
   pod 'RxCocoa'
   pod 'CocoaLumberjack/Swift'
-  pod 'WebViewJavascriptBridge'
   pod 'Starscream','3.1.1'
   pod 'AppCenter/Analytics'
   pod 'AppCenter/Crashes'

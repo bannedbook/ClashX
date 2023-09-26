@@ -22,7 +22,6 @@ PODS:
   - SwiftFormat/CLI (0.52.3)
   - SwiftLint (0.52.4)
   - SwiftyJSON (5.0.1)
-  - WebViewJavascriptBridge (6.0.3)
 
 DEPENDENCIES:
   - Alamofire (~> 5.0)
@@ -39,7 +38,6 @@ DEPENDENCIES:
   - SwiftFormat/CLI (~> 0.49)
   - SwiftLint
   - SwiftyJSON
-  - WebViewJavascriptBridge
 
 SPEC REPOS:
   trunk:
@@ -57,7 +55,6 @@ SPEC REPOS:
     - SwiftFormat
     - SwiftLint
     - SwiftyJSON
-    - WebViewJavascriptBridge
 
 SPEC CHECKSUMS:
   Alamofire: 0e92e751b3e9e66d7982db43919d01f313b8eb91
@@ -74,8 +71,7 @@ SPEC CHECKSUMS:
   SwiftFormat: 5de81c42f043741a16e17ae2da012bbddc7c0b58
   SwiftLint: 1cc5cd61ba9bacb2194e340aeb47a2a37fda00b3
   SwiftyJSON: 2f33a42c6fbc52764d96f13368585094bfd8aa5e
-  WebViewJavascriptBridge: 7f5bc4d3581e672e8f32bd0f812d54bc69bb8e29
 
-PODFILE CHECKSUM: d3e952c889c7931151a654c076812b3b3294aa59
+PODFILE CHECKSUM: f3a6ebd40f44d7184ef9437d24b1979389395820
 
 COCOAPODS: 1.12.1

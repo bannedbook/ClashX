@@ -8,16 +8,14 @@
 
 import Alamofire
 import SwiftyJSON
-import WebViewJavascriptBridge
+import WebKit
 
 class JsBridgeUtil {
-    static func initJSbridge(webview: Any, delegate: Any) -> WebViewJavascriptBridge {
-        let bridge = WebViewJavascriptBridge(webview)!
-
-        bridge.setWebViewDelegate(delegate)
+    static func initJSbridge(webview: WKWebView, delegate: Any) -> JSBridge {
+        let bridge = JSBridge(webview)
 
         bridge.registerHandler("isSystemProxySet") { _, responseCallback in
-            responseCallback?(ConfigManager.shared.proxyPortAutoSet)
+            responseCallback(ConfigManager.shared.proxyPortAutoSet)
         }
 
         bridge.registerHandler("setSystemProxy") { anydata, responseCallback in
@@ -29,22 +27,22 @@ class JsBridgeUtil {
                 } else {
                     SystemProxyManager.shared.disableProxy()
                 }
-                responseCallback?(true)
+                responseCallback(true)
             } else {
-                responseCallback?(false)
+                responseCallback(false)
             }
         }
 
         bridge.registerHandler("getStartAtLogin") { _, responseCallback in
-            responseCallback?(LaunchAtLogin.shared.isEnabled)
+            responseCallback(LaunchAtLogin.shared.isEnabled)
         }
 
         bridge.registerHandler("setStartAtLogin") { anydata, responseCallback in
             if let enable = anydata as? Bool {
                 LaunchAtLogin.shared.isEnabled = enable
-                responseCallback?(true)
+                responseCallback(true)
             } else {
-                responseCallback?(false)
+                responseCallback(false)
             }
         }
 
@@ -57,10 +55,10 @@ class JsBridgeUtil {
                     } else {
                         resp = delay
                     }
-                    responseCallback?(resp)
+                    responseCallback(resp)
                 }
             } else {
-                responseCallback?(nil)
+                responseCallback(nil)
             }
         }
 
@@ -77,13 +75,12 @@ class JsBridgeUtil {
                 "port": port,
                 "secret": ConfigManager.shared.overrideSecret ?? ConfigManager.shared.apiSecret
             ]
-            callback?(data)
+            callback(data)
         }
 
         // ping-pong
-        bridge.registerHandler("ping") { [weak bridge] _, responseCallback in
-            bridge?.callHandler("pong")
-            responseCallback?(true)
+        bridge.registerHandler("ping") { _, responseCallback in
+            responseCallback("pong")
         }
         return bridge
     }

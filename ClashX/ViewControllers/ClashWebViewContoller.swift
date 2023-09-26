@@ -10,7 +10,6 @@ import Cocoa
 import RxCocoa
 import RxSwift
 import WebKit
-import WebViewJavascriptBridge
 
 enum WebCacheCleaner {
     static func clean() {
@@ -27,7 +26,7 @@ enum WebCacheCleaner {
 
 class ClashWebViewContoller: NSViewController {
     let webview: CustomWKWebView = .init()
-    var bridge: WebViewJavascriptBridge?
+    var bridge: JSBridge?
     let disposeBag = DisposeBag()
     let minSize = NSSize(width: 920, height: 580)
 
@@ -53,14 +52,8 @@ class ClashWebViewContoller: NSViewController {
         webview.configuration.userContentController.addUserScript(script)
 
         bridge = JsBridgeUtil.initJSbridge(webview: webview, delegate: self)
-        registerExtenalJSBridgeFunction()
 
         webview.configuration.preferences.setValue(true, forKey: "developerExtrasEnabled")
-
-        NotificationCenter.default.rx.notification(.configFileChange).bind {
-            [weak self] _ in
-            self?.bridge?.callHandler("onConfigChange")
-        }.disposed(by: disposeBag)
 
         NotificationCenter.default.rx.notification(.reloadDashboard).bind {
             [weak self] _ in
@@ -113,17 +106,10 @@ class ClashWebViewContoller: NSViewController {
         }
         Logger.log("load dashboard url fail", level: .error)
     }
-}
 
-extension ClashWebViewContoller {
-    func registerExtenalJSBridgeFunction() {
-        bridge?.registerHandler("setDragAreaHeight") {
-            [weak self] anydata, responseCallback in
-            if let height = anydata as? CGFloat {
-                self?.webview.dragableAreaHeight = height
-            }
-            responseCallback?(nil)
-        }
+    func webView(_ webView: WKWebView, runJavaScriptAlertPanelWithMessage message: String, initiatedByFrame frame: WKFrameInfo, completionHandler: @escaping () -> Void) {
+        NSAlert.alert(with: message)
+        completionHandler()
     }
 }
 
