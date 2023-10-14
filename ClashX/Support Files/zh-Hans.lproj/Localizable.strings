@@ -173,6 +173,9 @@
 "Open System Login Item Setting" = "打开系统登录项设置";
 
 /* No comment provided by engineer. */
+"Please enable the location service for ClashX to detect your current WiFi network's SSID name and provide the auto-suspend services." = "请允许ClashX使用定位服务来获取当前所连接的WiFi名称从而提供按需暂停服务。";
+
+/* No comment provided by engineer. */
 "Ports Open Fail, Please try to restart ClashX" = "端口打开失败，请尝试重启ClashX";
 
 /* No comment provided by engineer. */

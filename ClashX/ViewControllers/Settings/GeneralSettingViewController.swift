@@ -127,6 +127,9 @@ class GeneralSettingViewController: NSViewController {
         if url.isUrlVaild() || url.isEmpty {
             Settings.benchMarkUrl = url
         }
+        SSIDSuspendTool.shared.showNoticeOnNotPermission = true
+        SSIDSuspendTool.shared.requestPermissionIfNeed()
+        SSIDSuspendTool.shared.update()
     }
 
     @IBAction func actionResetIgnoreList(_ sender: Any) {

@@ -173,6 +173,9 @@
 "Open System Login Item Setting" = "Open System Login Item Setting";
 
 /* No comment provided by engineer. */
+"Please enable the location service for ClashX to detect your current WiFi network's SSID name and provide the auto-suspend services." = "Please enable the location service for ClashX to detect your current WiFi network's SSID name and provide the auto-suspend services.";
+
+/* No comment provided by engineer. */
 "Ports Open Fail, Please try to restart ClashX" = "Ports Open Fail, Please try to restart ClashX";
 
 /* No comment provided by engineer. */
