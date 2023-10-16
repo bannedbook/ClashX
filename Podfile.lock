@@ -1,9 +1,9 @@
 PODS:
   - Alamofire (5.8.0)
-  - AppCenter/Analytics (5.0.3):
+  - AppCenter/Analytics (5.0.4):
     - AppCenter/Core
-  - AppCenter/Core (5.0.3)
-  - AppCenter/Crashes (5.0.3):
+  - AppCenter/Core (5.0.4)
+  - AppCenter/Crashes (5.0.4):
     - AppCenter/Core
   - CocoaLumberjack/Core (3.8.1)
   - CocoaLumberjack/Swift (3.8.1):
@@ -11,16 +11,16 @@ PODS:
   - FlexibleDiff (0.0.9)
   - GzipSwift (5.1.1)
   - LetsMove (1.25)
-  - RxCocoa (6.5.0):
-    - RxRelay (= 6.5.0)
-    - RxSwift (= 6.5.0)
-  - RxRelay (6.5.0):
-    - RxSwift (= 6.5.0)
-  - RxSwift (6.5.0)
-  - Sparkle (2.4.2)
+  - RxCocoa (6.6.0):
+    - RxRelay (= 6.6.0)
+    - RxSwift (= 6.6.0)
+  - RxRelay (6.6.0):
+    - RxSwift (= 6.6.0)
+  - RxSwift (6.6.0)
+  - Sparkle (2.5.1)
   - Starscream (3.1.1)
-  - SwiftFormat/CLI (0.52.3)
-  - SwiftLint (0.52.4)
+  - SwiftFormat/CLI (0.52.7)
+  - SwiftLint (0.53.0)
   - SwiftyJSON (5.0.1)
 
 DEPENDENCIES:
@@ -58,20 +58,20 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   Alamofire: 0e92e751b3e9e66d7982db43919d01f313b8eb91
-  AppCenter: a4070ec3d4418b5539067a51f57155012e486ebd
+  AppCenter: 85c92db0759d2792a65eb61d6842d2e86611a49a
   CocoaLumberjack: 5c7e64cdb877770859bddec4d3d5a0d7c9299df9
   FlexibleDiff: b9ee9b8305b42c784f5dd40589203c97c55bbaa0
   GzipSwift: 893f3e48e597a1a4f62fafcb6514220fcf8287fa
   LetsMove: 7b9fe44737707d984fbd3f47af46609a9a07b461
-  RxCocoa: 94f817b71c07517321eb4f9ad299112ca8af743b
-  RxRelay: 1de1523e604c72b6c68feadedd1af3b1b4d0ecbd
-  RxSwift: 5710a9e6b17f3c3d6e40d6e559b9fa1e813b2ef8
-  Sparkle: 5ef7097e655c60f4aeb23fd1658fc3e8dd50f4ec
+  RxCocoa: 44a80de90e25b739b5aeaae3c8c371a32e3343cc
+  RxRelay: 45eaa5db8ee4fb50e5ebd57deec0159e97fa51e6
+  RxSwift: a4b44f7d24599f674deebd1818eab82e58410632
+  Sparkle: ce9957501a2655dd4c8264312c6134ff478a777c
   Starscream: 4bb2f9942274833f7b4d296a55504dcfc7edb7b0
-  SwiftFormat: 5de81c42f043741a16e17ae2da012bbddc7c0b58
-  SwiftLint: 1cc5cd61ba9bacb2194e340aeb47a2a37fda00b3
+  SwiftFormat: 2c4785ad647322b41e027b9d4df160aef526a656
+  SwiftLint: 5ce4d6a8ff83f1b5fd5ad5dbf30965d35af65e44
   SwiftyJSON: 2f33a42c6fbc52764d96f13368585094bfd8aa5e
 
-PODFILE CHECKSUM: f3a6ebd40f44d7184ef9437d24b1979389395820
+PODFILE CHECKSUM: 8c6ef0c5999141047a530cd8b74a41d2161ae11b
 
-COCOAPODS: 1.12.1
+COCOAPODS: 1.13.0

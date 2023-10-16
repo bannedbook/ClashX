@@ -5,7 +5,7 @@ go 1.21
 toolchain go1.21.0
 
 require (
-	github.com/Dreamacro/clash v1.18.1-0.20230902125642-db2b5db2c6e2
+	github.com/Dreamacro/clash v1.18.1-0.20230911035213-d034a408be42
 	github.com/oschwald/geoip2-golang v1.9.0
 	github.com/phayes/freeport v0.0.0-20180830031419-95f893ade6f2
 )
