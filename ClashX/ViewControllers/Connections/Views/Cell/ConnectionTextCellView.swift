@@ -24,6 +24,7 @@ class ConnectionTextCellView: NSView, ConnectionCellProtocol {
     }
 
     func setupUI() {
+        clipsToBounds = true
         addSubview(label)
         label.font = NSFont.systemFont(ofSize: 12)
         label.makeConstraints {
