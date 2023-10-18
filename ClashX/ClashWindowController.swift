@@ -71,6 +71,8 @@ class ClashWindowController<T: NSViewController>: NSWindowController, NSWindowDe
         }
         window?.makeKeyAndOrderFront(self)
         window?.delegate = self
+        NSApp.activate(ignoringOtherApps: true)
+        window?.makeKeyAndOrderFront(nil)
     }
 
     func windowWillClose(_ notification: Notification) {
